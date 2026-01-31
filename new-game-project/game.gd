@@ -108,7 +108,7 @@ func _ready() -> void:
 	move_pin('a3a4', 'O')
 	move_pin('a6b5', 'X')
 	move_pin('a4c4', 'O')
-	print("Something")
+	print("I did something new...")
 	
 
 	
