@@ -1,6 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://dre0xt6qnyeax"]
+[gd_scene load_steps=3 format=3 uid="uid://dre0xt6qnyeax"]
 
 [ext_resource type="Script" uid="uid://17vqd51i15xe" path="res://scenes/main/Main.gd" id="1_u1xfj"]
+[ext_resource type="PackedScene" uid="uid://cbswfivt2mw2u" path="res://scenes/board/Board.tscn" id="2_nha0i"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u1xfj")
+
+[node name="Board" parent="." instance=ExtResource("2_nha0i")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -363.0
+offset_top = -199.0
+offset_right = -323.0
+offset_bottom = -159.0
+scale = Vector2(2.2680268, 2.1075203)
+
+[node name="TurnLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="DebugLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ResetButton" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(3.7366376, 0.9413761)
