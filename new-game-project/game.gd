@@ -38,54 +38,54 @@ func put_pin(from_c_indx_0,from_c_indx_1,to_c_indx_0,to_c_indx_1,current_pin):
 func move_pin(coordinates, curr_player):
 	# turns abcdef coordinates into index for matrix
 	var from_c = coordinates[0]
-	var from_c_index_0 = int(coordinates[1]) - 1
-	var from_c_index_1 = from_c.unicode_at(0) - "a".unicode_at(0)
+	var from_row = int(coordinates[1]) - 1
+	var from_col = from_c.unicode_at(0) - "a".unicode_at(0)
 	
 	var to_c = coordinates[2]
-	var to_c_index_0 = int(coordinates[3])-1
-	var to_c_index_1 = to_c.unicode_at(0) - "a".unicode_at(0)
+	var to_row = int(coordinates[3])-1
+	var to_col = to_c.unicode_at(0) - "a".unicode_at(0)
 	
-	var current_pin_to_move = PINS[from_c_index_0][from_c_index_1]
-	var next_pos = PINS[to_c_index_0][to_c_index_1]
+	var current_pin_to_move = PINS[from_row][from_col]
+	var next_pos = PINS[to_row][to_col]
 	
 	# check if the next position is available
 	if(next_pos == '.'):
 		# if next movement U,R,L,D requires to take 2 steps instead of 1, we will know
-		var check_indx_letters =  to_c_index_1 - from_c_index_1 
-		var check_indx_nums = to_c_index_0 - from_c_index_0
+		var col_diff =  to_col - from_col 
+		var row_diff = to_row - from_row
 		
 		# check if next position involves removing the players pin
-		if (abs(check_indx_letters) > 1 or abs(check_indx_nums) > 1):
-			if (check_indx_letters == 2): # RIGHT
-				PINS[to_c_index_0][to_c_index_1-1] = '.'
-			elif(check_indx_letters == -2): # LEFT
-				PINS[to_c_index_0][to_c_index_1+1] = '.'
-			elif(check_indx_nums == 2): # UP
-				PINS[to_c_index_0-1][to_c_index_1] = '.'
-			elif (check_indx_nums == -2): # DOWN
-				PINS[to_c_index_0+1][to_c_index_1] = '.'
-			put_pin(from_c_index_0, from_c_index_1, to_c_index_0, to_c_index_1, current_pin_to_move)
+		if (abs(col_diff) > 1 or abs(row_diff) > 1):
+			if (col_diff == 2): # RIGHT
+				PINS[to_row][to_col-1] = '.'
+			elif(col_diff == -2): # LEFT
+				PINS[to_row][to_col+1] = '.'
+			elif(row_diff == 2): # UP
+				PINS[to_row-1][to_col] = '.'
+			elif (row_diff == -2): # DOWN
+				PINS[to_row+1][to_col] = '.'
+			put_pin(from_row, from_col, to_row, to_col, current_pin_to_move)
 		
 		else:
 			# calculate if ONE STEP move is r, l, d, u or diagonal
-			var to_i = to_c_index_0 + to_c_index_1
-			var from_i = from_c_index_0 + from_c_index_1
+			var to_i = to_row + to_col
+			var from_i = from_row + from_col
 			var pos = from_i - to_i
 				
 			if(pos == 2):
 				print("UP <- LEFT")
-				put_coin(to_c_index_0,to_c_index_1, curr_player)
+				put_coin(to_row,to_col, curr_player)
 			elif(pos == -2):
 				print("DOWN -> RIGHT")
-				put_coin(from_c_index_0,from_c_index_1,curr_player)
+				put_coin(from_row,from_col,curr_player)
 			elif(pos == 0):
-				if (to_c_index_1 > from_c_index_1 and to_c_index_0 < from_c_index_0):
+				if (to_col > from_col and to_row < from_row):
 					print("UP & RIGHT")
-					put_coin(to_c_index_0,from_c_index_1,curr_player)
+					put_coin(to_row,from_col,curr_player)
 				else:
 					print("DOWN & LEFT")
-					put_coin(from_c_index_0,to_c_index_1,curr_player)
-			put_pin(from_c_index_0, from_c_index_1, to_c_index_0, to_c_index_1, current_pin_to_move)
+					put_coin(from_row,to_col,curr_player)
+			put_pin(from_row, from_col, to_row, to_col, current_pin_to_move)
 	else:
 		print("Incorrect Move")
 		
