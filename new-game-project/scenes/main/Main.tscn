@@ -7,30 +7,37 @@
 script = ExtResource("1_u1xfj")
 
 [node name="Board" parent="." instance=ExtResource("2_nha0i")]
+position = Vector2(586, 311)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -363.0
-offset_top = -199.0
-offset_right = -323.0
-offset_bottom = -159.0
+offset_right = 40.0
+offset_bottom = 40.0
 scale = Vector2(2.2680268, 2.1075203)
-
-[node name="TurnLabel" type="Label" parent="CanvasLayer/UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="DebugLabel" type="Label" parent="CanvasLayer/UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="ResetButton" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-scale = Vector2(3.7366376, 0.9413761)
+offset_left = 0.44091192
+offset_top = 0.94898266
+offset_right = 8.440912
+offset_bottom = 8.948982
+scale = Vector2(6.0866323, 1.9148406)
+
+[node name="TurnLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 0.4409119
+offset_top = 12.336773
+offset_right = 40.44091
+offset_bottom = 35.336773
+
+[node name="DebugLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 0.4409119
+offset_top = 27.520493
+offset_right = 40.44091
+offset_bottom = 50.520493

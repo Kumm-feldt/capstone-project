@@ -57,7 +57,7 @@ func setup_board_sprite():
 	"""Configure the background board image"""
 	board_sprite.texture = preload("res://sprites/board/board.png")
 	board_sprite.centered = true
-	board_sprite.position = Vector2(960, 540)  # Center of 1920x1080
+	#board_sprite.position = Vector2(960, 540)  # Center of 1920x1080
 
 func connect_signals():
 	"""Connect to GameState signals"""

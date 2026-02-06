@@ -4,7 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://btsbtewfmlqr" path="res://sprites/board/board.png" id="2_4vko3"]
 
 [node name="Board" type="Node2D"]
+position = Vector2(599, 310)
+scale = Vector2(1.538346, 1.4494684)
 script = ExtResource("1_6puts")
 
 [node name="BoardSprite" type="Sprite2D" parent="."]
+position = Vector2(12, 7)
 texture = ExtResource("2_4vko3")
