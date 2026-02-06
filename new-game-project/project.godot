@@ -11,6 +11,10 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-run/main_scene="uid://elst0xn32iil"
+run/main_scene="uid://dre0xt6qnyeax"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://autoload/GameState.gd"
