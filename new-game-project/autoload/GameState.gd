@@ -193,7 +193,7 @@ func check_win_condition() -> bool:
 	return false
 
 func get_winner() -> String:
-	"""Determine winner """
+	"""Determine winner based on coin count"""
 	var o_count = 0
 	var x_count = 0
 	# TODO: Implement actual get winner function based on the rules
