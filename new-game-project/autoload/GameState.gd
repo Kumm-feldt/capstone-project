@@ -197,20 +197,8 @@ func get_winner() -> String:
 	var o_count = 0
 	var x_count = 0
 	# TODO: Implement actual get winner function based on the rules
-	# For now, return by count
-	for row in COINS:
-		for coin in row:
-			if coin == "o":
-				o_count += 1
-			elif coin == "x":
-				x_count += 1
-	
-	if o_count > x_count:
-		return "o"
-	elif x_count > o_count:
-		return "x"
-	else:
-		return "tie"
+	# return o,x,tie
+	return ""
 
 
 

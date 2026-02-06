@@ -61,16 +61,15 @@ func setup_board_sprite():
 
 func connect_signals():
 	"""Connect to GameState signals"""
-	GameState.connect("board_updated", _on_board_updated)
-	GameState.connect("pin_moved", _on_pin_moved)
-	GameState.connect("pin_jumped", _on_pin_jumped)
-	GameState.connect("coin_placed", _on_coin_placed)
-	GameState.connect("coin_flipped", _on_coin_flipped)
+	#GameState.connect("board_updated", _on_board_updated)
+	#GameState.connect("pin_moved", _on_pin_moved)
+	#GameState.connect("pin_jumped", _on_pin_jumped)
+	#GameState.connect("coin_placed", _on_coin_placed)
+	#GameState.connect("coin_flipped", _on_coin_flipped)
 
 # ============================================
 # RENDERING
 # ============================================
-
 func render_board():
 	"""Main render function - creates all sprites from GameState arrays"""
 	clear_all_sprites()
@@ -155,160 +154,16 @@ func screen_to_pin_array(screen_pos: Vector2) -> Vector2i:
 # INPUT HANDLING
 # ============================================
 
-func _input(event):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		handle_click(event.position)
-
-func handle_click(screen_pos: Vector2):
-	"""Handle mouse click on board"""
-	var clicked_pin = screen_to_pin_array(screen_pos)
-	
-	if clicked_pin.x < 0:  # Out of bounds
-		deselect_pin()
-		return
-	
-	if selected_pin.x < 0:
-		# First click - select a pin
-		if GameState.PINS[clicked_pin.y][clicked_pin.x] == GameState.current_player:
-			select_pin(clicked_pin)
-	else:
-		# Second click - attempt move
-		attempt_move(selected_pin, clicked_pin)
-		deselect_pin()
-
-func select_pin(pos: Vector2i):
-	"""Select a pin for moving"""
-	selected_pin = pos
-	show_highlight(pos)
-
-func deselect_pin():
-	"""Clear pin selection"""
-	selected_pin = Vector2i(-1, -1)
-	hide_highlight()
-
-func attempt_move(from: Vector2i, to: Vector2i):
-	"""Try to execute a move"""
-	var from_notation = array_to_notation(from.y, from.x)
-	var to_notation = array_to_notation(to.y, to.x)
-	var move_string = from_notation + to_notation
-	
-	if GameState.move_pin(move_string, GameState.current_player):
-		GameState.switch_player()
-		print("Move successful: ", move_string)
-	else:
-		print("Move failed: ", move_string)
-
-func array_to_notation(row: int, col: int) -> String:
-	"""Convert array indices to chess notation (a1, b2, etc.)"""
-	var letter = char('a'.unicode_at(0) + col)
-	return letter + str(row + 1)
 
 # ============================================
 # VISUAL FEEDBACK
 # ============================================
 
-func show_highlight(pos: Vector2i):
-	"""Show selection highlight"""
-	if highlight_rect == null:
-		highlight_rect = ColorRect.new()
-		highlight_rect.color = Color(1, 1, 0, 0.5)  # Yellow semi-transparent
-		highlight_rect.size = Vector2(30, 30)
-		highlight_rect.z_index = 2
-		add_child(highlight_rect)
-	
-	var screen_pos = get_pin_screen_position(pos.y, pos.x)
-	highlight_rect.position = screen_pos - Vector2(15, 15)
-	highlight_rect.visible = true
-
-func hide_highlight():
-	"""Hide selection highlight"""
-	if highlight_rect:
-		highlight_rect.visible = false
 
 # ============================================
 # ANIMATION FUNCTIONS (Basic Tweens)
 # ============================================
 
-func animate_pin_move(from_pos: Vector2i, to_pos: Vector2i):
-	"""Animate pin moving from one position to another"""
-	var from_key = "%d_%d" % [from_pos.y, from_pos.x]
-	var to_key = "%d_%d" % [to_pos.y, to_pos.x]
-	
-	if not pin_sprites.has(from_key):
-		render_board()  # Fallback to full re-render
-		return
-	
-	var sprite = pin_sprites[from_key]
-	var target_pos = get_pin_screen_position(to_pos.y, to_pos.x)
-	
-	# Animate movement
-	var tween = create_tween()
-	tween.tween_property(sprite, "position", target_pos, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	
-	# Update tracking
-	pin_sprites.erase(from_key)
-	pin_sprites[to_key] = sprite
-
-func animate_coin_flip(pos: Vector2i, new_player: String):
-	"""Animate coin flipping to new owner"""
-	var key = "%d_%d" % [pos.y, pos.x]
-	
-	if not coin_sprites.has(key):
-		render_board()
-		return
-	
-	var sprite = coin_sprites[key]
-	
-	var tween = create_tween()
-	
-	# Shrink horizontally (3D flip effect)
-	tween.tween_property(sprite, "scale:x", 0.0, 0.15)
-	
-	# Change texture at midpoint
-	tween.tween_callback(func():
-		sprite.texture = coin_o_texture if new_player == "o" else coin_x_texture
-	)
-	
-	# Grow back
-	tween.tween_property(sprite, "scale:x", 1.0, 0.15)
-
-func animate_coin_placement(pos: Vector2i, player: String):
-	"""Animate new coin appearing"""
-	var sprite = Sprite2D.new()
-	sprite.texture = coin_o_texture if player == "o" else coin_x_texture
-	sprite.position = get_coin_screen_position(pos.y, pos.x) - Vector2(0, 50)
-	sprite.modulate.a = 0
-	sprite.z_index = 0
-	add_child(sprite)
-	
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(sprite, "position:y", get_coin_screen_position(pos.y, pos.x).y, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(sprite, "modulate:a", 1.0, 0.2)
-	
-	coin_sprites["%d_%d" % [pos.y, pos.x]] = sprite
-
 # ============================================
 # SIGNAL HANDLERS
 # ============================================
-
-func _on_board_updated(pins, coins):
-	"""Full board refresh"""
-	render_board()
-
-func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
-	"""Animate pin movement"""
-	animate_pin_move(from_pos, to_pos)
-
-func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
-	"""Handle jump move with pin removal"""
-	# For now, just do full refresh (add animation later if time)
-	render_board()
-
-func _on_coin_placed(pos: Vector2i, player: String):
-	"""Animate new coin"""
-	animate_coin_placement(pos, player)
-
-func _on_coin_flipped(pos: Vector2i, old_player: String, new_player: String):
-	"""Animate coin flip"""
-	animate_coin_flip(pos, new_player)
