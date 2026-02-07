@@ -167,6 +167,8 @@ func _unhandled_input(event):
 func handle_first_click(clicked_pin: Vector2i):
 	if GameState.is_valid_selection(clicked_pin.y,clicked_pin.x,  GameState.current_player):
 		selected_pin = clicked_pin
+		emit_signal("valid_move")
+
 	else:
 		print("first click incorrectly: ", clicked_pin)
 	
@@ -212,3 +214,4 @@ func _on_board_updated():
 func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
 	"""Add animations"""	
 	print("Animation")
+	

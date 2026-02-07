@@ -10,6 +10,10 @@ signal coin_placed(pos: Vector2i, player: String)
 signal coin_flipped(pos: Vector2i, old_player: String, new_player: String)
 signal game_over(winner: String)
 signal turn_changed(player: String)
+signal invalid_move(text: String)
+signal valid_move()
+
+
 
 # ============================================
 # GAME STATE
@@ -61,9 +65,11 @@ func move_pin(coordinates: String, player: String) -> bool:
 	
 	var current_pin_to_move = PINS[from_row][from_col]	
 	print(coordinates)
+	var invalid_text = "Invalid move"
 	# Validate move
 	if not is_valid_move(from_row, from_col, to_row, to_col, player):
-		print("Invalid move!")
+		emit_signal("invalid_move", 
+		invalid_text)
 		return false
 		
 	# Calcualate movement type
@@ -112,6 +118,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 		game_active = false
 		
 	switch_player()
+	emit_signal("valid_move")
 	return true
 
 func handle_coin_placement(to_row, to_col, from_row, from_col, player):
@@ -151,14 +158,16 @@ func put_pin(from_row: int, from_col: int, to_row: int, to_col: int, pin: String
 
 func is_valid_selection(row,col, player):
 	"""Validate if the current selection is legal"""
+	var invalid_text = "Invalid Move"
 	# Bounds check
 	if row < 0 or row >= 7 or col < 0 or col >= 7:
-		print("out of bounds")
+		emit_signal("invalid_move", 
+		invalid_text)
 		return false
 	# Check if selection is players pin
-	print("PLAYER: ", PINS[row][col], "Player arg: ", player)
 	if PINS[row][col] != player:
-		print("not a valid since it is not current player")
+		emit_signal("invalid_move", 
+		invalid_text)
 		return false
 	return true
 
