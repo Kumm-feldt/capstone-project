@@ -7,7 +7,7 @@
 script = ExtResource("1_u1xfj")
 
 [node name="Board" parent="." instance=ExtResource("2_nha0i")]
-position = Vector2(586, 311)
+scale = Vector2(2.3, 2.3)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

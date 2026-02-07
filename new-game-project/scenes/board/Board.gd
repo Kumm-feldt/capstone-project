@@ -3,13 +3,12 @@
 extends Node2D
 
 # ============================================
-# CONFIGURATION - CALIBRATE THESE VALUES
+# CONFIGURATION
 # ============================================
-# Measure these from your board.png using an image editor
 
-# Board image dimensions (your board.png size)
-const BOARD_WIDTH = 800  # UPDATE THIS
-const BOARD_HEIGHT = 450  # UPDATE THIS
+# Board image dimensions
+const BOARD_WIDTH = 800 
+const BOARD_HEIGHT = 450 
 
 # Octagon (coin space) measurements
 const FIRST_OCTAGON_X = 275  # X pixel position of COINS[0][0] center
@@ -57,13 +56,13 @@ func setup_board_sprite():
 	"""Configure the background board image"""
 	board_sprite.texture = preload("res://sprites/board/board.png")
 	board_sprite.centered = true
-	#board_sprite.position = Vector2(960, 540)  # Center of 1920x1080
+	#board_sprite.position = Vector2(0, 0)  # Center of 1920x1080
 
 func connect_signals():
 	"""Connect to GameState signals"""
-	#GameState.connect("board_updated", _on_board_updated)
+	GameState.connect("board_updated", _on_board_updated)
 	#GameState.connect("pin_moved", _on_pin_moved)
-	#GameState.connect("pin_jumped", _on_pin_jumped)
+	GameState.connect("pin_jumped", _on_pin_jumped)
 	#GameState.connect("coin_placed", _on_coin_placed)
 	#GameState.connect("coin_flipped", _on_coin_flipped)
 
@@ -140,9 +139,8 @@ func get_coin_screen_position(row: int, col: int) -> Vector2:
 
 func screen_to_pin_array(screen_pos: Vector2) -> Vector2i:
 	"""Convert mouse click to PINS array indices"""
-	var board_top_left = board_sprite.position - Vector2(BOARD_WIDTH / 2, BOARD_HEIGHT / 2)
+	var board_top_left = board_sprite.position - Vector2(BOARD_WIDTH/2, BOARD_HEIGHT/2)
 	var relative = screen_pos - board_top_left
-	
 	var col = round((relative.x - FIRST_PIN_X) / PIN_SPACING_X)
 	var row = round((relative.y - FIRST_PIN_Y) / PIN_SPACING_Y)
 	
@@ -153,8 +151,48 @@ func screen_to_pin_array(screen_pos: Vector2) -> Vector2i:
 # ============================================
 # INPUT HANDLING
 # ============================================
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:		# Get the global mouse position (relative to the top-left corner of the screen)
+		var click_position: Vector2 = get_global_mouse_position()
+		var local_mouse_pos = to_local(click_position)
+		var clicked_pin = screen_to_pin_array(local_mouse_pos)
+
+		if selected_pin.x < 0:
+			handle_first_click(clicked_pin)
+		else:
+			handle_second_click(clicked_pin)
+		
 
 
+func handle_first_click(clicked_pin: Vector2i):
+	if GameState.is_valid_selection(clicked_pin.y,clicked_pin.x,  GameState.current_player):
+		selected_pin = clicked_pin
+	else:
+		print("first click incorrectly: ", clicked_pin)
+	
+
+func handle_second_click(clicked_pin: Vector2i):
+	print("Second click: trying to move to ", clicked_pin)
+	var coord_f = array_to_notation(selected_pin.y, selected_pin.x)
+	var coord = coord_f + array_to_notation(clicked_pin.y, clicked_pin.x)
+	if GameState.move_pin(coord, GameState.current_player):
+		print("Attempt move Succesfully")
+		
+	else:
+		print("Failed")
+	# Always deselect after second click (whether move succeeded or not)
+	deselect_pin()
+
+func deselect_pin():
+	"""Clear pin selection"""
+	selected_pin = Vector2i(-1, -1)
+
+
+func array_to_notation(row: int, col: int) -> String:
+	print("row: ", row, "col: ", col)
+	"""Convert array indices to chess notation (a1, b2, etc.)"""
+	var letter = char('a'.unicode_at(0) + col)
+	return letter + str(row + 1)
 # ============================================
 # VISUAL FEEDBACK
 # ============================================
@@ -167,3 +205,10 @@ func screen_to_pin_array(screen_pos: Vector2) -> Vector2i:
 # ============================================
 # SIGNAL HANDLERS
 # ============================================
+func _on_board_updated():
+	""" update board """
+	render_board()
+	
+func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
+	"""Add animations"""	
+	print("Animation")

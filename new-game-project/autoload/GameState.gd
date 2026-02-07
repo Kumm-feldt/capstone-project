@@ -60,7 +60,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 	var to_col = to_c.unicode_at(0) - "a".unicode_at(0)
 	
 	var current_pin_to_move = PINS[from_row][from_col]	
-	
+	print(coordinates)
 	# Validate move
 	if not is_valid_move(from_row, from_col, to_row, to_col, player):
 		print("Invalid move!")
@@ -104,13 +104,14 @@ func move_pin(coordinates: String, player: String) -> bool:
 			Vector2i(to_col, to_row), 
 			player)
 	# Notify GUI of state change
-	emit_signal("board_updated", PINS, COINS)
+	emit_signal("board_updated")
 		
 	# Check win condition
 	if check_win_condition():
 		emit_signal("game_over", get_winner())
 		game_active = false
-	
+		
+	switch_player()
 	return true
 
 func handle_coin_placement(to_row, to_col, from_row, from_col, player):
@@ -146,6 +147,21 @@ func put_pin(from_row: int, from_col: int, to_row: int, to_col: int, pin: String
 	"""Move pin in array"""
 	PINS[to_row][to_col] = pin
 	PINS[from_row][from_col] = '.'
+	
+
+func is_valid_selection(row,col, player):
+	"""Validate if the current selection is legal"""
+	# Bounds check
+	if row < 0 or row >= 7 or col < 0 or col >= 7:
+		print("out of bounds")
+		return false
+	# Check if selection is players pin
+	print("PLAYER: ", PINS[row][col], "Player arg: ", player)
+	if PINS[row][col] != player:
+		print("not a valid since it is not current player")
+		return false
+	return true
+
 
 func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, player: String) -> bool:
 	"""Validate if a move is legal"""
@@ -154,7 +170,6 @@ func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, playe
 		return false
 	if to_row < 0 or to_row >= 7 or to_col < 0 or to_col >= 7:
 		return false
-	
 	# Check if moving your own pin
 	if PINS[from_row][from_col] != player:
 		return false
@@ -176,7 +191,6 @@ func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, playe
 		var mid_col = from_col + sign(to_col - from_col)
 		var opponent = "x" if player == "o" else "o"
 		return PINS[mid_row][mid_col] == opponent
-	
 	return false
 
 func switch_player():
