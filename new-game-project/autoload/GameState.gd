@@ -287,7 +287,9 @@ func check_path_exists(start_row: int, start_col: int, end_row: int, end_col: in
 	
 	return false
 
-
+func check_draw():
+	# check if there is not pins
+	
 
 func reset_game():
 	"""Reset to initial state"""
