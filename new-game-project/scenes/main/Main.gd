@@ -20,11 +20,11 @@ func update_ui():
 	"""Update UI labels"""
 
 
-func _on_turn_changed(player: String):
+func _on_turn_changed(_player: String):
 	"""Handle turn change"""
 
 
-func _on_game_over(winner: String):
+func _on_game_over(_winner: String):
 	"""Handle game over"""
 
 

@@ -208,20 +208,84 @@ func switch_player():
 	emit_signal("turn_changed", current_player)
 
 
-# PENDING
+# ============================================
+# WIN CONDITION CHECKING
+# ============================================
+
 func check_win_condition() -> bool:
-	"""Check if game is over (implement your win condition logic)"""
-	# TODO: Implement actual win condition
-	# For now, return false (game never ends)
+	"""
+	Check if either player has won.
+	O must connect top-left (0,0) to bottom-right (5,5)
+	X must connect top-right (0,5) to bottom-left (5,0)
+	Only orthogonal connections count (no diagonal)
+	"""
+	# Check both players to see if either has won
+	if check_path_exists(0, 0, 5, 5, "o"):
+		return true
+	if check_path_exists(0, 5, 5, 0, "x"):
+		return true
 	return false
 
 func get_winner() -> String:
-	"""Determine winner based on coin count"""
-	var o_count = 0
-	var x_count = 0
-	# TODO: Implement actual get winner function based on the rules
-	# return o,x,tie
-	return ""
+	"""Determine winner based on coin chains"""
+	if check_path_exists(0, 0, 5, 5, "o"):
+		return "o"
+	elif check_path_exists(0, 5, 5, 0, "x"):
+		return "x"
+	return "you won"
+
+func check_path_exists(start_row: int, start_col: int, end_row: int, end_col: int, player: String) -> bool:
+	"""
+	Use BFS"""
+	# Check if start and end coins exist
+	if COINS[start_row][start_col] != player:
+		return false
+	if COINS[end_row][end_col] != player:
+		return false
+	
+	# BFS setup
+	var visited = {}
+	var queue = []
+	queue.append(Vector2i(start_col, start_row))
+	visited["%d_%d" % [start_row, start_col]] = true
+	
+	
+	var directions = [
+		Vector2i(0, -1),  # up
+		Vector2i(0, 1),   # down
+		Vector2i(-1, 0),  # left
+		Vector2i(1, 0)    # right
+	]
+	
+	while queue.size() > 0:
+		var current = queue.pop_front()
+		var cur_col = current.x
+		var cur_row = current.y
+		
+		# Check if we reached the goal
+		if cur_row == end_row and cur_col == end_col:
+			return true
+		
+		# Check all orthogonal neighbors
+		for dir in directions:
+			var next_col = cur_col + dir.x
+			var next_row = cur_row + dir.y
+			
+			# Bounds check
+			if next_row < 0 or next_row >= 6 or next_col < 0 or next_col >= 6:
+				continue
+			
+			# Check if already visited
+			var key = "%d_%d" % [next_row, next_col]
+			if visited.has(key):
+				continue
+			
+			# Check if this coin belongs to the player
+			if COINS[next_row][next_col] == player:
+				visited[key] = true
+				queue.append(Vector2i(next_col, next_row))
+	
+	return false
 
 
 
