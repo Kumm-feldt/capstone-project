@@ -10,6 +10,10 @@ signal coin_placed(pos: Vector2i, player: String)
 signal coin_flipped(pos: Vector2i, old_player: String, new_player: String)
 signal game_over(winner: String)
 signal turn_changed(player: String)
+signal invalid_move(text: String)
+signal valid_move()
+
+
 
 # ============================================
 # GAME STATE
@@ -60,10 +64,12 @@ func move_pin(coordinates: String, player: String) -> bool:
 	var to_col = to_c.unicode_at(0) - "a".unicode_at(0)
 	
 	var current_pin_to_move = PINS[from_row][from_col]	
-	
+	print(coordinates)
+	var invalid_text = "Invalid move"
 	# Validate move
 	if not is_valid_move(from_row, from_col, to_row, to_col, player):
-		print("Invalid move!")
+		emit_signal("invalid_move", 
+		invalid_text)
 		return false
 		
 	# Calcualate movement type
@@ -104,13 +110,15 @@ func move_pin(coordinates: String, player: String) -> bool:
 			Vector2i(to_col, to_row), 
 			player)
 	# Notify GUI of state change
-	emit_signal("board_updated", PINS, COINS)
+	emit_signal("board_updated")
 		
 	# Check win condition
 	if check_win_condition():
 		emit_signal("game_over", get_winner())
 		game_active = false
-	
+		
+	switch_player()
+	emit_signal("valid_move")
 	return true
 
 func handle_coin_placement(to_row, to_col, from_row, from_col, player):
@@ -146,6 +154,23 @@ func put_pin(from_row: int, from_col: int, to_row: int, to_col: int, pin: String
 	"""Move pin in array"""
 	PINS[to_row][to_col] = pin
 	PINS[from_row][from_col] = '.'
+	
+
+func is_valid_selection(row,col, player):
+	"""Validate if the current selection is legal"""
+	var invalid_text = "Invalid Move"
+	# Bounds check
+	if row < 0 or row >= 7 or col < 0 or col >= 7:
+		emit_signal("invalid_move", 
+		invalid_text)
+		return false
+	# Check if selection is players pin
+	if PINS[row][col] != player:
+		emit_signal("invalid_move", 
+		invalid_text)
+		return false
+	return true
+
 
 func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, player: String) -> bool:
 	"""Validate if a move is legal"""
@@ -154,7 +179,6 @@ func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, playe
 		return false
 	if to_row < 0 or to_row >= 7 or to_col < 0 or to_col >= 7:
 		return false
-	
 	# Check if moving your own pin
 	if PINS[from_row][from_col] != player:
 		return false
@@ -176,7 +200,6 @@ func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, playe
 		var mid_col = from_col + sign(to_col - from_col)
 		var opponent = "x" if player == "o" else "o"
 		return PINS[mid_row][mid_col] == opponent
-	
 	return false
 
 func switch_player():
@@ -185,20 +208,84 @@ func switch_player():
 	emit_signal("turn_changed", current_player)
 
 
-# PENDING
+# ============================================
+# WIN CONDITION CHECKING
+# ============================================
+
 func check_win_condition() -> bool:
-	"""Check if game is over (implement your win condition logic)"""
-	# TODO: Implement actual win condition
-	# For now, return false (game never ends)
+	"""
+	Check if either player has won.
+	O must connect top-left (0,0) to bottom-right (5,5)
+	X must connect top-right (0,5) to bottom-left (5,0)
+	Only orthogonal connections count (no diagonal)
+	"""
+	# Check both players to see if either has won
+	if check_path_exists(0, 0, 5, 5, "o"):
+		return true
+	if check_path_exists(0, 5, 5, 0, "x"):
+		return true
 	return false
 
 func get_winner() -> String:
-	"""Determine winner based on coin count"""
-	var o_count = 0
-	var x_count = 0
-	# TODO: Implement actual get winner function based on the rules
-	# return o,x,tie
-	return ""
+	"""Determine winner based on coin chains"""
+	if check_path_exists(0, 0, 5, 5, "o"):
+		return "o"
+	elif check_path_exists(0, 5, 5, 0, "x"):
+		return "x"
+	return "you won"
+
+func check_path_exists(start_row: int, start_col: int, end_row: int, end_col: int, player: String) -> bool:
+	"""
+	Use BFS"""
+	# Check if start and end coins exist
+	if COINS[start_row][start_col] != player:
+		return false
+	if COINS[end_row][end_col] != player:
+		return false
+	
+	# BFS setup
+	var visited = {}
+	var queue = []
+	queue.append(Vector2i(start_col, start_row))
+	visited["%d_%d" % [start_row, start_col]] = true
+	
+	
+	var directions = [
+		Vector2i(0, -1),  # up
+		Vector2i(0, 1),   # down
+		Vector2i(-1, 0),  # left
+		Vector2i(1, 0)    # right
+	]
+	
+	while queue.size() > 0:
+		var current = queue.pop_front()
+		var cur_col = current.x
+		var cur_row = current.y
+		
+		# Check if we reached the goal
+		if cur_row == end_row and cur_col == end_col:
+			return true
+		
+		# Check all orthogonal neighbors
+		for dir in directions:
+			var next_col = cur_col + dir.x
+			var next_row = cur_row + dir.y
+			
+			# Bounds check
+			if next_row < 0 or next_row >= 6 or next_col < 0 or next_col >= 6:
+				continue
+			
+			# Check if already visited
+			var key = "%d_%d" % [next_row, next_col]
+			if visited.has(key):
+				continue
+			
+			# Check if this coin belongs to the player
+			if COINS[next_row][next_col] == player:
+				visited[key] = true
+				queue.append(Vector2i(next_col, next_row))
+	
+	return false
 
 
 
