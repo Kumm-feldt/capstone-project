@@ -11,6 +11,19 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-run/main_scene="uid://elst0xn32iil"
+run/main_scene="uid://dre0xt6qnyeax"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="uid://dmlx2wpf6y7qd"
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://autoload/GameState.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
