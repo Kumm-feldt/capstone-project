@@ -13,12 +13,9 @@ signal turn_changed(player: String)
 signal invalid_move(text: String)
 signal valid_move()
 
-
-
 # ============================================
 # GAME STATE
 # ============================================
-
 var current_player = "o"
 var game_active = true
 
@@ -287,7 +284,10 @@ func check_path_exists(start_row: int, start_col: int, end_row: int, end_col: in
 	
 	return false
 
-
+func check_draw():
+	# check if there is not pins
+	pass
+	
 
 func reset_game():
 	"""Reset to initial state"""
