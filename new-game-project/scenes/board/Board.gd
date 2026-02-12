@@ -5,6 +5,7 @@ extends Node2D
 # ============================================
 # CONFIGURATION
 # ============================================
+var MODE = "AI"
 
 # Board image dimensions
 const BOARD_WIDTH = 800 
@@ -48,15 +49,14 @@ var highlight_rect: ColorRect = null
 # INITIALIZATION
 # ============================================
 func _ready():
-	setup_board_sprite()
-	connect_signals()
+	setup_board_sprite() # load board
+	connect_signals() 
 	render_board()
 
 func setup_board_sprite():
 	"""Configure the background board image"""
 	board_sprite.texture = preload("res://sprites/board/board.png")
 	board_sprite.centered = true
-	#board_sprite.position = Vector2(0, 0)  # Center of 1920x1080
 
 func connect_signals():
 	"""Connect to GameState signals"""
@@ -179,11 +179,12 @@ func handle_second_click(clicked_pin: Vector2i):
 	var coord = coord_f + array_to_notation(clicked_pin.y, clicked_pin.x)
 	if GameState.move_pin(coord, GameState.current_player):
 		print("Attempt move Succesfully")
-		
 	else:
 		print("Failed")
 	# Always deselect after second click (whether move succeeded or not)
 	deselect_pin()
+	if MODE == "AI":
+		test_ai()
 
 func deselect_pin():
 	"""Clear pin selection"""
@@ -211,7 +212,13 @@ func _on_board_updated():
 	""" update board """
 	render_board()
 	
+	
 func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
 	"""Add animations"""	
 	print("Animation")
 	
+# ============================================
+# AI CALLS
+# ============================================
+func test_ai():
+	pass
