@@ -27,12 +27,14 @@ z_index = 5
 position = Vector2(527.1896, 355.30273)
 scale = Vector2(0.91295195, 0.9129518)
 texture = ExtResource("4_vgpvj")
+flip_h = true
 
 [node name="HeadPlayer2Sprite" type="Sprite2D" parent="."]
 z_index = 5
 position = Vector2(529.1397, 103.48622)
 scale = Vector2(0.92802024, 0.9280201)
 texture = ExtResource("5_l0jo7")
+flip_h = true
 
 [node name="TailPlayer2Sprite" type="Sprite2D" parent="."]
 z_index = 5
