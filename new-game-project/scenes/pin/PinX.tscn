@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtkyxanm3xmrn"]
+
+[ext_resource type="Texture2D" uid="uid://b144l01a6h7or" path="res://sprites/pins/pin_x.png" id="1_q1man"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cqccm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_q1man")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PinXNode2D" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cqccm")

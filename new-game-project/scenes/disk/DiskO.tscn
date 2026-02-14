@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ks4k4ba1djq"]
+
+[ext_resource type="Texture2D" uid="uid://ge2wha02mi00" path="res://sprites/coins/coin_o.png" id="1_r6e1c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wrrrf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_r6e1c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DiskONode2D" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.9875, 0.9875)
+sprite_frames = SubResource("SpriteFrames_wrrrf")
