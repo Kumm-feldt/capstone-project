@@ -31,6 +31,14 @@ var pin_x_texture = preload("res://sprites/pins/pin_x.png")
 var coin_o_texture = preload("res://sprites/coins/coin_o.png")
 var coin_x_texture = preload("res://sprites/coins/coin_x.png")
 
+
+var pin_o_scene = preload("res://scenes/pin/PinO.tscn")
+var pin_x_scene = preload("res://scenes/pin/PinX.tscn")
+
+var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
+var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
+
+
 # ============================================
 # STATE TRACKING
 # ============================================
@@ -89,21 +97,24 @@ func render_board():
 
 func create_pin_sprite(row: int, col: int, player: String):
 	"""Create a pin sprite at array position"""
-	var sprite = Sprite2D.new()
-	sprite.texture = pin_o_texture if player == "o" else pin_x_texture
-	sprite.position = get_pin_screen_position(row, col)
-	sprite.z_index = 1  # Pins on top
-	add_child(sprite)
-	pin_sprites["%d_%d" % [row, col]] = sprite
+	var pin_scene = pin_o_scene if player == "o" else pin_x_scene
+	var sprite_instance = pin_scene.instantiate()
+	
+	sprite_instance.position = get_pin_screen_position(row, col)
+	sprite_instance.z_index = 1  # Pins on top
+	# add scene to tree
+	add_child(sprite_instance)
+	# store reference
+	pin_sprites["%d_%d" % [row, col]] = sprite_instance
 
 func create_coin_sprite(row: int, col: int, player: String):
-	"""Create a coin sprite at array position"""
-	var sprite = Sprite2D.new()
-	sprite.texture = coin_o_texture if player == "o" else coin_x_texture
-	sprite.position = get_coin_screen_position(row, col)
-	sprite.z_index = 0  # Coins below pins
-	add_child(sprite)
-	coin_sprites["%d_%d" % [row, col]] = sprite
+	"""Create a coin scene at array position"""
+	var disk_scene = disk_o_scene if player == "o" else disk_x_scene
+	var sprite_instance = disk_scene.instantiate()
+	sprite_instance.position = get_coin_screen_position(row, col)
+	sprite_instance.z_index = 0  # Coins below pins
+	add_child(sprite_instance)
+	coin_sprites["%d_%d" % [row, col]] = sprite_instance
 
 func clear_all_sprites():
 	"""Remove all existing sprites"""
