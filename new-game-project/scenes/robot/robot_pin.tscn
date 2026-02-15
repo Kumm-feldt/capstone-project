@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://xc02ps0u477t"]
+
+[ext_resource type="Texture2D" uid="uid://4exf0g4awd3q" path="res://sprites/pins/pin_o.png" id="2_mlflm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v37pg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mlflm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qic5"]
+
+[node name="RobotPin" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_v37pg")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7qic5")
