@@ -6,7 +6,19 @@ var PLAYER_EMAIL = "akummerfeldt@harding.edu"
 
 var EVENT_NAME = "mirror"
 var token = ""
-@onready var http_request = $"."
+var _current_request = ""
+
+# ============================================
+# AI Instance
+# ============================================
+@onready var http_request: HTTPRequest = $HTTPRequest
+@onready var ai = $CreeperAI  # C# node
+
+func _ready():
+	http_request.request_completed.connect(_on_request_completed)
+	get_token()
+
+
 
 # ============================================
 # 1. GET TOKEN
@@ -15,86 +27,119 @@ var token = ""
 # if loaded correctly returns the content, 
 # otherwise null
 func load_token_from_file():
-	var file = FileAccess.open("./res://%s_token.txt" % PLAYER_NAME, FileAccess.READ)
+	var file = FileAccess.open("user://%s_token.txt" % PLAYER_NAME, FileAccess.READ)
 	if not file:
 		return null
 	var content = file.get_as_text()
 	return content
 	
 func save_to_file(content):
-	var file = FileAccess.open("./res://%s_token.txt" % PLAYER_NAME, FileAccess.WRITE)
+	var file = FileAccess.open("user://%s_token.txt" % PLAYER_NAME, FileAccess.WRITE)
 	file.store_string(content)	
 
 func get_token():
 	token = load_token_from_file()
-	if token == null:
+	if token == null:    
+		_current_request = "player_create"
 		var body = JSON.stringify({
 			"name": PLAYER_NAME,
 			"email": PLAYER_EMAIL
 			})
-		var _request = http_request.request(SOFTSERVE_URL + "/player/create", 
-		body, HTTPClient.METHOD_GET)
-		
-		if _request != OK:
+		var headers = ["Content-Type: application/json"]
+		var err = http_request.request(
+		SOFTSERVE_URL + "/player/create",
+		headers,
+		HTTPClient.METHOD_POST,
+		body
+		)
+		if err != OK:
 			push_error("An error occurred in the HTTP request.")
 		
-		token = JSON.parse_string(_request.get_string_from_utf8())
-		
-		# save token into file 
-		save_to_file(token)
-		
-		token = token[0]
-	print(token)
-	
-	
 # ============================================
 # 2. /aivai LOOP
 # ============================================
 func request_state_softserve():
 	var body = JSON.stringify({
 		"event": EVENT_NAME,
-		"player": PLAYER_NAME})
-		
-	var _request = http_request.request(SOFTSERVE_URL+"/aivai/play-state",
-	body, HTTPClient.METHOD_GET)
+		"player": PLAYER_NAME,
+		"token" : token})
+	var headers = ["Content-Type: application/json"]
+	_current_request = "request_state_softserve"
 	
-	if _request != OK:
+	var err = http_request.request(
+		SOFTSERVE_URL+"/aivai/play-state",
+		headers,
+		HTTPClient.METHOD_POST, 
+		body)
+	
+	if err != OK:
 		push_error("An error occurred in the HTTP request.")
 	
-	# Check for HTTP 204, which means that no games are currently
-	# waiting for our player to move; try again in a few seconds
-	if _request.get_http_client_status() == 204:
-		# wait 2 seconds
-		await get_tree().create_timer(2).timeout 
-	var json = JSON.parse_string(_request.get_string_from_utf8())
-	var state = json["state"]
-	var action_id = json["action_id"]
-	
-	print("State: %s" %state)
 	# call our AI
 	# Send that action back to Softserve with /aivai/submit-action
 	# https://softserve.harding.edu/docs#/aivai/aivai_submit_action_aivai_submit_action_post
 	
-	var action = request_ai_action()
+
 	
-	body = JSON.stringify({
+
+func send_action_to_softserve(action, action_id):
+	var body = JSON.stringify({
 		"action": action,
-		"action_id": action_id,
+		"actionid": action_id,
 		"player": PLAYER_NAME,
 		"token": token})
+	var headers = ["Content-Type: application/json"]
+	_current_request = "send_action_to_softserve"
+	var err = http_request.request(
+		SOFTSERVE_URL+"/aivai/submit-action",
+		headers, HTTPClient.METHOD_POST, body)
 	
-	_request = http_request.request(SOFTSERVE_URL+"/aivai/submit-action",
-	body, HTTPClient.METHOD_GET)
-	
-	if _request != OK:
+	if err != OK:
 		push_error("An error occurred in the HTTP request.")
+
+
+func _on_request_completed(result, response_code, headers, body):
+	var text = body.get_string_from_utf8()
+	var json = JSON.parse_string(text)
+
+	if _current_request == "player_create":
+		if response_code != 200:
+			push_error("player/create failed: %s" % response_code)
+			return
+		token = json["token"]
+		save_to_file(token)
+		print("Got token: ", token)
+		# Now you can start the aivai loop, e.g. request_state_softserve()
+	
+	if _current_request == "request_state_softserve":
+		# Check for HTTP 204, which means that no games are currently
+		# waiting for our player to move; try again in a few seconds
+		if response_code == 204:
+			# wait 2 seconds
+			await get_tree().create_timer(2).timeout 
+			print("code 204... trying again")
+			request_state_softserve()
+			return
+		else:
+			var action_id = json["action_id"]
+			var state = json["state"]
+			var action = request_ai_action(state) # Get the next move from Slither AI
+			send_action_to_softserve(action, action_id) # send the action to SoftServe
+			
+	if _current_request == "send_action_to_softserve":
+		#GameState.move_pin(state, GameState.current_player)
+		request_state_softserve()
 		
 		
+
 # ============================================
 # REQUEST AI ACTION
 # ============================================
-func request_ai_action():
-	var action = "x.....x" # get action from AI
-	return action
-	
+func request_ai_action(state):	
+	var action_str: String = ai.GetMove(state)  
+	if action_str == null:
+		print("ERROR obtaining move")
+		
+	return action_str
+
 	

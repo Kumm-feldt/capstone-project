@@ -60,6 +60,7 @@ func _ready():
 	setup_board_sprite() # load board
 	connect_signals() 
 	render_board()
+	print(GameState.getBoardStateString())
 
 func setup_board_sprite():
 	"""Configure the background board image"""

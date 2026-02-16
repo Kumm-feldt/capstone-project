@@ -320,7 +320,16 @@ func print_debug_state():
 	for row in PINS:
 		print(row)
 	print("\n=== COINS ===")
-	for row in COINS:
+	for row in PINS:
 		print(row)
 	print("\nCurrent player: ", current_player)
 	print("================\n")
+
+func getBoardStateString():
+	var boardString = ""
+	for row in PINS:
+		for pin in row:
+			boardString = boardString + pin
+	for row in PINS:
+		for disc in row:
+			boardString = boardString + disc

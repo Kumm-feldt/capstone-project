@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxmu8ueb4o7en"]
+[gd_scene load_steps=3 format=3 uid="uid://dxmu8ueb4o7en"]
 
 [ext_resource type="Script" uid="uid://c2qf3b7qtlmen" path="res://autoload/SoftserveClient.gd" id="1_oe266"]
+[ext_resource type="Script" uid="uid://0no334tshdxl" path="res://AI/CreeperAI.cs" id="2_dnb38"]
 
-[node name="HTTPRequest" type="HTTPRequest"]
+[node name="SoftserveClient" type="Node"]
 script = ExtResource("1_oe266")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="CreeperAI" type="Node" parent="."]
+script = ExtResource("2_dnb38")
