@@ -31,7 +31,6 @@ var pin_x_texture = preload("res://sprites/pins/pin_x.png")
 var coin_o_texture = preload("res://sprites/coins/coin_o.png")
 var coin_x_texture = preload("res://sprites/coins/coin_x.png")
 
-
 var pin_o_scene = preload("res://scenes/pin/PinO.tscn")
 var pin_x_scene = preload("res://scenes/pin/PinX.tscn")
 
@@ -60,7 +59,6 @@ func _ready():
 	setup_board_sprite() # load board
 	connect_signals() 
 	render_board()
-	print(GameState.getBoardStateString())
 
 func setup_board_sprite():
 	"""Configure the background board image"""
@@ -81,6 +79,29 @@ func connect_signals():
 func render_board():
 	"""Main render function - creates all sprites from GameState arrays"""
 	clear_all_sprites()
+	var heads_tails = [[0,0], [0,5], [5,0], [5,5]]
+	
+	# Render pins (at intersections)
+	for row in range(7):
+		for col in range(7):
+			var state = GameState.PINS[row][col]
+			if state != ".":
+				create_pin_sprite(row, col, state)
+	
+	# Render coins (in octagons)
+	for row in range(6):
+		for col in range(6):
+			var pos = [row, col]
+			if pos not in heads_tails:
+				var state = GameState.COINS[row][col]
+				if state != ".":
+					create_coin_sprite(row, col, state)
+
+func render_board_single_move():
+	"""This function updates the updated pins"""
+	# Delete the disks and pins
+	
+	# Render pins
 	
 	# Render pins (at intersections)
 	for row in range(7):
@@ -95,6 +116,7 @@ func render_board():
 			var state = GameState.COINS[row][col]
 			if state != ".":
 				create_coin_sprite(row, col, state)
+
 
 func create_pin_sprite(row: int, col: int, player: String):
 	"""Create a pin sprite at array position"""
@@ -163,6 +185,7 @@ func screen_to_pin_array(screen_pos: Vector2) -> Vector2i:
 # ============================================
 # INPUT HANDLING
 # ============================================
+# This function work automatically without explicitly calling it.
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:		# Get the global mouse position (relative to the top-left corner of the screen)
 		var click_position: Vector2 = get_global_mouse_position()
