@@ -26,6 +26,15 @@ layout_mode = 2
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
+[node name="PauseButton" type="Button" parent="PanelContainer/MarginContainer/Control"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 15.0
+offset_right = 123.84509
+offset_bottom = 72.53168
+text = "Pause
+"
+
 [node name="TurnLabel" type="Label" parent="PanelContainer/MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 8
@@ -56,8 +65,3 @@ theme_override_fonts/font = ExtResource("2_ro3t7")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="PauseButton" type="Button" parent="PanelContainer/MarginContainer/Control"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
