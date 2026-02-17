@@ -7,6 +7,10 @@ extends Node2D
 # ============================================
 var MODE = "AI"
 
+#Default colors:
+var player_color_x = Color("00e33eff");
+var player_color_o = Color("e83c84ff");
+
 # Board image dimensions
 const BOARD_WIDTH = 800 
 const BOARD_HEIGHT = 450 
@@ -33,6 +37,7 @@ var coin_x_texture = preload("res://sprites/coins/coin_x.png")
 
 var pin_o_scene = preload("res://scenes/pin/PinO.tscn")
 var pin_x_scene = preload("res://scenes/pin/PinX.tscn")
+var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
 
 var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
 var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
@@ -109,7 +114,7 @@ func render_board_single_move():
 		for col in range(7):
 			var state = GameState.PINS[row][col]
 			if state != ".":
-				create_pin_sprite(row, col, state)
+				create_robot_pin_sprite(row, col, state)
 	
 	# Render coins (in octagons)
 	for row in range(6):
@@ -130,6 +135,27 @@ func create_pin_sprite(row: int, col: int, player: String):
 	add_child(sprite_instance)
 	# store reference
 	pin_sprites["%d_%d" % [row, col]] = sprite_instance
+	
+
+func getPlayerColor(player: String) -> Color:
+	if (player == "o"):
+		return player_color_o;
+	else:
+		return player_color_x;
+
+
+func create_robot_pin_sprite(row: int, col: int, player: String):
+	var robot_scene = pin_robot_scene
+	var robot_instance = robot_scene.instantiate();
+	robot_instance.set_pin(player, getPlayerColor(player));
+	
+	robot_instance.position = get_pin_screen_position(row, col)
+	robot_instance.z_index = 1  # Pins on top
+	# add scene to tree
+	add_child(robot_instance)
+	# store reference
+	pin_sprites["%d_%d" % [row, col]] = robot_instance
+	
 
 func create_coin_sprite(row: int, col: int, player: String):
 	"""Create a coin scene at array position"""

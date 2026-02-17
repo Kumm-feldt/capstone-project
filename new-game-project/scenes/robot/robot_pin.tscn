@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://xc02ps0u477t"]
+[gd_scene load_steps=4 format=3 uid="uid://xc02ps0u477t"]
 
 [ext_resource type="Texture2D" uid="uid://4exf0g4awd3q" path="res://sprites/pins/pin_o.png" id="2_mlflm"]
-[ext_resource type="Script" uid="uid://xuw2ecp2fuhd" path="res://RobotPin.gd" id="3_jjy2u"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v37pg"]
 animations = [{
@@ -23,7 +22,6 @@ animations = [{
 
 [node name="RobotPin" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_v37pg")
-script = ExtResource("3_jjy2u")
 
 [node name="Area2D" type="Area2D" parent="."]
 
