@@ -35,7 +35,6 @@ var pin_x_texture = preload("res://sprites/pins/pin_x.png")
 var coin_o_texture = preload("res://sprites/coins/coin_o.png")
 var coin_x_texture = preload("res://sprites/coins/coin_x.png")
 
-
 var pin_o_scene = preload("res://scenes/pin/PinO.tscn")
 var pin_x_scene = preload("res://scenes/pin/PinX.tscn")
 var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
@@ -74,10 +73,11 @@ func setup_board_sprite():
 func connect_signals():
 	"""Connect to GameState signals"""
 	GameState.connect("board_updated", _on_board_updated)
-	#GameState.connect("pin_moved", _on_pin_moved)
+	GameState.connect("pin_moved", _on_pin_moved)
 	GameState.connect("pin_jumped", _on_pin_jumped)
-	#GameState.connect("coin_placed", _on_coin_placed)
-	#GameState.connect("coin_flipped", _on_coin_flipped)
+	GameState.connect("coin_placed", _on_coin_placed)
+	
+	GameState.connect("coin_flipped", _on_coin_flipped)
 
 # ============================================
 # RENDERING
@@ -85,6 +85,29 @@ func connect_signals():
 func render_board():
 	"""Main render function - creates all sprites from GameState arrays"""
 	clear_all_sprites()
+	var heads_tails = [[0,0], [0,5], [5,0], [5,5]]
+	
+	# Render pins (at intersections)
+	for row in range(7):
+		for col in range(7):
+			var state = GameState.PINS[row][col]
+			if state != ".":
+				create_pin_sprite(row, col, state)
+	
+	# Render coins (in octagons)
+	for row in range(6):
+		for col in range(6):
+			var pos = [row, col]
+			if pos not in heads_tails:
+				var state = GameState.COINS[row][col]
+				if state != ".":
+					create_coin_sprite(row, col, state)
+
+func render_board_single_move():
+	"""This function updates the updated pins"""
+	# Delete the disks and pins
+	
+	# Render pins
 	
 	# Render pins (at intersections)
 	for row in range(7):
@@ -100,7 +123,7 @@ func render_board():
 			if state != ".":
 				create_coin_sprite(row, col, state)
 
-#DEPRECATED: superceded by create_robot_pin_sprite.
+
 func create_pin_sprite(row: int, col: int, player: String):
 	"""Create a pin sprite at array position"""
 	var pin_scene = pin_o_scene if player == "o" else pin_x_scene
@@ -189,6 +212,7 @@ func screen_to_pin_array(screen_pos: Vector2) -> Vector2i:
 # ============================================
 # INPUT HANDLING
 # ============================================
+# This function work automatically without explicitly calling it.
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:		# Get the global mouse position (relative to the top-left corner of the screen)
 		var click_position: Vector2 = get_global_mouse_position()
@@ -248,13 +272,47 @@ func array_to_notation(row: int, col: int) -> String:
 # ============================================
 func _on_board_updated():
 	""" update board """
-	render_board()
+	#render_board()
 	
+func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
+	# delete current player's scene
+	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
+	# Delete current player's pin scene
+	if pin_sprites.has(from_key):
+		pin_sprites[from_key].queue_free()
+		pin_sprites.erase(from_key)  # Remove from dictionary immediately
+	print(from_key)
+	# if pin is moving to new position it means the scene do not exist yet
+	create_pin_sprite(to_pos[1], to_pos[0], player)
 	
+# when jumping to remove oponent's pin
 func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
-	"""Add animations"""	
-	print("Animation")
+	# delete current player's scene
+	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
+	var oponent_key = "%d_%d" % [removed_pos[1],removed_pos[0]]
+	# Delete current player's pin scene
+	if pin_sprites.has(from_key):
+		pin_sprites[from_key].queue_free()
+		pin_sprites.erase(from_key)  # Remove from dictionary immediately
 	
+	if pin_sprites.has(oponent_key):
+		pin_sprites[oponent_key].queue_free()
+		pin_sprites.erase(oponent_key)  # Remove from dictionary immediately
+	
+	# if pin is jumping to new position it means the scene do not exist yet
+	create_pin_sprite(to_pos[1], to_pos[0], player)
+	
+func _on_coin_placed(coordinates: Vector2i, player):
+	create_coin_sprite(coordinates[1],coordinates[0],player)
+
+func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
+	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
+	
+	if coin_sprites.has(coin_key):
+		coin_sprites[coin_key].queue_free()
+		coin_sprites.erase(coin_key)
+		create_coin_sprite(coordinates[1],coordinates[0], player)
+		
 # ============================================
 # AI CALLS
 # ============================================
