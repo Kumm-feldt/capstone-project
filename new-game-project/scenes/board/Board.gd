@@ -68,10 +68,11 @@ func setup_board_sprite():
 func connect_signals():
 	"""Connect to GameState signals"""
 	GameState.connect("board_updated", _on_board_updated)
-	#GameState.connect("pin_moved", _on_pin_moved)
+	GameState.connect("pin_moved", _on_pin_moved)
 	GameState.connect("pin_jumped", _on_pin_jumped)
-	#GameState.connect("coin_placed", _on_coin_placed)
-	#GameState.connect("coin_flipped", _on_coin_flipped)
+	GameState.connect("coin_placed", _on_coin_placed)
+	
+	GameState.connect("coin_flipped", _on_coin_flipped)
 
 # ============================================
 # RENDERING
@@ -245,13 +246,47 @@ func array_to_notation(row: int, col: int) -> String:
 # ============================================
 func _on_board_updated():
 	""" update board """
-	render_board()
+	#render_board()
 	
+func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
+	# delete current player's scene
+	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
+	# Delete current player's pin scene
+	if pin_sprites.has(from_key):
+		pin_sprites[from_key].queue_free()
+		pin_sprites.erase(from_key)  # Remove from dictionary immediately
+	print(from_key)
+	# if pin is moving to new position it means the scene do not exist yet
+	create_pin_sprite(to_pos[1], to_pos[0], player)
 	
+# when jumping to remove oponent's pin
 func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
-	"""Add animations"""	
-	print("Animation")
+	# delete current player's scene
+	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
+	var oponent_key = "%d_%d" % [removed_pos[1],removed_pos[0]]
+	# Delete current player's pin scene
+	if pin_sprites.has(from_key):
+		pin_sprites[from_key].queue_free()
+		pin_sprites.erase(from_key)  # Remove from dictionary immediately
 	
+	if pin_sprites.has(oponent_key):
+		pin_sprites[oponent_key].queue_free()
+		pin_sprites.erase(oponent_key)  # Remove from dictionary immediately
+	
+	# if pin is jumping to new position it means the scene do not exist yet
+	create_pin_sprite(to_pos[1], to_pos[0], player)
+	
+func _on_coin_placed(coordinates: Vector2i, player):
+	create_coin_sprite(coordinates[1],coordinates[0],player)
+
+func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
+	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
+	
+	if coin_sprites.has(coin_key):
+		coin_sprites[coin_key].queue_free()
+		coin_sprites.erase(coin_key)
+		create_coin_sprite(coordinates[1],coordinates[0], player)
+		
 # ============================================
 # AI CALLS
 # ============================================

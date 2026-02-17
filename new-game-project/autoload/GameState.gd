@@ -90,7 +90,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 		elif (row_diff == -2): # DOWN
 			PINS[to_row+1][to_col] = '.'
 		put_pin(from_row, from_col, to_row, to_col, current_pin_to_move)
-		# Emit jump signal
+		# Emit jump signal when removing a oponent's pin
 		emit_signal("pin_jumped", 
 			Vector2i(from_col, from_row), 
 			Vector2i(to_col, to_row),
@@ -107,7 +107,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 			Vector2i(to_col, to_row), 
 			player)
 	# Notify GUI of state change
-	emit_signal("board_updated")
+	#emit_signal("board_updated")
 		
 	# Check win condition
 	if check_win_condition():
@@ -116,6 +116,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 		
 	switch_player()
 	emit_signal("valid_move")
+	print_debug_state()
 	return true
 
 func handle_coin_placement(to_row, to_col, from_row, from_col, player):
@@ -123,7 +124,6 @@ func handle_coin_placement(to_row, to_col, from_row, from_col, player):
 	var to_i = to_row + to_col
 	var from_i = from_row + from_col
 	var pos = from_i - to_i
-		
 	if(pos == 2): # UP - LEFT
 		put_coin(to_row,to_col, player)
 	elif(pos == -2): # DOWN - RIGHT
@@ -134,16 +134,20 @@ func handle_coin_placement(to_row, to_col, from_row, from_col, player):
 		else: # DOWN - LEFT
 			put_coin(from_row,to_col,player)
 
+	
+
 func put_coin(row: int, col: int, player: String):
 	"""Place or flip a coin"""
 	var old_state = COINS[row][col]
 	
 	if old_state != player and old_state != '.':
 		# Flip existing coin
+		print("coin placed")
 		COINS[row][col] = player
 		emit_signal("coin_flipped", Vector2i(col, row), old_state, player)
 	elif old_state == '.':
 		# Place new coin
+		print("coin placed")
 		COINS[row][col] = player
 		emit_signal("coin_placed", Vector2i(col, row), player)
 
@@ -171,6 +175,9 @@ func is_valid_selection(row,col, player):
 
 func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, player: String) -> bool:
 	"""Validate if a move is legal"""
+	
+	# TODO: ask if a oponents pin can cross the other player;s corner.
+	
 	# Bounds check
 	if from_row < 0 or from_row >= 7 or from_col < 0 or from_col >= 7:
 		return false
@@ -187,6 +194,8 @@ func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, playe
 	# Check if move is within rules
 	var row_diff = abs(to_row - from_row)
 	var col_diff = abs(to_col - from_col)
+	
+	# Check if move is not from corners
 	
 	# One step move (adjacent) or two step jump (over opponent pin)
 	if (row_diff <= 1 and col_diff <= 1):
@@ -320,7 +329,7 @@ func print_debug_state():
 	for row in PINS:
 		print(row)
 	print("\n=== COINS ===")
-	for row in PINS:
+	for row in COINS:
 		print(row)
 	print("\nCurrent player: ", current_player)
 	print("================\n")
@@ -330,6 +339,6 @@ func getBoardStateString():
 	for row in PINS:
 		for pin in row:
 			boardString = boardString + pin
-	for row in PINS:
+	for row in COINS:
 		for disc in row:
 			boardString = boardString + disc
