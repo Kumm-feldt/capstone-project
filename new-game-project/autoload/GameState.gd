@@ -136,8 +136,15 @@ func move_pin(coordinates: String, player: String) -> bool:
 			Vector2i(to_col, to_row), 
 			player)
 	# Notify GUI of state change
-	#emit_signal("board_updated")
+	emit_signal("board_updated")
+	
+	add_to_move_history()
 		
+	# Check for draw conditions BEFORE checking win
+	if check_draw_condition():
+		emit_signal("game_over", "draw")
+		game_active = false
+		return true
 	# Check win condition
 	if check_win_condition():
 		emit_signal("game_over", get_winner())
@@ -324,9 +331,108 @@ func check_path_exists(start_row: int, start_col: int, end_row: int, end_col: in
 	
 	return false
 
-func check_draw():
-	# check if there is not pins
-	pass
+func check_draw_condition() -> bool:
+	"""
+	Check if the game should end in a draw.
+	Returns true if:
+	1. Current player has no legal moves
+	2. All opponent pins have been captured (results in draw, not win!)
+	3. Position has repeated too many times
+	"""
+	
+	# Check if current player has been eliminated (all pins captured)
+	if is_player_eliminated(current_player):
+		print("Draw: Player %s has no pins left!" % current_player)
+		return true
+	
+	# Check if current player has no legal moves
+	if not has_legal_moves(current_player):
+		print("Draw: Player %s has no legal moves!" % current_player)
+		return true
+	
+	# Check for repetitive position
+	if is_position_repeated():
+		print("Draw: Position repeated too many times!")
+		return true
+	
+	return false
+	
+func is_player_eliminated(player: String) -> bool:
+	"""Check if a player has no pins left on the board"""
+	for row in range(7):
+		for col in range(7):
+			if PINS[row][col] == player:
+				return false
+	return true
+
+func has_legal_moves(player: String) -> bool:
+	"""Check if the player has at least one legal move"""
+	# Find all pins belonging to this player
+	for from_row in range(7):
+		for from_col in range(7):
+			if PINS[from_row][from_col] == player:
+				# Check all possible destinations from this pin
+				for to_row in range(7):
+					for to_col in range(7):
+						if is_valid_move(from_row, from_col, to_row, to_col, player):
+							return true
+	return false
+
+func is_position_repeated() -> bool:
+	"""
+	Check if the current board position has appeared too many times.
+	This catches infinite loops of repetitive moves.
+	"""
+	if move_history.size() < REPETITION_THRESHOLD:
+		return false
+	
+	var current_state = get_board_state_hash()
+	var repetition_count = 0
+	
+	# Count how many times this exact position has occurred
+	for state in move_history:
+		if state == current_state:
+			repetition_count += 1
+	
+	return repetition_count >= REPETITION_THRESHOLD
+
+func get_board_state_hash() -> String:
+	"""
+	Create a string representation of the current board state.
+	Used to detect repeated positions.
+	"""
+	var hash = ""
+	
+	# Hash PINS array
+	for row in PINS:
+		for cell in row:
+			hash += cell
+	
+	# Hash COINS array
+	for row in COINS:
+		for cell in row:
+			hash += cell
+	
+	# Include current player to distinguish between same position, different turn
+	hash += current_player
+	
+	return hash
+
+func add_to_move_history():
+	"""
+	Record the current board state in move history.
+	Call this after every successful move.
+	"""
+	var state = get_board_state_hash()
+	move_history.append(state)
+	
+	# Keep history size manageable
+	if move_history.size() > MAX_HISTORY:
+		move_history.pop_front()
+
+func clear_move_history():
+	"""Clear move history (call when resetting game)"""
+	move_history.clear()
 	
 
 func reset_game():
