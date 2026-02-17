@@ -12,13 +12,17 @@ signal game_over(winner: String)
 signal turn_changed(player: String)
 signal invalid_move(text: String)
 signal valid_move()
-
+signal game_paused_changed(is_paused: bool)
 # ============================================
 # GAME STATE
 # ============================================
 var current_player = "o"
 var game_active = true
-
+var game_paused = false
+# Move history for draw detection
+var move_history = []
+const MAX_HISTORY = 20
+const REPETITION_THRESHOLD = 6
 # PINS array (7x7) 
 var PINS = [
 	[".", "o", "o", ".", "x", "x", "."],
@@ -39,7 +43,30 @@ var COINS = [
 	[".", ".", ".", ".", ".", "."],
 	["x", ".", ".", ".", ".", "o"]
 ]
+func pause_game():
+	"""Pause the game"""
+	if game_active and not game_paused:
+		game_paused = true
+		emit_signal("game_paused_changed", true)
+		print("Game paused")
 
+func unpause_game():
+	"""Unpause the game"""
+	if game_active and game_paused:
+		game_paused = false
+		emit_signal("game_paused_changed", false)
+		print("Game unpaused")
+
+func toggle_pause():
+	"""Toggle pause state"""
+	if game_paused:
+		unpause_game()
+	else:
+		pause_game()
+
+func is_paused() -> bool:
+	"""Check if game is paused"""
+	return game_paused
 # ============================================
 # CORE GAME LOGIC
 # ============================================
@@ -48,7 +75,9 @@ func move_pin(coordinates: String, player: String) -> bool:
 	Coordinates format: "a1b2" (from a1 to b2)
 	Returns true if move was valid and executed
 	"""
-	if not game_active:
+	if not game_active or game_paused:
+		if game_paused:
+			print("Cannot move - game is paused")
 		return false
 		
 	# parse coordinates
@@ -159,6 +188,8 @@ func put_pin(from_row: int, from_col: int, to_row: int, to_col: int, pin: String
 
 func is_valid_selection(row,col, player):
 	"""Validate if the current selection is legal"""
+	if game_paused:
+		return false
 	var invalid_text = "Invalid Move"
 	# Bounds check
 	if row < 0 or row >= 7 or col < 0 or col >= 7:
@@ -321,6 +352,7 @@ func reset_game():
 	
 	current_player = "o"
 	game_active = true
+	game_paused = false
 	emit_signal("board_updated", PINS, COINS)
 
 func print_debug_state():
@@ -332,6 +364,7 @@ func print_debug_state():
 	for row in COINS:
 		print(row)
 	print("\nCurrent player: ", current_player)
+	print("Game paused: ", game_paused)
 	print("================\n")
 
 func getBoardStateString():
