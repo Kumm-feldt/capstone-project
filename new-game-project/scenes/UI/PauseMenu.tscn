@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnxv7st1qgo5k"]
+
+[ext_resource type="Theme" uid="uid://c4k88iff0lc2y" path="res://Themes/Menu_1.tres" id="1_4r2wj"]
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_avwb0"]
+[ext_resource type="Theme" uid="uid://ct23qt4qios3e" path="res://Themes/Button_1.tres" id="3_73e60"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 84.0
+offset_bottom = 143.0
+size_flags_horizontal = 4
+theme = ExtResource("1_4r2wj")
+
+[node name="OptionsLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 68.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("2_avwb0")
+theme_override_font_sizes/font_size = 12
+text = "Options"
+
+[node name="AboutButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -49.5
+offset_right = 35.0
+offset_bottom = -30.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_73e60")
+text = "About"
+
+[node name="ResumeButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.47619048
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -25.5
+offset_right = 37.0
+offset_bottom = -7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_73e60")
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -1.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_73e60")
+text = "Quit"
+
+[node name="Button4" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = 45.0
+offset_right = 35.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_73e60")
+
+[node name="Button5" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = 21.5
+offset_right = 35.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_73e60")

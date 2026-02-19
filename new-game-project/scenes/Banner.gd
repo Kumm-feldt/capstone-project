@@ -16,7 +16,9 @@ func _on_pause_button_pressed():
 	GameState.toggle_pause()
 
 func _on_pause_changed(is_paused: bool):
-	pause_button.text = "Resume" if is_paused else "Pause"
+	#pause_button.text = "Resume" if is_paused else "Pause"
+	# TODO: change the icon
+	pass
 func _on_invalid_move(text):
 	invalid_label.text = text
 func _on_valid_move():

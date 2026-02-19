@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccniks3ikqf7r"]
+[gd_scene load_steps=7 format=3 uid="uid://ccniks3ikqf7r"]
 
 [ext_resource type="Script" uid="uid://ddmahyhgpbpqs" path="res://scenes/Banner.gd" id="1_5en4g"]
 [ext_resource type="Texture2D" uid="uid://bpvg5of7m88bd" path="res://buttons/button_player_turn.png" id="1_dj8aq"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_ro3t7"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="3_75u2n"]
+[ext_resource type="Texture2D" uid="uid://bsi73nynme4v2" path="res://buttons/pause.png" id="4_3wlde"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ro3t7"]
 texture = ExtResource("1_dj8aq")
@@ -28,12 +30,13 @@ layout_mode = 2
 
 [node name="PauseButton" type="Button" parent="PanelContainer/MarginContainer/Control"]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 15.0
-offset_right = 123.84509
-offset_bottom = 72.53168
-text = "Pause
-"
+offset_left = -116.413055
+offset_top = -462.74146
+offset_right = -90.659805
+offset_bottom = -402.2078
+theme = ExtResource("3_75u2n")
+icon = ExtResource("4_3wlde")
+icon_alignment = 1
 
 [node name="TurnLabel" type="Label" parent="PanelContainer/MarginContainer/Control"]
 layout_mode = 1
