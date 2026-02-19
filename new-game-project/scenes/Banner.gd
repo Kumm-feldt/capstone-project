@@ -3,7 +3,8 @@ extends CanvasLayer
 @onready var turn_label = $PanelContainer/MarginContainer/Control/TurnLabel
 @onready var invalid_label = $PanelContainer/MarginContainer/Control/InvalidaLabel
 @onready var pause_button = $PanelContainer/MarginContainer/Control/PauseButton
-@onready var pause_menu = $PauseMenu  # adjust path to where you instanced it
+@onready var pause_menu = $"/root/Main/PauseMenu"
+
 
 func _ready() -> void:
 	GameState.connect("turn_changed", _on_turn_changed)
@@ -16,7 +17,7 @@ func _on_pause_button_pressed():
 	GameState.toggle_pause()
 
 func _on_pause_changed(is_paused: bool):
-	pause_button.text = "Resume" if is_paused else "Pause"
+	#pause_button.text = "Resume" if is_paused else "Pause"
 	if is_paused:
 		pause_menu.show()
 	else:
