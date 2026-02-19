@@ -1,5 +1,5 @@
 extends CanvasLayer
-
+const WinScreen = preload("res://scenes/WinScreen.tscn")
 @onready var turn_label = $PanelContainer/MarginContainer/Control/TurnLabel
 @onready var invalid_label = $PanelContainer/MarginContainer/Control/InvalidaLabel
 @onready var pause_button = $PanelContainer/MarginContainer/Control/PauseButton
@@ -12,7 +12,7 @@ func _ready() -> void:
 	GameState.connect("valid_move", _on_valid_move)
 	GameState.connect("game_paused_changed", _on_pause_changed)
 	pause_button.pressed.connect(_on_pause_button_pressed)
-
+	GameState.connect("game_over", _on_game_over)
 func _on_pause_button_pressed():
 	GameState.toggle_pause()
 
@@ -32,3 +32,8 @@ func _on_invalid_move(text):
 
 func _on_valid_move():
 	invalid_label.text = ""
+	
+func _on_game_over(winner: String):
+	var win_screen = WinScreen.instantiate()
+	get_tree().root.add_child(win_screen)
+	win_screen.setup(winner)
