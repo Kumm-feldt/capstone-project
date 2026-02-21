@@ -1,9 +1,9 @@
 extends Control
 
-@onready var winner_label = $PanelContainer/VBoxContainer/WinnerLabel
-@onready var play_again_button = $PanelContainer/VBoxContainer/PlayAgainButton
-@onready var main_menu_button = $PanelContainer/VBoxContainer/MainMenuButton
-@onready var quit_button = $PanelContainer/VBoxContainer/QuitButton
+@onready var winner_label = $PanelContainer/MarginContainer/VBoxContainer/WinnerLabel
+@onready var play_again_button = $PanelContainer/MarginContainer/VBoxContainer/PlayAgainButton
+@onready var main_menu_button = $PanelContainer/MarginContainer/VBoxContainer/MainMenuButton
+@onready var quit_button = $PanelContainer/MarginContainer/VBoxContainer/QuitButton
 
 func _ready():
 	play_again_button.pressed.connect(_on_play_again)
