@@ -11,5 +11,5 @@ func set_pin(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	playerColor = givenPlayerColor
 	modulate = givenPlayerColor;
 	
-	self.play("default");
+	self.play("idle");
 	
