@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://tmxamxff2ujc"]
+
+[ext_resource type="Texture2D" uid="uid://bvi4prelxe56g" path="res://Images/game screen LAYOUTS/gamemodeSelectLAYOUT.png" id="1_nm3nt"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="2_umwk2"]
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_snlec"]
+[ext_resource type="Theme" uid="uid://ddr6uvoix14t" path="res://Themes/Back_Button.tres" id="4_1rsc4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_564fn"]
+texture = ExtResource("1_nm3nt")
+
+[node name="GameModeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_564fn")
+
+[node name="LocalPlayModeButton" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 0
+offset_left = 761.0
+offset_top = 719.0
+offset_right = 1161.0
+offset_bottom = 820.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_umwk2")
+theme_override_font_sizes/font_size = 40
+text = "Local Play"
+
+[node name="OnlineModeButton" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(400, 101)
+layout_mode = 0
+offset_left = 1261.0
+offset_top = 719.0
+offset_right = 1661.0
+offset_bottom = 820.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_umwk2")
+theme_override_font_sizes/font_size = 40
+text = "Online Play"
+
+[node name="AIModeButton" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(400, 101)
+layout_mode = 0
+offset_left = 253.0
+offset_top = 720.0
+offset_right = 653.0
+offset_bottom = 821.0
+size_flags_vertical = 10
+theme = ExtResource("2_umwk2")
+theme_override_fonts/font = ExtResource("3_snlec")
+theme_override_font_sizes/font_size = 40
+text = "AI"
+
+[node name="BackButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 34.923737
+offset_top = 36.0
+offset_right = 174.09322
+offset_bottom = 174.0
+theme = ExtResource("4_1rsc4")
