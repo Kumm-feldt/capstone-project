@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c50lapj5kugt4"]
+[gd_scene load_steps=7 format=3 uid="uid://c50lapj5kugt4"]
 
+[ext_resource type="Script" uid="uid://brhj0e6oejmn8" path="res://scenes/MainMenu/MainMenu.gd" id="1_l72w3"]
 [ext_resource type="Texture2D" uid="uid://n1wx4u13avjp" path="res://Images/game screen LAYOUTS/mainMenuLAYOUT.png" id="1_ow34m"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/Main_Button_1.tres" id="2_l72w3"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="3_826wr"]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_l72w3")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -70,3 +72,5 @@ theme = ExtResource("3_826wr")
 icon = ExtResource("4_ucygd")
 icon_alignment = 1
 expand_icon = true
+
+[connection signal="pressed" from="VBoxContainer/BeginButton" to="." method="_on_start_pressed"]

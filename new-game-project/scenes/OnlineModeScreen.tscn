@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn2f2vpspankm"]
+[gd_scene load_steps=8 format=3 uid="uid://cn2f2vpspankm"]
 
 [ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="1_1mhvi"]
+[ext_resource type="Script" uid="uid://bg73va6rn1ga8" path="res://scenes/OnlineMode.gd" id="1_66s2c"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_bwv1h"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="3_jxe22"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="4_jxe22"]
+[ext_resource type="Texture2D" uid="uid://tslrtc7kyasm" path="res://buttons/close_icon.png" id="5_66s2c"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_66s2c"]
 texture = ExtResource("1_1mhvi")
@@ -15,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_66s2c")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -26,7 +30,7 @@ anchor_bottom = 0.5
 offset_left = -197.0
 offset_top = -197.5
 offset_right = 197.0
-offset_bottom = 197.5
+offset_bottom = 231.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_66s2c")
@@ -38,8 +42,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 40
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 55
 theme_override_constants/margin_right = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
@@ -68,3 +72,15 @@ layout_mode = 2
 theme = ExtResource("3_jxe22")
 theme_override_font_sizes/font_size = 32
 text = "Host Game"
+
+[node name="Exit Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1104.0
+offset_top = 372.0
+offset_right = 1130.0
+offset_bottom = 398.0
+theme = ExtResource("4_jxe22")
+icon = ExtResource("5_66s2c")
+icon_alignment = 1
+
+[connection signal="pressed" from="Exit Button" to="." method="_on_exit_button_pressed"]
