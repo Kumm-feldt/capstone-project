@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdqi3bhwiag75"
-path="res://.godot/imported/robotBlue.png-8eb0b45e595e0dfa6789a8cfd7daf861.ctex"
+uid="uid://bpjg8s81ucu5"
+path="res://.godot/imported/node1Blue.png-040c1cabf4fd32bc848decbebc76806a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/robotBlue.png"
-dest_files=["res://.godot/imported/robotBlue.png-8eb0b45e595e0dfa6789a8cfd7daf861.ctex"]
+source_file="res://Images/Game Pieces/node1Blue.png"
+dest_files=["res://.godot/imported/node1Blue.png-040c1cabf4fd32bc848decbebc76806a.ctex"]
 
 [params]
 

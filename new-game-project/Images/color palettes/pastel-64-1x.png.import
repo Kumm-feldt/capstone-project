@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvwxmsn55l664"
-path="res://.godot/imported/snakeTailRed.png-f766c7a77a92fc77672439f6c344b973.ctex"
+uid="uid://c2t6r836iyk0h"
+path="res://.godot/imported/pastel-64-1x.png-293194424cf7bc880fb2638703c19550.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/snakeTailRed.png"
-dest_files=["res://.godot/imported/snakeTailRed.png-f766c7a77a92fc77672439f6c344b973.ctex"]
+source_file="res://Images/color palettes/pastel-64-1x.png"
+dest_files=["res://.godot/imported/pastel-64-1x.png-293194424cf7bc880fb2638703c19550.ctex"]
 
 [params]
 

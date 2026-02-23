@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djy3cutmjnbpa"
-path="res://.godot/imported/snakeTailBlue.png-2ea9655191170b8f574f9d8a6e3b612c.ctex"
+uid="uid://3mtse31vgcij"
+path="res://.godot/imported/robotRed.png-ae02fb5b4a6dd964df9d8ba4370afb48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/snakeTailBlue.png"
-dest_files=["res://.godot/imported/snakeTailBlue.png-2ea9655191170b8f574f9d8a6e3b612c.ctex"]
+source_file="res://Images/Game Pieces/robotRed.png"
+dest_files=["res://.godot/imported/robotRed.png-ae02fb5b4a6dd964df9d8ba4370afb48.ctex"]
 
 [params]
 

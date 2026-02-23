@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjaxsjkhne1ak"
-path="res://.godot/imported/sweetie-16-1x-color-palette.png-17caa75a07322bc823fdb5bd692bfbbd.ctex"
+uid="uid://dj1bb6x8lb4ri"
+path="res://.godot/imported/snakeHeadBlue.png-fb2c766f075ffa9b1ca18545aa637ad9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/sweetie-16-1x-color-palette.png"
-dest_files=["res://.godot/imported/sweetie-16-1x-color-palette.png-17caa75a07322bc823fdb5bd692bfbbd.ctex"]
+source_file="res://Images/Game Pieces/snakeHeadBlue.png"
+dest_files=["res://.godot/imported/snakeHeadBlue.png-fb2c766f075ffa9b1ca18545aa637ad9.ctex"]
 
 [params]
 

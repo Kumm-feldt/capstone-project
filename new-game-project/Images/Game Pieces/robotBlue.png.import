@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0lpq5tnn0kyc"
-path="res://.godot/imported/resurrect-64-1x.png-74015c4c0e22a721096c073369183478.ctex"
+uid="uid://cdqi3bhwiag75"
+path="res://.godot/imported/robotBlue.png-8145c69a28288b3e030f415afbf04d9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/color palettes/resurrect-64-1x.png"
-dest_files=["res://.godot/imported/resurrect-64-1x.png-74015c4c0e22a721096c073369183478.ctex"]
+source_file="res://Images/Game Pieces/robotBlue.png"
+dest_files=["res://.godot/imported/robotBlue.png-8145c69a28288b3e030f415afbf04d9e.ctex"]
 
 [params]
 

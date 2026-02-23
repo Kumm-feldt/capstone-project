@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7hopuvbosdu5"
-path="res://.godot/imported/robotBase.png-f2892ee4dd62a32bc2c129eae3a96e6c.ctex"
+uid="uid://ri2g0i0a8m2j"
+path="res://.godot/imported/turnTrackerBar.png-64fbabb88f9ea3dec410915765026d8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/robotBase.png"
-dest_files=["res://.godot/imported/robotBase.png-f2892ee4dd62a32bc2c129eae3a96e6c.ctex"]
+source_file="res://Images/aseprite Files/turnTrackerBar.png"
+dest_files=["res://.godot/imported/turnTrackerBar.png-64fbabb88f9ea3dec410915765026d8f.ctex"]
 
 [params]
 
