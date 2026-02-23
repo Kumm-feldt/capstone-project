@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3mtse31vgcij"
-path="res://.godot/imported/robotRed.png-2443805e70aa075fa4f4be4e56600962.ctex"
+uid="uid://bt2ti6m44jhm0"
+path="res://.godot/imported/onlinePlayButton.png-44a09c3cfd0aabfe406e41ab5499a305.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/robotRed.png"
-dest_files=["res://.godot/imported/robotRed.png-2443805e70aa075fa4f4be4e56600962.ctex"]
+source_file="res://Images/aseprite Files/onlinePlayButton.png"
+dest_files=["res://.godot/imported/onlinePlayButton.png-44a09c3cfd0aabfe406e41ab5499a305.ctex"]
 
 [params]
 

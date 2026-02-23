@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cichmktecs7ou"]
+
+[ext_resource type="Texture2D" uid="uid://dlra1djy27l73" path="res://Images/Game Pieces/nodeBaseDisk.png" id="1_nqaaa"]
+[ext_resource type="Script" uid="uid://bmnbing3nx2b3" path="res://scenes/disk/SnakeDisk.gd" id="2_ptjar"]
+
+[node name="Snake Disk" type="Sprite2D"]
+texture = ExtResource("1_nqaaa")
+script = ExtResource("2_ptjar")

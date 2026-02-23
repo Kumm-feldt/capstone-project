@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bphklxl28g2va"
-path="res://.godot/imported/snakeTailBase.png-76c76545a450619bd09cdaba0cc1eb05.ctex"
+uid="uid://c7hopuvbosdu5"
+path="res://.godot/imported/robotBase.png-4d6945459a3f685b1aa5fe1d2cc54a20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/snakeTailBase.png"
-dest_files=["res://.godot/imported/snakeTailBase.png-76c76545a450619bd09cdaba0cc1eb05.ctex"]
+source_file="res://Images/Game Pieces/robotBase.png"
+dest_files=["res://.godot/imported/robotBase.png-4d6945459a3f685b1aa5fe1d2cc54a20.ctex"]
 
 [params]
 

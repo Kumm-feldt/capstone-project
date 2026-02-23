@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce8jw6uhn2bya"
-path="res://.godot/imported/snakeHeadRed.png-2ddf29e439eb71f50e97b76277ae8509.ctex"
+uid="uid://dlra1djy27l73"
+path="res://.godot/imported/nodeBaseDisk.png-63bea2b8300eb1e8c73198837f236633.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/snakeHeadRed.png"
-dest_files=["res://.godot/imported/snakeHeadRed.png-2ddf29e439eb71f50e97b76277ae8509.ctex"]
+source_file="res://Images/Game Pieces/nodeBaseDisk.png"
+dest_files=["res://.godot/imported/nodeBaseDisk.png-63bea2b8300eb1e8c73198837f236633.ctex"]
 
 [params]
 
