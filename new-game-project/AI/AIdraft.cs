@@ -16,6 +16,9 @@ public class Board
     private int[,] _pins;
     private int[,] _discs;
 
+    public int[,] Pins => _pins;
+    public int[,] Discs => _discs;
+
     // Store references to the live pin and disc grids used by the game.
     public Board(int[,] pins, int[,] discs)
     {
@@ -77,6 +80,43 @@ public class Board
         }
     }
 
+    public void ConvertBoardToString(char[] boardString, PlayerColor currentPlayer)
+    {
+        if (boardString == null || boardString.Length != 86)
+            throw new ArgumentException("Board string buffer must be exactly 86 chars.");
+
+        // Convert the 7x7 pin grid into the first 49 characters of the string.
+        for (int r = 0; r < 7; r++)
+            for (int c = 0; c < 7; c++)
+            {
+                char ch = _pins[r, c] switch
+                {
+                    1 => 'x',
+                    -1 => 'o',
+                    0 => '.',
+                    _ => throw new InvalidOperationException($"Invalid pin value {_pins[r, c]} at ({r},{c}).")
+                };
+                boardString[r * 7 + c] = ch;
+            }
+
+        // Convert the 6x6 disc grid into the next 36 characters of the string.
+        for (int r = 0; r < 6; r++)
+            for (int c = 0; c < 6; c++)
+            {
+                char ch = _discs[r, c] switch
+                {
+                    1 => 'x',
+                    -1 => 'o',
+                    0 => '.',
+                    _ => throw new InvalidOperationException($"Invalid disc value {_discs[r, c]} at ({r},{c}).")
+                };
+                boardString[49 + r * 6 + c] = ch;
+            }
+
+        // Set the final character (index 85) to represent the current player.
+        boardString[85] = currentPlayer == PlayerColor.Light ? 'x' : 'o';
+    }
+
     public bool IsEmptyPG(int r, int c) => _pins[r, c] == 0;
 
     // Check bounds first, then confirm the target pin belongs to the opposing player.
@@ -91,11 +131,15 @@ public class Board
 public static class Game
 {
     // -1 = Dark disc, 0 = Empty, +1 = Light disc
-    public static int[,] discs = new int[6, 6];
+    private static readonly int[,] _discs = new int[6, 6];
     // -1 = Dark pin, 0 = Empty, +1 = Light pin
-    public static int[,] pins = new int[7, 7];
-    public static string? BoardString { get; set; }
-    public static string? MoveString { get; set; }
+    private static readonly int[,] _pins = new int[7, 7];
+
+    // Single owned board instance for game state access.
+    public static Board CurrentBoard { get; } = new Board(_pins, _discs);
+
+    private static int[,] Discs => CurrentBoard.Discs;
+    private static int[,] Pins => CurrentBoard.Pins;
 
     // Holds the current player's turn
     public static PlayerColor CurrentPlayer { get; set; }
@@ -105,66 +149,15 @@ public static class Game
     private static readonly (int, int)[] DiagonalOffsets = { (1, 1), (1, -1), (-1, 1), (-1, -1) };
     private static readonly (int, int)[] CaptureOffsets = { (2, 0), (-2, 0), (0, 2), (0, -2) };
 
-    // Initializes the game state with starting positions and sets the current player to Light
-    public static void Initialize(bool test = false, int testScenario = 0)
-    {
-        // Reset both boards to an empty state.
-        Array.Clear(discs, 0, discs.Length);
-        Array.Clear(pins, 0, pins.Length);
-
-        // Seed immutable base discs in the four corners.
-        discs[0, 5] = 1; // Light home base disc
-        discs[5, 0] = 1; // Light goal base disc
-        discs[0, 0] = -1; // Dark home base disc
-        discs[5, 5] = -1; // Dark goal base disc
-
-        // Fill pins using standard setup or a requested test scenario.
-        PlaceInitialPins(test, testScenario);
-
-        // Light always starts.
-        CurrentPlayer = PlayerColor.Light;
-    }
-
     // Rebuild game state from an encoded board string.
     public static void InitializeFromString(string boardString)
     {
         // Clear current state before loading serialized data.
-        Array.Clear(discs, 0, discs.Length);
-        Array.Clear(pins, 0, pins.Length);
+        Array.Clear(Discs, 0, Discs.Length);
+        Array.Clear(Pins, 0, Pins.Length);
 
         // Reuse Board parsing logic so conversion stays in one place.
-        var tempBoard = new Board(pins, discs);
-        tempBoard.ConvertStringToBoard(boardString);
-    }
-
-    // Function to place initial pins based on standard setup or for testing specific scenarios
-    private static void PlaceInitialPins(bool test = false, int testScenario = 0)
-    {
-        int light = (int)PlayerColor.Light;
-        int dark = (int)PlayerColor.Dark;
-
-        // Normal game opening with 8 pins per player.
-        if (!test)
-        {
-            // Dark pins
-            pins[0, 1] = dark;
-            pins[0, 2] = dark;
-            pins[1, 0] = dark;
-            pins[2, 0] = dark;
-            pins[4, 6] = dark;
-            pins[5, 6] = dark;
-            pins[6, 4] = dark;
-            pins[6, 5] = dark;
-            // White pins
-            pins[0, 4] = light;
-            pins[0, 5] = light;
-            pins[1, 6] = light;
-            pins[2, 6] = light;
-            pins[4, 0] = light;
-            pins[5, 0] = light;
-            pins[6, 1] = light;
-            pins[6, 2] = light;
-        }
+        CurrentBoard.ConvertStringToBoard(boardString);
     }
 
     // Generates a list of legal moves for the given player based on the current board state
@@ -197,18 +190,6 @@ public static class Game
         return moves;
     }
 
-    // Placeholder for AI move selection logic. Currently selects a random legal move
-    public static PinMove? GetBestMove(Board board, PlayerColor player)
-    {
-        // Gather all legal actions for the current position.
-        var legalMoves = GetLegalMoves(board, player);
-        if (legalMoves.Count == 0) return null;
-
-        // Temporary policy: pick uniformly at random.
-        var rand = new Random();
-        return legalMoves[rand.Next(legalMoves.Count)];
-    }
-
     // Convert the move to the correct format
     //     Example: "0,3 -> 1,4" to c1d2
     //     Note: need to switch from 0-indexed row + column to alphabetic column + 1 indexed row
@@ -226,6 +207,13 @@ public static class Game
         return $"{fromCol}{fromRow}{toCol}{toRow}";
     }
 
+    public static string GetBoardString()
+    {
+        char[] serialized = new char[86];
+        CurrentBoard.ConvertBoardToString(serialized, CurrentPlayer);
+        return new string(serialized);
+    }
+
     // Applies the given move to the game state, updating pins, discs, and switching turns
     public static void ApplyMove(PinMove move)
     {
@@ -233,8 +221,8 @@ public static class Game
         int player = (int)CurrentPlayer;
 
         // Relocate the pin from source to destination.
-        pins[move.FromR, move.FromC] = 0;
-        pins[move.ToR, move.ToC] = player;
+        Pins[move.FromR, move.FromC] = 0;
+        Pins[move.ToR, move.ToC] = player;
 
         // Compute move vector to classify move type.
         int dr = move.ToR - move.FromR;
@@ -245,7 +233,7 @@ public static class Game
         {
             int midR = (move.FromR + move.ToR) / 2;
             int midC = (move.FromC + move.ToC) / 2;
-            pins[midR, midC] = 0; // remove captured pin
+            Pins[midR, midC] = 0; // remove captured pin
         }
 
         // Diagonal DG interaction
@@ -259,10 +247,10 @@ public static class Game
             if (dgR >= 0 && dgR < 6 && dgC >= 0 && dgC < 6 && !IsBaseSquare(dgR, dgC))
             {
                 // Claim neutral disc or convert opponent disc to current player.
-                if (discs[dgR, dgC] == 0)
-                    discs[dgR, dgC] = player;
-                else if (discs[dgR, dgC] == -player)
-                    discs[dgR, dgC] = player;
+                if (Discs[dgR, dgC] == 0)
+                    Discs[dgR, dgC] = player;
+                else if (Discs[dgR, dgC] == -player)
+                    Discs[dgR, dgC] = player;
             }
         }
 
@@ -276,137 +264,6 @@ public static class Game
     {
         // Base discs are fixed and cannot be recolored by diagonal interactions.
         return (r == 0 && c == 0) || (r == 0 && c == 5) || (r == 5 && c == 0) || (r == 5 && c == 5);
-    }
-
-    // Checks if the game has reached a terminal state (win/loss/draw) and identifies the winner if applicable
-    public static bool IsTerminal(out int winner)
-    {
-        // Default to no winner, then check each player for a completed path.
-        winner = 0;
-
-        if (HasWinningPath(PlayerColor.Light))
-            winner = (int)PlayerColor.Light;
-        else if (HasWinningPath(PlayerColor.Dark))
-            winner = (int)PlayerColor.Dark;
-        // TODO: implement draw condition
-
-        return winner != 0;
-    }
-
-    // Uses BFS to check if the given player has a connected path of discs from their home base to the opposite side
-    private static bool HasWinningPath(PlayerColor player)
-    {
-        // Standard BFS over the 6x6 disc grid, restricted to the player's disc color.
-        int color = (int)player;
-        var visited = new bool[6,6];
-        var queue = new Queue<(int r, int c)>();
-
-        // Define home bases
-        (int r, int c) start = player == PlayerColor.Light ? (0,5) : (0,0);
-        (int r, int c) goal  = player == PlayerColor.Light ? (5,0) : (5,5);
-
-        // Start if adjacent disc matches
-        if (discs[start.r, start.c] != color)
-            return false;
-
-        // Seed BFS from the player's home base disc.
-        queue.Enqueue(start);
-        visited[start.r, start.c] = true;
-
-        int[] dr = { -1, 1, 0, 0 };
-        int[] dc = { 0, 0, -1, 1 };
-
-        while (queue.Count > 0)
-        {
-            var (r, c) = queue.Dequeue();
-
-            // Reaching the goal base means the player has a winning connection.
-            if (r == goal.r && c == goal.c)
-                return true;
-
-            for (int i = 0; i < 4; i++)
-            {
-                int nr = r + dr[i];
-                int nc = c + dc[i];
-
-                if (!InDG(nr, nc)) continue;
-                if (visited[nr, nc]) continue;
-                if (discs[nr, nc] != color) continue;
-
-                // Visit each matching orthogonal neighbor once.
-                visited[nr, nc] = true;
-                queue.Enqueue((nr, nc));
-            }
-        }
-
-        return false;
-    }
-
-    // Prints a text representation of both boards with pins integrated into disc grid borders
-    public static void PrintBoard()
-    {
-        // Glyphs used to draw dark and light discs in console output.
-        char darkDisc = '\u2591';
-        char lightDisc = '\u2588';
-
-        Console.WriteLine();
-        
-        // Column numbers header
-        Console.Write("    ");
-        for (int c = 0; c < 7; c++) 
-        {
-            Console.Write($"{c}   ");
-        }
-        Console.WriteLine();
-        
-        for (int r = 0; r < 7; r++)
-        {
-            // Border line with pins integrated (only for pin grid columns 0-6)
-            Console.Write($"  {r} ");
-            for (int c = 0; c < 6; c++)
-            {
-                if (pins[r, c] == 1)
-                    Console.Write("L---");
-                else if (pins[r, c] == -1)
-                    Console.Write("D---");
-                else
-                    Console.Write("+---");
-            }
-            if (pins[r, 6] == 1)
-                Console.Write("L");
-            else if (pins[r, 6] == -1)
-                Console.Write("D");
-            else
-                Console.Write("+");
-            Console.WriteLine();
-            
-            // Disc row (if applicable)
-            if (r < 6)
-            {
-                // Print the 6x6 disc row between pin-border rows.
-                Console.Write("    ");
-                Console.Write("|");
-                for (int c = 0; c < 6; c++)
-                {
-                    if (discs[r, c] == 1)
-                        Console.Write($" {lightDisc} |");
-                    else if (discs[r, c] == -1)
-                        Console.Write($" {darkDisc} |");
-                    else
-                        Console.Write("   |");
-                }
-                Console.WriteLine();
-            }
-        }
-        
-        Console.WriteLine();
-    }
-
-    // Utility functions for move validation and generation
-    private static bool InDG(int r, int c)
-    {
-        // Disc grid is valid for row/col indices [0..5].
-        return r >= 0 && r < 6 && c >= 0 && c < 6;
     }
 
     // Checks if the given position is a valid pin grid location (not out of bounds or a corner)
