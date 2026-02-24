@@ -20,9 +20,9 @@ script = ExtResource("1_j13s4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_j13s4")
 
-[node name="Highlight" type="ColorRect" parent="."]
-offset_left = -20.0
-offset_top = -28.0
-offset_right = -20.0
-offset_bottom = -28.0
-color = Color(0.21568628, 1, 1, 1)
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -2.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = -8.0
+color = Color(0.23921569, 1, 1, 1)
