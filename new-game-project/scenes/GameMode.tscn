@@ -1,15 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://tmxamxff2ujc"]
+[gd_scene load_steps=12 format=3 uid="uid://bmt1oyebdsjmh"]
 
-[ext_resource type="Texture2D" uid="uid://bvi4prelxe56g" path="res://Images/game screen LAYOUTS/gamemodeSelectLAYOUT.png" id="1_nm3nt"]
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_snlec"]
+[ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_1aqlx"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="2_umwk2"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_snlec"]
 [ext_resource type="Theme" uid="uid://ddr6uvoix14t" path="res://Themes/Back_Button.tres" id="4_1rsc4"]
-[ext_resource type="PackedScene" uid="uid://cngkfxtr0fcir" path="res://scenes/AIOptionsModeScreen.tscn" id="6_1rsc4"]
-[ext_resource type="PackedScene" uid="uid://cn2f2vpspankm" path="res://scenes/OnlineModeScreen.tscn" id="7_ryqv3"]
+[ext_resource type="PackedScene" path="res://scenes/AIOptionsModeScreen.tscn" id="6_1rsc4"]
+[ext_resource type="PackedScene" path="res://scenes/OnlineModeScreen.tscn" id="7_ryqv3"]
+[ext_resource type="Texture2D" uid="uid://u45sm7lyofd1" path="res://assets/ui/decorations/localPlayButton.png" id="8_wp5al"]
+[ext_resource type="Texture2D" uid="uid://bubetprl8jw1r" path="res://assets/ui/decorations/onlinePlayButton.png" id="9_i6hr7"]
+[ext_resource type="Texture2D" uid="uid://devk5oekcoxi3" path="res://assets/ui/decorations/vsAI.png" id="10_ivbs5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_564fn"]
-texture = ExtResource("1_nm3nt")
+texture = ExtResource("2_1aqlx")
 
 [node name="GameModeScreen" type="Control"]
 layout_mode = 3
@@ -30,53 +33,68 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_564fn")
 
 [node name="LocalPlayModeButton" type="Button" parent="ModeOptions"]
-custom_minimum_size = Vector2(400, 100)
 layout_mode = 0
-offset_left = 761.0
-offset_top = 719.0
-offset_right = 1161.0
-offset_bottom = 820.0
+offset_left = 808.0
+offset_top = 763.0
+offset_right = 1128.0
+offset_bottom = 851.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_umwk2")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "Local Play"
 
 [node name="OnlineModeButton" type="Button" parent="ModeOptions"]
-custom_minimum_size = Vector2(400, 101)
 layout_mode = 0
-offset_left = 1261.0
-offset_top = 719.0
-offset_right = 1661.0
-offset_bottom = 820.0
+offset_left = 1312.0
+offset_top = 763.0
+offset_right = 1632.0
+offset_bottom = 851.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_umwk2")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "Online Play"
 
 [node name="AIModeButton" type="Button" parent="ModeOptions"]
-custom_minimum_size = Vector2(400, 101)
 layout_mode = 0
-offset_left = 253.0
-offset_top = 720.0
-offset_right = 653.0
-offset_bottom = 821.0
+offset_left = 288.0
+offset_top = 763.0
+offset_right = 608.0
+offset_bottom = 851.0
 size_flags_vertical = 10
 theme = ExtResource("2_umwk2")
 theme_override_fonts/font = ExtResource("3_snlec")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "AI"
 
 [node name="BackButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
-offset_left = 34.923737
-offset_top = 36.0
-offset_right = 174.09322
-offset_bottom = 174.0
+offset_left = 118.0
+offset_top = 113.0
+offset_right = 257.1695
+offset_bottom = 251.0
 theme = ExtResource("4_1rsc4")
 
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="LocalPlayModeSprite" type="Sprite2D" parent="Sprites"]
+position = Vector2(459.99997, 498.99994)
+scale = Vector2(3.1666667, 3.166667)
+texture = ExtResource("8_wp5al")
+
+[node name="OnlinePlayModeSprite" type="Sprite2D" parent="Sprites"]
+position = Vector2(1472.0001, 499)
+scale = Vector2(3.1543071, 3.1543071)
+texture = ExtResource("9_i6hr7")
+
+[node name="LocalPlayModeSprite2" type="Sprite2D" parent="Sprites"]
+position = Vector2(976, 506.99994)
+scale = Vector2(3.072034, 3.072034)
+texture = ExtResource("10_ivbs5")
+
 [node name="DimOverlay" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,6 +108,7 @@ visible = false
 layout_mode = 1
 
 [node name="OnlineOptionPopup" parent="." instance=ExtResource("7_ryqv3")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="ModeOptions/OnlineModeButton" to="." method="_on_online_mode_pressed"]

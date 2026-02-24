@@ -6,6 +6,7 @@ extends Control
 @onready var online_mode_popup = $OnlineOptionPopup
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	dim_overlay.visible = false
@@ -28,6 +29,7 @@ func _on_popup_closed():
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
 	dim_overlay.visible = false
+	
 	
 func _on_online_mode_pressed() -> void:
 	dim_overlay.visible = true
