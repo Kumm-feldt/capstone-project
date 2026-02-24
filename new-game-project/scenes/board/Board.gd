@@ -10,7 +10,8 @@ var MODE = "AI"
 #Default colors:
 var player_color_x = Color("00e33eff");
 var player_color_o = Color("e83c84ff");
-
+const HIGHLIGHT_COLOR = Color(1, 1, 0, 0.6)  # Yellow, semi-transparent
+const HIGHLIGHT_RADIUS = 18.0
 # Board image dimensions
 const BOARD_WIDTH = 800 
 const BOARD_HEIGHT = 450 
@@ -225,16 +226,21 @@ func _unhandled_input(event):
 			handle_second_click(clicked_pin)
 		
 
+@onready var highlight_node = $Highlight  
 
 func handle_first_click(clicked_pin: Vector2i):
-	if GameState.is_valid_selection(clicked_pin.y,clicked_pin.x,  GameState.current_player):
+	if GameState.is_valid_selection(clicked_pin.y, clicked_pin.x, GameState.current_player):
 		selected_pin = clicked_pin
-		emit_signal("valid_move")
-
+		var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
+		print("Looking for key: ", key)
+		print("Pin sprites keys: ", pin_sprites.keys())
+		if pin_sprites.has(key):
+			print("Found pin, calling show_highlight")
+			pin_sprites[key].show_highlight()
+		else:
+			print("Pin not found in dictionary!")
 	else:
 		print("first click incorrectly: ", clicked_pin)
-	
-
 func handle_second_click(clicked_pin: Vector2i):
 	print("Second click: trying to move to ", clicked_pin)
 	var coord_f = array_to_notation(selected_pin.y, selected_pin.x)
@@ -249,10 +255,11 @@ func handle_second_click(clicked_pin: Vector2i):
 		test_ai()
 
 func deselect_pin():
-	"""Clear pin selection"""
+	if selected_pin.x >= 0:
+		var key = "%d_%d" % [selected_pin.y, selected_pin.x]
+		if pin_sprites.has(key):
+			pin_sprites[key].hide_highlight()
 	selected_pin = Vector2i(-1, -1)
-
-
 func array_to_notation(row: int, col: int) -> String:
 	print("row: ", row, "col: ", col)
 	"""Convert array indices to chess notation (a1, b2, etc.)"""

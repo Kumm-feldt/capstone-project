@@ -23,6 +23,8 @@ var game_paused = false
 var move_history = []
 const MAX_HISTORY = 20
 const REPETITION_THRESHOLD = 6
+
+
 # PINS array (7x7) 
 var PINS = [
 	[".", "o", "o", ".", "x", "x", "."],
