@@ -5,7 +5,13 @@ extends Node2D
 # ============================================
 # CONFIGURATION
 # ============================================
+var MODE = "AI"
 
+#Default colors:
+var player_color_x = Color("00e33eff");
+var player_color_o = Color("e83c84ff");
+const HIGHLIGHT_COLOR = Color(1, 1, 0, 0.6)  # Yellow, semi-transparent
+const HIGHLIGHT_RADIUS = 18.0
 # Board image dimensions
 const BOARD_WIDTH = 800 
 const BOARD_HEIGHT = 450 
@@ -30,6 +36,14 @@ var pin_x_texture = preload("res://sprites/pins/pin_x.png")
 var coin_o_texture = preload("res://sprites/coins/coin_o.png")
 var coin_x_texture = preload("res://sprites/coins/coin_x.png")
 
+var pin_o_scene = preload("res://scenes/pin/PinO.tscn")
+var pin_x_scene = preload("res://scenes/pin/PinX.tscn")
+var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
+
+var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
+var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
+
+
 # ============================================
 # STATE TRACKING
 # ============================================
@@ -48,23 +62,23 @@ var highlight_rect: ColorRect = null
 # INITIALIZATION
 # ============================================
 func _ready():
-	setup_board_sprite()
-	connect_signals()
+	setup_board_sprite() # load board
+	connect_signals() 
 	render_board()
 
 func setup_board_sprite():
 	"""Configure the background board image"""
 	board_sprite.texture = preload("res://sprites/board/board.png")
 	board_sprite.centered = true
-	#board_sprite.position = Vector2(0, 0)  # Center of 1920x1080
 
 func connect_signals():
 	"""Connect to GameState signals"""
 	GameState.connect("board_updated", _on_board_updated)
-	#GameState.connect("pin_moved", _on_pin_moved)
+	GameState.connect("pin_moved", _on_pin_moved)
 	GameState.connect("pin_jumped", _on_pin_jumped)
-	#GameState.connect("coin_placed", _on_coin_placed)
-	#GameState.connect("coin_flipped", _on_coin_flipped)
+	GameState.connect("coin_placed", _on_coin_placed)
+	
+	GameState.connect("coin_flipped", _on_coin_flipped)
 
 # ============================================
 # RENDERING
@@ -72,6 +86,7 @@ func connect_signals():
 func render_board():
 	"""Main render function - creates all sprites from GameState arrays"""
 	clear_all_sprites()
+	var heads_tails = [[0,0], [0,5], [5,0], [5,5]]
 	
 	# Render pins (at intersections)
 	for row in range(7):
@@ -83,27 +98,74 @@ func render_board():
 	# Render coins (in octagons)
 	for row in range(6):
 		for col in range(6):
+			var pos = [row, col]
+			if pos not in heads_tails:
+				var state = GameState.COINS[row][col]
+				if state != ".":
+					create_coin_sprite(row, col, state)
+
+func render_board_single_move():
+	"""This function updates the updated pins"""
+	# Delete the disks and pins
+	
+	# Render pins
+	
+	# Render pins (at intersections)
+	for row in range(7):
+		for col in range(7):
+			var state = GameState.PINS[row][col]
+			if state != ".":
+				create_robot_pin_sprite(row, col, state)
+	
+	# Render coins (in octagons)
+	for row in range(6):
+		for col in range(6):
 			var state = GameState.COINS[row][col]
 			if state != ".":
 				create_coin_sprite(row, col, state)
 
+
 func create_pin_sprite(row: int, col: int, player: String):
 	"""Create a pin sprite at array position"""
-	var sprite = Sprite2D.new()
-	sprite.texture = pin_o_texture if player == "o" else pin_x_texture
-	sprite.position = get_pin_screen_position(row, col)
-	sprite.z_index = 1  # Pins on top
-	add_child(sprite)
-	pin_sprites["%d_%d" % [row, col]] = sprite
+	var pin_scene = pin_o_scene if player == "o" else pin_x_scene
+	var sprite_instance = pin_scene.instantiate()
+	
+	sprite_instance.position = get_pin_screen_position(row, col)
+	sprite_instance.z_index = 1  # Pins on top
+	# add scene to tree
+	add_child(sprite_instance)
+	# store reference
+	pin_sprites["%d_%d" % [row, col]] = sprite_instance
+	
+
+func getPlayerColor(player: String) -> Color:
+	if (player == "o"):
+		return player_color_o;
+	else:
+		return player_color_x;
+
+
+func create_robot_pin_sprite(row: int, col: int, player: String):
+	var robot_scene = pin_robot_scene
+	var robot_instance = robot_scene.instantiate();
+	robot_instance.set_pin(player, getPlayerColor(player));
+	
+	robot_instance.position = get_pin_screen_position(row, col)
+	robot_instance.z_index = 1  # Pins on top
+	# add scene to tree
+	add_child(robot_instance)
+	# store reference
+	pin_sprites["%d_%d" % [row, col]] = robot_instance
+	
 
 func create_coin_sprite(row: int, col: int, player: String):
-	"""Create a coin sprite at array position"""
-	var sprite = Sprite2D.new()
-	sprite.texture = coin_o_texture if player == "o" else coin_x_texture
-	sprite.position = get_coin_screen_position(row, col)
-	sprite.z_index = 0  # Coins below pins
-	add_child(sprite)
-	coin_sprites["%d_%d" % [row, col]] = sprite
+	"""Create a coin scene at array position"""
+	var disk_scene = disk_o_scene if player == "o" else disk_x_scene
+	var sprite_instance = disk_scene.instantiate()
+	sprite_instance.position = get_coin_screen_position(row, col)
+	sprite_instance.z_index = 0  # Coins below pins
+	add_child(sprite_instance)
+	coin_sprites["%d_%d" % [row, col]] = sprite_instance
 
 func clear_all_sprites():
 	"""Remove all existing sprites"""
@@ -151,6 +213,7 @@ func screen_to_pin_array(screen_pos: Vector2) -> Vector2i:
 # ============================================
 # INPUT HANDLING
 # ============================================
+# This function work automatically without explicitly calling it.
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:		# Get the global mouse position (relative to the top-left corner of the screen)
 		var click_position: Vector2 = get_global_mouse_position()
@@ -163,33 +226,40 @@ func _unhandled_input(event):
 			handle_second_click(clicked_pin)
 		
 
+@onready var highlight_node = $Highlight  
 
 func handle_first_click(clicked_pin: Vector2i):
-	if GameState.is_valid_selection(clicked_pin.y,clicked_pin.x,  GameState.current_player):
+	if GameState.is_valid_selection(clicked_pin.y, clicked_pin.x, GameState.current_player):
 		selected_pin = clicked_pin
-		emit_signal("valid_move")
-
+		var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
+		print("Looking for key: ", key)
+		print("Pin sprites keys: ", pin_sprites.keys())
+		if pin_sprites.has(key):
+			print("Found pin, calling show_highlight")
+			pin_sprites[key].show_highlight()
+		else:
+			print("Pin not found in dictionary!")
 	else:
 		print("first click incorrectly: ", clicked_pin)
-	
-
 func handle_second_click(clicked_pin: Vector2i):
 	print("Second click: trying to move to ", clicked_pin)
 	var coord_f = array_to_notation(selected_pin.y, selected_pin.x)
 	var coord = coord_f + array_to_notation(clicked_pin.y, clicked_pin.x)
 	if GameState.move_pin(coord, GameState.current_player):
 		print("Attempt move Succesfully")
-		
 	else:
 		print("Failed")
 	# Always deselect after second click (whether move succeeded or not)
 	deselect_pin()
+	if MODE == "AI":
+		test_ai()
 
 func deselect_pin():
-	"""Clear pin selection"""
+	if selected_pin.x >= 0:
+		var key = "%d_%d" % [selected_pin.y, selected_pin.x]
+		if pin_sprites.has(key):
+			pin_sprites[key].hide_highlight()
 	selected_pin = Vector2i(-1, -1)
-
-
 func array_to_notation(row: int, col: int) -> String:
 	print("row: ", row, "col: ", col)
 	"""Convert array indices to chess notation (a1, b2, etc.)"""
@@ -209,9 +279,49 @@ func array_to_notation(row: int, col: int) -> String:
 # ============================================
 func _on_board_updated():
 	""" update board """
-	render_board()
+	#render_board()
 	
+func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
+	# delete current player's scene
+	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
+	# Delete current player's pin scene
+	if pin_sprites.has(from_key):
+		pin_sprites[from_key].queue_free()
+		pin_sprites.erase(from_key)  # Remove from dictionary immediately
+	print(from_key)
+	# if pin is moving to new position it means the scene do not exist yet
+	create_pin_sprite(to_pos[1], to_pos[0], player)
+	
+# when jumping to remove oponent's pin
 func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
-	"""Add animations"""	
-	print("Animation")
+	# delete current player's scene
+	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
+	var oponent_key = "%d_%d" % [removed_pos[1],removed_pos[0]]
+	# Delete current player's pin scene
+	if pin_sprites.has(from_key):
+		pin_sprites[from_key].queue_free()
+		pin_sprites.erase(from_key)  # Remove from dictionary immediately
 	
+	if pin_sprites.has(oponent_key):
+		pin_sprites[oponent_key].queue_free()
+		pin_sprites.erase(oponent_key)  # Remove from dictionary immediately
+	
+	# if pin is jumping to new position it means the scene do not exist yet
+	create_pin_sprite(to_pos[1], to_pos[0], player)
+	
+func _on_coin_placed(coordinates: Vector2i, player):
+	create_coin_sprite(coordinates[1],coordinates[0],player)
+
+func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
+	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
+	
+	if coin_sprites.has(coin_key):
+		coin_sprites[coin_key].queue_free()
+		coin_sprites.erase(coin_key)
+		create_coin_sprite(coordinates[1],coordinates[0], player)
+		
+# ============================================
+# AI CALLS
+# ============================================
+func test_ai():
+	pass

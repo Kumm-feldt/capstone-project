@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpb0uuejgj1fp"]
+
+[ext_resource type="Texture2D" uid="uid://cslpkkqyh2hpc" path="res://Images/spritesheets/robotBaseANIM_idle.png" id="1_xc5g5"]
+[ext_resource type="Script" uid="uid://tb1vi28kaj0g" path="res://robotPin.gd" id="2_esac4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esac4"]
+atlas = ExtResource("1_xc5g5")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lwrw"]
+atlas = ExtResource("1_xc5g5")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2lwrw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esac4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2lwrw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ervv4"]
+size = Vector2(23, 27)
+
+[node name="RobotPin" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_2lwrw")
+frame_progress = 0.95939475
+script = ExtResource("2_esac4")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1.945, 1.945)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0.5)
+scale = Vector2(1.945, 1.945)
+shape = SubResource("RectangleShape2D_ervv4")

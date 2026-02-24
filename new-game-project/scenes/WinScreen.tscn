@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://ch4y1xi67b8ik"]
+
+[ext_resource type="Script" uid="uid://pnkwn8brla74" path="res://scenes/win_screen.gd" id="1_ulig0"]
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_f4f3g"]
+[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="2_jrum5"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="3_f4f3g"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="4_274dy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tad7g"]
+texture = ExtResource("2_jrum5")
+region_rect = Rect2(1339, 734, 241, 227)
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -259.0
+offset_right = -130.0
+offset_bottom = -259.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ulig0")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -64.0
+offset_right = 53.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4.391004, 4.3966813)
+theme_override_styles/panel = SubResource("StyleBoxTexture_tad7g")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="WinnerLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_f4f3g")
+theme_override_font_sizes/font_size = 12
+
+[node name="PlayAgainButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("3_f4f3g")
+text = "Play Again?"
+
+[node name="MainMenuButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("3_f4f3g")
+text = "Main Menu
+"
+
+[node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("4_274dy")
+theme_override_font_sizes/font_size = 7
+text = "Quit
+"

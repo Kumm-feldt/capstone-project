@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccniks3ikqf7r"]
+[gd_scene load_steps=7 format=3 uid="uid://ccniks3ikqf7r"]
 
 [ext_resource type="Script" uid="uid://ddmahyhgpbpqs" path="res://scenes/Banner.gd" id="1_5en4g"]
 [ext_resource type="Texture2D" uid="uid://bpvg5of7m88bd" path="res://buttons/button_player_turn.png" id="1_dj8aq"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_ro3t7"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="3_75u2n"]
+[ext_resource type="Texture2D" uid="uid://bsi73nynme4v2" path="res://buttons/pause.png" id="4_3wlde"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ro3t7"]
 texture = ExtResource("1_dj8aq")
@@ -11,11 +13,10 @@ texture = ExtResource("1_dj8aq")
 script = ExtResource("1_5en4g")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-anchors_preset = -1
-offset_left = 39.0
-offset_top = 27.0
-offset_right = 123.78259
-offset_bottom = 103.3988
+offset_left = 587.0
+offset_top = 933.99994
+offset_right = 650.8451
+offset_bottom = 991.5316
 scale = Vector2(4.776097, 1.9467547)
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -27,6 +28,16 @@ layout_mode = 2
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
+[node name="PauseButton" type="Button" parent="PanelContainer/MarginContainer/Control"]
+layout_mode = 0
+offset_left = -116.413055
+offset_top = -462.74146
+offset_right = -90.659805
+offset_bottom = -402.2078
+theme = ExtResource("3_75u2n")
+icon = ExtResource("4_3wlde")
+icon_alignment = 1
+
 [node name="TurnLabel" type="Label" parent="PanelContainer/MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 8
@@ -34,13 +45,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -27.97181
-offset_top = -17.452986
-offset_right = 50.02819
-offset_bottom = -3.45298
+offset_left = -26.893734
+offset_top = -14.117043
+offset_right = 51.106262
+offset_bottom = -0.11703682
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.7761752, 1.093265)
+scale = Vector2(0.70587784, 1.0247622)
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_ro3t7")
 theme_override_font_sizes/font_size = 12
@@ -48,10 +59,10 @@ text = "Red's turn"
 
 [node name="InvalidaLabel" type="Label" parent="PanelContainer/MarginContainer/Control"]
 layout_mode = 0
-offset_left = 12.143808
-offset_top = 61.64105
-offset_right = 181.73888
-offset_bottom = 83.64105
+offset_left = 81.028656
+offset_top = 13.869263
+offset_right = 250.62372
+offset_bottom = 35.869267
 scale = Vector2(0.36543104, 0.4958505)
 theme_override_fonts/font = ExtResource("2_ro3t7")
 theme_override_font_sizes/font_size = 20

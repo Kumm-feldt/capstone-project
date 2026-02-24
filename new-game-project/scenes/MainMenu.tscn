@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://c50lapj5kugt4"]
+
+[ext_resource type="Script" uid="uid://brhj0e6oejmn8" path="res://scenes/MainMenu/MainMenu.gd" id="1_l72w3"]
+[ext_resource type="Texture2D" uid="uid://n1wx4u13avjp" path="res://Images/game screen LAYOUTS/mainMenuLAYOUT.png" id="1_ow34m"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/Main_Button_1.tres" id="2_l72w3"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="3_826wr"]
+[ext_resource type="Texture2D" uid="uid://clckufjuno6qa" path="res://buttons/exit_icon.png" id="4_ucygd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mipys"]
+texture = ExtResource("1_ow34m")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l72w3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_mipys")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = 28.0
+offset_right = 221.0
+offset_bottom = 469.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="BeginButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+theme = ExtResource("2_l72w3")
+text = "Start Game"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+theme = ExtResource("2_l72w3")
+text = "Settings
+"
+
+[node name="AboutButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+theme = ExtResource("2_l72w3")
+text = "About
+"
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1710.0
+offset_top = 41.0
+offset_right = 1866.0
+offset_bottom = 196.0
+theme = ExtResource("3_826wr")
+icon = ExtResource("4_ucygd")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="VBoxContainer/BeginButton" to="." method="_on_start_pressed"]
