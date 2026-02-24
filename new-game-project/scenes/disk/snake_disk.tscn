@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cichmktecs7ou"]
+[gd_scene load_steps=5 format=3 uid="uid://cichmktecs7ou"]
 
 [ext_resource type="Texture2D" uid="uid://dlra1djy27l73" path="res://Images/Game Pieces/nodeBaseDisk.png" id="1_nqaaa"]
+[ext_resource type="Shader" uid="uid://1siwcgldigl2" path="res://scenes/disk/disk.gdshader" id="1_xbqwb"]
 [ext_resource type="Script" uid="uid://bmnbing3nx2b3" path="res://scenes/disk/SnakeDisk.gd" id="2_ptjar"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjxqd"]
+shader = ExtResource("1_xbqwb")
+shader_parameter/givenColor = Vector4(0, 0, 0, 0)
+
 [node name="Snake Disk" type="Sprite2D"]
+material = SubResource("ShaderMaterial_yjxqd")
 texture = ExtResource("1_nqaaa")
 script = ExtResource("2_ptjar")
