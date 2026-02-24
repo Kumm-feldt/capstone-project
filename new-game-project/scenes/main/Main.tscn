@@ -18,4 +18,3 @@ scale = Vector2(2.3, 2.3)
 script = ExtResource("4_gyg6b")
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_dc040")]
-visible = false
