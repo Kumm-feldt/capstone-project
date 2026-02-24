@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtkyxanm3xmrn"]
+[gd_scene load_steps=5 format=3 uid="uid://dtkyxanm3xmrn"]
 
+[ext_resource type="Script" uid="uid://d3laxj1ubirbe" path="res://scenes/pin/pin_x.gd" id="1_cqccm"]
 [ext_resource type="Texture2D" uid="uid://b144l01a6h7or" path="res://sprites/pins/pin_x.png" id="1_q1man"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cqccm"]
@@ -13,7 +14,20 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_c7k6x"]
+script/source = "extends ColorRect
+"
+
 [node name="PinXNode2D" type="Node2D"]
+script = ExtResource("1_cqccm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cqccm")
+
+[node name="Highlight" type="ColorRect" parent="."]
+visible = false
+offset_top = -4.0
+offset_right = 19.0
+offset_bottom = 6.0
+color = Color(0.78978854, 0.7263766, 0.25680628, 1)
+script = SubResource("GDScript_c7k6x")
