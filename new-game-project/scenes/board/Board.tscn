@@ -8,36 +8,30 @@
 [ext_resource type="Texture2D" uid="uid://b3v5i0u4fph2m" path="res://sprites/coins/snakeTailBlue.png" id="6_0kj62"]
 
 [node name="Board" type="Node2D"]
-scale = Vector2(1.538346, 1.4494684)
 script = ExtResource("1_6puts")
 
 [node name="BoardSprite" type="Sprite2D" parent="."]
-position = Vector2(402.3802, 228.35956)
-scale = Vector2(1, 0.9999999)
+position = Vector2(400, 225)
 texture = ExtResource("2_4vko3")
 
 [node name="HeadPlayer1Sprite" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(278.87094, 103.48622)
-scale = Vector2(0.93709165, 0.95245945)
+position = Vector2(275, 100)
 texture = ExtResource("3_kmmm1")
 
 [node name="TailPlayer1Sprite" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(527.1896, 355.30273)
-scale = Vector2(0.91295195, 0.9129518)
+position = Vector2(525, 350)
 texture = ExtResource("4_vgpvj")
 flip_h = true
 
 [node name="HeadPlayer2Sprite" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(529.1397, 103.48622)
-scale = Vector2(0.92802024, 0.9280201)
+position = Vector2(525, 100)
 texture = ExtResource("5_l0jo7")
 flip_h = true
 
 [node name="TailPlayer2Sprite" type="Sprite2D" parent="."]
 z_index = 5
-position = Vector2(277.57083, 355.30267)
-scale = Vector2(0.91931415, 0.919314)
+position = Vector2(275, 350)
 texture = ExtResource("6_0kj62")
