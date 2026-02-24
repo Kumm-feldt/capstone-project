@@ -4,7 +4,7 @@ extends Control
 @onready var ai_mode_popup = $AIOptionPopup   # or use preload if it's a separate scene
 @onready var ai_mode_button = $ModeOptions/AIModeButton
 @onready var online_mode_popup = $OnlineOptionPopup
-
+@onready var back_button = $ModeOptions/BackButton
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,3 +37,7 @@ func _on_online_mode_pressed() -> void:
 	# Connect the signal if not already connected
 	if not online_mode_popup.popup_closed.is_connected(_on_popup_closed):
 		online_mode_popup.popup_closed.connect(_on_popup_closed)
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")

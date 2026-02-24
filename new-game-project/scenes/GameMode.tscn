@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmt1oyebdsjmh"]
+[gd_scene load_steps=13 format=3 uid="uid://bmt1oyebdsjmh"]
 
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_snlec"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_1aqlx"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="2_umwk2"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_snlec"]
-[ext_resource type="Theme" uid="uid://ddr6uvoix14t" path="res://Themes/Back_Button.tres" id="4_1rsc4"]
-[ext_resource type="PackedScene" path="res://scenes/AIOptionsModeScreen.tscn" id="6_1rsc4"]
-[ext_resource type="PackedScene" path="res://scenes/OnlineModeScreen.tscn" id="7_ryqv3"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/Main_Button_1.tres" id="5_wp5al"]
+[ext_resource type="PackedScene" uid="uid://c5i3e2xoursyb" path="res://scenes/AIOptionsModeScreen.tscn" id="6_1rsc4"]
+[ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="6_i6hr7"]
+[ext_resource type="PackedScene" uid="uid://g7trfgkrt2u7" path="res://scenes/OnlineModeScreen.tscn" id="7_ryqv3"]
 [ext_resource type="Texture2D" uid="uid://u45sm7lyofd1" path="res://assets/ui/decorations/localPlayButton.png" id="8_wp5al"]
 [ext_resource type="Texture2D" uid="uid://bubetprl8jw1r" path="res://assets/ui/decorations/onlinePlayButton.png" id="9_i6hr7"]
 [ext_resource type="Texture2D" uid="uid://devk5oekcoxi3" path="res://assets/ui/decorations/vsAI.png" id="10_ivbs5"]
@@ -42,7 +43,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_umwk2")
 theme_override_font_sizes/font_size = 30
-text = "Local Play"
+text = "Local"
 
 [node name="OnlineModeButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
@@ -54,7 +55,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_umwk2")
 theme_override_font_sizes/font_size = 30
-text = "Online Play"
+text = "Online"
 
 [node name="AIModeButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
@@ -66,32 +67,37 @@ size_flags_vertical = 10
 theme = ExtResource("2_umwk2")
 theme_override_fonts/font = ExtResource("3_snlec")
 theme_override_font_sizes/font_size = 30
-text = "AI"
+text = "CPU"
 
 [node name="BackButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
-offset_left = 118.0
-offset_top = 113.0
-offset_right = 257.1695
-offset_bottom = 251.0
-theme = ExtResource("4_1rsc4")
+offset_left = 123.0
+offset_top = 117.0
+offset_right = 218.80508
+offset_bottom = 212.0
+theme = ExtResource("5_wp5al")
+
+[node name="Icon" type="Sprite2D" parent="ModeOptions/BackButton"]
+position = Vector2(46.000004, 49.000004)
+scale = Vector2(3.3125005, 3.3125005)
+texture = ExtResource("6_i6hr7")
 
 [node name="Sprites" type="Node2D" parent="."]
 
-[node name="LocalPlayModeSprite" type="Sprite2D" parent="Sprites"]
+[node name="AIPlayModeSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2(459.99997, 498.99994)
 scale = Vector2(3.1666667, 3.166667)
-texture = ExtResource("8_wp5al")
+texture = ExtResource("10_ivbs5")
 
 [node name="OnlinePlayModeSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2(1472.0001, 499)
 scale = Vector2(3.1543071, 3.1543071)
 texture = ExtResource("9_i6hr7")
 
-[node name="LocalPlayModeSprite2" type="Sprite2D" parent="Sprites"]
+[node name="LocalPlayModeSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2(976, 506.99994)
 scale = Vector2(3.072034, 3.072034)
-texture = ExtResource("10_ivbs5")
+texture = ExtResource("8_wp5al")
 
 [node name="DimOverlay" type="ColorRect" parent="."]
 visible = false
@@ -113,3 +119,4 @@ layout_mode = 1
 
 [connection signal="pressed" from="ModeOptions/OnlineModeButton" to="." method="_on_online_mode_pressed"]
 [connection signal="pressed" from="ModeOptions/AIModeButton" to="." method="_on_ai_mode_button_pressed"]
+[connection signal="pressed" from="ModeOptions/BackButton" to="." method="_on_back_button_pressed"]
