@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://c50lapj5kugt4"]
+[gd_scene load_steps=9 format=3 uid="uid://c50lapj5kugt4"]
 
 [ext_resource type="Script" uid="uid://brhj0e6oejmn8" path="res://scenes/MainMenu/MainMenu.gd" id="1_l72w3"]
 [ext_resource type="Texture2D" uid="uid://n1wx4u13avjp" path="res://Images/game screen LAYOUTS/mainMenuLAYOUT.png" id="1_ow34m"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/Main_Button_1.tres" id="2_l72w3"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="3_826wr"]
+[ext_resource type="FontFile" uid="uid://b46nx8yyjdjta" path="res://fonts/Jersey_10/Jersey10-Regular.ttf" id="4_mipys"]
 [ext_resource type="Texture2D" uid="uid://clckufjuno6qa" path="res://buttons/exit_icon.png" id="4_ucygd"]
+[ext_resource type="FontFile" uid="uid://javd3yaex6ij" path="res://fonts/Minercraftory.ttf" id="5_8a8k8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mipys"]
 texture = ExtResource("1_ow34m")
@@ -46,7 +48,8 @@ theme_override_constants/separation = 24
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 theme = ExtResource("2_l72w3")
-theme_override_font_sizes/font_size = 35
+theme_override_fonts/font = ExtResource("4_mipys")
+theme_override_font_sizes/font_size = 45
 text = "Start Game"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
@@ -61,6 +64,7 @@ text = "Settings
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 theme = ExtResource("2_l72w3")
+theme_override_fonts/font = ExtResource("5_8a8k8")
 theme_override_font_sizes/font_size = 35
 text = "Instructions
 "
@@ -72,8 +76,12 @@ offset_top = 41.0
 offset_right = 1866.0
 offset_bottom = 196.0
 theme = ExtResource("3_826wr")
-icon = ExtResource("4_ucygd")
 icon_alignment = 1
 expand_icon = true
+
+[node name="iconExit" type="Sprite2D" parent="ExitButton"]
+position = Vector2(67.99994, 77)
+scale = Vector2(5.3124924, 5.3124924)
+texture = ExtResource("4_ucygd")
 
 [connection signal="pressed" from="VBoxContainer/BeginButton" to="." method="_on_start_pressed"]
