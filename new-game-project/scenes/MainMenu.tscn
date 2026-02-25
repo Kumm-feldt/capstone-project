@@ -46,12 +46,14 @@ theme_override_constants/separation = 24
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 theme = ExtResource("2_l72w3")
+theme_override_font_sizes/font_size = 35
 text = "Start Game"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 theme = ExtResource("2_l72w3")
+theme_override_font_sizes/font_size = 35
 text = "Settings
 "
 
@@ -59,7 +61,8 @@ text = "Settings
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 theme = ExtResource("2_l72w3")
-text = "About
+theme_override_font_sizes/font_size = 35
+text = "Instructions
 "
 
 [node name="ExitButton" type="Button" parent="."]

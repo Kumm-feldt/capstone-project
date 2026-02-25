@@ -5,7 +5,7 @@ var PLAYER_NAME = "aivai-demo-player-5"
 var PLAYER_EMAIL = "akummerfeldt@harding.edu"
 
 var EVENT_NAME = "mirror"
-var token = ""
+var TOKEN = ""
 var _current_request = ""
 
 # ============================================
@@ -15,31 +15,40 @@ var _current_request = ""
 @onready var ai = $CreeperAI  # C# node
 
 func _ready():
+	print("Hello... from softserve")
+	# connect to client
 	http_request.request_completed.connect(_on_request_completed)
+	# get token
 	get_token()
-
-
+	# Now that we have our token, we can start the /aivai loop
+	#request_state_softserve()
+	
+	
 
 # ============================================
 # 1. GET TOKEN
 # ============================================
-# Try to load token from file, 
+# Try to load TOKEN from file, 
 # if loaded correctly returns the content, 
 # otherwise null
-func load_token_from_file():
-	var file = FileAccess.open("user://%s_token.txt" % PLAYER_NAME, FileAccess.READ)
+func load_TOKEN_from_file():
+	print("loading TOKEN...")
+	var file = FileAccess.open("user://%s_TOKEN.txt" % PLAYER_NAME, FileAccess.READ)
 	if not file:
+		print("Not file...")
 		return null
 	var content = file.get_as_text()
 	return content
 	
 func save_to_file(content):
-	var file = FileAccess.open("user://%s_token.txt" % PLAYER_NAME, FileAccess.WRITE)
+	print("save_to_file")
+	var file = FileAccess.open("user://%s_TOKEN.txt" % PLAYER_NAME, FileAccess.WRITE)
 	file.store_string(content)	
 
 func get_token():
-	token = load_token_from_file()
-	if token == null:    
+	TOKEN = load_TOKEN_from_file()
+	if TOKEN == null:    
+		print("TOKEN == null")
 		_current_request = "player_create"
 		var body = JSON.stringify({
 			"name": PLAYER_NAME,
@@ -54,6 +63,7 @@ func get_token():
 		)
 		if err != OK:
 			push_error("An error occurred in the HTTP request.")
+	print(ProjectSettings.globalize_path("user://"))
 		
 # ============================================
 # 2. /aivai LOOP
@@ -62,7 +72,7 @@ func request_state_softserve():
 	var body = JSON.stringify({
 		"event": EVENT_NAME,
 		"player": PLAYER_NAME,
-		"token" : token})
+		"TOKEN" : TOKEN})
 	var headers = ["Content-Type: application/json"]
 	_current_request = "request_state_softserve"
 	
@@ -87,7 +97,7 @@ func send_action_to_softserve(action, action_id):
 		"action": action,
 		"actionid": action_id,
 		"player": PLAYER_NAME,
-		"token": token})
+		"TOKEN": TOKEN})
 	var headers = ["Content-Type: application/json"]
 	_current_request = "send_action_to_softserve"
 	var err = http_request.request(
@@ -106,9 +116,9 @@ func _on_request_completed(result, response_code, headers, body):
 		if response_code != 200:
 			push_error("player/create failed: %s" % response_code)
 			return
-		token = json["token"]
-		save_to_file(token)
-		print("Got token: ", token)
+		TOKEN = json["TOKEN"]
+		save_to_file(TOKEN)
+		print("Got TOKEN: ", TOKEN)
 		# Now you can start the aivai loop, e.g. request_state_softserve()
 	
 	if _current_request == "request_state_softserve":
