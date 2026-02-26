@@ -63,14 +63,14 @@ var highlight_rect: ColorRect = null
 # INITIALIZATION
 # ============================================
 func _ready():
-	setup_board_sprite() # load board
+	#setup_board_sprite() # load board
 	connect_signals() 
 	render_board()
 
-func setup_board_sprite():
-	"""Configure the background board image"""
-	board_sprite.texture = preload("res://sprites/board/board.png")
-	board_sprite.centered = true
+#func setup_board_sprite():
+	#"""Configure the background board image"""
+	#board_sprite.texture = preload("res://sprites/board/board.png")
+	#board_sprite.centered = true
 
 func connect_signals():
 	"""Connect to GameState signals"""
