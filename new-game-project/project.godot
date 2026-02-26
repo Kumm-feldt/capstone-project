@@ -25,6 +25,7 @@ SoftserveClient="*res://autoload/SoftserveClient.tscn"
 window/size/viewport_width=800
 window/size/viewport_height=450
 window/size/mode=3
+window/stretch/mode="viewport"
 
 [dotnet]
 
