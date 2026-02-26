@@ -14,3 +14,11 @@ func _process(delta: float) -> void:
 
 func _on_exit_button_pressed() -> void:
 	emit_signal("popup_closed")  # tell the parent to handle cleanup
+
+
+func _on_join_button_pressed() -> void:
+	GameManager.GAME_MODE = GameManager.Mode.Join
+
+
+func _on_host_button_pressed() -> void:
+	GameManager.GAME_MODE = GameManager.Mode.Host

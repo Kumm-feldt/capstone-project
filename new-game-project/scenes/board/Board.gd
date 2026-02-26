@@ -6,6 +6,7 @@ extends Node2D
 # CONFIGURATION
 # ============================================
 var MODE = "AI"
+@onready var ai = $"../CreeperAI"
 
 #Default colors:
 var player_color_x = Color("00e33eff");
@@ -77,8 +78,9 @@ func connect_signals():
 	GameState.connect("pin_moved", _on_pin_moved)
 	GameState.connect("pin_jumped", _on_pin_jumped)
 	GameState.connect("coin_placed", _on_coin_placed)
-	
 	GameState.connect("coin_flipped", _on_coin_flipped)
+	GameState.connect("turn_changed", _on_turn_changed)
+	
 
 # ============================================
 # RENDERING
@@ -226,16 +228,13 @@ func _unhandled_input(event):
 			handle_second_click(clicked_pin)
 		
 
-@onready var highlight_node = $Highlight  
+#@onready var highlight_node = $"../Highlight"  
 
 func handle_first_click(clicked_pin: Vector2i):
 	if GameState.is_valid_selection(clicked_pin.y, clicked_pin.x, GameState.current_player):
 		selected_pin = clicked_pin
 		var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
-		print("Looking for key: ", key)
-		print("Pin sprites keys: ", pin_sprites.keys())
 		if pin_sprites.has(key):
-			print("Found pin, calling show_highlight")
 			pin_sprites[key].show_highlight()
 		else:
 			print("Pin not found in dictionary!")
@@ -251,8 +250,7 @@ func handle_second_click(clicked_pin: Vector2i):
 		print("Failed")
 	# Always deselect after second click (whether move succeeded or not)
 	deselect_pin()
-	if MODE == "AI":
-		test_ai()
+
 
 func deselect_pin():
 	if selected_pin.x >= 0:
@@ -320,8 +318,20 @@ func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
 		coin_sprites.erase(coin_key)
 		create_coin_sprite(coordinates[1],coordinates[0], player)
 		
+func _on_turn_changed(current_player):
+	if current_player == 'x' and GameManager.GAME_MODE == GameManager.Mode.AI:
+		var ai_coord = ai_move(GameState.getBoardStateString())
+		
+		if GameState.move_pin(ai_coord, GameState.current_player):
+			print("AI move Succesfully")
+		else:
+			print("Failed AI")
+
+		
+		
 # ============================================
 # AI CALLS
 # ============================================
-func test_ai():
-	pass
+func ai_move(state):
+	var action_str: String = ai.GetMove(state) 
+	return action_str

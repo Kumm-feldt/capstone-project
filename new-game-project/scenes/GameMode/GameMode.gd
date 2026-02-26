@@ -41,3 +41,9 @@ func _on_online_mode_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+
+func _on_local_play_mode_button_pressed() -> void:
+	GameManager.GAME_MODE = GameManager.Mode.Local
+	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+	

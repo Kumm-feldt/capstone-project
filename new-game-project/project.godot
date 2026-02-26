@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameState="*res://autoload/GameState.gd"
 SoftserveClient="*res://autoload/SoftserveClient.tscn"
+GameManager="*res://autoload/GameManager.gd"
 
 [display]
 

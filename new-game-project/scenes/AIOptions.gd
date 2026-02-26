@@ -14,3 +14,16 @@ func _process(delta: float) -> void:
 
 func _on_exit_button_pressed() -> void:
 	emit_signal("popup_closed")  # tell the parent to handle cleanup
+
+
+func _on_easy_ai_button_pressed() -> void:
+	GameManager.GAME_MODE = GameManager.Mode.AI
+	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy
+	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+
+
+
+func _on_hard_button_pressed() -> void:
+	GameManager.GAME_MODE = GameManager.Mode.AI
+	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Difficult
+	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")

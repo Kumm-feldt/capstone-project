@@ -234,6 +234,7 @@ public partial class CreeperAI : Node
 
 			// Placeholder: Random move selection
 			var rand = new Random();
+			//return AIProgram.GetMove(board)
 			return legalMoves[rand.Next(legalMoves.Count)];
 		}
 

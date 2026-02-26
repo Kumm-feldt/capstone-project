@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://g7trfgkrt2u7"]
 
 [ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="1_1mhvi"]
-[ext_resource type="Script" path="res://scenes/OnlineMode.gd" id="1_66s2c"]
+[ext_resource type="Script" uid="uid://bg73va6rn1ga8" path="res://scenes/OnlineMode.gd" id="1_66s2c"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_bwv1h"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="3_jxe22"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="4_jxe22"]
@@ -83,4 +83,6 @@ theme = ExtResource("4_jxe22")
 icon = ExtResource("5_66s2c")
 icon_alignment = 1
 
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Exit Button" to="." method="_on_exit_button_pressed"]

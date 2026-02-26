@@ -14,13 +14,14 @@ var AI_PLAYING = true
 # AI Instance
 # ============================================
 @onready var http_request: HTTPRequest = $HTTPRequest
-@onready var ai = $CreeperAI  # C# node
+@onready var ai = $CreeperAI
 
 func _ready():
+	pass
 	# connect to client
-	http_request.request_completed.connect(_on_request_completed)
+	#http_request.request_completed.connect(_on_request_completed)
 	# get token
-	get_token()
+	#get_token()
 	# Now that we have our token, we can start the /aivai loop
 	"""
 	request_state_softserve():

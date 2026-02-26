@@ -483,3 +483,4 @@ func getBoardStateString():
 	for row in COINS:
 		for disc in row:
 			boardString = boardString + disc
+	return (boardString+current_player)
