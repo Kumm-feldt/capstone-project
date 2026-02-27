@@ -1,7 +1,7 @@
 extends Node
 
 var SOFTSERVE_URL = "https://softserve.harding.edu"
-var PLAYER_NAME = "aivai-test-kummerfeldt"
+var PLAYER_NAME = "aivai-test-kummerfeldt-2"
 var PLAYER_EMAIL = "akummerfeldt@harding.edu"
 
 signal ai_battle_move(boardString)
@@ -144,12 +144,10 @@ func _on_request_completed(result, response_code, headers, body):
 			print("submit‑action failed: ", response_code)
 			return
 		if json.has("winner"):
-			print("Winner: ", json["winner"])
 			if json["winner"] != "none":
 				AI_PLAYING = false
 				return
 			elif json["winner"] in ["h", "t", "draw"]:
-				print("==== FINALLY ====")
 				print("Winner: ", json["winner"])
 				AI_PLAYING = false
 				return

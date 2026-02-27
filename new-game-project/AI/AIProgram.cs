@@ -4,7 +4,7 @@ using Godot;
 
 public partial class AIProgram : Node
 {
-	private const string ModelPath = "trained_agent_A.pt";
+	internal const string ModelPath = "trained_agent_A.pt";
 
 	public string GetMove(string boardString)
 	{
@@ -26,6 +26,7 @@ public partial class AIProgram : Node
 		string moveString = Game.MoveToString(bestMove);
 		return moveString;
 	}
+
 
 	public string GetNewBoardString(string boardString)
 	{
@@ -64,7 +65,7 @@ public partial class AIProgram : Node
 
 	// Encodes current game arrays into model input format:
 	// discs (6x6), pins (7x7), then current player.
-	private static float[] BuildStateVectorFromCurrentGame()
+	internal static float[] BuildStateVectorFromCurrentGame()
 	{
 		float[] state = new float[86];
 		int idx = 0;

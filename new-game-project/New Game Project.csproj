@@ -5,8 +5,9 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>NewGameProject</RootNamespace>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="TorchSharp" Version="0.106.0" />
-    <PackageReference Include="TorchSharp-cpu" Version="0.106.0" />
+    <PackageReference Include="TorchSharp-cpu" Version="0.102.6" />
   </ItemGroup>
+
 </Project>

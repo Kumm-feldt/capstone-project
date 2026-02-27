@@ -227,16 +227,23 @@ public partial class CreeperAI : Node
 		}
 
 		// Placeholder for AI move selection logic. Currently selects a random legal move
-		public static PinMove? GetBestMove(Board board, PlayerColor player)
-		{
-			var legalMoves = GetLegalMoves(board, player);
-			if (legalMoves.Count == 0) return null;
 
-			// Placeholder: Random move selection
-			var rand = new Random();
-			//return AIProgram.GetMove(board)
-			return legalMoves[rand.Next(legalMoves.Count)];
+		public static PinMove GetBestMove(String boardString)
+		{
+			var aiProgram = new AIProgram();
+			string moveString = aiProgram.GetMove(boardString);
+
+			// Parse the returned move string back into a PinMove
+			// Format is e.g. "a1b2" → fromCol, fromRow, toCol, toRow
+			int fromC = moveString[0] - 'a';
+			int fromR = moveString[1] - '1';
+			int toC   = moveString[2] - 'a';
+			int toR   = moveString[3] - '1';
+
+			return new PinMove(fromR, fromC, toR, toC);
+			//return legalMoves[rand.Next(legalMoves.Count)];
 		}
+
 
 		// Convert the move to the correct format
 		//     Example: "0,3 -> 1,4" to c1d2
@@ -454,12 +461,10 @@ public partial class CreeperAI : Node
 	}
 
 	public string GetMove(string boardString){
-	// Load the Softserve state into Game
-	Game.InitializeFromString(boardString);
-	var board = new Board(Game.pins, Game.discs);
-	// Decide whose turn it is
-	var move = Game.GetBestMove(board, Game.CurrentPlayer);
-	return Game.MoveToString(move);
+		// Load the Softserve state into Game
+		Game.InitializeFromString(boardString);
+		var move = Game.GetBestMove(boardString);
+		return Game.MoveToString(move);
 	}
 }
 }

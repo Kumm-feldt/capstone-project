@@ -5,7 +5,6 @@ extends Node2D
 # ============================================
 # CONFIGURATION
 # ============================================
-var MODE = "AI"
 @onready var ai = $"../CreeperAI"
 
 #Default colors:
