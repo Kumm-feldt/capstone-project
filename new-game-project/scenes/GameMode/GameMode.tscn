@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmt1oyebdsjmh"]
+[gd_scene load_steps=14 format=3 uid="uid://bmt1oyebdsjmh"]
 
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_86ymx"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_vasyn"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://u45sm7lyofd1" path="res://assets/ui/decorations/localPlayButton.png" id="9_p7kgk"]
 [ext_resource type="PackedScene" uid="uid://c5i3e2xoursyb" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
 [ext_resource type="PackedScene" uid="uid://g7trfgkrt2u7" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
+[ext_resource type="PackedScene" uid="uid://dcmn2siq27e3q" path="res://scenes/Decorations/PowerButton.tscn" id="12_86ymx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_564fn"]
 texture = ExtResource("2_vasyn")
@@ -116,6 +117,9 @@ layout_mode = 1
 [node name="OnlineOptionPopup" parent="." instance=ExtResource("11_byo56")]
 visible = false
 layout_mode = 1
+
+[node name="Node2D" parent="." instance=ExtResource("12_86ymx")]
+position = Vector2(1782, 1039)
 
 [connection signal="pressed" from="ModeOptions/LocalPlayModeButton" to="." method="_on_local_play_mode_button_pressed"]
 [connection signal="pressed" from="ModeOptions/OnlineModeButton" to="." method="_on_online_mode_pressed"]

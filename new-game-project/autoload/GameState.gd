@@ -13,6 +13,7 @@ signal turn_changed(player: String)
 signal invalid_move(text: String)
 signal valid_move()
 signal game_paused_changed(is_paused: bool)
+
 # ============================================
 # GAME STATE
 # ============================================

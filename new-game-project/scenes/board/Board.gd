@@ -80,8 +80,8 @@ func connect_signals():
 	GameState.connect("coin_placed", _on_coin_placed)
 	GameState.connect("coin_flipped", _on_coin_flipped)
 	GameState.connect("turn_changed", _on_turn_changed)
+	SoftserveClient.connect("ai_battle_move", _on_ai_battle_move)
 	
-
 # ============================================
 # RENDERING
 # ============================================
@@ -321,13 +321,34 @@ func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
 func _on_turn_changed(current_player):
 	if current_player == 'x' and GameManager.GAME_MODE == GameManager.Mode.AI:
 		var ai_coord = ai_move(GameState.getBoardStateString())
-		
 		if GameState.move_pin(ai_coord, GameState.current_player):
 			print("AI move Succesfully")
 		else:
 			print("Failed AI")
 
-		
+func _new_board(board_string: String) -> void:
+	# Rebuild PINS 7x7 from first 49 chars
+	for row in range(7):
+		for col in range(7):
+			var idx = row * 7 + col
+			GameState.PINS[row][col] = board_string[idx]
+
+	# Rebuild COINS 6x6 from next 36 chars (index 49–84)
+	for row in range(6):
+		for col in range(6):
+			var idx = 49 + row * 6 + col
+			GameState.COINS[row][col] = board_string[idx]
+
+	# Last character is current player
+	GameState.current_player = board_string[board_string.length() - 1]
+
+	
+func _on_ai_battle_move(board_string):
+	# translate to the new board
+	_new_board(board_string)
+	# render new board
+	render_board()
+	
 		
 # ============================================
 # AI CALLS
