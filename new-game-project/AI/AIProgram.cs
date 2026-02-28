@@ -4,7 +4,7 @@ using Godot;
 
 public partial class AIProgram : Node
 {
-	internal const string ModelPath = "trained_agent_A.pt";
+	internal const string ModelPath = "trained_AI.pt";
 
 	public string GetMove(string boardString)
 	{
