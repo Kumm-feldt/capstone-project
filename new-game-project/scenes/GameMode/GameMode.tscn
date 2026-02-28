@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmt1oyebdsjmh"]
+[gd_scene load_steps=15 format=3 uid="uid://bmt1oyebdsjmh"]
 
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_86ymx"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_vasyn"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c5i3e2xoursyb" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
 [ext_resource type="PackedScene" uid="uid://g7trfgkrt2u7" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
 [ext_resource type="PackedScene" uid="uid://dcmn2siq27e3q" path="res://scenes/Decorations/PowerButton.tscn" id="12_86ymx"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="13_vasyn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_564fn"]
 texture = ExtResource("2_vasyn")
@@ -121,7 +122,18 @@ layout_mode = 1
 [node name="Node2D" parent="." instance=ExtResource("12_86ymx")]
 position = Vector2(1782, 1039)
 
+[node name="AI_Tournament" type="Button" parent="."]
+layout_mode = 0
+offset_left = 798.0
+offset_top = 120.0
+offset_right = 1113.738
+offset_bottom = 209.0
+theme = ExtResource("13_vasyn")
+theme_override_font_sizes/font_size = 30
+text = "AI TOURNAMENT"
+
 [connection signal="pressed" from="ModeOptions/LocalPlayModeButton" to="." method="_on_local_play_mode_button_pressed"]
 [connection signal="pressed" from="ModeOptions/OnlineModeButton" to="." method="_on_online_mode_pressed"]
 [connection signal="pressed" from="ModeOptions/AIModeButton" to="." method="_on_ai_mode_button_pressed"]
 [connection signal="pressed" from="ModeOptions/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="AI_Tournament" to="." method="_on_ai_tournament_pressed"]

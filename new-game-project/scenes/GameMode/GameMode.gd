@@ -47,3 +47,8 @@ func _on_local_play_mode_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.Local
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 	
+
+func _on_ai_tournament_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/AI/a_ivs_ai_console.tscn")
+	# call to softserve activator
+	pass
