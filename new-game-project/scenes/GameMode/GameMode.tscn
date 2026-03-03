@@ -123,6 +123,7 @@ layout_mode = 1
 position = Vector2(1782, 1039)
 
 [node name="AI_Tournament" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 798.0
 offset_top = 120.0

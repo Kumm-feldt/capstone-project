@@ -22,7 +22,7 @@ var AI_PLAYING = true
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var ai = $CreeperAI
 
-func _ready():
+func ai_vs_ai():
 	print("onready")
 	# connect to client
 	http_request.request_completed.connect(_on_request_completed)
