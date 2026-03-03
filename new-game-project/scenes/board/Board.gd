@@ -52,7 +52,7 @@ var coin_sprites = {}  # "row_col" -> Sprite2D
 
 var selected_pin: Vector2i = Vector2i(-1, -1)
 var highlight_rect: ColorRect = null
-
+var move_hint_sprites = []
 # ============================================
 # NODE REFERENCES
 # ============================================
@@ -235,37 +235,59 @@ func handle_first_click(clicked_pin: Vector2i):
 		var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
 		if pin_sprites.has(key):
 			pin_sprites[key].show_highlight()
-		else:
-			print("Pin not found in dictionary!")
+		show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
 	else:
 		print("first click incorrectly: ", clicked_pin)
+
 func handle_second_click(clicked_pin: Vector2i):
 	print("Second click: trying to move to ", clicked_pin)
+	# selected_pin = Vector2i(col, row) → .x=col, .y=row
 	var coord_f = array_to_notation(selected_pin.y, selected_pin.x)
-	var coord = coord_f + array_to_notation(clicked_pin.y, clicked_pin.x)
+	# clicked_pin = Vector2i(col, row) → .x=col, .y=row
+	var coord_t = array_to_notation(clicked_pin.y, clicked_pin.x)
+	var coord = coord_f + coord_t
+	print("Coord string: ", coord)
 	if GameState.move_pin(coord, GameState.current_player):
-		print("Attempt move Succesfully")
+		print("Attempt move Successfully")
 	else:
 		print("Failed")
-	# Always deselect after second click (whether move succeeded or not)
 	deselect_pin()
-
 
 func deselect_pin():
 	if selected_pin.x >= 0:
 		var key = "%d_%d" % [selected_pin.y, selected_pin.x]
 		if pin_sprites.has(key):
 			pin_sprites[key].hide_highlight()
+	clear_move_hints()
 	selected_pin = Vector2i(-1, -1)
+	
 func array_to_notation(row: int, col: int) -> String:
-	print("row: ", row, "col: ", col)
-	"""Convert array indices to chess notation (a1, b2, etc.)"""
 	var letter = char('a'.unicode_at(0) + col)
-	return letter + str(row + 1)
+	var number = str(row + 1)
+	print("notation: row=", row, " col=", col, " → ", letter + number)
+	return letter + number
 # ============================================
 # VISUAL FEEDBACK
 # ============================================
+#highlighting possible moves
+func show_move_hints(from_row: int, from_col: int, player: String):
+	clear_move_hints()
+	for to_row in range(7):
+		for to_col in range(7):
+			if GameState.is_valid_move(from_row, from_col, to_row, to_col, player):
+				var hint = ColorRect.new()
+				hint.size = Vector2(16, 16)
+				hint.position = get_pin_screen_position(to_row, to_col) - Vector2(8, 8)
+				hint.color = Color(player_color_o if player == "o" else player_color_x, 0.6)
+				hint.z_index = 2
+				hint.mouse_filter = Control.MOUSE_FILTER_IGNORE  # ← add this line
+				add_child(hint)
+				move_hint_sprites.append(hint)
 
+func clear_move_hints():
+	for hint in move_hint_sprites:
+		hint.queue_free()
+	move_hint_sprites.clear()
 
 # ============================================
 # ANIMATION FUNCTIONS (Basic Tweens)
