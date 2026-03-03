@@ -34,6 +34,13 @@ func _on_valid_move():
 	invalid_label.text = ""
 	
 func _on_game_over(winner: String):
+	var canvas = CanvasLayer.new()
+	canvas.layer = 10  # renders above everything
+	get_tree().root.add_child(canvas)
+	
 	var win_screen = WinScreen.instantiate()
-	get_tree().root.add_child(win_screen)
+	canvas.add_child(win_screen)
+	win_screen.set_anchors_preset(Control.PRESET_CENTER)
+	#win_screen.size = get_viewport().get_visible_rect().size
+	#win_screen.position = Vector2.ZERO
 	win_screen.setup(winner)

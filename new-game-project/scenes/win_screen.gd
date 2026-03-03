@@ -9,7 +9,6 @@ func _ready():
 	play_again_button.pressed.connect(_on_play_again)
 	main_menu_button.pressed.connect(_on_main_menu)
 	quit_button.pressed.connect(_on_quit)
-
 func setup(winner: String):
 	var color = "Red" if winner == "o" else "Blue"
 	winner_label.text = "%s Wins!" % color
