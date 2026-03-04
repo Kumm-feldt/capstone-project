@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cslpkkqyh2hpc" path="res://Images/spritesheets/robotBaseANIM_idle.png" id="1_vk0jd"]
 [ext_resource type="Texture2D" uid="uid://c3q6hvwo2jvvf" path="res://Images/spritesheets/robotBaseANIM_pickMe.png" id="2_mlflm"]
-[ext_resource type="Script" path="res://RobotPin.gd" id="3_jjy2u"]
+[ext_resource type="Script" uid="uid://lscjbwur52he" path="res://RobotPin.gd" id="3_jjy2u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jjy2u"]
 atlas = ExtResource("1_vk0jd")
@@ -49,8 +49,8 @@ animations = [{
 
 [node name="RobotPin" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_v37pg")
-animation = &"pickMe"
-frame_progress = 0.32680956
+animation = &"idle"
+frame_progress = 0.11991533
 script = ExtResource("3_jjy2u")
 
 [node name="Area2D" type="Area2D" parent="."]
