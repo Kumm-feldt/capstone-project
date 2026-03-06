@@ -37,3 +37,28 @@ offset_bottom = 190.0
 theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
 theme_override_fonts/font = ExtResource("3_o7d2b")
 theme_override_font_sizes/font_size = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 158.0
+offset_top = 291.0
+offset_right = -156.0
+offset_bottom = -186.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VScrollBar" type="VScrollBar" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VScrollBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

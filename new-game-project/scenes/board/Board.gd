@@ -225,10 +225,8 @@ func _unhandled_input(event):
 			handle_first_click(clicked_pin)
 		else:
 			handle_second_click(clicked_pin)
-		
-
-#@onready var highlight_node = $"../Highlight"  
-
+			
+			
 func handle_first_click(clicked_pin: Vector2i):
 	if GameState.is_valid_selection(clicked_pin.y, clicked_pin.x, GameState.current_player):
 		selected_pin = clicked_pin

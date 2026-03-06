@@ -18,7 +18,10 @@ func _on_exit_button_pressed() -> void:
 
 func _on_join_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.Join
+	get_tree().change_scene_to_file("res://scenes/JoinGameScreen.tscn")
+
 
 
 func _on_host_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.Host
+	get_tree().change_scene_to_file("res://scenes/HostGameScreen.tscn")
