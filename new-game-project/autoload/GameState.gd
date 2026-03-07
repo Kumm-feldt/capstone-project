@@ -155,7 +155,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 		
 	switch_player()
 	emit_signal("valid_move")
-	print_debug_state()
+	#print_debug_state()
 	return true
 
 func handle_coin_placement(to_row, to_col, from_row, from_col, player):

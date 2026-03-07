@@ -34,6 +34,7 @@ func _on_popup_closed():
 func _on_online_mode_pressed() -> void:
 	dim_overlay.visible = true
 	online_mode_popup.visible = true
+	GameManager.GAME_MODE = GameManager.Mode.Multiplayer
 	# Connect the signal if not already connected
 	if not online_mode_popup.popup_closed.is_connected(_on_popup_closed):
 		online_mode_popup.popup_closed.connect(_on_popup_closed)

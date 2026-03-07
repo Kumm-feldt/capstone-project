@@ -65,6 +65,8 @@ func _ready():
 	#setup_board_sprite() # load board
 	connect_signals() 
 	render_board()
+	NetworkManager.board = self
+
 
 #func setup_board_sprite():
 	#"""Configure the background board image"""
@@ -228,6 +230,10 @@ func _unhandled_input(event):
 			
 			
 func handle_first_click(clicked_pin: Vector2i):
+	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
+		if !(multiplayer.is_server() and GameState.current_player == 'x') and !(not multiplayer.is_server() and GameState.current_player == 'o'):
+			return
+
 	if GameState.is_valid_selection(clicked_pin.y, clicked_pin.x, GameState.current_player):
 		selected_pin = clicked_pin
 		var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
@@ -238,17 +244,22 @@ func handle_first_click(clicked_pin: Vector2i):
 		print("first click incorrectly: ", clicked_pin)
 
 func handle_second_click(clicked_pin: Vector2i):
-	print("Second click: trying to move to ", clicked_pin)
 	# selected_pin = Vector2i(col, row) → .x=col, .y=row
 	var coord_f = array_to_notation(selected_pin.y, selected_pin.x)
 	# clicked_pin = Vector2i(col, row) → .x=col, .y=row
 	var coord_t = array_to_notation(clicked_pin.y, clicked_pin.x)
 	var coord = coord_f + coord_t
-	print("Coord string: ", coord)
-	if GameState.move_pin(coord, GameState.current_player):
-		print("Attempt move Successfully")
+	print("Game Mode: ", GameManager.GAME_MODE)
+	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
+		if multiplayer.is_server():
+			NetworkManager.send_move(coord)
+		else:
+			NetworkManager.rpc_id(1, "send_move", coord)
 	else:
-		print("Failed")
+		if GameState.move_pin(coord, GameState.current_player):
+			print("Attempt move Successfully")
+		else:
+			print("Failed")
 	deselect_pin()
 
 func deselect_pin():
@@ -262,8 +273,9 @@ func deselect_pin():
 func array_to_notation(row: int, col: int) -> String:
 	var letter = char('a'.unicode_at(0) + col)
 	var number = str(row + 1)
-	print("notation: row=", row, " col=", col, " → ", letter + number)
 	return letter + number
+	
+	
 # ============================================
 # VISUAL FEEDBACK
 # ============================================
@@ -305,7 +317,6 @@ func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 	if pin_sprites.has(from_key):
 		pin_sprites[from_key].queue_free()
 		pin_sprites.erase(from_key)  # Remove from dictionary immediately
-	print(from_key)
 	# if pin is moving to new position it means the scene do not exist yet
 	create_pin_sprite(to_pos[1], to_pos[0], player)
 	
@@ -375,3 +386,6 @@ func _on_ai_battle_move(board_string):
 func ai_move(state):
 	var action_str: String = ai.GetMove(state) 
 	return action_str
+# ============================================
+# RPC CALLS
+# ============================================
