@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dqqkgrtgv73k0"]
+
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="1_ifxa5"]
+
+[resource]
+Label/colors/font_color = Color(3.2488256e-07, 0.35625345, 0.14223817, 1)
+Label/font_sizes/font_size = 64
+Label/fonts/font = ExtResource("1_ifxa5")

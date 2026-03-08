@@ -2,9 +2,9 @@ extends Control
 
 @onready var dim_overlay = $DimOverlay
 @onready var ai_mode_popup = $AIOptionPopup   # or use preload if it's a separate scene
-@onready var ai_mode_button = $ModeOptions/AIModeButton
+@onready var ai_mode_button = $Buttons/AIModeButton
 @onready var online_mode_popup = $OnlineOptionPopup
-@onready var back_button = $ModeOptions/BackButton
+@onready var back_button = $Buttons/BackButton
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,13 +34,14 @@ func _on_popup_closed():
 func _on_online_mode_pressed() -> void:
 	dim_overlay.visible = true
 	online_mode_popup.visible = true
+	GameManager.GAME_MODE = GameManager.Mode.Multiplayer
 	# Connect the signal if not already connected
 	if not online_mode_popup.popup_closed.is_connected(_on_popup_closed):
 		online_mode_popup.popup_closed.connect(_on_popup_closed)
 
 
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")
 
 
 func _on_local_play_mode_button_pressed() -> void:

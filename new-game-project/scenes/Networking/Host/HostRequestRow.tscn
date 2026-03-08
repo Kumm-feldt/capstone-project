@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxivkibflk7xq"]
+
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="1_qgmc3"]
+[ext_resource type="Theme" uid="uid://ct23qt4qios3e" path="res://Themes/Button_1.tres" id="2_n3dqr"]
+
+[node name="HostRequestRow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_constants/separation = 14
+
+[node name="Username" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_qgmc3")
+theme_override_font_sizes/font_size = 32
+
+[node name="AcceptButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_n3dqr")
+theme_override_font_sizes/font_size = 32
+text = "Accept"

@@ -19,18 +19,23 @@ config/icon="res://icon.svg"
 
 GameState="*res://autoload/GameState.gd"
 SoftserveClient="*res://autoload/SoftserveClient.tscn"
-GameManager="*res://autoload/GameManager.gd"
+NetworkManager="*res://autoload/NetworkManager.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
+window/size/always_on_top=true
 window/stretch/mode="viewport"
 
 [dotnet]
 
 project/assembly_name="New Game Project"
+
+[editor]
+
+run/main_run_args="Player 1, Player 2"
 
 [rendering]
 

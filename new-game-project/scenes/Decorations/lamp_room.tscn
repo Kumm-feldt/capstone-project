@@ -46,7 +46,7 @@ occluder = SubResource("OccluderPolygon2D_xs7fo")
 
 [node name="LampSprite2D" type="Sprite2D" parent="."]
 light_mask = 2
-position = Vector2(954, 189)
+position = Vector2(744, 187)
 scale = Vector2(1.7421052, 1.7421052)
 texture = ExtResource("3_r4y23")
 

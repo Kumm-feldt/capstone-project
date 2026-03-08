@@ -9,9 +9,20 @@ var delay_on_complete = 1.0
 @onready var timer = $Panel/BlinkTimer
 @onready var label = $Panel/OldComputerLabel
 
+func connect_signals():
+	"""Connect to NetworkManager signals"""
+	NetworkManager.connect("game_ready", _on_game_ready)
+	
+	
 func _ready():
-	label.text = ""
-	timer.timeout.connect(_on_timer_timeout)
+	connect_signals()
+	NetworkManager.join_game()
+	# Safety check: if already connected by the time scene loads
+	if NetworkManager.players.size() >= 2:
+		_on_game_ready()
+	#label.text = ""
+	#timer.timeout.connect(_on_timer_timeout)
+
 
 func _process(delta):
 	if !timer.is_stopped():
@@ -33,3 +44,8 @@ func _process(delta):
 
 func _on_timer_timeout():
 	_process(0.0)
+
+
+func _on_game_ready():
+	print("Join hitted")
+	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")

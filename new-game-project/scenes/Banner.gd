@@ -1,8 +1,8 @@
 extends CanvasLayer
 const WinScreen = preload("res://scenes/WinScreen.tscn")
-@onready var turn_label = $PanelContainer/MarginContainer/Control/TurnLabel
-@onready var invalid_label = $PanelContainer/MarginContainer/Control/InvalidaLabel
-@onready var pause_button = $PanelContainer/MarginContainer/Control/PauseButton
+@onready var turn_label = $PanelContainer/Control/TurnLabel
+@onready var invalid_label = $PanelContainer/Control/InvalidaLabel
+@onready var pause_button = $PanelContainer/Control/PauseButton
 @onready var pause_menu = $"/root/Main/PauseMenu"
 
 

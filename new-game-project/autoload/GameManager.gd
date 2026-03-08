@@ -7,6 +7,7 @@ var AI_MODE_LEVEL = null
 enum Mode {
 	Local,
 	AI,
+	Multiplayer,
 	Join,
 	Host
 }

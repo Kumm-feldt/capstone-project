@@ -1,6 +1,6 @@
 extends CanvasLayer
-@onready var resume_button = $Panel/ResumeButton
-@onready var quit_button = $Panel/QuitButton
+@onready var resume_button = $Panel/MarginContainer/VBoxContainer/ResumeButton
+@onready var quit_button = $Panel/MarginContainer/VBoxContainer/QuitButton
 
 func _ready():
 	resume_button.pressed.connect(_on_resume)

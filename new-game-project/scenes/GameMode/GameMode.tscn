@@ -1,21 +1,129 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmt1oyebdsjmh"]
+[gd_scene load_steps=34 format=3 uid="uid://bmt1oyebdsjmh"]
 
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_86ymx"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_vasyn"]
-[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="3_0rj7k"]
+[ext_resource type="Texture2D" uid="uid://bb3sjeypmxorg" path="res://assets/ui/decorations/background_mode.png" id="3_mckn2"]
+[ext_resource type="Texture2D" uid="uid://b7ej4rqlb3xk7" path="res://buttons/hover_green.png" id="4_0abtg"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="4_4snny"]
-[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/Main_Button_1.tres" id="5_0abtg"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="5_0abtg"]
+[ext_resource type="Texture2D" uid="uid://c2y1hdbgppi5" path="res://buttons/Button2_07.png" id="5_u3mau"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="6_u3mau"]
+[ext_resource type="Texture2D" uid="uid://dgj2oqyuqx8ub" path="res://buttons/pressed_green.png" id="6_wud22"]
 [ext_resource type="Texture2D" uid="uid://devk5oekcoxi3" path="res://assets/ui/decorations/vsAI.png" id="7_wud22"]
 [ext_resource type="Texture2D" uid="uid://bubetprl8jw1r" path="res://assets/ui/decorations/onlinePlayButton.png" id="8_mckn2"]
 [ext_resource type="Texture2D" uid="uid://u45sm7lyofd1" path="res://assets/ui/decorations/localPlayButton.png" id="9_p7kgk"]
 [ext_resource type="PackedScene" uid="uid://c5i3e2xoursyb" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
 [ext_resource type="PackedScene" uid="uid://g7trfgkrt2u7" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
 [ext_resource type="PackedScene" uid="uid://dcmn2siq27e3q" path="res://scenes/Decorations/PowerButton.tscn" id="12_86ymx"]
-[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="13_vasyn"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="13_vasyn"]
+[ext_resource type="Texture2D" uid="uid://7rnmaf064chx" path="res://assets/ui/decorations/ligth.png" id="16_u3mau"]
+[ext_resource type="Texture2D" uid="uid://c4vtsclkjcukp" path="res://assets/ui/decorations/pixil-frame-0 (5).png" id="17_mckn2"]
+[ext_resource type="Texture2D" uid="uid://6cunvsvpokwl" path="res://assets/ui/decorations/lamp_mini.png" id="17_wud22"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_564fn"]
 texture = ExtResource("2_vasyn")
+
+[sub_resource type="Gradient" id="Gradient_mckn2"]
+colors = PackedColorArray(1, 1, 1, 0.6, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_geqlg"]
+gradient = SubResource("Gradient_mckn2")
+fill = 1
+fill_from = Vector2(0.4698276, 0.48706895)
+fill_to = Vector2(0.89224136, 0.41379312)
+
+[sub_resource type="Gradient" id="Gradient_r4y23"]
+offsets = PackedFloat32Array(0, 0.9910714)
+colors = PackedColorArray(0.94509804, 0.7764706, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0abtg"]
+gradient = SubResource("Gradient_r4y23")
+fill = 1
+fill_from = Vector2(0.073275864, 0.08836207)
+fill_to = Vector2(0.6185345, 0.75)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4snny"]
+blend_mode = 3
+
+[sub_resource type="Gradient" id="Gradient_xp747"]
+colors = PackedColorArray(0.57519424, 0.26901656, 0.06939683, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p7kgk"]
+gradient = SubResource("Gradient_xp747")
+fill = 1
+fill_from = Vector2(0.4698276, 0.48706895)
+fill_to = Vector2(0.8814655, 0.29310346)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5ov5"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x1y13"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3doa3"]
+texture = ExtResource("4_0abtg")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rl36i"]
+texture = ExtResource("5_u3mau")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wuwyd"]
+texture = ExtResource("6_wud22")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="Theme" id="Theme_mckn2"]
+Button/colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 28
+Button/fonts/font = ExtResource("4_4snny")
+Button/styles/disabled = SubResource("StyleBoxFlat_d5ov5")
+Button/styles/focus = SubResource("StyleBoxFlat_x1y13")
+Button/styles/hover = SubResource("StyleBoxTexture_3doa3")
+Button/styles/normal = SubResource("StyleBoxTexture_rl36i")
+Button/styles/pressed = SubResource("StyleBoxTexture_wuwyd")
 
 [node name="GameModeScreen" type="Control"]
 layout_mode = 3
@@ -35,69 +143,36 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_564fn")
 
-[node name="LocalPlayModeButton" type="Button" parent="ModeOptions"]
-layout_mode = 0
-offset_left = 808.0
-offset_top = 763.0
-offset_right = 1128.0
-offset_bottom = 851.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("3_0rj7k")
-theme_override_font_sizes/font_size = 30
-text = "Local"
+[node name="RightPointLight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(1008.8071, 735.01685)
+rotation = -1.5907722
+scale = Vector2(5.568162, 20.652506)
+skew = 0.040813804
+color = Color(1, 1, 0.57254905, 1)
+energy = 1.93
+texture = SubResource("GradientTexture2D_geqlg")
 
-[node name="OnlineModeButton" type="Button" parent="ModeOptions"]
-layout_mode = 0
-offset_left = 1312.0
-offset_top = 763.0
-offset_right = 1632.0
-offset_bottom = 851.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("3_0rj7k")
-theme_override_font_sizes/font_size = 30
-text = "Online"
-
-[node name="AIModeButton" type="Button" parent="ModeOptions"]
-layout_mode = 0
-offset_left = 288.0
-offset_top = 763.0
-offset_right = 608.0
-offset_bottom = 851.0
-size_flags_vertical = 10
-theme = ExtResource("3_0rj7k")
-theme_override_fonts/font = ExtResource("4_4snny")
-theme_override_font_sizes/font_size = 30
-text = "CPU"
-
-[node name="BackButton" type="Button" parent="ModeOptions"]
-layout_mode = 0
-offset_left = 123.0
-offset_top = 117.0
-offset_right = 218.80508
-offset_bottom = 212.0
-theme = ExtResource("5_0abtg")
-
-[node name="Icon" type="Sprite2D" parent="ModeOptions/BackButton"]
-position = Vector2(46.000004, 49.000004)
-scale = Vector2(3.3125005, 3.3125005)
-texture = ExtResource("6_u3mau")
+[node name="background" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(961.00006, 541.5)
+scale = Vector2(1.6855469, 1.5472027)
+texture = ExtResource("3_mckn2")
 
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="AIPlayModeSprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(459.99997, 498.99994)
+position = Vector2(460.25, 499.08337)
 scale = Vector2(3.1666667, 3.166667)
 texture = ExtResource("7_wud22")
 
 [node name="OnlinePlayModeSprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(1472.0001, 499)
+position = Vector2(1525.1561, 499.4828)
 scale = Vector2(3.1543071, 3.1543071)
 texture = ExtResource("8_mckn2")
 
 [node name="LocalPlayModeSprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(976, 506.99994)
+position = Vector2(1002.99994, 507.99997)
 scale = Vector2(3.072034, 3.072034)
 texture = ExtResource("9_p7kgk")
 
@@ -119,7 +194,7 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
-[node name="Node2D" parent="." instance=ExtResource("12_86ymx")]
+[node name="BlinkLight" parent="." instance=ExtResource("12_86ymx")]
 position = Vector2(1782, 1039)
 
 [node name="AI_Tournament" type="Button" parent="."]
@@ -133,8 +208,116 @@ theme = ExtResource("13_vasyn")
 theme_override_font_sizes/font_size = 30
 text = "AI TOURNAMENT"
 
-[connection signal="pressed" from="ModeOptions/LocalPlayModeButton" to="." method="_on_local_play_mode_button_pressed"]
-[connection signal="pressed" from="ModeOptions/OnlineModeButton" to="." method="_on_online_mode_pressed"]
-[connection signal="pressed" from="ModeOptions/AIModeButton" to="." method="_on_ai_mode_button_pressed"]
-[connection signal="pressed" from="ModeOptions/BackButton" to="." method="_on_back_button_pressed"]
+[node name="ShadeBack" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(98, 98)
+color = Color(0, 0, 0, 0.6627451)
+polygon = PackedVector2Array(802, 584, 791, 526, 813, 524, 813, 459, 978, 459, 980, 525, 1000, 525, 993, 581, 1027, 664, 776, 665)
+
+[node name="ShadeTop" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(0, 24.000002)
+scale = Vector2(1, 0.9375)
+color = Color(0, 0, 0, 0.6627451)
+polygon = PackedVector2Array(929, 400, 1050, 400, 1050, 396, 1047, 396, 1047, 393, 1044, 393, 1044, 390, 1041, 390, 1041, 387, 1035, 387, 1035, 384, 944, 384, 943, 387, 943, 389, 937, 389, 937, 392, 934, 392, 934, 396, 929, 396)
+
+[node name="BigLamp" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(1007, 743)
+rotation = 0.7858282
+scale = Vector2(14.296241, 13.935458)
+energy = 1.34
+shadow_color = Color(0, 0, 0, 0.7764706)
+shadow_filter = 1
+texture = SubResource("GradientTexture2D_0abtg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+visibility_layer = 2
+material = SubResource("CanvasItemMaterial_4snny")
+layout_mode = 0
+offset_left = 98.0
+offset_top = 98.0
+offset_right = 1824.0
+offset_bottom = 984.0
+color = Color(0.3272992, 0.327299, 0.32729903, 1)
+
+[node name="LampSprite" type="Sprite2D" parent="."]
+visible = false
+light_mask = 2
+position = Vector2(997, 156)
+scale = Vector2(1.2157894, 1.2157894)
+texture = ExtResource("17_wud22")
+
+[node name="Lamp" type="Sprite2D" parent="."]
+visible = false
+light_mask = 2
+position = Vector2(997, 156.00002)
+scale = Vector2(1.305264, 1.2039474)
+texture = ExtResource("17_mckn2")
+
+[node name="LightSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(997.00006, 156.00002)
+scale = Vector2(1.2039474, 1.2039474)
+texture = ExtResource("16_u3mau")
+
+[node name="SmallLamp" type="PointLight2D" parent="."]
+visible = false
+light_mask = 0
+visibility_layer = 0
+position = Vector2(999.00006, 173.99995)
+rotation = 0.85064346
+scale = Vector2(1.0656161, 1.1291193)
+energy = 16.6
+texture = SubResource("GradientTexture2D_p7kgk")
+
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="BackButton" type="Button" parent="Buttons"]
+offset_left = 123.0
+offset_top = 117.0
+offset_right = 187.0
+offset_bottom = 181.0
+theme = ExtResource("5_0abtg")
+
+[node name="Icon" type="Sprite2D" parent="Buttons/BackButton"]
+position = Vector2(32, 32)
+scale = Vector2(2.8749995, 2.8749995)
+texture = ExtResource("6_u3mau")
+
+[node name="AIModeButton" type="Button" parent="Buttons"]
+offset_left = 317.0
+offset_top = 758.0
+offset_right = 567.0
+offset_bottom = 822.0
+size_flags_vertical = 10
+theme = SubResource("Theme_mckn2")
+theme_override_fonts/font = ExtResource("4_4snny")
+text = "CPU"
+
+[node name="OnlineModeButton" type="Button" parent="Buttons"]
+offset_left = 1403.906
+offset_top = 761.39935
+offset_right = 1653.906
+offset_bottom = 825.39935
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_mckn2")
+text = "Online"
+
+[node name="LocalPlayModeButton" type="Button" parent="Buttons"]
+offset_left = 874.0
+offset_top = 762.0
+offset_right = 1124.0
+offset_bottom = 826.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_mckn2")
+text = "Local"
+
 [connection signal="pressed" from="AI_Tournament" to="." method="_on_ai_tournament_pressed"]
+[connection signal="pressed" from="Buttons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Buttons/AIModeButton" to="." method="_on_ai_mode_button_pressed"]
+[connection signal="pressed" from="Buttons/OnlineModeButton" to="." method="_on_online_mode_pressed"]
+[connection signal="pressed" from="Buttons/LocalPlayModeButton" to="." method="_on_local_play_mode_button_pressed"]
