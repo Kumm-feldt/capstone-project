@@ -12,14 +12,14 @@ config_version=5
 
 config/name="New Game Project"
 run/main_scene="uid://c50lapj5kugt4"
-config/features=PackedStringArray("4.5", "C#", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameState="*res://autoload/GameState.gd"
-GameManager="*res://autoload/GameManager.gd"
 SoftserveClient="*res://autoload/SoftserveClient.tscn"
+GameManager="*res://autoload/GameManager.gd"
 
 [display]
 
