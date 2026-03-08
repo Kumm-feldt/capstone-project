@@ -2,9 +2,9 @@ extends Control
 
 @onready var dim_overlay = $DimOverlay
 @onready var ai_mode_popup = $AIOptionPopup   # or use preload if it's a separate scene
-@onready var ai_mode_button = $ModeOptions/AIModeButton
+@onready var ai_mode_button = $Buttons/AIModeButton
 @onready var online_mode_popup = $OnlineOptionPopup
-@onready var back_button = $ModeOptions/BackButton
+@onready var back_button = $Buttons/BackButton
 
 
 # Called when the node enters the scene tree for the first time.

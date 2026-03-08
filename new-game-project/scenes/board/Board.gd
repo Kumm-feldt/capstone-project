@@ -186,7 +186,7 @@ func clear_all_sprites():
 func get_pin_screen_position(row: int, col: int) -> Vector2:
 	"""Convert PINS[row][col] to screen pixel position"""
 	var x = FIRST_PIN_X + col * PIN_SPACING_X
-	var y = FIRST_PIN_Y + row * PIN_SPACING_Y
+	var y = FIRST_PIN_Y + row * (PIN_SPACING_Y)
 	
 	# Account for board sprite being centered
 	var board_top_left = board_sprite.position - Vector2(BOARD_WIDTH / 2, BOARD_HEIGHT / 2)
@@ -286,12 +286,18 @@ func show_move_hints(from_row: int, from_col: int, player: String):
 	for to_row in range(7):
 		for to_col in range(7):
 			if GameState.is_valid_move(from_row, from_col, to_row, to_col, player):
-				var hint = ColorRect.new()
-				hint.size = Vector2(16, 16)
-				hint.position = get_pin_screen_position(to_row, to_col) - Vector2(8, 8)
+				var hint = Polygon2D.new()
+
+				# Build a circle polygon from 16 points
+				var points = PackedVector2Array()
+				for i in range(16):
+					var angle = (PI * 2 / 16) * i
+					points.append(Vector2(cos(angle), sin(angle)) * 8)
+
+				hint.polygon = points
 				hint.color = Color(player_color_o if player == "o" else player_color_x, 0.6)
+				hint.position = get_pin_screen_position(to_row, to_col)
 				hint.z_index = 2
-				hint.mouse_filter = Control.MOUSE_FILTER_IGNORE  # ← add this line
 				add_child(hint)
 				move_hint_sprites.append(hint)
 
