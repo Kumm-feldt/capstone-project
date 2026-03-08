@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://c50lapj5kugt4"]
+[gd_scene load_steps=8 format=3 uid="uid://c50lapj5kugt4"]
 
 [ext_resource type="Script" uid="uid://brhj0e6oejmn8" path="res://scenes/MainMenu/MainMenu.gd" id="1_l72w3"]
-[ext_resource type="Texture2D" uid="uid://n1wx4u13avjp" path="res://Images/game screen LAYOUTS/mainMenuLAYOUT.png" id="1_ow34m"]
-[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/Main_Button_1.tres" id="2_l72w3"]
-[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="3_826wr"]
+[ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="2_6p86p"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="2_l72w3"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="3_826wr"]
 [ext_resource type="Texture2D" uid="uid://clckufjuno6qa" path="res://buttons/exit_icon.png" id="4_ucygd"]
+[ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="6_r8q81"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mipys"]
-texture = ExtResource("1_ow34m")
+texture = ExtResource("2_6p86p")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -23,61 +24,74 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_mipys")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 151.0
+offset_top = -396.0
+offset_right = 451.0
+offset_bottom = -154.0
+grow_vertical = 0
+theme_override_constants/separation = 24
+
+[node name="BeginButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 64)
+layout_mode = 2
+theme = ExtResource("2_l72w3")
+text = "Start Game"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme = ExtResource("2_l72w3")
+text = "Settings
+"
+
+[node name="AboutButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme = ExtResource("2_l72w3")
+text = "Instructions
+"
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1741.0
+offset_top = 121.0
+offset_right = 1805.0
+offset_bottom = 185.0
+theme = ExtResource("3_826wr")
+icon_alignment = 1
+expand_icon = true
+
+[node name="iconExit" type="Sprite2D" parent="ExitButton"]
+position = Vector2(29.99997, 34)
+scale = Vector2(2.874995, 2.624999)
+texture = ExtResource("4_ucygd")
+
+[node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -231.0
-offset_top = 28.0
-offset_right = 221.0
-offset_bottom = 469.0
+offset_left = -808.0
+offset_top = -326.0
+offset_right = -483.0
+offset_bottom = -244.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 24
-
-[node name="BeginButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 130)
-layout_mode = 2
-theme = ExtResource("2_l72w3")
-theme_override_font_sizes/font_size = 35
-text = "Start Game"
-
-[node name="SettingsButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 130)
-layout_mode = 2
-theme = ExtResource("2_l72w3")
-theme_override_font_sizes/font_size = 35
-text = "Settings
-"
-
-[node name="AboutButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 130)
-layout_mode = 2
-theme = ExtResource("2_l72w3")
-theme_override_font_sizes/font_size = 35
-text = "Instructions
-"
-
-[node name="ExitButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1710.0
-offset_top = 41.0
-offset_right = 1866.0
-offset_bottom = 196.0
-theme = ExtResource("3_826wr")
-icon_alignment = 1
-expand_icon = true
-
-[node name="iconExit" type="Sprite2D" parent="ExitButton"]
-position = Vector2(67.99994, 77)
-scale = Vector2(5.3124924, 5.3124924)
-texture = ExtResource("4_ucygd")
+theme = ExtResource("6_r8q81")
+text = "SLITHER"
 
 [connection signal="pressed" from="VBoxContainer/BeginButton" to="." method="_on_start_pressed"]

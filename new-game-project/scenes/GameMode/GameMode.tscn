@@ -1,21 +1,94 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmt1oyebdsjmh"]
+[gd_scene load_steps=23 format=3 uid="uid://bmt1oyebdsjmh"]
 
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_86ymx"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_vasyn"]
-[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="3_0rj7k"]
+[ext_resource type="Texture2D" uid="uid://b7ej4rqlb3xk7" path="res://buttons/hover_green.png" id="4_0abtg"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="4_4snny"]
-[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/Main_Button_1.tres" id="5_0abtg"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="5_0abtg"]
+[ext_resource type="Texture2D" uid="uid://c2y1hdbgppi5" path="res://buttons/Button2_07.png" id="5_u3mau"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="6_u3mau"]
+[ext_resource type="Texture2D" uid="uid://dgj2oqyuqx8ub" path="res://buttons/pressed_green.png" id="6_wud22"]
 [ext_resource type="Texture2D" uid="uid://devk5oekcoxi3" path="res://assets/ui/decorations/vsAI.png" id="7_wud22"]
 [ext_resource type="Texture2D" uid="uid://bubetprl8jw1r" path="res://assets/ui/decorations/onlinePlayButton.png" id="8_mckn2"]
 [ext_resource type="Texture2D" uid="uid://u45sm7lyofd1" path="res://assets/ui/decorations/localPlayButton.png" id="9_p7kgk"]
 [ext_resource type="PackedScene" uid="uid://c5i3e2xoursyb" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
 [ext_resource type="PackedScene" uid="uid://g7trfgkrt2u7" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
 [ext_resource type="PackedScene" uid="uid://dcmn2siq27e3q" path="res://scenes/Decorations/PowerButton.tscn" id="12_86ymx"]
-[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="13_vasyn"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="13_vasyn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_564fn"]
 texture = ExtResource("2_vasyn")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5ov5"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x1y13"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3doa3"]
+texture = ExtResource("4_0abtg")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rl36i"]
+texture = ExtResource("5_u3mau")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wuwyd"]
+texture = ExtResource("6_wud22")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="Theme" id="Theme_mckn2"]
+Button/colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 28
+Button/fonts/font = ExtResource("4_4snny")
+Button/styles/disabled = SubResource("StyleBoxFlat_d5ov5")
+Button/styles/focus = SubResource("StyleBoxFlat_x1y13")
+Button/styles/hover = SubResource("StyleBoxTexture_3doa3")
+Button/styles/normal = SubResource("StyleBoxTexture_rl36i")
+Button/styles/pressed = SubResource("StyleBoxTexture_wuwyd")
 
 [node name="GameModeScreen" type="Control"]
 layout_mode = 3
@@ -37,67 +110,74 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_564fn")
 
 [node name="LocalPlayModeButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
-offset_left = 808.0
-offset_top = 763.0
-offset_right = 1128.0
-offset_bottom = 851.0
+offset_left = 857.0
+offset_top = 764.0
+offset_right = 1107.0
+offset_bottom = 828.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("3_0rj7k")
-theme_override_font_sizes/font_size = 30
+theme = SubResource("Theme_mckn2")
 text = "Local"
 
 [node name="OnlineModeButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
-offset_left = 1312.0
-offset_top = 763.0
-offset_right = 1632.0
-offset_bottom = 851.0
+offset_left = 1351.0
+offset_top = 761.0
+offset_right = 1601.0
+offset_bottom = 825.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("3_0rj7k")
-theme_override_font_sizes/font_size = 30
+theme = SubResource("Theme_mckn2")
 text = "Online"
 
 [node name="AIModeButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
-offset_left = 288.0
-offset_top = 763.0
-offset_right = 608.0
-offset_bottom = 851.0
+offset_left = 317.0
+offset_top = 758.0
+offset_right = 567.0
+offset_bottom = 822.0
 size_flags_vertical = 10
-theme = ExtResource("3_0rj7k")
+theme = SubResource("Theme_mckn2")
 theme_override_fonts/font = ExtResource("4_4snny")
-theme_override_font_sizes/font_size = 30
 text = "CPU"
 
 [node name="BackButton" type="Button" parent="ModeOptions"]
 layout_mode = 0
 offset_left = 123.0
 offset_top = 117.0
-offset_right = 218.80508
-offset_bottom = 212.0
+offset_right = 187.0
+offset_bottom = 181.0
 theme = ExtResource("5_0abtg")
 
 [node name="Icon" type="Sprite2D" parent="ModeOptions/BackButton"]
-position = Vector2(46.000004, 49.000004)
-scale = Vector2(3.3125005, 3.3125005)
+position = Vector2(32, 32)
+scale = Vector2(2.8749995, 2.8749995)
 texture = ExtResource("6_u3mau")
+
+[node name="MarginContainer" type="MarginContainer" parent="ModeOptions"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="AIPlayModeSprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(459.99997, 498.99994)
+position = Vector2(460.25, 499.08337)
 scale = Vector2(3.1666667, 3.166667)
 texture = ExtResource("7_wud22")
 
 [node name="OnlinePlayModeSprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(1472.0001, 499)
+position = Vector2(1472.2501, 499.08344)
 scale = Vector2(3.1543071, 3.1543071)
 texture = ExtResource("8_mckn2")
 
 [node name="LocalPlayModeSprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(976, 506.99994)
+position = Vector2(976.25, 507.08337)
 scale = Vector2(3.072034, 3.072034)
 texture = ExtResource("9_p7kgk")
 

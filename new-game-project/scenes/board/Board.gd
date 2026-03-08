@@ -230,6 +230,7 @@ func _unhandled_input(event):
 			
 			
 func handle_first_click(clicked_pin: Vector2i):
+	# Ensure only the current_player try to select a pin in Multiplayer Mode
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		if !(multiplayer.is_server() and GameState.current_player == 'x') and !(not multiplayer.is_server() and GameState.current_player == 'o'):
 			return

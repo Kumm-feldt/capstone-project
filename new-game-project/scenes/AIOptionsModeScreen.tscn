@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5i3e2xoursyb"]
+[gd_scene load_steps=9 format=3 uid="uid://c5i3e2xoursyb"]
 
 [ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="1_1mhvi"]
 [ext_resource type="Script" uid="uid://cc22sosg7g1hw" path="res://scenes/AIOptions.gd" id="1_ve6eu"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_bwv1h"]
-[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/OptionsButton.tres" id="3_jxe22"]
-[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/PauseButton.tres" id="4_80s8k"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_jxe22"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_xbat6"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="4_80s8k"]
 [ext_resource type="Texture2D" uid="uid://tslrtc7kyasm" path="res://buttons/close_icon.png" id="5_ve6eu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ve6eu"]
@@ -27,10 +28,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -264.0
+offset_left = -225.0
 offset_top = -254.375
-offset_right = 264.0
-offset_bottom = 254.375
+offset_right = 225.0
+offset_bottom = 163.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ve6eu")
@@ -40,11 +41,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 0.375
+offset_right = 5.0
+offset_bottom = -101.375
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 70
+theme_override_constants/margin_left = 75
 theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 70
+theme_override_constants/margin_right = 75
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
@@ -53,8 +58,8 @@ theme_override_constants/separation = 50
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("3_xbat6")
 theme_override_fonts/font = ExtResource("2_bwv1h")
-theme_override_font_sizes/font_size = 45
 text = "AI Mode"
 
 [node name="EasyButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
@@ -62,22 +67,20 @@ custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("3_jxe22")
-theme_override_font_sizes/font_size = 30
 text = "Easy"
 
 [node name="HardButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme = ExtResource("3_jxe22")
-theme_override_font_sizes/font_size = 30
 text = "Hard"
 
 [node name="Exit Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1133.0
-offset_top = 331.0
-offset_right = 1177.0
-offset_bottom = 375.0
+offset_left = 1103.0
+offset_top = 318.0
+offset_right = 1153.0
+offset_bottom = 368.0
 theme = ExtResource("4_80s8k")
 icon = ExtResource("5_ve6eu")
 icon_alignment = 1

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="1_4n145"]
 [ext_resource type="Script" uid="uid://ciuerl3kso2fa" path="res://scenes/join_game_screen.gd" id="1_uei83"]
-[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_o7d2b"]
+[ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_o7d2b"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqpcf"]
 texture = ExtResource("1_4n145")
@@ -34,9 +34,7 @@ offset_left = 139.0
 offset_top = 129.0
 offset_right = 392.0
 offset_bottom = 190.0
-theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
-theme_override_fonts/font = ExtResource("3_o7d2b")
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("3_o7d2b")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
