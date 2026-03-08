@@ -1,14 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccniks3ikqf7r"]
+[gd_scene load_steps=8 format=3 uid="uid://ccniks3ikqf7r"]
 
 [ext_resource type="Script" uid="uid://ddmahyhgpbpqs" path="res://scenes/Banner.gd" id="1_5en4g"]
+[ext_resource type="Texture2D" uid="uid://ri2g0i0a8m2j" path="res://Images/aseprite Files/turnTrackerBar.png" id="2_75u2n"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_ro3t7"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="3_75u2n"]
 [ext_resource type="Texture2D" uid="uid://bsi73nynme4v2" path="res://buttons/pause.png" id="4_3wlde"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3wlde"]
+texture = ExtResource("2_75u2n")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ua6yw"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_5en4g")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -514.0
+offset_top = -179.0
+offset_right = 438.23877
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_3wlde")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = 587.0
@@ -20,13 +40,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ua6yw")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="Control" type="Control" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="PauseButton" type="Button" parent="PanelContainer/MarginContainer/Control"]
+[node name="PauseButton" type="Button" parent="PanelContainer/Control"]
 layout_mode = 0
 offset_left = -116.413055
 offset_top = -462.74146
@@ -36,24 +53,24 @@ theme = ExtResource("3_75u2n")
 icon = ExtResource("4_3wlde")
 icon_alignment = 1
 
-[node name="InvalidaLabel" type="Label" parent="PanelContainer/MarginContainer/Control"]
+[node name="InvalidaLabel" type="Label" parent="PanelContainer/Control"]
 layout_mode = 0
-offset_left = 77.88786
-offset_top = 6.1641316
-offset_right = 247.48293
-offset_bottom = 28.164135
+offset_left = 94.21921
+offset_top = 9.246216
+offset_right = 210.5293
+offset_bottom = 31.24622
 scale = Vector2(0.36543104, 0.4958505)
 theme_override_colors/font_color = Color(0.5411765, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ro3t7")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TurnLabel" type="Label" parent="PanelContainer/MarginContainer/Control"]
+[node name="TurnLabel" type="Label" parent="PanelContainer/Control"]
 layout_mode = 0
-offset_left = -3.9781442
-offset_top = 5.650456
-offset_right = 165.61691
-offset_bottom = 27.65046
+offset_left = 1.2562408
+offset_top = 9.759888
+offset_right = 110.69087
+offset_bottom = 31.759892
 scale = Vector2(0.36543104, 0.4958505)
 theme_override_colors/font_color = Color(0.5411765, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ro3t7")
