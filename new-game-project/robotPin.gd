@@ -13,12 +13,7 @@ func set_pin(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	
 	self.play("idle");
 	
-func _input(event: InputEvent) -> void:
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		pin_move_diagonal_down(false);
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		pin_move_up();
-	
+#THIS METHOD NEEDS FINISHED
 func play_appropriate_animation(currentPosition: Vector2, newPosition: Vector2) -> void:
 	# Is newPosition orthogonal to currentPosition?
 	if (currentPosition.dot(newPosition) == 0):
@@ -30,6 +25,7 @@ func play_appropriate_animation(currentPosition: Vector2, newPosition: Vector2) 
 			
 	return
 	
+#THIS ONE TOO
 func pin_diagonal_move(direction: Vector2, targetDisc: Sprite2D) -> void:
 	#if (direction == Vector2(1, 1)):
 	#	print();
@@ -49,6 +45,220 @@ func pin_diagonal_move(direction: Vector2, targetDisc: Sprite2D) -> void:
 	#Step three: make the disc change its color
 	
 	return
+	
+#DEFINITELY THIS ONE TOO
+func pin_explode() -> void:
+	
+	return
+	
+func pin_capture_up(capTarget: AnimatedSprite2D) -> void:
+	
+	play("upPrepJump");
+	await self.animation_finished;
+	play("upJump");
+	
+	self.z_index = 50
+	
+	var newPos = Vector2(global_position)
+	
+	var tween1 = create_tween()
+	newPos += Vector2(0, -10)
+	tween1.tween_property(self, "global_position", newPos, 0.2)
+	await tween1.finished
+	var tween2 = create_tween()
+	newPos += Vector2(0, -30)
+	tween2.tween_property(self, "global_position", newPos, 0.1)
+	await tween2.finished
+	var tween3 = create_tween()
+	newPos += Vector2(0, -20)
+	tween3.tween_property(self, "global_position", newPos, 0.2)
+	await tween3.finished
+	
+	play("bounceUp")
+	await animation_finished
+	capTarget.explode()
+	
+	play("upJump")
+	
+	var tween4 = create_tween()
+	newPos += Vector2(0, -15)
+	tween4.tween_property(self, "global_position", newPos, 0.2)
+	await tween4.finished
+	var tween5 = create_tween()
+	newPos += Vector2(0, -10)
+	tween5.tween_property(self, "global_position", newPos, 0.1)
+	await tween5.finished
+	var tween6 = create_tween()
+	newPos += Vector2(0, -15)
+	tween6.tween_property(self, "global_position", newPos, 0.2)
+	await tween6.finished
+	
+	self.z_index = 0
+	
+	play("upEndJump")
+	
+	await self.animation_finished;
+	
+	play("idle")
+	
+	return
+	
+func pin_capture_down(capTarget: AnimatedSprite2D) -> void:
+	play("downPrepJump");
+	await self.animation_finished;
+	play("downJump");
+	
+	self.z_index = 50
+	
+	var newPos = Vector2(global_position)
+	
+	var tween1 = create_tween()
+	newPos += Vector2(0, 10)
+	tween1.tween_property(self, "global_position", newPos, 0.2)
+	await tween1.finished
+	var tween2 = create_tween()
+	newPos += Vector2(0, 30)
+	tween2.tween_property(self, "global_position", newPos, 0.1)
+	await tween2.finished
+	var tween3 = create_tween()
+	newPos += Vector2(0, 20)
+	tween3.tween_property(self, "global_position", newPos, 0.2)
+	await tween3.finished
+	
+	play("bounceDown")
+	await animation_finished
+	capTarget.explode()
+	
+	play("downJump")
+	
+	var tween4 = create_tween()
+	newPos += Vector2(0, 15)
+	tween4.tween_property(self, "global_position", newPos, 0.2)
+	await tween4.finished
+	var tween5 = create_tween()
+	newPos += Vector2(0, 10)
+	tween5.tween_property(self, "global_position", newPos, 0.1)
+	await tween5.finished
+	var tween6 = create_tween()
+	newPos += Vector2(0, 15)
+	tween6.tween_property(self, "global_position", newPos, 0.2)
+	await tween6.finished
+	
+	self.z_index = 0
+	
+	play("downEndJump")
+	
+	await self.animation_finished;
+	
+	play("idle")
+	return
+	
+func pin_capture_left(capTarget: AnimatedSprite2D) -> void:
+	
+	play("diagonalDownPrepJump");
+	await self.animation_finished;
+	play("diagonalDownJump");
+	
+	self.z_index = 50
+	
+	var newPos = Vector2(global_position)
+	
+	var tween1 = create_tween()
+	newPos += Vector2(-20, -25)
+	tween1.tween_property(self, "global_position", newPos, 0.2)
+	await tween1.finished
+	var tween2 = create_tween()
+	newPos += Vector2(-10, 5)
+	tween2.tween_property(self, "global_position", newPos, 0.1)
+	await tween2.finished
+	var tween3 = create_tween()
+	newPos += Vector2(-20, 10)
+	tween3.tween_property(self, "global_position", newPos, 0.2)
+	await tween3.finished
+	
+	play("bounceLeft")
+	await animation_finished
+	capTarget.explode()
+	
+	play("diagonalDownJump")
+	
+	var tween4 = create_tween()
+	newPos += Vector2(-20, -20)
+	tween4.tween_property(self, "global_position", newPos, 0.2)
+	await tween4.finished
+	var tween5 = create_tween()
+	newPos += Vector2(-10, 10)
+	tween5.tween_property(self, "global_position", newPos, 0.1)
+	await tween5.finished
+	var tween6 = create_tween()
+	newPos += Vector2(-20, 20)
+	tween6.tween_property(self, "global_position", newPos, 0.2)
+	await tween6.finished
+	
+	self.z_index = 0
+	
+	play("diagonalDownEndJump")
+	
+	await self.animation_finished;
+	
+	play("idle")
+	return
+	
+func pin_capture_right(capTarget: AnimatedSprite2D) -> void:
+	self.flip_h = true;
+	
+	play("diagonalDownPrepJump");
+	await self.animation_finished;
+	play("diagonalDownJump");
+	
+	self.z_index = 50
+	
+	var newPos = Vector2(global_position)
+	
+	var tween1 = create_tween()
+	newPos += Vector2(-20, -25)
+	tween1.tween_property(self, "global_position", newPos, 0.2)
+	await tween1.finished
+	var tween2 = create_tween()
+	newPos += Vector2(-10, 5)
+	tween2.tween_property(self, "global_position", newPos, 0.1)
+	await tween2.finished
+	var tween3 = create_tween()
+	newPos += Vector2(-20, 10)
+	tween3.tween_property(self, "global_position", newPos, 0.2)
+	await tween3.finished
+	
+	play("bounceLeft")
+	await animation_finished
+	capTarget.explode()
+	
+	play("diagonalDownJump")
+	
+	var tween4 = create_tween()
+	newPos += Vector2(-20, -20)
+	tween4.tween_property(self, "global_position", newPos, 0.2)
+	await tween4.finished
+	var tween5 = create_tween()
+	newPos += Vector2(-10, 10)
+	tween5.tween_property(self, "global_position", newPos, 0.1)
+	await tween5.finished
+	var tween6 = create_tween()
+	newPos += Vector2(-20, 20)
+	tween6.tween_property(self, "global_position", newPos, 0.2)
+	await tween6.finished
+	
+	self.z_index = 0
+	
+	play("diagonalDownEndJump")
+	
+	await self.animation_finished;
+	
+	play("idle")
+	
+	self.flip_h = false;
+	
+	return
+	
 	
 func pin_move_up() -> void:
 	play("upPrepJump");
