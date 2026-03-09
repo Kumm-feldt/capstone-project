@@ -31,11 +31,6 @@ const PIN_SPACING_Y = OCTAGON_SPACING_Y
 # ============================================
 # RESOURCES
 # ============================================
-var pin_o_texture = preload("res://sprites/pins/pin_o.png")
-var pin_x_texture = preload("res://sprites/pins/pin_x.png")
-var coin_o_texture = preload("res://sprites/coins/coin_o.png")
-var coin_x_texture = preload("res://sprites/coins/coin_x.png")
-
 var pin_o_scene = preload("res://scenes/pin/PinO.tscn")
 var pin_x_scene = preload("res://scenes/pin/PinX.tscn")
 var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
@@ -51,7 +46,6 @@ var pin_sprites = {}   # "row_col" -> Sprite2D
 var coin_sprites = {}  # "row_col" -> Sprite2D
 
 var selected_pin: Vector2i = Vector2i(-1, -1)
-var highlight_rect: ColorRect = null
 var move_hint_sprites = []
 # ============================================
 # NODE REFERENCES
