@@ -1,12 +1,24 @@
-[gd_scene load_steps=68 format=3 uid="uid://xc02ps0u477t"]
+[gd_scene load_steps=71 format=3 uid="uid://xc02ps0u477t"]
 
 [ext_resource type="Texture2D" uid="uid://wkuepgtaefa5" path="res://Images/spritesheets/robotJump-DownDiagonal.png" id="1_mlflm"]
 [ext_resource type="Texture2D" uid="uid://cslpkkqyh2hpc" path="res://Images/spritesheets/robotBaseANIM_idle.png" id="1_vk0jd"]
 [ext_resource type="Texture2D" uid="uid://cdgu15c4aokxc" path="res://Images/spritesheets/robotJump-UpDiagonal.png" id="2_jjy2u"]
 [ext_resource type="Texture2D" uid="uid://c3q6hvwo2jvvf" path="res://Images/spritesheets/robotBaseANIM_pickMe.png" id="2_mlflm"]
-[ext_resource type="Script" uid="uid://lscjbwur52he" path="res://RobotPin.gd" id="3_jjy2u"]
+[ext_resource type="Script" uid="uid://22trc25s62gg" path="res://RobotPin.gd" id="3_jjy2u"]
 [ext_resource type="Texture2D" uid="uid://dcq7ay52clg4a" path="res://Images/spritesheets/robotJump-DownVertical.png" id="3_v37pg"]
 [ext_resource type="Texture2D" uid="uid://br122gcolt0lp" path="res://Images/spritesheets/robotJump-UpVertical.png" id="6_vual6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_577ep"]
+atlas = ExtResource("3_v37pg")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hph54"]
+atlas = ExtResource("1_mlflm")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfpfp"]
+atlas = ExtResource("6_vual6")
+region = Rect2(250, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvsnl"]
 atlas = ExtResource("1_mlflm")
@@ -242,6 +254,30 @@ region = Rect2(350, 0, 50, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v37pg"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_577ep")
+}],
+"loop": false,
+"name": &"bounceDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hph54")
+}],
+"loop": false,
+"name": &"bounceLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfpfp")
+}],
+"loop": false,
+"name": &"bounceUp",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qvsnl")
@@ -490,8 +526,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qic5"]
 
 [node name="RobotPin" type="AnimatedSprite2D"]
+position = Vector2(180, 130)
 sprite_frames = SubResource("SpriteFrames_v37pg")
-animation = &"upEndJump"
+animation = &"bounceUp"
 script = ExtResource("3_jjy2u")
 
 [node name="Area2D" type="Area2D" parent="."]
