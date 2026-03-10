@@ -3,7 +3,7 @@ extends AnimatedSprite2D
 var player: String
 var playerColor: Color
 
-
+# Call this after creating the pin to set its appropriate status.
 func set_pin(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	"""Set up the pin according to its player."""
 	player = ownerPlayer;
@@ -12,46 +12,54 @@ func set_pin(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	modulate = givenPlayerColor;
 	
 	self.play("idle");
+
+
+# If the pin is just moving, pass it the current pin position and the desired position.
+func play_movement_animation(currentPosition: Vector2, newPosition: Vector2) -> void:
+	#dir is the direction to the new position
+	var dir = newPosition - currentPosition;
 	
-#THIS METHOD NEEDS FINISHED
-func play_appropriate_animation(currentPosition: Vector2, newPosition: Vector2) -> void:
-	# Is newPosition orthogonal to currentPosition?
-	if (currentPosition.dot(newPosition) == 0):
-		# Figure out if jumping or not
-		print();
-	else:
-	 	# Call diagonal_move in the right direction, with the right flip animation
-		print();
-			
+	if (dir == Vector2(0, -1)):			# Move Up
+		_pin_move_up()
+	else: if (dir == Vector2(1, -1)):	# Move Diagonal Up & Right
+		_pin_move_diagonal_up(false)
+	else: if (dir == Vector2(1, 0)):	# Move Right
+		_pin_move_horizontal(false)
+	else: if (dir == Vector2(1, 1)):	# Move Diagonal Down & Right
+		_pin_move_diagonal_down(false)
+	else: if (dir == Vector2(0, 1)):	# Move Down
+		_pin_move_down()
+	else: if (dir == Vector2(-1, 1)):	# Move Diagonal Down & Left
+		_pin_move_diagonal_down(true)
+	else: if (dir == Vector2(-1, 0)):	# Move Left
+		_pin_move_horizontal(true)
+	else: if (dir == Vector2(-1, -1)):	# Move Diagonal Up & Left
+		_pin_move_diagonal_up(true)
 	return
+
+# If the pin is capturing, pass the currentPos, newPos, and the pin to be captured.
+# If you don't pass the captured pin, it can't explode at the right time.
+func play_capture_animation(currentPosition: Vector2, newPosition: Vector2, capTarget: AnimatedSprite2D) -> void:
+	var dir = newPosition - currentPosition;
 	
-#THIS ONE TOO
-func pin_diagonal_move(direction: Vector2, targetDisc: Sprite2D) -> void:
-	#if (direction == Vector2(1, 1)):
-	#	print();
-	#else: if (direction == Vector2(1, -1)):
-	#	print();
-	#else: if (direction == Vector2(-1, -1)):
-	#	print();
-	#else: if (direction == Vector2(-1, 1)):
-	#	print();
-	
-	#Step one: start moving in the right direction
-	
-	#Step two: play corresponding pin animation
-	
-		
-	
-	#Step three: make the disc change its color
-	
+	if dir == Vector2(0, -2):
+		await _pin_capture_up(capTarget)
+	else: if dir == Vector2(0, 2):
+		await _pin_capture_down(capTarget)
+	else: if dir == Vector2(-2, 0):
+		await _pin_capture_left(capTarget);
+	else: if dir == Vector2(2, 0):
+		await _pin_capture_right(capTarget);
 	return
-	
-#DEFINITELY THIS ONE TOO
-func pin_explode() -> void:
-	
+
+
+#The following methods should not be accessed by any script outside of this one.
+func explode() -> void:
+	play("explode")
+	await self.animation_finished;
 	return
-	
-func pin_capture_up(capTarget: AnimatedSprite2D) -> void:
+
+func _pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	
 	play("upPrepJump");
 	await self.animation_finished;
@@ -103,7 +111,7 @@ func pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	
 	return
 	
-func pin_capture_down(capTarget: AnimatedSprite2D) -> void:
+func _pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	play("downPrepJump");
 	await self.animation_finished;
 	play("downJump");
@@ -153,7 +161,7 @@ func pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	play("idle")
 	return
 	
-func pin_capture_left(capTarget: AnimatedSprite2D) -> void:
+func _pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	
 	play("diagonalDownPrepJump");
 	await self.animation_finished;
@@ -204,7 +212,7 @@ func pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	play("idle")
 	return
 	
-func pin_capture_right(capTarget: AnimatedSprite2D) -> void:
+func _pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	self.flip_h = true;
 	
 	play("diagonalDownPrepJump");
@@ -258,9 +266,9 @@ func pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	self.flip_h = false;
 	
 	return
-	
-	
-func pin_move_up() -> void:
+
+
+func _pin_move_up() -> void:
 	play("upPrepJump");
 	await self.animation_finished;
 	play("upJump");
@@ -292,7 +300,7 @@ func pin_move_up() -> void:
 	
 	return
 	
-func pin_move_down() -> void:
+func _pin_move_down() -> void:
 	play("downPrepJump");
 	await self.animation_finished;
 	play("downJump");
@@ -324,7 +332,7 @@ func pin_move_down() -> void:
 	
 	return
 	
-func pin_move_horizontal(left: bool) -> void:
+func _pin_move_horizontal(left: bool) -> void:
 	if not left:
 		self.flip_h = true;
 		
@@ -375,7 +383,7 @@ func pin_move_horizontal(left: bool) -> void:
 	play ("idle")
 	return
 	
-func pin_move_diagonal_up(left: bool) -> void:
+func _pin_move_diagonal_up(left: bool) -> void:
 	if not left:
 		self.flip_h = true;
 		
@@ -426,7 +434,7 @@ func pin_move_diagonal_up(left: bool) -> void:
 	play ("idle")
 	return
 	
-func pin_move_diagonal_down(left: bool) -> void:
+func _pin_move_diagonal_down(left: bool) -> void:
 	if not left:
 		self.flip_h = true;
 		
