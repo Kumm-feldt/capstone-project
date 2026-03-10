@@ -2,16 +2,40 @@ extends Node
 
 const SERVER_PORT = 7777
 const SERVER_IP = "127.0.0.1"
+var broadcast_address = "255.255.255.255"
+const LAN_BROADCAST_PORT = 42355
+const HOST = "Team5"
 var players = {}
 var board: Node
+var udp = PacketPeerUDP.new()	
+
+
+
 
 # ============================================
 # SIGNALS
 # ============================================
 signal game_ready
+var peer
+func _process(delta):
+	# Poll for incoming packets
+	udp.poll()
+	if udp.get_available_packet_count() > 0:
+		var packet = udp.get_packet()
+		var sender_ip = udp.get_packet_address()
+		var sender_port = udp.get_packet_port()
+		# send a packet
+		peer.set_dest_address(sender_ip, sender_port)
+		peer.put_packet({"name": "Creeper Match", "host": HOST, "port": SERVER_PORT})
+		
 
 func host_game():
 	print("Starting host!")
+	# enable broadcast
+	udp.set_broadcast_enabled(true)
+	#listen on a port to receive broadcast
+	udp.bind(LAN_BROADCAST_PORT)
+	
 	var server_peer = ENetMultiplayerPeer.new()
 	server_peer.create_server(SERVER_PORT)
 	
@@ -23,7 +47,6 @@ func host_game():
 	multiplayer.peer_disconnected.connect(_del_player)
 	_add_player_to_game(1)  # host is always peer ID 1 in Godot
 	
-
 func join_game():
 	print("Player 2 joining")
 	var client_peer = ENetMultiplayerPeer.new()

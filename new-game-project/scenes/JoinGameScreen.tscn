@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://crsct8cwbjk14"]
+[gd_scene load_steps=6 format=3 uid="uid://crsct8cwbjk14"]
 
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="1_4n145"]
 [ext_resource type="Script" uid="uid://ciuerl3kso2fa" path="res://scenes/join_game_screen.gd" id="1_uei83"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_o7d2b"]
+[ext_resource type="PackedScene" uid="uid://c38v03x5rheu6" path="res://scenes/Networking/Join/JoinRequestRow.tscn" id="4_50x3i"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqpcf"]
 texture = ExtResource("1_4n145")
@@ -48,15 +49,20 @@ offset_bottom = -186.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VScrollBar" type="VScrollBar" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 1
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VScrollBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 40
+
+[node name="JoinRequestRow" parent="VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer" instance=ExtResource("4_50x3i")]
+layout_mode = 2
