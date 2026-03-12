@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eilb8"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 2
-border_color = Color(15.30028, 15.30028, 15.30028, 1)
+border_color = Color(0, 0.35686275, 0.14117648, 1)
 
 [node name="JoinRequestRow" type="Control"]
 custom_minimum_size = Vector2(0, 64)

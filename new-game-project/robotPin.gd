@@ -2,7 +2,7 @@ extends AnimatedSprite2D
 
 var player: String
 var playerColor: Color
-
+signal movement_finished
 # Call this after creating the pin to set its appropriate status.
 func set_pin(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	"""Set up the pin according to its player."""
@@ -13,28 +13,29 @@ func set_pin(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	
 	self.play("idle");
 
-
 # If the pin is just moving, pass it the current pin position and the desired position.
 func play_movement_animation(currentPosition: Vector2, newPosition: Vector2) -> void:
 	#dir is the direction to the new position
 	var dir = newPosition - currentPosition;
-	
 	if (dir == Vector2(0, -1)):			# Move Up
-		_pin_move_up()
+		await _pin_move_up()
 	else: if (dir == Vector2(1, -1)):	# Move Diagonal Up & Right
-		_pin_move_diagonal_up(false)
+		await _pin_move_diagonal_up(false)
 	else: if (dir == Vector2(1, 0)):	# Move Right
-		_pin_move_horizontal(false)
+		await _pin_move_horizontal(false)
 	else: if (dir == Vector2(1, 1)):	# Move Diagonal Down & Right
-		_pin_move_diagonal_down(false)
+		await _pin_move_diagonal_down(false)
 	else: if (dir == Vector2(0, 1)):	# Move Down
-		_pin_move_down()
+		await _pin_move_down()
 	else: if (dir == Vector2(-1, 1)):	# Move Diagonal Down & Left
-		_pin_move_diagonal_down(true)
+		await _pin_move_diagonal_down(true)
 	else: if (dir == Vector2(-1, 0)):	# Move Left
-		_pin_move_horizontal(true)
+		await _pin_move_horizontal(true)
 	else: if (dir == Vector2(-1, -1)):	# Move Diagonal Up & Left
-		_pin_move_diagonal_up(true)
+		await _pin_move_diagonal_up(true)
+
+	movement_finished.emit()
+	print("Emited...")
 	return
 
 # If the pin is capturing, pass the currentPos, newPos, and the pin to be captured.
@@ -50,6 +51,8 @@ func play_capture_animation(currentPosition: Vector2, newPosition: Vector2, capT
 		await _pin_capture_left(capTarget);
 	else: if dir == Vector2(2, 0):
 		await _pin_capture_right(capTarget);
+	movement_finished.emit()
+	print("Emited...")
 	return
 
 
@@ -67,19 +70,19 @@ func _pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	
 	self.z_index = 50
 	
-	var newPos = Vector2(global_position)
+	var newPos = Vector2(position)
 	
 	var tween1 = create_tween()
 	newPos += Vector2(0, -10)
-	tween1.tween_property(self, "global_position", newPos, 0.2)
+	tween1.tween_property(self, "position", newPos, 0.2)
 	await tween1.finished
 	var tween2 = create_tween()
 	newPos += Vector2(0, -30)
-	tween2.tween_property(self, "global_position", newPos, 0.1)
+	tween2.tween_property(self, "position", newPos, 0.1)
 	await tween2.finished
 	var tween3 = create_tween()
 	newPos += Vector2(0, -20)
-	tween3.tween_property(self, "global_position", newPos, 0.2)
+	tween3.tween_property(self, "position", newPos, 0.2)
 	await tween3.finished
 	
 	play("bounceUp")
@@ -90,15 +93,15 @@ func _pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	
 	var tween4 = create_tween()
 	newPos += Vector2(0, -15)
-	tween4.tween_property(self, "global_position", newPos, 0.2)
+	tween4.tween_property(self, "position", newPos, 0.2)
 	await tween4.finished
 	var tween5 = create_tween()
 	newPos += Vector2(0, -10)
-	tween5.tween_property(self, "global_position", newPos, 0.1)
+	tween5.tween_property(self, "position", newPos, 0.1)
 	await tween5.finished
 	var tween6 = create_tween()
 	newPos += Vector2(0, -15)
-	tween6.tween_property(self, "global_position", newPos, 0.2)
+	tween6.tween_property(self, "position", newPos, 0.2)
 	await tween6.finished
 	
 	self.z_index = 0
@@ -118,19 +121,19 @@ func _pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	
 	self.z_index = 50
 	
-	var newPos = Vector2(global_position)
+	var newPos = Vector2(position)
 	
 	var tween1 = create_tween()
 	newPos += Vector2(0, 10)
-	tween1.tween_property(self, "global_position", newPos, 0.2)
+	tween1.tween_property(self, "position", newPos, 0.2)
 	await tween1.finished
 	var tween2 = create_tween()
 	newPos += Vector2(0, 30)
-	tween2.tween_property(self, "global_position", newPos, 0.1)
+	tween2.tween_property(self, "position", newPos, 0.1)
 	await tween2.finished
 	var tween3 = create_tween()
 	newPos += Vector2(0, 20)
-	tween3.tween_property(self, "global_position", newPos, 0.2)
+	tween3.tween_property(self, "position", newPos, 0.2)
 	await tween3.finished
 	
 	play("bounceDown")
@@ -141,15 +144,15 @@ func _pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	
 	var tween4 = create_tween()
 	newPos += Vector2(0, 15)
-	tween4.tween_property(self, "global_position", newPos, 0.2)
+	tween4.tween_property(self, "position", newPos, 0.2)
 	await tween4.finished
 	var tween5 = create_tween()
 	newPos += Vector2(0, 10)
-	tween5.tween_property(self, "global_position", newPos, 0.1)
+	tween5.tween_property(self, "position", newPos, 0.1)
 	await tween5.finished
 	var tween6 = create_tween()
 	newPos += Vector2(0, 15)
-	tween6.tween_property(self, "global_position", newPos, 0.2)
+	tween6.tween_property(self, "position", newPos, 0.2)
 	await tween6.finished
 	
 	self.z_index = 0
@@ -169,19 +172,19 @@ func _pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	
 	self.z_index = 50
 	
-	var newPos = Vector2(global_position)
+	var newPos = Vector2(position)
 	
 	var tween1 = create_tween()
 	newPos += Vector2(-20, -25)
-	tween1.tween_property(self, "global_position", newPos, 0.2)
+	tween1.tween_property(self, "position", newPos, 0.2)
 	await tween1.finished
 	var tween2 = create_tween()
 	newPos += Vector2(-10, 5)
-	tween2.tween_property(self, "global_position", newPos, 0.1)
+	tween2.tween_property(self, "position", newPos, 0.1)
 	await tween2.finished
 	var tween3 = create_tween()
 	newPos += Vector2(-20, 10)
-	tween3.tween_property(self, "global_position", newPos, 0.2)
+	tween3.tween_property(self, "position", newPos, 0.2)
 	await tween3.finished
 	
 	play("bounceLeft")
@@ -192,15 +195,15 @@ func _pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	
 	var tween4 = create_tween()
 	newPos += Vector2(-20, -20)
-	tween4.tween_property(self, "global_position", newPos, 0.2)
+	tween4.tween_property(self, "position", newPos, 0.2)
 	await tween4.finished
 	var tween5 = create_tween()
 	newPos += Vector2(-10, 10)
-	tween5.tween_property(self, "global_position", newPos, 0.1)
+	tween5.tween_property(self, "position", newPos, 0.1)
 	await tween5.finished
 	var tween6 = create_tween()
 	newPos += Vector2(-20, 20)
-	tween6.tween_property(self, "global_position", newPos, 0.2)
+	tween6.tween_property(self, "position", newPos, 0.2)
 	await tween6.finished
 	
 	self.z_index = 0
@@ -221,19 +224,19 @@ func _pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	
 	self.z_index = 50
 	
-	var newPos = Vector2(global_position)
+	var newPos = Vector2(position)
 	
 	var tween1 = create_tween()
-	newPos += Vector2(-20, -25)
-	tween1.tween_property(self, "global_position", newPos, 0.2)
+	newPos += Vector2(20, -25)
+	tween1.tween_property(self, "position", newPos, 0.2)
 	await tween1.finished
 	var tween2 = create_tween()
-	newPos += Vector2(-10, 5)
-	tween2.tween_property(self, "global_position", newPos, 0.1)
+	newPos += Vector2(10, 5)
+	tween2.tween_property(self, "position", newPos, 0.1)
 	await tween2.finished
 	var tween3 = create_tween()
-	newPos += Vector2(-20, 10)
-	tween3.tween_property(self, "global_position", newPos, 0.2)
+	newPos += Vector2(20, 10)
+	tween3.tween_property(self, "position", newPos, 0.2)
 	await tween3.finished
 	
 	play("bounceLeft")
@@ -243,16 +246,16 @@ func _pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	play("diagonalDownJump")
 	
 	var tween4 = create_tween()
-	newPos += Vector2(-20, -20)
-	tween4.tween_property(self, "global_position", newPos, 0.2)
+	newPos += Vector2(20, -20)
+	tween4.tween_property(self, "position", newPos, 0.2)
 	await tween4.finished
 	var tween5 = create_tween()
-	newPos += Vector2(-10, 10)
-	tween5.tween_property(self, "global_position", newPos, 0.1)
+	newPos += Vector2(10, 10)
+	tween5.tween_property(self, "position", newPos, 0.1)
 	await tween5.finished
 	var tween6 = create_tween()
-	newPos += Vector2(-20, 20)
-	tween6.tween_property(self, "global_position", newPos, 0.2)
+	newPos += Vector2(20, 20)
+	tween6.tween_property(self, "position", newPos, 0.2)
 	await tween6.finished
 	
 	self.z_index = 0
@@ -275,19 +278,19 @@ func _pin_move_up() -> void:
 	
 	self.z_index = 50
 	
-	var newPos = Vector2(global_position)
+	var newPos = Vector2(position)
 	
 	var tween1 = create_tween()
 	newPos += Vector2(0, -10)
-	tween1.tween_property(self, "global_position", newPos, 0.2)
+	tween1.tween_property(self, "position", newPos, 0.2)
 	await tween1.finished
 	var tween2 = create_tween()
 	newPos += Vector2(0, -30)
-	tween2.tween_property(self, "global_position", newPos, 0.1)
+	tween2.tween_property(self, "position", newPos, 0.1)
 	await tween2.finished
 	var tween3 = create_tween()
 	newPos += Vector2(0, -10)
-	tween3.tween_property(self, "global_position", newPos, 0.2)
+	tween3.tween_property(self, "position", newPos, 0.2)
 	await tween3.finished
 	
 	play("upEndJump")
@@ -307,19 +310,19 @@ func _pin_move_down() -> void:
 	
 	self.z_index = 50
 	
-	var newPos = Vector2(global_position)
+	var newPos = Vector2(position)
 	
 	var tween1 = create_tween()
 	newPos += Vector2(0, 10)
-	tween1.tween_property(self, "global_position", newPos, 0.2)
+	tween1.tween_property(self, "position", newPos, 0.2)
 	await tween1.finished
 	var tween2 = create_tween()
 	newPos += Vector2(0, 30)
-	tween2.tween_property(self, "global_position", newPos, 0.1)
+	tween2.tween_property(self, "position", newPos, 0.1)
 	await tween2.finished
 	var tween3 = create_tween()
 	newPos += Vector2(0, 10)
-	tween3.tween_property(self, "global_position", newPos, 0.2)
+	tween3.tween_property(self, "position", newPos, 0.2)
 	await tween3.finished
 	
 	play("downEndJump")
@@ -340,19 +343,19 @@ func _pin_move_horizontal(left: bool) -> void:
 		await self.animation_finished;
 		play("diagonalDownJump");
 	
-		var newPos = Vector2(global_position)
+		var newPos = Vector2(position)
 	
 		var tween1 = create_tween()
 		newPos += Vector2(20, -25)
-		tween1.tween_property(self, "global_position", newPos, 0.2)
+		tween1.tween_property(self, "position", newPos, 0.2)
 		await tween1.finished
 		var tween2 = create_tween()
 		newPos += Vector2(10, 0)
-		tween2.tween_property(self, "global_position", newPos, 0.1)
+		tween2.tween_property(self, "position", newPos, 0.1)
 		await tween2.finished
 		var tween3 = create_tween()
 		newPos += Vector2(20, 25)
-		tween3.tween_property(self, "global_position", newPos, 0.2)
+		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
 		await self.animation_finished;
@@ -363,19 +366,19 @@ func _pin_move_horizontal(left: bool) -> void:
 		await self.animation_finished;
 		play("diagonalDownJump");
 		
-		var newPos = Vector2(global_position)
+		var newPos = Vector2(position)
 	
 		var tween1 = create_tween()
 		newPos += Vector2(-20, -25)
-		tween1.tween_property(self, "global_position", newPos, 0.2)
+		tween1.tween_property(self, "position", newPos, 0.2)
 		await tween1.finished
 		var tween2 = create_tween()
 		newPos += Vector2(-10, 0)
-		tween2.tween_property(self, "global_position", newPos, 0.1)
+		tween2.tween_property(self, "position", newPos, 0.1)
 		await tween2.finished
 		var tween3 = create_tween()
 		newPos += Vector2(-20, 25)
-		tween3.tween_property(self, "global_position", newPos, 0.2)
+		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
 		await self.animation_finished;
@@ -391,19 +394,19 @@ func _pin_move_diagonal_up(left: bool) -> void:
 		await self.animation_finished;
 		play("diagonaUpJump");
 	
-		var newPos = Vector2(global_position)
+		var newPos = Vector2(position)
 	
 		var tween1 = create_tween()
 		newPos += Vector2(10, -30)
-		tween1.tween_property(self, "global_position", newPos, 0.2)
+		tween1.tween_property(self, "position", newPos, 0.2)
 		await tween1.finished
 		var tween2 = create_tween()
 		newPos += Vector2(10, -10)
-		tween2.tween_property(self, "global_position", newPos, 0.1)
+		tween2.tween_property(self, "position", newPos, 0.1)
 		await tween2.finished
 		var tween3 = create_tween()
 		newPos += Vector2(30, -10)
-		tween3.tween_property(self, "global_position", newPos, 0.2)
+		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalUpEndJump")
 		await self.animation_finished;
@@ -414,19 +417,19 @@ func _pin_move_diagonal_up(left: bool) -> void:
 		await self.animation_finished;
 		play("diagonalUpJump");
 		
-		var newPos = Vector2(global_position)
+		var newPos = Vector2(position)
 	
 		var tween1 = create_tween()
 		newPos += Vector2(-10, -30)
-		tween1.tween_property(self, "global_position", newPos, 0.2)
+		tween1.tween_property(self, "position", newPos, 0.2)
 		await tween1.finished
 		var tween2 = create_tween()
 		newPos += Vector2(-10, -10)
-		tween2.tween_property(self, "global_position", newPos, 0.1)
+		tween2.tween_property(self, "position", newPos, 0.1)
 		await tween2.finished
 		var tween3 = create_tween()
 		newPos += Vector2(-30, -10)
-		tween3.tween_property(self, "global_position", newPos, 0.2)
+		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalUpEndJump")
 		await self.animation_finished;
@@ -442,19 +445,19 @@ func _pin_move_diagonal_down(left: bool) -> void:
 		await self.animation_finished;
 		play("diagonalDownJump");
 	
-		var newPos = Vector2(global_position)
+		var newPos = Vector2(position)
 	
 		var tween1 = create_tween()
 		newPos += Vector2(30, 10)
-		tween1.tween_property(self, "global_position", newPos, 0.2)
+		tween1.tween_property(self, "position", newPos, 0.2)
 		await tween1.finished
 		var tween2 = create_tween()
 		newPos += Vector2(10, 10)
-		tween2.tween_property(self, "global_position", newPos, 0.1)
+		tween2.tween_property(self, "position", newPos, 0.1)
 		await tween2.finished
 		var tween3 = create_tween()
 		newPos += Vector2(10, 30)
-		tween3.tween_property(self, "global_position", newPos, 0.2)
+		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
 		await self.animation_finished;
@@ -465,22 +468,24 @@ func _pin_move_diagonal_down(left: bool) -> void:
 		await self.animation_finished;
 		play("diagonalDownJump");
 		
-		var newPos = Vector2(global_position)
+		var newPos = Vector2(position)
 	
 		var tween1 = create_tween()
 		newPos += Vector2(-30, 10)
-		tween1.tween_property(self, "global_position", newPos, 0.2)
+		tween1.tween_property(self, "position", newPos, 0.2)
 		await tween1.finished
 		var tween2 = create_tween()
 		newPos += Vector2(-10, 10)
-		tween2.tween_property(self, "global_position", newPos, 0.1)
+		tween2.tween_property(self, "position", newPos, 0.1)
 		await tween2.finished
 		var tween3 = create_tween()
 		newPos += Vector2(-10, 30)
-		tween3.tween_property(self, "global_position", newPos, 0.2)
+		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
 		await self.animation_finished;
 	
 	play ("idle")
 	return
+
+@onready var highlight = $Highlight
