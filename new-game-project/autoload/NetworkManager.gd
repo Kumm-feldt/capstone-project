@@ -1,41 +1,61 @@
 extends Node
+var board: Node
 
 const SERVER_PORT = 7777
-const SERVER_IP = "127.0.0.1"
-var broadcast_address = "255.255.255.255"
 const LAN_BROADCAST_PORT = 42355
-const HOST = "Team5"
+const BROADCAST_ADDRESS = "255.255.255.255"
+const HOST = "Team5" # Name of the player hosting TODO: make it dynamic
+
 var players = {}
-var board: Node
-var udp = PacketPeerUDP.new()	
+var discovered_servers = {}
 
-
-
+var host_udp
+var client_udp
+var broadcast_timer = 1.0
+var peer
+var is_hosting = false
 
 # ============================================
 # SIGNALS
 # ============================================
 signal game_ready
-var peer
+signal discovered_servers_ui
+
+
+func _ready():
+	# safely initialize 
+	client_udp = PacketPeerUDP.new()
+	client_udp.bind(LAN_BROADCAST_PORT, "*")
+	host_udp = PacketPeerUDP.new()	
+
 func _process(delta):
-	# Poll for incoming packets
-	udp.poll()
-	if udp.get_available_packet_count() > 0:
-		var packet = udp.get_packet()
-		var sender_ip = udp.get_packet_address()
-		var sender_port = udp.get_packet_port()
-		# send a packet
-		peer.set_dest_address(sender_ip, sender_port)
-		peer.put_packet({"name": "Creeper Match", "host": HOST, "port": SERVER_PORT})
-		
+	# LISTEN for hosts
+	if client_udp:
+		var count = client_udp.get_available_packet_count()
+		if count > 0:
+			while client_udp.get_available_packet_count() > 0:
+				var raw = client_udp.get_packet() # peek to set IP metadata
+				var sender_ip = client_udp.get_packet_ip() # host ip
+				var packet = bytes_to_var(raw)
+				discovered_servers[sender_ip] = packet
+				# Emit signal to update UI list
+				emit_signal("discovered_servers_ui", discovered_servers)
+				
+	# BROADCAST	if we are hosting
+	if is_hosting:
+		broadcast_timer -= delta
+		if broadcast_timer <= 0.0:
+			broadcast_timer = 0.3
+			host_udp.set_dest_address(BROADCAST_ADDRESS, LAN_BROADCAST_PORT)
+			var data = {"port": SERVER_PORT, "name": "Creeper Match", "host": HOST}
+			host_udp.put_var(data)
+
 
 func host_game():
-	print("Starting host!")
+	broadcast_timer = 0.3  # broadcast immediately instead of waiting 1 second
+	is_hosting = true
 	# enable broadcast
-	udp.set_broadcast_enabled(true)
-	#listen on a port to receive broadcast
-	udp.bind(LAN_BROADCAST_PORT)
-	
+	host_udp.set_broadcast_enabled(true)
 	var server_peer = ENetMultiplayerPeer.new()
 	server_peer.create_server(SERVER_PORT)
 	
@@ -47,10 +67,10 @@ func host_game():
 	multiplayer.peer_disconnected.connect(_del_player)
 	_add_player_to_game(1)  # host is always peer ID 1 in Godot
 	
-func join_game():
+func join_game(server_ip):
 	print("Player 2 joining")
 	var client_peer = ENetMultiplayerPeer.new()
-	client_peer.create_client(SERVER_IP, SERVER_PORT)
+	client_peer.create_client(server_ip, SERVER_PORT)
 	multiplayer.multiplayer_peer = client_peer
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
@@ -86,8 +106,11 @@ func is_valid_player_turn(sender_id):
 		return true
 	print("Returning False...")
 	return false
-		
 
+		
+# ============================================
+# RCP
+# ============================================
 @rpc("authority", "call_local", "reliable")
 func notify_all_players_ready():
 	emit_signal.call_deferred("game_ready")  # fires on ALL machines
@@ -109,7 +132,6 @@ func send_move(coord):
 	rpc("confirm_move", coord)
 	confirm_move(coord) # run locally on server
 
-		
 @rpc("authority", "reliable")
 func confirm_move(coord):
 	# This runs on every peer — board applies the move
