@@ -60,12 +60,14 @@ theme_override_font_sizes/font_size = 12
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("3_f4f3g")
+theme_override_font_sizes/font_size = 9
 text = "Play Again?"
 
 [node name="MainMenuButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = ExtResource("3_f4f3g")
+theme_override_font_sizes/font_size = 9
 text = "Main Menu
 "
 

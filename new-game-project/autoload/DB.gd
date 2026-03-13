@@ -1,0 +1,90 @@
+extends Node
+var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbW9yYmx1aHpta2Vlc3hremhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNDY3MzIsImV4cCI6MjA4ODkyMjczMn0.JEyjYV-xzy-wNOKMP-oR2YBfNDFGJu7HtKV1ptRJeHk"
+var URL = "https://ujmorbluhzmkeesxkzhc.supabase.co/rest/v1/players"
+
+var HEADERS = [
+"Content-Type: application/json",
+"apikey: "+ANON_KEY,
+"Authorization: Bearer "+ANON_KEY,
+"Prefer: return=representation"   # tells Supabase to return the new row
+]
+
+var http_check = HTTPRequest.new()
+var http_patch = HTTPRequest.new()
+
+var points = 0
+var losses = 0
+var draws = 0
+var wins = 0
+
+var pending_username
+var pending_points
+var pending_action
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	http_patch.request_completed.connect(_on_update_points_done)
+	http_check.request_completed.connect(on_update_user_info)
+
+
+func update_user_info(username, action, points):
+	pending_username = username
+	pending_points = points
+	pending_action = action
+	
+	var url = URL + "?username=eq."+username 
+	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
+
+	
+func on_update_user_info(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+			push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+			emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+			return
+	var data = JSON.parse_string(body.get_string_from_utf8())[0]
+	points = data["points"]
+	wins = data["wins"]
+	losses = data["losses"]
+	draws = data["draws"]
+	update_points()
+	
+	
+# we are sure that the user is sending the right amount of points to be >= 0
+func update_points():
+	var statement 
+	var value
+	var upd_points = 0
+	if pending_action == "reduce":
+		upd_points = points - pending_points
+		statement = "losses"
+		value = losses +1
+ 
+		print("reduce")
+	elif pending_action == "add":
+		upd_points = points + pending_points 
+		statement = "wins"
+		value = wins +1
+		print("add")
+	else:
+		print("draw")
+		upd_points = points 
+		statement = "draws"
+		value = draws +1
+		
+	var body = JSON.stringify({
+		"points": upd_points,
+		statement: value
+	})	
+	var url = URL + "?username=eq."+pending_username 
+	http_patch.request(url, DBService.HEADERS, HTTPClient.METHOD_PATCH, body)
+	
+		
+func _on_update_points_done(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+		return
+		
+	print("succesfully updated")
+	
+	

@@ -1,24 +1,16 @@
 extends Control
-var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbW9yYmx1aHpta2Vlc3hremhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNDY3MzIsImV4cCI6MjA4ODkyMjczMn0.JEyjYV-xzy-wNOKMP-oR2YBfNDFGJu7HtKV1ptRJeHk"
-var URL = "https://ujmorbluhzmkeesxkzhc.supabase.co/rest/v1/players"
 var http_check = HTTPRequest.new()
-
 var score_row_scene = preload("res://scenes/ScoreBoard/ScoreRow.tscn")
 @onready var vbox = $Panel/VBoxContainer/ScrollContainer/VBoxContainer
 
-var HEADERS = [
-"Content-Type: application/json",
-"apikey: "+ANON_KEY,
-"Authorization: Bearer "+ANON_KEY,
-"Prefer: return=representation"   # tells Supabase to return the new row
-]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_child(http_check)
-	var url = URL + "?order=points.desc"
+	var url = DBService.URL + "?order=points.desc"
 	http_check.request_completed.connect(_on_get_players_done)
-	http_check.request(url, HEADERS, HTTPClient.METHOD_GET)
+	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
 
 func _on_get_players_done(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:

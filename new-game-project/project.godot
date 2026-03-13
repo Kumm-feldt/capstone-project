@@ -21,6 +21,7 @@ GameState="*res://autoload/GameState.gd"
 SoftserveClient="*res://autoload/SoftserveClient.tscn"
 NetworkManager="*res://autoload/NetworkManager.gd"
 GameManager="*res://autoload/GameManager.gd"
+DBService="*res://autoload/DB.gd"
 
 [display]
 

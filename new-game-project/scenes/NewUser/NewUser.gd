@@ -1,18 +1,9 @@
 extends Control
-
 @onready var username_input = $Panel/LineEdit
-
 @onready var message_label = $Panel/MessageLabel
-var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbW9yYmx1aHpta2Vlc3hremhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNDY3MzIsImV4cCI6MjA4ODkyMjczMn0.JEyjYV-xzy-wNOKMP-oR2YBfNDFGJu7HtKV1ptRJeHk"
-var URL = "https://ujmorbluhzmkeesxkzhc.supabase.co/rest/v1/players"
+
 var http_check = HTTPRequest.new()
 var http_register = HTTPRequest.new()
-var HEADERS = [
-"Content-Type: application/json",
-"apikey: "+ANON_KEY,
-"Authorization: Bearer "+ANON_KEY,
-"Prefer: return=representation"   # tells Supabase to return the new row
-]
 
 func _ready() -> void:
 	add_child(http_check)
@@ -21,9 +12,9 @@ func _ready() -> void:
 	http_register.request_completed.connect(_on_register_done)
 
 func check_username_exists(username):
-	var url = URL + "?username=eq."+username +"&select=id"
+	var url = DBService.URL + "?username=eq."+username +"&select=id"
 	print("url prepared")
-	http_check.request(url, HEADERS, HTTPClient.METHOD_GET)
+	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
 
 func _on_username_check_done(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
@@ -53,8 +44,8 @@ func register_player(username: String):
 		"draws": 0
 	})	
 	
-	var err = http_register.request(URL,
-				HEADERS, HTTPClient.METHOD_POST, body)
+	var err = http_register.request(DBService.URL,
+				DBService.HEADERS, HTTPClient.METHOD_POST, body)
 				
 	if err != OK:
 		push_error("An error occurred in the HTTP request.")

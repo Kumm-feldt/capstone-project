@@ -32,10 +32,7 @@ const PIN_SPACING_Y = OCTAGON_SPACING_Y
 # RESOURCES
 # ============================================
 var pin_o_scene = preload("res://scenes/pin/robot_pin.tscn")
-
 var pin_x_scene = preload("res://scenes/pin/robot_pin.tscn")
-
-
 var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
 var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
 var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
@@ -48,6 +45,7 @@ var coin_sprites = {}  # "row_col" -> Sprite2D
 
 var selected_pin: Vector2i = Vector2i(-1, -1)
 var move_hint_sprites = []
+
 # ============================================
 # NODE REFERENCES
 # ============================================
@@ -61,12 +59,6 @@ func _ready():
 	connect_signals() 
 	render_board()
 	NetworkManager.board = self
-
-
-#func setup_board_sprite():
-	#"""Configure the background board image"""
-	#board_sprite.texture = preload("res://sprites/board/board.png")
-	#board_sprite.centered = true
 
 func connect_signals():
 	"""Connect to GameState signals"""
@@ -308,10 +300,6 @@ func clear_move_hints():
 	move_hint_sprites.clear()
 
 # ============================================
-# ANIMATION FUNCTIONS (Basic Tweens)
-# ============================================
-
-# ============================================
 # SIGNAL HANDLERS
 # ============================================
 func _on_board_updated():
@@ -401,6 +389,3 @@ func _on_ai_battle_move(board_string):
 func ai_move(state):
 	var action_str: String = ai.GetMove(state) 
 	return action_str
-# ============================================
-# RPC CALLS
-# ============================================
