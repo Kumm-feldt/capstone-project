@@ -3,6 +3,9 @@ var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 var URL = "https://ujmorbluhzmkeesxkzhc.supabase.co/rest/v1/players"
 var http_check = HTTPRequest.new()
 
+var score_row_scene = preload("res://scenes/ScoreBoard/ScoreRow.tscn")
+@onready var vbox = $Panel/VBoxContainer/ScrollContainer/VBoxContainer
+
 var HEADERS = [
 "Content-Type: application/json",
 "apikey: "+ANON_KEY,
@@ -13,8 +16,9 @@ var HEADERS = [
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_child(http_check)
+	var url = URL + "?order=points.desc"
 	http_check.request_completed.connect(_on_get_players_done)
-	http_check.request(URL, HEADERS, HTTPClient.METHOD_GET)
+	http_check.request(url, HEADERS, HTTPClient.METHOD_GET)
 
 func _on_get_players_done(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
@@ -26,10 +30,19 @@ func _on_get_players_done(result, response_code, headers, body):
 	ui_create_rows(JSON.parse_string(body.get_string_from_utf8()))
 	
 func ui_create_rows(rows):
+	var counter =1
 	for row in rows:
-		print(row["username"])
+		var instance_row = score_row_scene.instantiate()
+		var rank = instance_row.get_node("Panel/MarginContainer/HBoxContainer/RankLabel")
+		var username = instance_row.get_node("Panel/MarginContainer/HBoxContainer/UsernameLabel")
+		var points  =instance_row.get_node("Panel/MarginContainer/HBoxContainer/ScoreLabel")
 		
-	pass
+		rank.text = "#" + str(counter)
+		points.text = str(row["points"]) + "pts"
+		username.text = row["username"]
+		counter = counter + 1
+		vbox.add_child(instance_row)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -96,9 +96,4 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 80
+theme_override_constants/separation = 10
