@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://8scl0imj2srt"]
+
+[ext_resource type="Script" uid="uid://b2cpcp7w5447g" path="res://scenes/NewUser/NewUser.gd" id="1_8pp80"]
+[ext_resource type="Theme" uid="uid://bjmk1xdsacok2" path="res://Themes/Menu_1.tres" id="1_sn8m4"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="2_rpim3"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_8pp80"]
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_rpim3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8pp80")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 754.0
+offset_top = 233.0
+offset_right = -722.0
+offset_bottom = -434.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sn8m4")
+
+[node name="WelcomeLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 62.0
+offset_right = 399.0
+offset_bottom = 96.0
+theme = ExtResource("2_rpim3")
+text = "Welcome Comrade!"
+
+[node name="LineEdit" type="LineEdit" parent="Panel"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 171.0
+offset_right = 374.0
+offset_bottom = 208.0
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("3_rpim3")
+
+[node name="UsernameLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 138.0
+offset_right = 354.0
+offset_bottom = 164.0
+theme = ExtResource("2_rpim3")
+theme_override_font_sizes/font_size = 24
+text = "Type your username:"
+
+[node name="AcceptButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 367.0
+offset_right = 298.0
+offset_bottom = 412.0
+theme = ExtResource("3_8pp80")
+text = "Accept"
+
+[node name="MessageLabel" type="Label" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 60.0
+offset_top = 219.0
+offset_right = 100.0
+offset_bottom = 242.0
+theme = ExtResource("2_rpim3")
+theme_override_font_sizes/font_size = 16
+text = "Username is taken"
+
+[connection signal="pressed" from="Panel/AcceptButton" to="." method="_on_accept_button_pressed"]

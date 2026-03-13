@@ -1,15 +1,15 @@
 extends Control
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func check_first_launch():
+	var config = ConfigFile.new()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
+	if config.load("user://save.cfg") != OK:
+		# Show new username scene
+		get_tree().change_scene_to_file("res://scenes/NewUser/NewUser.tscn")
+	else:
+		GameManager.username = config.get_value("player", "username")
+		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
+	await check_first_launch() 

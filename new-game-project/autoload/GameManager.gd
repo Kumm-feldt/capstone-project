@@ -2,7 +2,8 @@ extends Node
 
 var GAME_MODE = null
 var AI_MODE_LEVEL = null
-
+var username 
+var player_id
 
 enum Mode {
 	Local,

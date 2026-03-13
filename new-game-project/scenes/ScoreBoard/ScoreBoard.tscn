@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0xtg78elk7nc"]
+[gd_scene load_steps=7 format=3 uid="uid://d0xtg78elk7nc"]
 
 [ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_olc33"]
+[ext_resource type="Script" uid="uid://dm2ie0epcqjiu" path="res://scenes/ScoreBoard/ScoreBoard.gd" id="1_xij0p"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="2_v1kt7"]
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_8frmy"]
 
@@ -17,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xij0p")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
