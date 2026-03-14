@@ -310,6 +310,7 @@ func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 	# delete current player's scene
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
 	# play animation
+	# TODO: SOLVE BUG
 	await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
 	# Wait for the animation duration 
 	print("DONE")

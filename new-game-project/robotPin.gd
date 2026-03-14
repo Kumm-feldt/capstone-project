@@ -487,5 +487,3 @@ func _pin_move_diagonal_down(left: bool) -> void:
 	
 	play ("idle")
 	return
-
-@onready var highlight = $Highlight

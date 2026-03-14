@@ -6,7 +6,6 @@ var HEADERS = [
 "Content-Type: application/json",
 "apikey: "+ANON_KEY,
 "Authorization: Bearer "+ANON_KEY,
-"Prefer: return=representation"   # tells Supabase to return the new row
 ]
 
 var http_check = HTTPRequest.new()
@@ -23,13 +22,16 @@ var pending_action
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_child(http_check) 
+	add_child(http_patch) 
 	http_patch.request_completed.connect(_on_update_points_done)
 	http_check.request_completed.connect(on_update_user_info)
 
 
-func update_user_info(username, action, points):
+func update_user_info(username, action, points_):
+	print("udpated_user_info - started")
 	pending_username = username
-	pending_points = points
+	pending_points = points_
 	pending_action = action
 	
 	var url = URL + "?username=eq."+username 
@@ -51,6 +53,8 @@ func on_update_user_info(result, response_code, headers, body):
 	
 # we are sure that the user is sending the right amount of points to be >= 0
 func update_points():
+	print("update_points - started")
+	
 	var statement 
 	var value
 	var upd_points = 0
@@ -65,6 +69,8 @@ func update_points():
 		statement = "wins"
 		value = wins +1
 		print("add")
+		print("about to add... points: ", upd_points)
+		
 	else:
 		print("draw")
 		upd_points = points 
@@ -72,14 +78,19 @@ func update_points():
 		value = draws +1
 		
 	var body = JSON.stringify({
-		"points": upd_points,
-		statement: value
+		"points": int(upd_points),
+		statement: int(value)
 	})	
 	var url = URL + "?username=eq."+pending_username 
+	print("update_points - about to finish")
+	
 	http_patch.request(url, DBService.HEADERS, HTTPClient.METHOD_PATCH, body)
 	
 		
 func _on_update_points_done(result, response_code, headers, body):
+	print("PATCH body: ", body.get_string_from_utf8())
+
+
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)

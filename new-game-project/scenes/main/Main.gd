@@ -6,6 +6,11 @@ var win_screen_scene = preload("res://scenes/WinScreen.tscn")
 #@onready var debug_label = $CanvasLayer/UI/DebugLabel
 #@onready var reset_button = $CanvasLayer/UI/ResetButton
 @onready var dim_overlay = $DimOverlay
+
+var WIN_POINTS = 100
+var LOSS_POINTS = 30
+
+
 func _ready():
 	# Connect to GameState
 	dim_overlay.visible = false
@@ -25,7 +30,8 @@ func _on_game_over(winner: String):
 	win_screen.setup(winner)
 
 	if (GameManager.GAME_MODE == GameManager.Mode.AI ):
-		print("ai")
+		print("username: ", GameManager.username)
+		DBService.update_user_info(GameManager.username, "add", WIN_POINTS)
 	elif(GameManager.GAME_MODE == GameManager.Mode.Multiplayer):
 		print("multi")
 
