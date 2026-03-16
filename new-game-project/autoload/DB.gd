@@ -6,6 +6,7 @@ var HEADERS = [
 "Content-Type: application/json",
 "apikey: "+ANON_KEY,
 "Authorization: Bearer "+ANON_KEY,
+"Prefer: return=representation"   # tells Supabase to return the new row
 ]
 
 var http_check = HTTPRequest.new()
