@@ -31,13 +31,14 @@ const PIN_SPACING_Y = OCTAGON_SPACING_Y
 # ============================================
 # RESOURCES
 # ============================================
-var pin_o_scene = preload("res://scenes/pin/PinO.tscn")
-var pin_x_scene = preload("res://scenes/pin/PinX.tscn")
-var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
+var pin_o_scene = preload("res://scenes/pin/robot_pin.tscn")
 
+var pin_x_scene = preload("res://scenes/pin/robot_pin.tscn")
+
+
+var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
 var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
 var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
-
 
 # ============================================
 # STATE TRACKING
@@ -124,11 +125,16 @@ func render_board_single_move():
 
 func create_pin_sprite(row: int, col: int, player: String):
 	"""Create a pin sprite at array position"""
+	var player_color_ = player_color_o if player == "o" else player_color_x
+	
 	var pin_scene = pin_o_scene if player == "o" else pin_x_scene
+
 	var sprite_instance = pin_scene.instantiate()
+	sprite_instance.set_pin(player, player_color_)
 	
 	sprite_instance.position = get_pin_screen_position(row, col)
 	sprite_instance.z_index = 1  # Pins on top
+	
 	# add scene to tree
 	add_child(sprite_instance)
 	# store reference
@@ -233,7 +239,8 @@ func handle_first_click(clicked_pin: Vector2i):
 		selected_pin = clicked_pin
 		var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
 		if pin_sprites.has(key):
-			pin_sprites[key].show_highlight()
+			# play animation
+			pin_sprites[key].play("pickMe")
 		show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
 	else:
 		print("first click incorrectly: ", clicked_pin)
@@ -252,6 +259,8 @@ func handle_second_click(clicked_pin: Vector2i):
 			NetworkManager.rpc_id(1, "send_move", coord)
 	else:
 		if GameState.move_pin(coord, GameState.current_player):
+			# play animation
+			
 			print("Attempt move Successfully")
 		else:
 			print("Failed")
@@ -260,8 +269,6 @@ func handle_second_click(clicked_pin: Vector2i):
 func deselect_pin():
 	if selected_pin.x >= 0:
 		var key = "%d_%d" % [selected_pin.y, selected_pin.x]
-		if pin_sprites.has(key):
-			pin_sprites[key].hide_highlight()
 	clear_move_hints()
 	selected_pin = Vector2i(-1, -1)
 	
@@ -314,6 +321,10 @@ func _on_board_updated():
 func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 	# delete current player's scene
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
+	# play animation
+	await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
+	# Wait for the animation duration 
+	print("DONE")
 	# Delete current player's pin scene
 	if pin_sprites.has(from_key):
 		pin_sprites[from_key].queue_free()
@@ -326,6 +337,9 @@ func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i,
 	# delete current player's scene
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
 	var oponent_key = "%d_%d" % [removed_pos[1],removed_pos[0]]
+	await pin_sprites[from_key].play_capture_animation(from_pos, to_pos, pin_sprites[oponent_key])
+	print("DONE")
+
 	# Delete current player's pin scene
 	if pin_sprites.has(from_key):
 		pin_sprites[from_key].queue_free()

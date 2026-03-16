@@ -532,7 +532,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"explode",
-"speed": 10.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -624,9 +624,7 @@ animations = [{
 
 [node name="RobotPin" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_v37pg")
-animation = &"idle"
-frame = 1
-frame_progress = 0.29136282
+animation = &"explode"
 script = ExtResource("7_q1285")
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -12,7 +12,7 @@ script = ExtResource("1_u1xfj")
 [node name="Controls" parent="." instance=ExtResource("2_q24mn")]
 
 [node name="Board" parent="." instance=ExtResource("2_nha0i")]
-scale = Vector2(2.3, 2.3)
+scale = Vector2(2.4, 2.4)
 
 [node name="CreeperAI" type="Node" parent="."]
 script = ExtResource("4_dc040")

@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsbyx40nnb1cn"]
+
+[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="1_cfn2k"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="2_jeurg"]
+[ext_resource type="Texture2D" uid="uid://dxndvxk8j43pm" path="res://assets/ui/decorations/image.png" id="3_l5kdn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4y2sh"]
+texture = ExtResource("1_cfn2k")
+region_rect = Rect2(1339, 734, 241, 227)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxxxj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="VSBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 634.0
+offset_top = 341.0
+offset_right = -611.0
+offset_bottom = -395.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_4y2sh")
+
+[node name="PlayerOneContainer" type="PanelContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 14.0
+offset_right = 631.0
+offset_bottom = 140.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cxxxj")
+
+[node name="Label" type="Label" parent="Panel/PlayerOneContainer"]
+layout_mode = 2
+theme = ExtResource("2_jeurg")
+text = "Player 1"
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/PlayerOneContainer"]
+position = Vector2(426.2732, 63.754272)
+scale = Vector2(0.18419069, 0.1841907)
+texture = ExtResource("3_l5kdn")
+
+[node name="PlayerTwoContainer" type="PanelContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 201.0
+offset_right = 596.0
+offset_bottom = 327.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cxxxj")
+
+[node name="Label" type="Label" parent="Panel/PlayerTwoContainer"]
+layout_mode = 2
+theme = ExtResource("2_jeurg")
+text = "Player 2"
+horizontal_alignment = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/PlayerTwoContainer"]
+position = Vector2(113, 59)
+scale = Vector2(0.19464532, 0.1946453)
+texture = ExtResource("3_l5kdn")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_jeurg")
+theme_override_font_sizes/font_size = 64
+text = "VS"
