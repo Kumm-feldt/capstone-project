@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnxv7st1qgo5k"]
+
+[ext_resource type="Script" uid="uid://b01af70nu6jgv" path="res://scenes/UI/pause_menu.gd" id="1_avwb0"]
+[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="2_avwb0"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_73e60"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="4_onjwa"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="5_73e60"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3m1qe"]
+texture = ExtResource("2_avwb0")
+region_rect = Rect2(1339, 734, 241, 227)
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_avwb0")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -256.6875
+offset_right = 181.0
+offset_bottom = 256.6875
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_3m1qe")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -199.0
+offset_top = -50.6875
+offset_right = 199.0
+offset_bottom = -70.0625
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="OptionsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_73e60")
+text = "Options"
+
+[node name="ResumeButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("4_onjwa")
+text = "Resume"
+
+[node name="InstructionsButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme = ExtResource("4_onjwa")
+text = "Instructions"
+
+[node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme = ExtResource("5_73e60")
+theme_override_font_sizes/font_size = 24
+text = "Quit"
