@@ -8,7 +8,7 @@ var HEADERS = [
 "Authorization: Bearer "+ANON_KEY,
 "Prefer: return=representation"   # tells Supabase to return the new row
 ]
-
+var http_check_points = HTTPRequest.new() 
 var http_check = HTTPRequest.new()
 var http_patch = HTTPRequest.new()
 
@@ -21,14 +21,18 @@ var pending_username
 var pending_points
 var pending_action
 
+signal points_received
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_child(http_check) 
 	add_child(http_patch) 
+	add_child(http_check_points)
+	http_check_points.request_completed.connect(_on_check_points_done)
 	http_patch.request_completed.connect(_on_update_points_done)
 	http_check.request_completed.connect(on_update_user_info)
 
-
+	
 func update_user_info(username, action, points_):
 	print("udpated_user_info - started")
 	pending_username = username
@@ -37,7 +41,23 @@ func update_user_info(username, action, points_):
 	
 	var url = URL + "?username=eq."+username 
 	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
-
+	
+func check_points(username):
+	var url = URL + "?username=eq."+username 
+	http_check_points.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
+	
+func _on_check_points_done(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+		return
+	var data = JSON.parse_string(body.get_string_from_utf8())
+	print(data)
+	var points_username = data[0]["points"]
+	print(points_username)
+	emit_signal("points_received", points_username)  # Notify listeners
+	
+	
 	
 func on_update_user_info(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
@@ -90,7 +110,6 @@ func update_points():
 		
 func _on_update_points_done(result, response_code, headers, body):
 	print("PATCH body: ", body.get_string_from_utf8())
-
 
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)

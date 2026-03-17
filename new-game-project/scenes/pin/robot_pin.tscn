@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cdgu15c4aokxc" path="res://Images/spritesheets/robotJump-UpDiagonal.png" id="4_c4d6y"]
 [ext_resource type="Texture2D" uid="uid://dpblfpu7feq8e" path="res://Images/spritesheets/robotExplode.png" id="5_5i352"]
 [ext_resource type="Texture2D" uid="uid://c3q6hvwo2jvvf" path="res://Images/spritesheets/robotBaseANIM_pickMe.png" id="6_fkajy"]
-[ext_resource type="Script" uid="uid://bkutj8tbrd5a7" path="res://robotPin.gd" id="7_q1285"]
+[ext_resource type="Script" uid="uid://bts0w8e633rur" path="res://robotPin.gd" id="7_q1285"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_577ep"]
 atlas = ExtResource("1_sx4t4")

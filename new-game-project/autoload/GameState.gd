@@ -94,7 +94,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 	
 	var current_pin_to_move = PINS[from_row][from_col]	
 	print(coordinates)
-	var invalid_text = "Invalid move"
+	var invalid_text = "Invalid move from " + player
 	# Validate move
 	if not is_valid_move(from_row, from_col, to_row, to_col, player):
 		emit_signal("invalid_move", 
@@ -139,7 +139,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 			Vector2i(to_col, to_row), 
 			player)
 	# Notify GUI of state change
-	emit_signal("board_updated")
+	#emit_signal("board_updated") # not useful anymore...
 	
 	add_to_move_history()
 		
@@ -152,7 +152,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 	if check_win_condition():
 		emit_signal("game_over", get_winner())
 		game_active = false
-		
+	print("gamestate player: ", current_player)	
 	switch_player()
 	emit_signal("valid_move")
 	#print_debug_state()
@@ -200,7 +200,7 @@ func is_valid_selection(row,col, player):
 	"""Validate if the current selection is legal"""
 	if game_paused:
 		return false
-	var invalid_text = "Invalid Move"
+	var invalid_text = "Invalid Selection, from " + player
 	# Bounds check
 	if row < 0 or row >= 7 or col < 0 or col >= 7:
 		emit_signal("invalid_move", 

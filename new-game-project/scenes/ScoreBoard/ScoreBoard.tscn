@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0xtg78elk7nc"]
+[gd_scene load_steps=9 format=3 uid="uid://d0xtg78elk7nc"]
 
 [ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_olc33"]
 [ext_resource type="Script" uid="uid://dm2ie0epcqjiu" path="res://scenes/ScoreBoard/ScoreBoard.gd" id="1_xij0p"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="2_v1kt7"]
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_8frmy"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="5_863ym"]
+[ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="6_ukt20"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v1kt7"]
 texture = ExtResource("1_olc33")
@@ -35,9 +37,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 158.0
-offset_top = 128.0
+offset_top = 207.0
 offset_right = -156.0
-offset_bottom = -140.0
+offset_bottom = -158.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -97,3 +99,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 117.0
+offset_right = 187.0
+offset_bottom = 181.0
+theme = ExtResource("5_863ym")
+
+[node name="Icon" type="Sprite2D" parent="BackButton"]
+position = Vector2(32, 32)
+scale = Vector2(2.8749995, 2.8749995)
+texture = ExtResource("6_ukt20")
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

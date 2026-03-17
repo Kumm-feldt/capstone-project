@@ -78,3 +78,8 @@ func _on_discovered_servers_ui(servers):
 	
 func _on_join_button_pressed(ip):
 	NetworkManager.join_game(ip)
+
+
+func _on_back_button_pressed() -> void:
+	# stop searching for game
+	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

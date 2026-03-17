@@ -10,11 +10,13 @@ func _ready() -> void:
 	# call Host
 	NetworkManager.host_game()
 	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func _on_game_ready():
 	print("Host hitted")
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+
+
+func _on_back_button_pressed() -> void:
+	# stop hosting game
+	
+	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

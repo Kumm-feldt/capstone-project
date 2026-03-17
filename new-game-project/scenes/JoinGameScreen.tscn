@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://crsct8cwbjk14"]
+[gd_scene load_steps=7 format=3 uid="uid://crsct8cwbjk14"]
 
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="1_4n145"]
 [ext_resource type="Script" uid="uid://ciuerl3kso2fa" path="res://scenes/join_game_screen.gd" id="1_uei83"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_o7d2b"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="4_73kxq"]
+[ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="5_msi40"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqpcf"]
 texture = ExtResource("1_4n145")
@@ -30,12 +32,25 @@ one_shot = true
 
 [node name="OldComputerLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 207.0
-offset_top = 151.0
-offset_right = 460.0
-offset_bottom = 219.0
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 453.0
+offset_bottom = 268.0
 theme = ExtResource("3_o7d2b")
 theme_override_font_sizes/font_size = 56
+
+[node name="BackButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 117.0
+offset_right = 187.0
+offset_bottom = 181.0
+theme = ExtResource("4_73kxq")
+
+[node name="Icon" type="Sprite2D" parent="Panel/BackButton"]
+position = Vector2(32, 32)
+scale = Vector2(2.8749995, 2.8749995)
+texture = ExtResource("5_msi40")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -63,3 +78,5 @@ layout_mode = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 80
+
+[connection signal="pressed" from="Panel/BackButton" to="." method="_on_back_button_pressed"]

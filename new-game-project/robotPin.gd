@@ -35,14 +35,13 @@ func play_movement_animation(currentPosition: Vector2, newPosition: Vector2) -> 
 		await _pin_move_diagonal_up(true)
 
 	movement_finished.emit()
-	print("Emited...")
 	return
 
 # If the pin is capturing, pass the currentPos, newPos, and the pin to be captured.
 # If you don't pass the captured pin, it can't explode at the right time.
 func play_capture_animation(currentPosition: Vector2, newPosition: Vector2, capTarget: AnimatedSprite2D) -> void:
 	var dir = newPosition - currentPosition;
-	
+	print("went in the play_capture_animation")
 	if dir == Vector2(0, -2):
 		await _pin_capture_up(capTarget)
 	else: if dir == Vector2(0, 2):
@@ -52,7 +51,6 @@ func play_capture_animation(currentPosition: Vector2, newPosition: Vector2, capT
 	else: if dir == Vector2(2, 0):
 		await _pin_capture_right(capTarget);
 	movement_finished.emit()
-	print("Emited...")
 	return
 
 
@@ -392,7 +390,7 @@ func _pin_move_diagonal_up(left: bool) -> void:
 		
 		play("diagonalUpPrepJump");
 		await self.animation_finished;
-		play("diagonaUpJump");
+		play("diagonalUpJump");
 	
 		var newPos = Vector2(position)
 	

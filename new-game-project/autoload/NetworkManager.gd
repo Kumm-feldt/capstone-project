@@ -4,7 +4,7 @@ var board: Node
 const SERVER_PORT = 7777
 const LAN_BROADCAST_PORT = 42355
 const BROADCAST_ADDRESS = "255.255.255.255"
-const HOST = "Team5" # Name of the player hosting TODO: make it dynamic
+var HOST =  getHostName()
 
 var players = {}
 var discovered_servers = {}
@@ -21,6 +21,12 @@ var is_hosting = false
 signal game_ready
 signal discovered_servers_ui
 
+func getHostName():
+	var config = ConfigFile.new()
+	if config.load("user://save.cfg") == OK:
+		return config.get_value("player", "username")
+	else:
+		return "undefined"
 
 func _ready():
 	# safely initialize 
@@ -95,11 +101,6 @@ func _on_connection_failed():
 	# tell JoinGameScreen to show "No games found" + Search Again button
 
 func is_valid_player_turn(sender_id):
-	print("=============================")
-	print("sender_id: ", sender_id)
-	print("current playe: ", GameState.current_player)
-	print("=============================")
-	
 	if sender_id == 1 and GameState.current_player == 'x':
 		return true
 	elif sender_id != 1 and GameState.current_player == 'o':

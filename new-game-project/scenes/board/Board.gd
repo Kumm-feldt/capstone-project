@@ -6,6 +6,7 @@ extends Node2D
 # CONFIGURATION
 # ============================================
 @onready var ai = $"../CreeperAI"
+var is_ai_thinking: bool = false
 
 #Default colors:
 var player_color_x = Color("00e33eff");
@@ -68,6 +69,7 @@ func connect_signals():
 	GameState.connect("coin_placed", _on_coin_placed)
 	GameState.connect("coin_flipped", _on_coin_flipped)
 	GameState.connect("turn_changed", _on_turn_changed)
+	GameState.connect("invalid_move", _on_invalid_move)
 	SoftserveClient.connect("ai_battle_move", _on_ai_battle_move)
 	
 # ============================================
@@ -226,16 +228,16 @@ func handle_first_click(clicked_pin: Vector2i):
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		if !(multiplayer.is_server() and GameState.current_player == 'x') and !(not multiplayer.is_server() and GameState.current_player == 'o'):
 			return
-
-	if GameState.is_valid_selection(clicked_pin.y, clicked_pin.x, GameState.current_player):
-		selected_pin = clicked_pin
-		var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
-		if pin_sprites.has(key):
-			# play animation
-			pin_sprites[key].play("pickMe")
-		show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
-	else:
-		print("first click incorrectly: ", clicked_pin)
+	if not is_ai_thinking:
+		if GameState.is_valid_selection(clicked_pin.y, clicked_pin.x, GameState.current_player):
+			selected_pin = clicked_pin
+			var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
+			if pin_sprites.has(key):
+				# play animation
+				pin_sprites[key].play("pickMe")
+			show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
+		else:
+			print("first click incorrectly: ", clicked_pin)
 
 func handle_second_click(clicked_pin: Vector2i):
 	# selected_pin = Vector2i(col, row) → .x=col, .y=row
@@ -252,7 +254,6 @@ func handle_second_click(clicked_pin: Vector2i):
 	else:
 		if GameState.move_pin(coord, GameState.current_player):
 			# play animation
-			
 			print("Attempt move Successfully")
 		else:
 			print("Failed")
@@ -307,39 +308,72 @@ func _on_board_updated():
 	#render_board()
 	
 func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
-	# delete current player's scene
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
-	# play animation
-	# TODO: SOLVE BUG
-	await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
+	
+	# wait a couple of seconds before making a move if it is AI
+	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
+		await get_tree().create_timer(1.0).timeout
+		
+	# ✅ Guard AFTER the await — sprites may have been erased during the delay
+	if not pin_sprites.has(from_key):
+		push_warning("_on_pin_moved: sprite missing after await, skipping animation")
+		# Still create the destination sprite so board stays correct
+		create_pin_sprite(to_pos[1], to_pos[0], player)
+		# Delete current player's pin scene
+		delete_pin_sprite(from_key)
+		if player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
+			is_ai_thinking = false
+		return
+	
 	# Wait for the animation duration 
-	print("DONE")
+	await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
 	# Delete current player's pin scene
-	if pin_sprites.has(from_key):
-		pin_sprites[from_key].queue_free()
-		pin_sprites.erase(from_key)  # Remove from dictionary immediately
+	delete_pin_sprite(from_key)
 	# if pin is moving to new position it means the scene do not exist yet
 	create_pin_sprite(to_pos[1], to_pos[0], player)
+	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
+		is_ai_thinking = false
+	
 	
 # when jumping to remove oponent's pin
 func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i, player: String):
 	# delete current player's scene
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
 	var oponent_key = "%d_%d" % [removed_pos[1],removed_pos[0]]
-	await pin_sprites[from_key].play_capture_animation(from_pos, to_pos, pin_sprites[oponent_key])
-	print("DONE")
+	
+	# wait a couple of seconds before making a move if it is AI
+	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
+		await get_tree().create_timer(1.0).timeout
+		
+	# Guard AFTER the await — sprites may have been erased during the delay
+	if not pin_sprites.has(from_key) or not pin_sprites.has(oponent_key):
+		push_warning("_on_pin_jumped: sprite missing after await, skipping animation")
+		# Still create the destination sprite so board stays correct
+		create_pin_sprite(to_pos[1], to_pos[0], player)
+		# Delete current player's pin scene
+		delete_pin_sprite(from_key)
+		# Delete oponents player's pin scene
+		delete_pin_sprite(oponent_key)
+		if GameState.current_player == "o" and GameManager.GAME_MODE == GameManager.Mode.AI:
+			is_ai_thinking = false
+		return
 
+	await pin_sprites[from_key].play_capture_animation(from_pos, to_pos, pin_sprites[oponent_key])
+	
 	# Delete current player's pin scene
-	if pin_sprites.has(from_key):
-		pin_sprites[from_key].queue_free()
-		pin_sprites.erase(from_key)  # Remove from dictionary immediately
-	
-	if pin_sprites.has(oponent_key):
-		pin_sprites[oponent_key].queue_free()
-		pin_sprites.erase(oponent_key)  # Remove from dictionary immediately
-	
+	delete_pin_sprite(from_key)
+	# Delete oponents player's pin scene
+	delete_pin_sprite(oponent_key)
 	# if pin is jumping to new position it means the scene do not exist yet
 	create_pin_sprite(to_pos[1], to_pos[0], player)
+	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
+		is_ai_thinking = false
+
+func delete_pin_sprite(key):
+	if pin_sprites.has(key):
+		pin_sprites[key].queue_free()
+		pin_sprites.erase(key)  # Remove from dictionary immediately
+	
 	
 func _on_coin_placed(coordinates: Vector2i, player):
 	create_coin_sprite(coordinates[1],coordinates[0],player)
@@ -354,6 +388,7 @@ func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
 		
 func _on_turn_changed(current_player):
 	if current_player == 'x' and GameManager.GAME_MODE == GameManager.Mode.AI:
+		is_ai_thinking = true
 		var ai_coord = ai_move(GameState.getBoardStateString())
 		if GameState.move_pin(ai_coord, GameState.current_player):
 			print("AI move Succesfully")
@@ -383,7 +418,10 @@ func _on_ai_battle_move(board_string):
 	# render new board
 	render_board()
 	
-		
+func _on_invalid_move(message):
+	print("++++++++++ INVALID MOVE +++++++++ ")
+	print("| ", message, " |" )
+
 # ============================================
 # AI CALLS
 # ============================================

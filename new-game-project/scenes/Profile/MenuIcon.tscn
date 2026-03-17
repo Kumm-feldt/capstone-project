@@ -1,0 +1,107 @@
+[gd_scene load_steps=8 format=3 uid="uid://8xnweksnncl0"]
+
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="1_cp0pv"]
+[ext_resource type="Script" uid="uid://b386u0j8ldc4g" path="res://scenes/Profile/MenuIcon.gd" id="1_jinnw"]
+[ext_resource type="Texture2D" uid="uid://drsxa5gcey0ff" path="res://assets/ui/icons/README.md.svg" id="2_o64sy"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_o64sy"]
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_t84sa"]
+[ext_resource type="Texture2D" uid="uid://cmqq6jwro15mt" path="res://assets/ui/icons/menu-icon-vertical.png" id="4_exshy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jinnw"]
+bg_color = Color(0, 0.627451, 0.3019608, 0.7921569)
+
+[node name="Menu" type="Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -28.0
+offset_right = 170.0
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jinnw")
+
+[node name="HamburguerMenuButton" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 273.0
+offset_top = 4.0
+offset_right = 313.0
+offset_bottom = -125.0
+grow_vertical = 2
+theme = ExtResource("1_cp0pv")
+
+[node name="HorizontalSprite" type="Sprite2D" parent="HamburguerMenuButton"]
+position = Vector2(20.4375, 22)
+scale = Vector2(0.03210938, 0.03754178)
+texture = ExtResource("2_o64sy")
+
+[node name="VerticalSprite" type="Sprite2D" parent="HamburguerMenuButton"]
+visible = false
+position = Vector2(20.000048, 20.99997)
+scale = Vector2(0.029999964, 0.02889253)
+texture = ExtResource("4_exshy")
+
+[node name="ScoreboardButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -1.0
+offset_top = 50.0
+offset_right = 313.0
+offset_bottom = 90.0
+theme_override_fonts/font = ExtResource("3_t84sa")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_jinnw")
+alignment = 0
+
+[node name="SettingsLabel2" type="Label" parent="ScoreboardButton"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -18.0
+offset_right = 182.0
+offset_bottom = 22.0
+grow_vertical = 2
+theme = ExtResource("3_o64sy")
+theme_override_font_sizes/font_size = 24
+text = "Scoreboard"
+vertical_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -1.0
+offset_top = 96.0
+offset_right = 313.0
+offset_bottom = 136.0
+theme_override_fonts/font = ExtResource("3_t84sa")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_jinnw")
+alignment = 0
+
+[node name="SettingsLabel2" type="Label" parent="SettingsButton"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -18.0
+offset_right = 182.0
+offset_bottom = 22.0
+grow_vertical = 2
+theme = ExtResource("3_o64sy")
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+vertical_alignment = 1
+
+[connection signal="pressed" from="HamburguerMenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="ScoreboardButton" to="." method="_on_scoreboard_pressed"]
