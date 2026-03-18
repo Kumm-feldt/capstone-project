@@ -228,6 +228,7 @@ offset_right = 822.0
 offset_bottom = -244.0
 
 [node name="off_panel" type="Panel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 99.0
 offset_top = 99.0
