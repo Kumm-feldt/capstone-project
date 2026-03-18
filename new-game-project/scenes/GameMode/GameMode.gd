@@ -5,6 +5,8 @@ extends Control
 @onready var ai_mode_button = $Buttons/AIModeButton
 @onready var online_mode_popup = $OnlineOptionPopup
 @onready var back_button = $Buttons/BackButton
+@onready var light_button = $BlinkLight
+@onready var off_panel = $off_panel
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,12 +14,16 @@ func _ready() -> void:
 	dim_overlay.visible = false
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	light_button.turn_off_light.connect(_on_turn_off_light)
 
 
+func _on_turn_off_light():
+	if off_panel.visible:
+		off_panel.visible = false
+	else:
+		off_panel.visible = true
+	
+	
 func _on_ai_mode_button_pressed() -> void:
 	dim_overlay.visible = true
 	ai_mode_popup.visible = true

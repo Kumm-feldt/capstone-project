@@ -3,10 +3,16 @@ extends Sprite2D
 @export var blink_speed: float = 1.0       # blinks per second
 @export var on_color  = Color(0.0, 1.0, 0.2, 1.0)   # bright green
 @export var off_color = Color(0.0, 0.149, 0.051, 0.0)  # dim green (not full black)
+@export var pressed_color = Color(1.0, 0.741, 0.0, 1.0)  # dim green (not full black)
+
 
 var _timer: float = 0.0
 var _is_on: bool = true
 
+func _on_turn_off_light():
+	modulate = pressed_color
+	
+	
 func _process(delta):
 	_timer += delta
 	if _timer >= (1.0 / blink_speed):

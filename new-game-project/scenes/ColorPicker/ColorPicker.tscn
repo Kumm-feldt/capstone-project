@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjd7mw4lcos3"]
+
+[ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_3ewxe"]
+[ext_resource type="Theme" uid="uid://bjmk1xdsacok2" path="res://Themes/Menu_1.tres" id="2_d8euo"]
+[ext_resource type="Texture2D" uid="uid://c7hopuvbosdu5" path="res://Images/Game Pieces/robotBase.png" id="3_iasqv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d8euo"]
+texture = ExtResource("1_3ewxe")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm2v8"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxlcl"]
+bg_color = Color(0.91221035, 0.45612776, 5.7756904e-07, 1)
+
+[node name="ColorPicker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_d8euo")
+
+[node name="Panel" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -212.0
+offset_top = -255.0
+offset_right = 218.5
+offset_bottom = 175.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_d8euo")
+
+[node name="BackgroundPanel" type="Panel" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 79.0
+offset_right = 317.0
+offset_bottom = 297.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dm2v8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/Panel/BackgroundPanel"]
+position = Vector2(99, 105)
+scale = Vector2(6.26, 6.26)
+texture = ExtResource("3_iasqv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 79.0
+offset_right = 99.0
+offset_bottom = 300.0
+theme_override_constants/separation = 13
+
+[node name="ColorButton1" type="Button" parent="Panel/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+
+[node name="ColorButton2" type="Button" parent="Panel/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+
+[node name="ColorButton3" type="Button" parent="Panel/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+
+[node name="ColorButton4" type="Button" parent="Panel/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 330.0
+offset_top = 79.0
+offset_right = 392.0
+offset_bottom = 300.0
+theme_override_constants/separation = 13
+
+[node name="Button" type="Button" parent="Panel/Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+
+[node name="Button2" type="Button" parent="Panel/Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+
+[node name="Button3" type="Button" parent="Panel/Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+
+[node name="Button4" type="Button" parent="Panel/Panel/VBoxContainer2"]
+custom_minimum_size = Vector2(55, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
