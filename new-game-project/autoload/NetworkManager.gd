@@ -118,7 +118,6 @@ func notify_all_players_ready():
 	
 @rpc("any_peer", "reliable")
 func send_move(coord):
-	print("send_move hitted")
 	# Only the server processes incoming moves
 	if not multiplayer.is_server():
 		return
@@ -137,3 +136,4 @@ func send_move(coord):
 func confirm_move(coord):
 	# This runs on every peer — board applies the move
 	GameState.move_pin(coord, GameState.current_player)
+	

@@ -1,7 +1,11 @@
 # scenes/board/Board.gd
 # Attached to the Board (Node2D) root node
 extends Node2D
-
+# ============================================
+# ANIMATION QUEUE
+# ============================================
+var animation_queue: Array[Callable] = []
+var is_animating: bool = false
 # ============================================
 # CONFIGURATION
 # ============================================
@@ -245,7 +249,7 @@ func handle_second_click(clicked_pin: Vector2i):
 	# clicked_pin = Vector2i(col, row) → .x=col, .y=row
 	var coord_t = array_to_notation(clicked_pin.y, clicked_pin.x)
 	var coord = coord_f + coord_t
-	print("Game Mode: ", GameManager.GAME_MODE)
+
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		if multiplayer.is_server():
 			NetworkManager.send_move(coord)
@@ -294,7 +298,6 @@ func show_move_hints(from_row: int, from_col: int, player: String):
 				hint.z_index = 2
 				add_child(hint)
 				move_hint_sprites.append(hint)
-
 func clear_move_hints():
 	for hint in move_hint_sprites:
 		hint.queue_free()
@@ -310,29 +313,26 @@ func _on_board_updated():
 func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
 	
-	# wait a couple of seconds before making a move if it is AI
-	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
-		await get_tree().create_timer(1.0).timeout
-		
-	# ✅ Guard AFTER the await — sprites may have been erased during the delay
-	if not pin_sprites.has(from_key):
-		push_warning("_on_pin_moved: sprite missing after await, skipping animation")
-		# Still create the destination sprite so board stays correct
+	# Enqueue the animation job
+	queue_animation(func() -> void:
+		# This inner function is the job that will run later, in sequence
+		# 2. Guard: sprite might have been removed for some reason
+		if not pin_sprites.has(from_key):
+			push_warning("_on_pin_moved: missing sprite for key %s, skipping animation" % from_key)
+		else:
+			await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
+
+		# 4. Cleanup old sprite and create new one
+		if pin_sprites.has(from_key):
+			pin_sprites[from_key].queue_free()
+			pin_sprites.erase(from_key)
+
 		create_pin_sprite(to_pos[1], to_pos[0], player)
-		# Delete current player's pin scene
-		delete_pin_sprite(from_key)
+		print(player, " moved successfully")
+		# 5. AI flag reset if needed
 		if player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
 			is_ai_thinking = false
-		return
-	
-	# Wait for the animation duration 
-	await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
-	# Delete current player's pin scene
-	delete_pin_sprite(from_key)
-	# if pin is moving to new position it means the scene do not exist yet
-	create_pin_sprite(to_pos[1], to_pos[0], player)
-	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
-		is_ai_thinking = false
+	)
 	
 	
 # when jumping to remove oponent's pin
@@ -341,33 +341,22 @@ func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i,
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
 	var oponent_key = "%d_%d" % [removed_pos[1],removed_pos[0]]
 	
-	# wait a couple of seconds before making a move if it is AI
-	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
-		await get_tree().create_timer(1.0).timeout
+	queue_animation(func() -> void:
+		# Guard AFTER the await — sprites may have been erased during the delay
+		if not pin_sprites.has(from_key) or not pin_sprites.has(oponent_key):
+			push_warning("_on_pin_jumped: sprite missing after await, skipping animation")
+		else:
+			await pin_sprites[from_key].play_capture_animation(from_pos, to_pos, pin_sprites[oponent_key])
 		
-	# Guard AFTER the await — sprites may have been erased during the delay
-	if not pin_sprites.has(from_key) or not pin_sprites.has(oponent_key):
-		push_warning("_on_pin_jumped: sprite missing after await, skipping animation")
-		# Still create the destination sprite so board stays correct
-		create_pin_sprite(to_pos[1], to_pos[0], player)
 		# Delete current player's pin scene
 		delete_pin_sprite(from_key)
 		# Delete oponents player's pin scene
 		delete_pin_sprite(oponent_key)
-		if GameState.current_player == "o" and GameManager.GAME_MODE == GameManager.Mode.AI:
+		# if pin is jumping to new position it means the scene do not exist yet
+		create_pin_sprite(to_pos[1], to_pos[0], player)
+		if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
 			is_ai_thinking = false
-		return
-
-	await pin_sprites[from_key].play_capture_animation(from_pos, to_pos, pin_sprites[oponent_key])
-	
-	# Delete current player's pin scene
-	delete_pin_sprite(from_key)
-	# Delete oponents player's pin scene
-	delete_pin_sprite(oponent_key)
-	# if pin is jumping to new position it means the scene do not exist yet
-	create_pin_sprite(to_pos[1], to_pos[0], player)
-	if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
-		is_ai_thinking = false
+			)
 
 func delete_pin_sprite(key):
 	if pin_sprites.has(key):
@@ -428,3 +417,20 @@ func _on_invalid_move(message):
 func ai_move(state):
 	var action_str: String = ai.GetMove(state) 
 	return action_str
+	
+# ============================================
+# QUEUE HELPERS
+# ============================================
+func queue_animation(job: Callable) -> void:
+	animation_queue.append(job)
+	if not is_animating:
+		_process_animation_queue()
+
+func _process_animation_queue() -> void:
+	if animation_queue.is_empty():
+		is_animating = false
+		return
+	is_animating = true
+	var next_job: Callable = animation_queue.pop_front()
+	await next_job.call()
+	_process_animation_queue()
