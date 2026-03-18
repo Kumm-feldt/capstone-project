@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bmt1oyebdsjmh"]
+[gd_scene load_steps=27 format=3 uid="uid://bmt1oyebdsjmh"]
 
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_86ymx"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_vasyn"]
@@ -92,6 +92,9 @@ Button/styles/focus = SubResource("StyleBoxFlat_x1y13")
 Button/styles/hover = SubResource("StyleBoxTexture_3doa3")
 Button/styles/normal = SubResource("StyleBoxTexture_rl36i")
 Button/styles/pressed = SubResource("StyleBoxTexture_wuwyd")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wud22"]
+bg_color = Color(0, 0.08627451, 0, 1)
 
 [node name="GameModeScreen" type="Control"]
 layout_mode = 3
@@ -223,6 +226,14 @@ offset_left = 508.0
 offset_top = -413.0
 offset_right = 822.0
 offset_bottom = -244.0
+
+[node name="off_panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 99.0
+offset_right = 1823.0
+offset_bottom = 983.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wud22")
 
 [connection signal="pressed" from="AI_Tournament" to="." method="_on_ai_tournament_pressed"]
 [connection signal="pressed" from="Buttons/BackButton" to="." method="_on_back_button_pressed"]
