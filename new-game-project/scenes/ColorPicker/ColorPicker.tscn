@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjd7mw4lcos3"]
+[gd_scene load_steps=22 format=3 uid="uid://bjd7mw4lcos3"]
 
 [ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_3ewxe"]
+[ext_resource type="Script" uid="uid://dpjc6g01kpcx1" path="res://scenes/ColorPicker/ColorPicker.gd" id="1_m75o8"]
 [ext_resource type="Theme" uid="uid://bjmk1xdsacok2" path="res://Themes/Menu_1.tres" id="2_d8euo"]
 [ext_resource type="Texture2D" uid="uid://c7hopuvbosdu5" path="res://Images/Game Pieces/robotBase.png" id="3_iasqv"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="4_gxlcl"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="5_m75o8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d8euo"]
 texture = ExtResource("1_3ewxe")
@@ -13,6 +16,51 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxlcl"]
 bg_color = Color(0.91221035, 0.45612776, 5.7756904e-07, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6sog"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sg2v"]
+bg_color = Color(0, 0.20784314, 0.32941177, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bveg3"]
+bg_color = Color(0.54901963, 0.10980392, 0.07450981, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg8k8"]
+bg_color = Color(0.91764706, 0.76862746, 0.8352941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur3nb"]
+bg_color = Color(0.21568628, 0.23921569, 0.1254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cx7r"]
+bg_color = Color(0.2627451, 0.15686275, 0.09411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u561t"]
+bg_color = Color(0.8, 0.8352941, 0.68235296, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqt57"]
+bg_color = Color(0.33333334, 0.6509804, 0.1882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdwby"]
+bg_color = Color(0.9764706, 0.9764706, 0.9764706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dco0"]
+bg_color = Color(0.45490196, 0.54901963, 0.67058825, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05xok"]
+bg_color = Color(0.91764706, 0.7882353, 0.75686276, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6vb6"]
+bg_color = Color(0.9490196, 0.83137256, 0.57254905, 1)
+
 [node name="ColorPicker" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -20,6 +68,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_m75o8")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -45,6 +94,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_d8euo")
 
+[node name="Sprite2D" type="Sprite2D" parent="Panel/Panel"]
+z_index = 10
+position = Vector2(211, 184)
+scale = Vector2(6.26, 6.26)
+texture = ExtResource("3_iasqv")
+
 [node name="BackgroundPanel" type="Panel" parent="Panel/Panel"]
 layout_mode = 0
 offset_left = 112.0
@@ -52,11 +107,6 @@ offset_top = 79.0
 offset_right = 317.0
 offset_bottom = 297.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_dm2v8")
-
-[node name="Sprite2D" type="Sprite2D" parent="Panel/Panel/BackgroundPanel"]
-position = Vector2(99, 105)
-scale = Vector2(6.26, 6.26)
-texture = ExtResource("3_iasqv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel"]
 layout_mode = 0
@@ -70,21 +120,22 @@ theme_override_constants/separation = 13
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f6sog")
 
 [node name="ColorButton2" type="Button" parent="Panel/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6sg2v")
 
 [node name="ColorButton3" type="Button" parent="Panel/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bveg3")
 
 [node name="ColorButton4" type="Button" parent="Panel/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cg8k8")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/Panel"]
 layout_mode = 0
@@ -94,22 +145,86 @@ offset_right = 392.0
 offset_bottom = 300.0
 theme_override_constants/separation = 13
 
-[node name="Button" type="Button" parent="Panel/Panel/VBoxContainer2"]
+[node name="ColorButton5" type="Button" parent="Panel/Panel/VBoxContainer2"]
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ur3nb")
 
-[node name="Button2" type="Button" parent="Panel/Panel/VBoxContainer2"]
+[node name="ColorButton6" type="Button" parent="Panel/Panel/VBoxContainer2"]
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0cx7r")
 
-[node name="Button3" type="Button" parent="Panel/Panel/VBoxContainer2"]
+[node name="ColorButton7" type="Button" parent="Panel/Panel/VBoxContainer2"]
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_u561t")
 
-[node name="Button4" type="Button" parent="Panel/Panel/VBoxContainer2"]
+[node name="ColorButton8" type="Button" parent="Panel/Panel/VBoxContainer2"]
 custom_minimum_size = Vector2(55, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_gxlcl")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rqt57")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 329.0
+offset_right = 356.0
+offset_bottom = 374.0
+theme_override_constants/separation = 12
+
+[node name="BackgroundColorButton1" type="Button" parent="Panel/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(61, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_sdwby")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f6sog")
+
+[node name="BackgroundColorButton2" type="Button" parent="Panel/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(62, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_0dco0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f6sog")
+
+[node name="BackgroundColorButton3" type="Button" parent="Panel/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(61, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_05xok")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f6sog")
+
+[node name="BackgroundColorButton4" type="Button" parent="Panel/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(61, 45)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_b6vb6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f6sog")
+
+[node name="TitleLabel" type="Label" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 34.0
+offset_right = 342.0
+offset_bottom = 68.0
+theme = ExtResource("4_gxlcl")
+text = "Color Picker"
+
+[node name="AcceptButton" type="Button" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 386.0
+offset_right = 290.0
+offset_bottom = 432.0
+theme = ExtResource("5_m75o8")
+text = "Accept"
+
+[connection signal="pressed" from="Panel/Panel/VBoxContainer/ColorButton1" to="." method="_on_color_button_1_pressed"]
+[connection signal="pressed" from="Panel/Panel/VBoxContainer/ColorButton2" to="." method="_on_color_button_2_pressed"]
+[connection signal="pressed" from="Panel/Panel/VBoxContainer/ColorButton3" to="." method="_on_color_button_3_pressed"]
+[connection signal="pressed" from="Panel/Panel/VBoxContainer/ColorButton4" to="." method="_on_color_button_4_pressed"]
+[connection signal="pressed" from="Panel/Panel/VBoxContainer2/ColorButton5" to="." method="_on_color_button_5_pressed"]
+[connection signal="pressed" from="Panel/Panel/VBoxContainer2/ColorButton6" to="." method="_on_color_button_6_pressed"]
+[connection signal="pressed" from="Panel/Panel/VBoxContainer2/ColorButton7" to="." method="_on_color_button_7_pressed"]
+[connection signal="pressed" from="Panel/Panel/VBoxContainer2/ColorButton8" to="." method="_on_color_button_8_pressed"]
+[connection signal="pressed" from="Panel/Panel/HBoxContainer/BackgroundColorButton1" to="." method="_on_background_color_button_1_pressed"]
+[connection signal="pressed" from="Panel/Panel/HBoxContainer/BackgroundColorButton2" to="." method="_on_background_color_button_2_pressed"]
+[connection signal="pressed" from="Panel/Panel/HBoxContainer/BackgroundColorButton3" to="." method="_on_background_color_button_3_pressed"]
+[connection signal="pressed" from="Panel/Panel/HBoxContainer/BackgroundColorButton4" to="." method="_on_background_color_button_4_pressed"]
+[connection signal="pressed" from="Panel/Panel/AcceptButton" to="." method="_on_accept_button_pressed"]

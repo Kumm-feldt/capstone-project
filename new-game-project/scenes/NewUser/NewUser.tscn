@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://8scl0imj2srt"]
+[gd_scene load_steps=8 format=3 uid="uid://8scl0imj2srt"]
 
 [ext_resource type="Script" uid="uid://b2cpcp7w5447g" path="res://scenes/NewUser/NewUser.gd" id="1_8pp80"]
 [ext_resource type="Theme" uid="uid://bjmk1xdsacok2" path="res://Themes/Menu_1.tres" id="1_sn8m4"]
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="2_rpim3"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_8pp80"]
+[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="3_h3sqq"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_rpim3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k8yfu"]
+texture = ExtResource("3_h3sqq")
+region_rect = Rect2(1063, 80, 235, 297)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -27,6 +32,7 @@ offset_bottom = -434.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_sn8m4")
+theme_override_styles/panel = SubResource("StyleBoxTexture_k8yfu")
 
 [node name="WelcomeLabel" type="Label" parent="Panel"]
 layout_mode = 0

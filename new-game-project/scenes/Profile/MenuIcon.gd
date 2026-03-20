@@ -34,3 +34,7 @@ func _on_menu_button_pressed() -> void:
 
 func _on_scoreboard_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ScoreBoard/ScoreBoard.tscn")
+
+
+func _on_settings_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/ColorPicker/ColorPicker.tscn")

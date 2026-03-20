@@ -14,7 +14,8 @@ var is_ai_thinking: bool = false
 
 #Default colors:
 var player_color_x = Color("00e33eff");
-var player_color_o = Color("e83c84ff");
+var player_color_o = Color(GameManager.color);
+
 const HIGHLIGHT_COLOR = Color(1, 1, 0, 0.6)  # Yellow, semi-transparent
 const HIGHLIGHT_RADIUS = 18.0
 # Board image dimensions

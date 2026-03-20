@@ -5,6 +5,10 @@ extends Control
 var http_check = HTTPRequest.new()
 var http_register = HTTPRequest.new()
 
+var default_color = "e83c84ff"
+var default_background_color = "f0ebd8"
+
+
 func _ready() -> void:
 	add_child(http_check)
 	add_child(http_register)
@@ -62,9 +66,16 @@ func _on_register_done(result, response_code, headers, body):
 	if response_code == 201:
 		print("Successfully registered!")
 		var config = ConfigFile.new()
+		GameManager.username = username_input.text
+		GameManager.color = default_color
+		GameManager.background_color = default_background_color
+		
 		config.set_value("player", "username", username_input.text)
 		config.set_value("player", "id", response[0]["id"])
+		config.set_value("player", "color", default_color)
+		config.set_value("player", "background_color", default_background_color)
 		config.save("user://save.cfg")
+		
 		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 
 	else:
