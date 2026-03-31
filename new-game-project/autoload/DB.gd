@@ -8,6 +8,8 @@ var HEADERS = [
 "Authorization: Bearer "+ANON_KEY,
 "Prefer: return=representation"   # tells Supabase to return the new row
 ]
+
+
 var http_check_points = HTTPRequest.new() 
 var http_check = HTTPRequest.new()
 var http_patch = HTTPRequest.new()
@@ -52,9 +54,7 @@ func _on_check_points_done(result, response_code, headers, body):
 		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		return
 	var data = JSON.parse_string(body.get_string_from_utf8())
-	print(data)
 	var points_username = data[0]["points"]
-	print(points_username)
 	emit_signal("points_received", points_username)  # Notify listeners
 	
 	
@@ -74,8 +74,6 @@ func on_update_user_info(result, response_code, headers, body):
 	
 # we are sure that the user is sending the right amount of points to be >= 0
 func update_points():
-	print("update_points - started")
-	
 	var statement 
 	var value
 	var upd_points = 0
@@ -84,16 +82,12 @@ func update_points():
 		statement = "losses"
 		value = losses +1
  
-		print("reduce")
 	elif pending_action == "add":
 		upd_points = points + pending_points 
 		statement = "wins"
 		value = wins +1
-		print("add")
-		print("about to add... points: ", upd_points)
 		
 	else:
-		print("draw")
 		upd_points = points 
 		statement = "draws"
 		value = draws +1
@@ -103,19 +97,14 @@ func update_points():
 		statement: int(value)
 	})	
 	var url = URL + "?username=eq."+pending_username 
-	print("update_points - about to finish")
-	
 	http_patch.request(url, DBService.HEADERS, HTTPClient.METHOD_PATCH, body)
 	
 		
 func _on_update_points_done(result, response_code, headers, body):
-	print("PATCH body: ", body.get_string_from_utf8())
-
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		return
 		
-	print("succesfully updated")
 	
 	

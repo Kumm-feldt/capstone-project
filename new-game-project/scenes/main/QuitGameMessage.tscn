@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://co20nk8g1tiv"]
+
+[ext_resource type="Script" uid="uid://bawfxays14d6h" path="res://scenes/main/QuitGameMessage.gd" id="1_ds22t"]
+[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="1_ip2fk"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="2_ds22t"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_l4ddp"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="4_qds1k"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_66s2c"]
+texture = ExtResource("1_ip2fk")
+region_rect = Rect2(1339, 734, 241, 227)
+
+[node name="QuitGameMessage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ds22t")
+
+[node name="QuiteGameMessage" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -292.25
+offset_top = -207.6875
+offset_right = 292.25
+offset_bottom = 207.6875
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_66s2c")
+
+[node name="Label" type="Label" parent="QuiteGameMessage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -299.0
+offset_top = 44.6875
+offset_right = 310.0
+offset_bottom = 78.6875
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_ds22t")
+text = "Are you 
+sure you want to quit?"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="QuiteGameMessage"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -237.25
+offset_top = 66.3125
+offset_right = 240.75
+offset_bottom = -59.0625
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuiteGameMessage/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ResumeButton" type="Button" parent="QuiteGameMessage/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme = ExtResource("3_l4ddp")
+text = "Resume"
+
+[node name="LeaveButton" type="Button" parent="QuiteGameMessage/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme = ExtResource("4_qds1k")
+theme_override_font_sizes/font_size = 24
+text = "Quit Game"
+
+[connection signal="pressed" from="QuiteGameMessage/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="QuiteGameMessage/MarginContainer/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]

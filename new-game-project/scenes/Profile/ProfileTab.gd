@@ -13,11 +13,11 @@ func _ready() -> void:
 	usernameLabel.text = GameManager.username
 	DBService.check_points(GameManager.username)
 	var style = StyleBoxFlat.new()
-	style.bg_color = Color(GameManager.background_color)  
+	var color = GameManager.background_color
+	style.bg_color = Color(color)  
 	panelContainer.add_theme_stylebox_override("panel", style)
 	
 	
 func _on_points_received(points):
-	print("points: ", points)
 	pointsLabel.text = str(points) + "pts"
 	

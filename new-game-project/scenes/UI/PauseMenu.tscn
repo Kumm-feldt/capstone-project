@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnxv7st1qgo5k"]
+[gd_scene load_steps=8 format=3 uid="uid://cnxv7st1qgo5k"]
 
 [ext_resource type="Script" uid="uid://b01af70nu6jgv" path="res://scenes/UI/pause_menu.gd" id="1_avwb0"]
 [ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="2_avwb0"]
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_73e60"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="4_onjwa"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="5_73e60"]
+[ext_resource type="PackedScene" uid="uid://co20nk8g1tiv" path="res://scenes/main/QuitGameMessage.tscn" id="6_onjwa"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3m1qe"]
 texture = ExtResource("2_avwb0")
@@ -19,10 +20,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -256.6875
-offset_right = 181.0
-offset_bottom = 256.6875
+offset_left = -203.0
+offset_top = -198.84375
+offset_right = 203.0
+offset_bottom = 198.84375
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_3m1qe")
@@ -60,15 +61,19 @@ size_flags_vertical = 4
 theme = ExtResource("4_onjwa")
 text = "Resume"
 
-[node name="InstructionsButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 70)
-layout_mode = 2
-theme = ExtResource("4_onjwa")
-text = "Instructions"
-
 [node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme = ExtResource("5_73e60")
 theme_override_font_sizes/font_size = 24
 text = "Quit"
+
+[node name="QuitGameMessage" parent="." instance=ExtResource("6_onjwa")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 0.0
+offset_right = 0.0

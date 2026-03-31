@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bjd7mw4lcos3"]
+[gd_scene load_steps=24 format=3 uid="uid://bjd7mw4lcos3"]
 
 [ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_3ewxe"]
 [ext_resource type="Script" uid="uid://dpjc6g01kpcx1" path="res://scenes/ColorPicker/ColorPicker.gd" id="1_m75o8"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c7hopuvbosdu5" path="res://Images/Game Pieces/robotBase.png" id="3_iasqv"]
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="4_gxlcl"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="5_m75o8"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="7_6sg2v"]
+[ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="8_bveg3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d8euo"]
 texture = ExtResource("1_3ewxe")
@@ -215,6 +217,19 @@ offset_bottom = 432.0
 theme = ExtResource("5_m75o8")
 text = "Accept"
 
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 117.0
+offset_right = 187.0
+offset_bottom = 181.0
+theme = ExtResource("7_6sg2v")
+
+[node name="Icon" type="Sprite2D" parent="BackButton"]
+position = Vector2(32, 32)
+scale = Vector2(2.8749995, 2.8749995)
+texture = ExtResource("8_bveg3")
+
 [connection signal="pressed" from="Panel/Panel/VBoxContainer/ColorButton1" to="." method="_on_color_button_1_pressed"]
 [connection signal="pressed" from="Panel/Panel/VBoxContainer/ColorButton2" to="." method="_on_color_button_2_pressed"]
 [connection signal="pressed" from="Panel/Panel/VBoxContainer/ColorButton3" to="." method="_on_color_button_3_pressed"]
@@ -228,3 +243,4 @@ text = "Accept"
 [connection signal="pressed" from="Panel/Panel/HBoxContainer/BackgroundColorButton3" to="." method="_on_background_color_button_3_pressed"]
 [connection signal="pressed" from="Panel/Panel/HBoxContainer/BackgroundColorButton4" to="." method="_on_background_color_button_4_pressed"]
 [connection signal="pressed" from="Panel/Panel/AcceptButton" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

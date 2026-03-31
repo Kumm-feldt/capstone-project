@@ -45,10 +45,10 @@ layout_mode = 2
 
 [node name="PauseButton" type="Button" parent="PanelContainer/Control"]
 layout_mode = 0
-offset_left = -116.413055
-offset_top = -462.74146
-offset_right = -90.659805
-offset_bottom = -402.2078
+offset_left = -108.87552
+offset_top = -461.79416
+offset_right = -92.87552
+offset_bottom = -424.18576
 theme = ExtResource("3_75u2n")
 icon = ExtResource("4_3wlde")
 icon_alignment = 1

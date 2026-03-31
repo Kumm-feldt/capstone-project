@@ -95,3 +95,6 @@ theme = ExtResource("6_r8q81")
 text = "SLITHER"
 
 [connection signal="pressed" from="VBoxContainer/BeginButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

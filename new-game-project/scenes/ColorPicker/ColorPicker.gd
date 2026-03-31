@@ -12,10 +12,13 @@ func _ready() -> void:
 	
 func _on_accept_button_pressed() -> void:
 	var config = ConfigFile.new()
-	GameManager.color = pending_color
-	GameManager.background_color = pending_background_color
-	config.set_value("player", "color", pending_color)
-	config.set_value("player", "background_color", pending_background_color)
+	if pending_color != null:
+		GameManager.color = pending_color
+		config.set_value("player", "color", pending_color)
+		
+	if pending_background_color != null:
+		GameManager.background_color = pending_background_color
+		config.set_value("player", "background_color", pending_background_color)
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 
 # TODO: create signals for when a color is pressed.
@@ -75,3 +78,7 @@ func _on_background_color_button_3_pressed() -> void:
 
 func _on_background_color_button_4_pressed() -> void:
 	change_background_color($Panel/Panel/HBoxContainer/BackgroundColorButton4)
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
