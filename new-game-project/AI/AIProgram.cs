@@ -4,23 +4,17 @@ using Godot;
 
 public partial class AIProgram : Node
 {
-	internal const string ModelPath = "trained_AI.pt";
+	internal const int DefaultAlphaBetaDepth = 3;
 
 	public string GetMove(string boardString)
 	{
-		var agent = CreateAgent();
 		InitializeGameFromBoardString(boardString);
-		var board = Game.CurrentBoard;
-		
-		// Ask game rules for all legal moves in this position.
+		var board = new Board(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs);
 		var legalMoves = Game.GetLegalMoves(board, Game.CurrentPlayer);
+		if (legalMoves.Count == 0)
+			return string.Empty;
 
-		// Build the 86-length state vector expected by DQNAgent.
-		float[] state = BuildStateVectorFromCurrentGame();
-
-		// Greedy action selection returns index into legalMoves.
-		int bestMoveIndex = agent.SelectAction(state, legalMoves, greedy: true);
-		var bestMove = legalMoves[bestMoveIndex];
+		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, DefaultAlphaBetaDepth, legalMoves);
 
 		// Convert internal move coordinates into external move notation.
 		string moveString = Game.MoveToString(bestMove);
@@ -30,59 +24,57 @@ public partial class AIProgram : Node
 
 	public string GetNewBoardString(string boardString)
 	{
-		var agent = CreateAgent();
 		InitializeGameFromBoardString(boardString);
-		var board = Game.CurrentBoard;
-
-		// Ask game rules for all legal moves in this position.
+		var board = new Board(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs);
 		var legalMoves = Game.GetLegalMoves(board, Game.CurrentPlayer);
+		if (legalMoves.Count == 0)
+			return BuildBoardStringFromCurrentGame();
 
-		// Build the 86-length state vector expected by DQNAgent.
-		float[] state = BuildStateVectorFromCurrentGame();
-
-		// Greedy action selection returns index into legalMoves.
-		int bestMoveIndex = agent.SelectAction(state, legalMoves, greedy: true);
-		var bestMove = legalMoves[bestMoveIndex];
+		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, DefaultAlphaBetaDepth, legalMoves);
 		Game.ApplyMove(bestMove);
 
-		// Convert internal move coordinates into external move notation.
-		string newBoardString = Game.GetBoardString();
+		// Return serialized board after applying the selected move.
+		string newBoardString = BuildBoardStringFromCurrentGame();
 		return newBoardString;
-	}
-
-	private static DQNAgent CreateAgent()
-	{
-		var agent = new DQNAgent();
-		agent.Load(ModelPath);
-		return agent;
 	}
 
 	private static void InitializeGameFromBoardString(string boardString)
 	{
+		if (string.IsNullOrEmpty(boardString) || boardString.Length != 86)
+			throw new ArgumentException("Board string must be exactly 86 characters long.", nameof(boardString));
+
 		Game.InitializeFromString(boardString);
 		Game.CurrentPlayer = boardString[85] == 'x' ? PlayerColor.Light : PlayerColor.Dark;
 	}
 
-	// Encodes current game arrays into model input format:
-	// discs (6x6), pins (7x7), then current player.
-	internal static float[] BuildStateVectorFromCurrentGame()
+	// Serialize board using the same 86-char layout expected by InitializeFromString.
+	internal static string BuildBoardStringFromCurrentGame()
 	{
-		float[] state = new float[86];
+		char[] state = new char[86];
 		int idx = 0;
-		var board = Game.CurrentBoard;
 
-		// Discs occupy indices 0..35.
-		for (int r = 0; r < 6; r++)
-			for (int c = 0; c < 6; c++)
-				state[idx++] = board.Discs[r, c];
-
-		// Pins occupy indices 36..84.
+		// Pins occupy indices 0..48.
 		for (int r = 0; r < 7; r++)
 			for (int c = 0; c < 7; c++)
-				state[idx++] = board.Pins[r, c];
+				state[idx++] = CellToChar(Game.CurrentBoard.Pins[r, c]);
+
+		// Discs occupy indices 49..84.
+		for (int r = 0; r < 6; r++)
+			for (int c = 0; c < 6; c++)
+				state[idx++] = CellToChar(Game.CurrentBoard.Discs[r, c]);
 
 		// Final slot (index 85) stores side-to-move.
-		state[idx] = (int)Game.CurrentPlayer;
-		return state;
+		state[idx] = Game.CurrentPlayer == PlayerColor.Light ? 'x' : 'o';
+		return new string(state);
+	}
+
+	private static char CellToChar(int value)
+	{
+		return value switch
+		{
+			1 => 'x',
+			-1 => 'o',
+			_ => '.'
+		};
 	}
 }
