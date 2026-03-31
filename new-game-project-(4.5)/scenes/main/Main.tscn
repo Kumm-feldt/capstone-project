@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dre0xt6qnyeax"]
+
+[ext_resource type="Script" uid="uid://17vqd51i15xe" path="res://scenes/main/Main.gd" id="1_u1xfj"]
+[ext_resource type="PackedScene" uid="uid://cbswfivt2mw2u" path="res://scenes/board/Board.tscn" id="2_nha0i"]
+[ext_resource type="PackedScene" uid="uid://ccniks3ikqf7r" path="res://scenes/UI.tscn" id="2_q24mn"]
+[ext_resource type="Script" uid="uid://c51evrrb56tw2" path="res://AI/AIProgram.cs" id="4_dc040"]
+[ext_resource type="PackedScene" uid="uid://cnxv7st1qgo5k" path="res://scenes/UI/PauseMenu.tscn" id="5_dc040"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_u1xfj")
+
+[node name="Controls" parent="." instance=ExtResource("2_q24mn")]
+
+[node name="Board" parent="." instance=ExtResource("2_nha0i")]
+scale = Vector2(2.4, 2.4)
+
+[node name="CreeperAI" type="Node" parent="."]
+script = ExtResource("4_dc040")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 0.8784314)
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_dc040")]
+visible = false

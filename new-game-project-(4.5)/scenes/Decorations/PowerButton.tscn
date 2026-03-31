@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcmn2siq27e3q"]
+
+[ext_resource type="Texture2D" uid="uid://cj1l3yprdg0r6" path="res://Images/powerButton.png" id="1_qgdow"]
+[ext_resource type="Script" uid="uid://dabttp3ml6q7m" path="res://scenes/Decorations/PowerButton.gd" id="1_tsk7y"]
+[ext_resource type="Script" uid="uid://dbdep3hnmv481" path="res://scenes/Decorations/LEDEffect.gd" id="2_v8hqt"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v8hqt"]
+texture = ExtResource("1_qgdow")
+
+[node name="PowerButton" type="Node2D"]
+script = ExtResource("1_tsk7y")
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.75
+offset_top = -16.75
+offset_right = 16.75
+offset_bottom = 16.75
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_v8hqt")
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+position = Vector2(16.75, 16.75)
+scale = Vector2(2.1153846, 2.1153846)
+texture = ExtResource("1_qgdow")
+script = ExtResource("2_v8hqt")
+
+[node name="PointLight2D" type="PointLight2D" parent="Button/Sprite2D"]
+
+[connection signal="pressed" from="Button" to="." method="_on_power_button_pressed"]

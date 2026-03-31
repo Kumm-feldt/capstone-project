@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl366sh68kpu2"]
+
+[ext_resource type="Texture2D" uid="uid://d6pxqdt65axf" path="res://sprites/coins/coin_x.png" id="1_mweiu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v8y65"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mweiu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DiskXNode2D" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_v8y65")

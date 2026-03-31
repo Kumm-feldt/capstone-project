@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0xtg78elk7nc"]
+
+[ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_olc33"]
+[ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="2_v1kt7"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_8frmy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v1kt7"]
+texture = ExtResource("1_olc33")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xij0p"]
+bg_color = Color(0.18655634, 0.51033926, 0.31282082, 1)
+
+[node name="ScoreBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_v1kt7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 158.0
+offset_top = 128.0
+offset_right = -156.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_v1kt7")
+text = "Scoreboard"
+
+[node name="RowHeader" type="Panel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xij0p")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/RowHeader"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/RowHeader/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="RankLabel" type="Label" parent="Panel/VBoxContainer/RowHeader/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme = ExtResource("3_8frmy")
+text = "Rank"
+horizontal_alignment = 1
+
+[node name="ChampionLabel" type="Label" parent="Panel/VBoxContainer/RowHeader/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme = ExtResource("3_8frmy")
+text = "Champion"
+horizontal_alignment = 1
+
+[node name="UsernameLabel" type="Label" parent="Panel/VBoxContainer/RowHeader/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("3_8frmy")
+text = "Player"
+
+[node name="ScoreLabel" type="Label" parent="Panel/VBoxContainer/RowHeader/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_8frmy")
+text = "Points"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 80

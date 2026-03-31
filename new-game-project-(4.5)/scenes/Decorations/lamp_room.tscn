@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://bio0q2liv8hhd"]
+
+[ext_resource type="Texture2D" uid="uid://cfcyutbclcslf" path="res://assets/ui/decorations/lamp_with_background.png" id="3_r4y23"]
+[ext_resource type="Texture2D" uid="uid://7rnmaf064chx" path="res://assets/ui/decorations/ligth.png" id="4_xs7fo"]
+[ext_resource type="Texture2D" uid="uid://bg1duldi60bvu" path="res://assets/ui/backgrounds/CRTeffect.png" id="5_xs7fo"]
+
+[sub_resource type="Gradient" id="Gradient_xp747"]
+colors = PackedColorArray(0.57519424, 0.26901656, 0.06939683, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r4y23"]
+gradient = SubResource("Gradient_xp747")
+fill = 1
+fill_from = Vector2(0.4698276, 0.48706895)
+fill_to = Vector2(0.8038793, 0.33405173)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xs7fo"]
+polygon = PackedVector2Array(916, 439, 932, 425, 1023, 426, 1039, 439)
+
+[sub_resource type="Gradient" id="Gradient_r4y23"]
+offsets = PackedFloat32Array(0, 0.9910714)
+colors = PackedColorArray(0.92028, 0.48675495, 0.23276287, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c44p1"]
+gradient = SubResource("Gradient_r4y23")
+fill = 1
+fill_from = Vector2(0.073275864, 0.08836207)
+fill_to = Vector2(0.6185345, 0.75)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r4y23"]
+polygon = PackedVector2Array(876, 717, 885, 717, 886, 700, 881, 700, 882, 682, 878, 682, 878, 668, 883, 668, 882, 663, 898, 664, 898, 596, 1064, 597, 1065, 663, 1082, 664, 1081, 669, 1084, 670, 1085, 680, 1081, 682, 1081, 699, 1078, 701, 1078, 717, 1085, 717, 1130, 804, 835, 804)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(-2, 2)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.11119679, 0.11119687, 0.11119679, 1)
+
+[node name="SmallLamp" type="PointLight2D" parent="."]
+position = Vector2(955.00006, 206.00002)
+rotation = 0.85064346
+scale = Vector2(0.96539074, 0.92645174)
+texture = SubResource("GradientTexture2D_r4y23")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_xs7fo")
+
+[node name="LampSprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+position = Vector2(744, 187)
+scale = Vector2(1.7421052, 1.7421052)
+texture = ExtResource("3_r4y23")
+
+[node name="LightSprite2D" type="Sprite2D" parent="."]
+position = Vector2(954, 189)
+scale = Vector2(1.7421052, 1.7421052)
+texture = ExtResource("4_xs7fo")
+
+[node name="BigLamp" type="PointLight2D" parent="."]
+position = Vector2(963, 757.99994)
+rotation = 0.7858282
+scale = Vector2(14.296241, 13.935458)
+energy = 1.4
+shadow_color = Color(0, 0, 0, 0.7764706)
+shadow_filter = 1
+texture = SubResource("GradientTexture2D_c44p1")
+
+[node name="Shaddow" type="LightOccluder2D" parent="."]
+z_index = 10
+position = Vector2(2, 0)
+occluder = SubResource("OccluderPolygon2D_r4y23")
+
+[node name="LeftLight" type="PointLight2D" parent="."]
+position = Vector2(876.9999, 662.99994)
+rotation = -1.5907722
+scale = Vector2(5.433364, 13.64593)
+skew = 0.040813804
+energy = 0.5
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_r4y23")
+
+[node name="RightPointLight" type="PointLight2D" parent="."]
+position = Vector2(1090.9999, 664)
+rotation = -1.5907722
+scale = Vector2(5.433364, 13.64593)
+skew = 0.040813804
+energy = 0.5
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_r4y23")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(926.51587, 508.38516)
+rotation = -3.1753986
+scale = Vector2(2.2305388, 2.3038208)
+skew = 0.040813804
+texture = ExtResource("5_xs7fo")
