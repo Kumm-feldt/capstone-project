@@ -11,9 +11,9 @@ func check_first_launch():
 		# Show new username scene
 		is_config = false
 	else:
-		GameManager.username = config.get_value("player", "username")
-		GameManager.color = config.get_value("player", "color")
-		GameManager.background_color = config.get_value("player", "background_color")
+		GameManager.username = config.get_value("player", "username", "default")
+		GameManager.color = config.get_value("player", "color", "ffffff")
+		GameManager.background_color = config.get_value("player", "background_color", "000000")
 		
 
 func _on_start_pressed() -> void:
