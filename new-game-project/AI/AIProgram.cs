@@ -4,7 +4,9 @@ using Godot;
 
 public partial class AIProgram : Node
 {
-	internal const int DefaultAlphaBetaDepth = 3;
+	internal const int DefaultAlphaBetaDepth = 4;
+	internal const int MidgameAlphaBetaDepth = 5;
+	internal const int EndgameAlphaBetaDepth = 6;
 
 	public string GetMove(string boardString)
 	{
@@ -14,7 +16,9 @@ public partial class AIProgram : Node
 		if (legalMoves.Count == 0)
 			return string.Empty;
 
-		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, DefaultAlphaBetaDepth, legalMoves);
+		int searchDepth = ChooseSearchDepth(legalMoves.Count);
+
+		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, searchDepth, legalMoves);
 
 		// Convert internal move coordinates into external move notation.
 		string moveString = Game.MoveToString(bestMove);
@@ -30,7 +34,9 @@ public partial class AIProgram : Node
 		if (legalMoves.Count == 0)
 			return BuildBoardStringFromCurrentGame();
 
-		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, DefaultAlphaBetaDepth, legalMoves);
+		int searchDepth = ChooseSearchDepth(legalMoves.Count);
+
+		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, searchDepth, legalMoves);
 		Game.ApplyMove(bestMove);
 
 		// Return serialized board after applying the selected move.
@@ -76,5 +82,16 @@ public partial class AIProgram : Node
 			-1 => 'o',
 			_ => '.'
 		};
+	}
+
+	private static int ChooseSearchDepth(int legalMoveCount)
+	{
+		// Search deeper in lower-branching positions where tactical traps are easier to miss.
+		if (legalMoveCount <= 10)
+			return EndgameAlphaBetaDepth;
+		if (legalMoveCount <= 18)
+			return MidgameAlphaBetaDepth;
+
+		return DefaultAlphaBetaDepth;
 	}
 }

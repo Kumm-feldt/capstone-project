@@ -5,12 +5,17 @@ using CreeperAI;
 
 public static class AlphaBetaAgent
 {
+    // Large terminal value used to strongly prefer forced wins/losses.
     private const int WinScore = 100000;
+    // Practical infinity for alpha-beta bounds.
     private const int Infinity = 1_000_000_000;
+    // Small penalty to discourage lines that stall into no-progress states.
     private const int DrawPenalty = 20;
 
+    // Entry point: pick the best move for currentPlayer using depth-limited negamax.
     public static PinMove ChooseMove(int[,] pins, int[,] discs, PlayerColor currentPlayer, int depth, List<PinMove> legalMoves = null)
     {
+        // Reuse caller-provided legal moves when available to avoid recomputation.
         var legal = legalMoves ?? Game.GetLegalMoves(new Board(pins, discs), currentPlayer);
         if (legal.Count == 0)
             throw new InvalidOperationException("No legal moves available for alpha-beta selection.");
@@ -23,10 +28,12 @@ public static class AlphaBetaAgent
         var orderedMoves = OrderMoves(legal, pins, discs, currentPlayer);
         foreach (var move in orderedMoves)
         {
+            // Search on cloned boards so each branch is isolated.
             var pinsNext = (int[,])pins.Clone();
             var discsNext = (int[,])discs.Clone();
             var nextPlayer = ApplyMoveToCopies(pinsNext, discsNext, currentPlayer, move);
 
+            // Negamax flips perspective each ply, so child score is negated.
             int score = -Negamax(pinsNext, discsNext, nextPlayer, depth - 1, -beta, -alpha);
             if (score > bestScore)
             {
@@ -34,6 +41,7 @@ public static class AlphaBetaAgent
                 bestMove = move;
             }
 
+            // Track the best lower bound seen at root.
             if (score > alpha)
                 alpha = score;
         }
@@ -41,16 +49,20 @@ public static class AlphaBetaAgent
         return bestMove;
     }
 
+    // Core alpha-beta negamax recursion from the perspective of playerToMove.
     private static int Negamax(int[,] pins, int[,] discs, PlayerColor playerToMove, int depth, int alpha, int beta)
     {
+        // Immediate terminal check based on completed disc paths.
         int winner = WinnerFromDiscs(discs);
         if (winner != 0)
         {
+            // Depth bonus prefers faster wins and slower losses.
             if (winner == (int)playerToMove)
                 return WinScore + depth;
             return -WinScore - depth;
         }
 
+        // At horizon, fall back to static board evaluation.
         if (depth <= 0)
             return Evaluate(discs, pins, playerToMove);
 
@@ -74,6 +86,7 @@ public static class AlphaBetaAgent
             if (score > alpha)
                 alpha = score;
 
+            // Standard alpha-beta cutoff: remaining siblings cannot improve result.
             if (alpha >= beta)
                 break;
         }
@@ -81,34 +94,45 @@ public static class AlphaBetaAgent
         return best;
     }
 
+    // Heuristic evaluation for material, connectivity pressure, and mobility.
     private static int Evaluate(int[,] discs, int[,] pins, PlayerColor playerToMove)
     {
         int player = (int)playerToMove;
         int opponent = -player;
+        var opponentColor = playerToMove == PlayerColor.Light ? PlayerColor.Dark : PlayerColor.Light;
 
+        // Material signals: owned discs matter most, pins matter less.
         int discDiff = CountCells(discs, player) - CountCells(discs, opponent);
         int pinDiff = CountCells(pins, player) - CountCells(pins, opponent);
 
+        // Connection cost is lower when a player is closer to a completed path.
         int rootCost = ConnectionCost(discs, player);
         int oppCost = ConnectionCost(discs, opponent);
 
         int pathScore = PathCostToScore(oppCost) - PathCostToScore(rootCost);
         int progressPressure = Math.Clamp(oppCost - rootCost, -8, 8);
 
+        // Mobility discourages positions that self-trap while enabling the opponent.
         int mobilitySelf = Game.GetLegalMoves(new Board(pins, discs), playerToMove).Count;
-        var opponentColor = playerToMove == PlayerColor.Light ? PlayerColor.Dark : PlayerColor.Light;
         int mobilityOpp = Game.GetLegalMoves(new Board(pins, discs), opponentColor).Count;
         int mobilityDiff = mobilitySelf - mobilityOpp;
 
+        // Compare immediate tactical safety: threatened own pins vs threatened opponent pins.
+        int threatenedSelf = CountImmediateCaptureTargets(pins, discs, opponentColor);
+        int threatenedOpp = CountImmediateCaptureTargets(pins, discs, playerToMove);
+        int safetyDiff = threatenedOpp - threatenedSelf;
+
+        // Penalize stagnant positions where the side to move is not improving path cost.
         int noProgressPenalty = 0;
         if (rootCost >= oppCost)
-            noProgressPenalty += 12;
+            noProgressPenalty += 16;
         if (rootCost >= 1_000_000)
-            noProgressPenalty += 12;
+            noProgressPenalty += 16;
 
-        return (discDiff * 10) + (pinDiff * 3) + (pathScore * 36) + (progressPressure * 12) + (mobilityDiff * 2) - noProgressPenalty - DrawPenalty;
+        return (discDiff * 10) + (pinDiff * 1) + (pathScore * 42) + (progressPressure * 12) + (mobilityDiff * 4) + (safetyDiff * 8) - noProgressPenalty - DrawPenalty;
     }
 
+    // Lightweight move ordering to improve alpha-beta cutoffs.
     private static List<PinMove> OrderMoves(List<PinMove> legalMoves, int[,] pins, int[,] discs, PlayerColor playerToMove)
     {
         int player = (int)playerToMove;
@@ -124,10 +148,12 @@ public static class AlphaBetaAgent
                 bool isCapture = (Math.Abs(dr) == 2 && dc == 0) || (Math.Abs(dc) == 2 && dr == 0);
                 bool isDiagonal = Math.Abs(dr) == 1 && Math.Abs(dc) == 1;
 
+                // Prioritize tactical captures.
                 if (isCapture)
-                    score += 60;
+                    score += 24;
                 if (isDiagonal)
                 {
+                    // Prefer diagonal moves, especially those that can claim/flip a disc.
                     score += 12;
                     int dgR = Math.Min(move.FromR, move.ToR);
                     int dgC = Math.Min(move.FromC, move.ToC);
@@ -140,6 +166,7 @@ public static class AlphaBetaAgent
                 ApplyMoveToCopies(pinsNext, discsNext, playerToMove, move);
                 int nextCost = ConnectionCost(discsNext, player);
 
+                // Reward moves that reduce the mover's path cost to goal.
                 if (nextCost < currentCost)
                     score += Math.Min(40, (currentCost - nextCost) * 8);
 
@@ -150,6 +177,29 @@ public static class AlphaBetaAgent
             .ToList();
     }
 
+    // Count unique defender pins that can be captured immediately by attacker.
+    private static int CountImmediateCaptureTargets(int[,] pins, int[,] discs, PlayerColor attacker)
+    {
+        var legal = Game.GetLegalMoves(new Board(pins, discs), attacker);
+        var threatenedPins = new HashSet<(int r, int c)>();
+
+        foreach (var move in legal)
+        {
+            int dr = move.ToR - move.FromR;
+            int dc = move.ToC - move.FromC;
+            bool isCapture = (Math.Abs(dr) == 2 && dc == 0) || (Math.Abs(dc) == 2 && dr == 0);
+            if (!isCapture)
+                continue;
+
+            int midR = (move.FromR + move.ToR) / 2;
+            int midC = (move.FromC + move.ToC) / 2;
+            threatenedPins.Add((midR, midC));
+        }
+
+        return threatenedPins.Count;
+    }
+
+    // Convert path cost into a bounded score contribution for evaluation blending.
     private static int PathCostToScore(int cost)
     {
         const int inf = 1_000_000;
@@ -159,6 +209,7 @@ public static class AlphaBetaAgent
         return Math.Max(-12, 12 - cost);
     }
 
+    // Count how many cells in a grid belong to a given side/value.
     private static int CountCells(int[,] grid, int value)
     {
         int rows = grid.GetLength(0);
@@ -173,6 +224,7 @@ public static class AlphaBetaAgent
         return total;
     }
 
+    // Apply a move to temporary board copies and return the next side to move.
     private static PlayerColor ApplyMoveToCopies(int[,] pins, int[,] discs, PlayerColor currentPlayer, PinMove move)
     {
         int player = (int)currentPlayer;
@@ -183,6 +235,7 @@ public static class AlphaBetaAgent
         int dr = move.ToR - move.FromR;
         int dc = move.ToC - move.FromC;
 
+        // Capture jumps remove the jumped pin in the midpoint.
         if ((Math.Abs(dr) == 2 && dc == 0) || (Math.Abs(dc) == 2 && dr == 0))
         {
             int midR = (move.FromR + move.ToR) / 2;
@@ -190,6 +243,7 @@ public static class AlphaBetaAgent
             pins[midR, midC] = 0;
         }
 
+        // Diagonal moves may claim/flip the mapped disc cell (except fixed corners).
         if (Math.Abs(dr) == 1 && Math.Abs(dc) == 1)
         {
             int dgR = Math.Min(move.FromR, move.ToR);
@@ -205,11 +259,13 @@ public static class AlphaBetaAgent
         return currentPlayer == PlayerColor.Light ? PlayerColor.Dark : PlayerColor.Light;
     }
 
+    // Corner/base discs are immutable and excluded from conversion logic.
     private static bool IsBaseSquare(int r, int c)
     {
         return (r == 0 && c == 0) || (r == 0 && c == 5) || (r == 5 && c == 0) || (r == 5 && c == 5);
     }
 
+    // Winner detection from discs only: completed path for either side.
     private static int WinnerFromDiscs(int[,] discs)
     {
         if (HasWinningPath(discs, PlayerColor.Light))
@@ -219,6 +275,7 @@ public static class AlphaBetaAgent
         return 0;
     }
 
+    // Breadth-first search over same-color orthogonal adjacency.
     private static bool HasWinningPath(int[,] discs, PlayerColor player)
     {
         int color = (int)player;
@@ -263,12 +320,14 @@ public static class AlphaBetaAgent
         return false;
     }
 
+    // Dijkstra-style shortest connection cost where own discs cost 0 and neutral discs cost 1.
     private static int ConnectionCost(int[,] discs, int player)
     {
         const int inf = 1_000_000;
         (int r, int c) start = player == 1 ? (0, 5) : (0, 0);
         (int r, int c) goal = player == 1 ? (5, 0) : (5, 5);
 
+        // If the start base is not owned, no path is currently possible.
         if (discs[start.r, start.c] != player)
             return inf;
 
@@ -302,6 +361,7 @@ public static class AlphaBetaAgent
                 if (discs[nr, nc] == -player)
                     continue;
 
+                // Moving through own discs is free; neutral discs cost one conversion step.
                 int stepCost = discs[nr, nc] == player ? 0 : 1;
                 int nd = curDist + stepCost;
 
