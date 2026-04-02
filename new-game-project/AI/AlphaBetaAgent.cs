@@ -17,6 +17,7 @@ public static class AlphaBetaAgent
     {
         // Reuse caller-provided legal moves when available to avoid recomputation.
         var legal = legalMoves ?? Game.GetLegalMoves(new Board(pins, discs), currentPlayer);
+        legal = FilterOutLastPinCaptureMovesForAI(legal, pins, currentPlayer, currentPlayer);
         if (legal.Count == 0)
             throw new InvalidOperationException("No legal moves available for alpha-beta selection.");
 
@@ -34,7 +35,7 @@ public static class AlphaBetaAgent
             var nextPlayer = ApplyMoveToCopies(pinsNext, discsNext, currentPlayer, move);
 
             // Negamax flips perspective each ply, so child score is negated.
-            int score = -Negamax(pinsNext, discsNext, nextPlayer, depth - 1, -beta, -alpha);
+            int score = -Negamax(pinsNext, discsNext, nextPlayer, depth - 1, -beta, -alpha, currentPlayer);
             if (score > bestScore)
             {
                 bestScore = score;
@@ -50,7 +51,7 @@ public static class AlphaBetaAgent
     }
 
     // Core alpha-beta negamax recursion from the perspective of playerToMove.
-    private static int Negamax(int[,] pins, int[,] discs, PlayerColor playerToMove, int depth, int alpha, int beta)
+    private static int Negamax(int[,] pins, int[,] discs, PlayerColor playerToMove, int depth, int alpha, int beta, PlayerColor aiPlayer)
     {
         // Immediate terminal check based on completed disc paths.
         int winner = WinnerFromDiscs(discs);
@@ -64,9 +65,10 @@ public static class AlphaBetaAgent
 
         // At horizon, fall back to static board evaluation.
         if (depth <= 0)
-            return Evaluate(discs, pins, playerToMove);
+            return Evaluate(discs, pins, playerToMove, aiPlayer);
 
         var legal = Game.GetLegalMoves(new Board(pins, discs), playerToMove);
+        legal = FilterOutLastPinCaptureMovesForAI(legal, pins, playerToMove, aiPlayer);
         if (legal.Count == 0)
             return -DrawPenalty;
 
@@ -79,7 +81,7 @@ public static class AlphaBetaAgent
             var discsNext = (int[,])discs.Clone();
             var nextPlayer = ApplyMoveToCopies(pinsNext, discsNext, playerToMove, move);
 
-            int score = -Negamax(pinsNext, discsNext, nextPlayer, depth - 1, -beta, -alpha);
+            int score = -Negamax(pinsNext, discsNext, nextPlayer, depth - 1, -beta, -alpha, aiPlayer);
             if (score > best)
                 best = score;
 
@@ -95,7 +97,7 @@ public static class AlphaBetaAgent
     }
 
     // Heuristic evaluation for material, connectivity pressure, and mobility.
-    private static int Evaluate(int[,] discs, int[,] pins, PlayerColor playerToMove)
+    private static int Evaluate(int[,] discs, int[,] pins, PlayerColor playerToMove, PlayerColor aiPlayer)
     {
         int player = (int)playerToMove;
         int opponent = -player;
@@ -118,8 +120,8 @@ public static class AlphaBetaAgent
         int mobilityDiff = mobilitySelf - mobilityOpp;
 
         // Compare immediate tactical safety: threatened own pins vs threatened opponent pins.
-        int threatenedSelf = CountImmediateCaptureTargets(pins, discs, opponentColor);
-        int threatenedOpp = CountImmediateCaptureTargets(pins, discs, playerToMove);
+        int threatenedSelf = CountImmediateCaptureTargets(pins, discs, opponentColor, aiPlayer);
+        int threatenedOpp = CountImmediateCaptureTargets(pins, discs, playerToMove, aiPlayer);
         int safetyDiff = threatenedOpp - threatenedSelf;
 
         // Penalize stagnant positions where the side to move is not improving path cost.
@@ -178,9 +180,10 @@ public static class AlphaBetaAgent
     }
 
     // Count unique defender pins that can be captured immediately by attacker.
-    private static int CountImmediateCaptureTargets(int[,] pins, int[,] discs, PlayerColor attacker)
+    private static int CountImmediateCaptureTargets(int[,] pins, int[,] discs, PlayerColor attacker, PlayerColor aiPlayer)
     {
         var legal = Game.GetLegalMoves(new Board(pins, discs), attacker);
+        legal = FilterOutLastPinCaptureMovesForAI(legal, pins, attacker, aiPlayer);
         var threatenedPins = new HashSet<(int r, int c)>();
 
         foreach (var move in legal)
@@ -197,6 +200,52 @@ public static class AlphaBetaAgent
         }
 
         return threatenedPins.Count;
+    }
+
+    // Enforce the house rule: the AI may not capture the opponent's final remaining pin.
+    private static List<PinMove> FilterOutLastPinCaptureMovesForAI(List<PinMove> legalMoves, int[,] pins, PlayerColor playerToMove, PlayerColor aiPlayer)
+    {
+        if (playerToMove != aiPlayer)
+            return legalMoves;
+
+        var opponent = aiPlayer == PlayerColor.Light ? PlayerColor.Dark : PlayerColor.Light;
+        if (CountPinsForPlayer(pins, opponent) != 1)
+            return legalMoves;
+
+        var filtered = new List<PinMove>(legalMoves.Count);
+        foreach (var move in legalMoves)
+        {
+            if (!IsCaptureMove(move) || !DoesCaptureOpponentPin(move, pins, opponent))
+                filtered.Add(move);
+        }
+
+        return filtered;
+    }
+
+    private static int CountPinsForPlayer(int[,] pins, PlayerColor player)
+    {
+        int value = (int)player;
+        int total = 0;
+        for (int r = 0; r < 7; r++)
+            for (int c = 0; c < 7; c++)
+                if (pins[r, c] == value)
+                    total++;
+
+        return total;
+    }
+
+    private static bool IsCaptureMove(PinMove move)
+    {
+        int dr = move.ToR - move.FromR;
+        int dc = move.ToC - move.FromC;
+        return (Math.Abs(dr) == 2 && dc == 0) || (Math.Abs(dc) == 2 && dr == 0);
+    }
+
+    private static bool DoesCaptureOpponentPin(PinMove move, int[,] pins, PlayerColor opponent)
+    {
+        int midR = (move.FromR + move.ToR) / 2;
+        int midC = (move.FromC + move.ToC) / 2;
+        return pins[midR, midC] == (int)opponent;
     }
 
     // Convert path cost into a bounded score contribution for evaluation blending.

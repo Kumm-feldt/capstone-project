@@ -13,10 +13,12 @@ public partial class AIProgram : Node
 		InitializeGameFromBoardString(boardString);
 		var board = new Board(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs);
 		var legalMoves = Game.GetLegalMoves(board, Game.CurrentPlayer);
+		legalMoves = FilterOutLastPinCaptureMoves(legalMoves, Game.CurrentBoard.Pins, Game.CurrentPlayer);
 		if (legalMoves.Count == 0)
 			return string.Empty;
 
-		int searchDepth = ChooseSearchDepth(legalMoves.Count);
+		int pinCount = CountPinsLeft(Game.CurrentBoard.Pins);
+		int searchDepth = ChooseSearchDepth(pinCount);
 
 		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, searchDepth, legalMoves);
 
@@ -31,10 +33,12 @@ public partial class AIProgram : Node
 		InitializeGameFromBoardString(boardString);
 		var board = new Board(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs);
 		var legalMoves = Game.GetLegalMoves(board, Game.CurrentPlayer);
+		legalMoves = FilterOutLastPinCaptureMoves(legalMoves, Game.CurrentBoard.Pins, Game.CurrentPlayer);
 		if (legalMoves.Count == 0)
 			return BuildBoardStringFromCurrentGame();
 
-		int searchDepth = ChooseSearchDepth(legalMoves.Count);
+		int pinCount = CountPinsLeft(Game.CurrentBoard.Pins);
+		int searchDepth = ChooseSearchDepth(pinCount);
 
 		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, searchDepth, legalMoves);
 		Game.ApplyMove(bestMove);
@@ -84,14 +88,75 @@ public partial class AIProgram : Node
 		};
 	}
 
-	private static int ChooseSearchDepth(int legalMoveCount)
+	private static int ChooseSearchDepth(int totalPinsLeft)
 	{
-		// Search deeper in lower-branching positions where tactical traps are easier to miss.
-		if (legalMoveCount <= 10)
+		// Use board phase by total non-empty pins remaining on the 7x7 pin grid.
+		if (totalPinsLeft <= 6)
 			return EndgameAlphaBetaDepth;
-		if (legalMoveCount <= 18)
+		if (totalPinsLeft <= 12)
 			return MidgameAlphaBetaDepth;
 
 		return DefaultAlphaBetaDepth;
+	}
+
+	private static int CountPinsLeft(int[,] pins)
+	{
+		int total = 0;
+		for (int r = 0; r < 7; r++)
+		{
+			for (int c = 0; c < 7; c++)
+			{
+				if (pins[r, c] != 0)
+					total++;
+			}
+		}
+
+		return total;
+	}
+
+	private static System.Collections.Generic.List<PinMove> FilterOutLastPinCaptureMoves(System.Collections.Generic.List<PinMove> legalMoves, int[,] pins, PlayerColor currentPlayer)
+	{
+		var opponent = currentPlayer == PlayerColor.Light ? PlayerColor.Dark : PlayerColor.Light;
+		if (CountPinsForPlayer(pins, opponent) != 1)
+			return legalMoves;
+
+		var filtered = new System.Collections.Generic.List<PinMove>(legalMoves.Count);
+		foreach (var move in legalMoves)
+		{
+			if (!IsCaptureMove(move) || !DoesCaptureOpponentPin(move, pins, opponent))
+				filtered.Add(move);
+		}
+
+		return filtered;
+	}
+
+	private static int CountPinsForPlayer(int[,] pins, PlayerColor player)
+	{
+		int value = (int)player;
+		int total = 0;
+		for (int r = 0; r < 7; r++)
+		{
+			for (int c = 0; c < 7; c++)
+			{
+				if (pins[r, c] == value)
+					total++;
+			}
+		}
+
+		return total;
+	}
+
+	private static bool IsCaptureMove(PinMove move)
+	{
+		int dr = move.ToR - move.FromR;
+		int dc = move.ToC - move.FromC;
+		return (Math.Abs(dr) == 2 && dc == 0) || (Math.Abs(dc) == 2 && dr == 0);
+	}
+
+	private static bool DoesCaptureOpponentPin(PinMove move, int[,] pins, PlayerColor opponent)
+	{
+		int midR = (move.FromR + move.ToR) / 2;
+		int midC = (move.FromC + move.ToC) / 2;
+		return pins[midR, midC] == (int)opponent;
 	}
 }
