@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbswfivt2mw2u"]
+[gd_scene load_steps=8 format=3 uid="uid://cbswfivt2mw2u"]
 
 [ext_resource type="Script" uid="uid://bwnnyjucrngdi" path="res://scenes/board/Board.gd" id="1_6puts"]
+[ext_resource type="PackedScene" uid="uid://b8q3s3enh85wt" path="res://scenes/board/bgTesting.tscn" id="2_0kj62"]
 [ext_resource type="Texture2D" uid="uid://b8njfbit14p58" path="res://Images/gameBoard.png" id="2_l0jo7"]
 [ext_resource type="Texture2D" uid="uid://dyyiqueixw3t4" path="res://sprites/coins/snakeHeadRed.png" id="3_kmmm1"]
 [ext_resource type="Texture2D" uid="uid://cuaiqpittgdxl" path="res://sprites/coins/snakeTailRed.png" id="4_vgpvj"]
@@ -10,7 +11,11 @@
 [node name="Board" type="Node2D"]
 script = ExtResource("1_6puts")
 
+[node name="GameplayBackground" parent="." instance=ExtResource("2_0kj62")]
+scale = Vector2(0.417, 0.417)
+
 [node name="BoardSprite" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(400, 225)
 texture = ExtResource("2_l0jo7")
 

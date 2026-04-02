@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bt2ti6m44jhm0"
-path="res://.godot/imported/onlinePlayButton.png-44a09c3cfd0aabfe406e41ab5499a305.ctex"
+uid="uid://bvyi1753oiuly"
+path="res://.godot/imported/powerIndicatorOff.png-15dfad5a77a873da565031e48fd7f84a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/aseprite Files/onlinePlayButton.png"
-dest_files=["res://.godot/imported/onlinePlayButton.png-44a09c3cfd0aabfe406e41ab5499a305.ctex"]
+source_file="res://Images/powerIndicatorOff.png"
+dest_files=["res://.godot/imported/powerIndicatorOff.png-15dfad5a77a873da565031e48fd7f84a.ctex"]
 
 [params]
 
