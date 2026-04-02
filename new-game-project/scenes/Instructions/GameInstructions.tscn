@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2ljkmakfhbvj"]
+[gd_scene load_steps=7 format=3 uid="uid://d2ljkmakfhbvj"]
 
+[ext_resource type="Script" uid="uid://xpmvqpm5akmu" path="res://scenes/Instructions/game_instructions.gd" id="1_c68ih"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="1_jpycx"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_x36it"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="4_ocslv"]
+[ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="5_o4mwe"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqpcf"]
 texture = ExtResource("1_jpycx")
@@ -13,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c68ih")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -25,10 +29,10 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_lqpcf")
 
 [node name="Title" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 128.0
-offset_right = 437.0
-offset_bottom = 189.0
+offset_left = 212.0
+offset_top = 162.0
+offset_right = 521.0
+offset_bottom = 223.0
 theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
 theme_override_fonts/font = ExtResource("2_x36it")
 theme_override_font_sizes/font_size = 40
@@ -36,10 +40,10 @@ text = "Instructions"
 
 [node name="TabOneSubtitle" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 192.0
-offset_right = 472.0
-offset_bottom = 248.0
+offset_left = 212.0
+offset_top = 226.0
+offset_right = 556.0
+offset_bottom = 282.0
 theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
 theme_override_fonts/font = ExtResource("2_x36it")
 theme_override_font_sizes/font_size = 30
@@ -47,10 +51,10 @@ text = "Goal of the Game"
 
 [node name="TabOneText" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 160.0
-offset_top = 256.0
-offset_right = 1728.0
-offset_bottom = 433.0
+offset_left = 244.0
+offset_top = 290.0
+offset_right = 1812.0
+offset_bottom = 467.0
 theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
 theme_override_fonts/font = ExtResource("2_x36it")
 theme_override_font_sizes/font_size = 25
@@ -62,10 +66,10 @@ When a player cannot place any legal tile, they are eliminated. The last player 
 
 [node name="TabTwoSubtitle" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 448.0
-offset_right = 472.0
-offset_bottom = 504.0
+offset_left = 212.0
+offset_top = 482.0
+offset_right = 556.0
+offset_bottom = 538.0
 theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
 theme_override_fonts/font = ExtResource("2_x36it")
 theme_override_font_sizes/font_size = 30
@@ -73,10 +77,10 @@ text = "How to Play"
 
 [node name="TabTwoText" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 160.0
-offset_top = 512.0
-offset_right = 1728.0
-offset_bottom = 689.0
+offset_left = 244.0
+offset_top = 546.0
+offset_right = 1812.0
+offset_bottom = 903.0
 theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
 theme_override_fonts/font = ExtResource("2_x36it")
 theme_override_font_sizes/font_size = 25
@@ -120,3 +124,18 @@ text = "The goal is to be the last player able to place a snake tile on the boar
 Each snake is made of connected discs that grow from the head to the tail.
 
 When a player cannot place any legal tile, they are eliminated. The last player remaining wins."
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 117.0
+offset_right = 187.0
+offset_bottom = 181.0
+theme = ExtResource("4_ocslv")
+
+[node name="Icon" type="Sprite2D" parent="BackButton"]
+position = Vector2(32, 32)
+scale = Vector2(2.8749995, 2.8749995)
+texture = ExtResource("5_o4mwe")
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
