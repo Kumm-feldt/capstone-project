@@ -18,5 +18,5 @@ func _on_game_ready():
 
 func _on_back_button_pressed() -> void:
 	# stop hosting game
-	
+	NetworkManager.stop_hosting()
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

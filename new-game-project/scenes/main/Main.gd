@@ -5,6 +5,9 @@ var win_screen_scene = preload("res://scenes/WinScreen.tscn")
 #@onready var turn_label = $CanvasLayer/UI/TurnLabel
 #@onready var debug_label = $CanvasLayer/UI/DebugLabel
 #@onready var reset_button = $CanvasLayer/UI/ResetButton
+@onready var userleftmessage = $UserLeftMessage
+
+
 @onready var dim_overlay = $DimOverlay
 
 var WIN_POINTS = 100
@@ -15,6 +18,7 @@ func _ready():
 	# Connect to GameState
 	dim_overlay.visible = false
 	GameState.connect("game_over", _on_game_over)
+	NetworkManager.connect("match_ended_",on_match_ended )
 	
 
 func _on_turn_changed(_player: String):
@@ -38,8 +42,12 @@ func _on_game_over(winner: String):
 	
 func _on_reset_pressed():
 	"""Reset game button"""
-
-
+	
+func on_match_ended(username):
+	print("message is suposse to show")
+	userleftmessage.visible = true
+	userleftmessage.get_node("UserLeftMessagePanel/Label").text = username + " left the match"
+	
 func _process(_delta):
 	"""Debug display (remove for production)"""
 	

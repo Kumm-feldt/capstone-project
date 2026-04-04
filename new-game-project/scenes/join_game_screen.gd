@@ -82,4 +82,5 @@ func _on_join_button_pressed(ip):
 
 func _on_back_button_pressed() -> void:
 	# stop searching for game
+	NetworkManager.stop_searching()
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

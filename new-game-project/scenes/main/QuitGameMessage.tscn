@@ -31,7 +31,7 @@ anchor_bottom = 0.5
 offset_left = -292.25
 offset_top = -207.6875
 offset_right = 292.25
-offset_bottom = 207.6875
+offset_bottom = 198.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_66s2c")
@@ -52,6 +52,24 @@ text = "Are you
 sure you want to quit?"
 horizontal_alignment = 1
 
+[node name="MultiplayerQuitLabel" type="Label" parent="QuiteGameMessage"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -263.0
+offset_top = 335.6875
+offset_right = 266.0
+offset_bottom = 380.6875
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_ds22t")
+theme_override_font_sizes/font_size = 16
+text = "This will result 
+in a penalty of -100pts"
+horizontal_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="QuiteGameMessage"]
 layout_mode = 1
 anchors_preset = 13
@@ -59,9 +77,9 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -237.25
-offset_top = 66.3125
+offset_top = 54.3125
 offset_right = 240.75
-offset_bottom = -59.0625
+offset_bottom = -71.0625
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 75

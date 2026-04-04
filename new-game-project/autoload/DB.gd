@@ -55,6 +55,7 @@ func _on_check_points_done(result, response_code, headers, body):
 		return
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	var points_username = data[0]["points"]
+	GameManager.current_score = points_username
 	emit_signal("points_received", points_username)  # Notify listeners
 	
 	
@@ -96,6 +97,7 @@ func update_points():
 		"points": int(upd_points),
 		statement: int(value)
 	})	
+	GameManager.current_score = int(upd_points)
 	var url = URL + "?username=eq."+pending_username 
 	http_patch.request(url, DBService.HEADERS, HTTPClient.METHOD_PATCH, body)
 	

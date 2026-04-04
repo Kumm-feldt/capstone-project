@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfq4y4sutk2hv"]
+
+[ext_resource type="Script" uid="uid://cvkkltdo7037k" path="res://scenes/main/user_left_message.gd" id="1_s03qu"]
+[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="1_tks55"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="2_s03qu"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_0hr8a"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_66s2c"]
+texture = ExtResource("1_tks55")
+region_rect = Rect2(1339, 734, 241, 227)
+
+[node name="UserLeftMessage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s03qu")
+
+[node name="UserLeftMessagePanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.625
+offset_top = -143.34375
+offset_right = 249.625
+offset_bottom = 143.34375
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_66s2c")
+
+[node name="Label" type="Label" parent="UserLeftMessagePanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -257.0
+offset_top = 54.6875
+offset_right = 267.0
+offset_bottom = 88.6875
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_s03qu")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="UserLeftMessagePanel"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = -12.0
+offset_right = 134.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_0hr8a")
+text = "Ok"

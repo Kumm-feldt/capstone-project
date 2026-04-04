@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dre0xt6qnyeax"]
+[gd_scene load_steps=7 format=3 uid="uid://dre0xt6qnyeax"]
 
 [ext_resource type="Script" uid="uid://17vqd51i15xe" path="res://scenes/main/Main.gd" id="1_u1xfj"]
 [ext_resource type="PackedScene" uid="uid://cbswfivt2mw2u" path="res://scenes/board/Board.tscn" id="2_nha0i"]
 [ext_resource type="PackedScene" uid="uid://ccniks3ikqf7r" path="res://scenes/UI.tscn" id="2_q24mn"]
 [ext_resource type="Script" uid="uid://c51evrrb56tw2" path="res://AI/AIProgram.cs" id="4_dc040"]
 [ext_resource type="PackedScene" uid="uid://cnxv7st1qgo5k" path="res://scenes/UI/PauseMenu.tscn" id="5_dc040"]
+[ext_resource type="PackedScene" uid="uid://bfq4y4sutk2hv" path="res://scenes/main/UserLeftMessage.tscn" id="6_1rhdn"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u1xfj")
@@ -29,3 +30,16 @@ color = Color(0, 0, 0, 0.8784314)
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_dc040")]
 visible = false
+
+[node name="UserLeftMessage" parent="." instance=ExtResource("6_1rhdn")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 963.0
+offset_top = 520.0
+offset_right = 963.0
+offset_bottom = 520.0
+size_flags_horizontal = 4
