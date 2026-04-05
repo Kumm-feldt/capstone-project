@@ -6,8 +6,6 @@ var win_screen_scene = preload("res://scenes/WinScreen.tscn")
 #@onready var debug_label = $CanvasLayer/UI/DebugLabel
 #@onready var reset_button = $CanvasLayer/UI/ResetButton
 @onready var userleftmessage = $UserLeftMessage
-
-
 @onready var dim_overlay = $DimOverlay
 
 var WIN_POINTS = 100
@@ -17,10 +15,17 @@ var LOSS_POINTS = 30
 func _ready():
 	# Connect to GameState
 	dim_overlay.visible = false
+	print("Connecting end_match... in _ready")
 	GameState.connect("game_over", _on_game_over)
-	NetworkManager.connect("match_ended_",on_match_ended )
+	NetworkManager.connect("end_match",on_match_ended )
 	
-
+	# signal to close the window
+	NetworkManager.connect("ready_to_leave", _on_ready_to_leave)
+	
+func _on_ready_to_leave():
+	# host asked for it
+	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
+	
 func _on_turn_changed(_player: String):
 	"""Handle turn change"""
 
@@ -44,6 +49,7 @@ func _on_reset_pressed():
 	"""Reset game button"""
 	
 func on_match_ended(username):
+	print("3) end_match signal on Main.gd")
 	print("message is suposse to show")
 	userleftmessage.visible = true
 	userleftmessage.get_node("UserLeftMessagePanel/Label").text = username + " left the match"

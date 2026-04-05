@@ -15,12 +15,16 @@ var broadcast_timer = 1.0
 var peer
 var is_hosting = false
 
+var host_id := 1
+var client_id := 0
+
 # ============================================
 # SIGNALS
 # ============================================
 signal game_ready
 signal discovered_servers_ui
-signal match_ended_(username)
+signal end_match(username)
+signal ready_to_leave
 
 func getHostName():
 	var config = ConfigFile.new()
@@ -30,6 +34,8 @@ func getHostName():
 		return "undefined"
 
 func _ready():
+	discovered_servers.clear()
+	emit_signal("discovered_servers_ui", discovered_servers)
 	# safely initialize 
 	client_udp = PacketPeerUDP.new()
 	client_udp.bind(LAN_BROADCAST_PORT, "*")
@@ -61,6 +67,11 @@ func _process(delta):
 
 
 func host_game():
+	if multiplayer.peer_connected.is_connected(_add_player_to_game):
+		multiplayer.peer_connected.disconnect(_add_player_to_game)
+	if multiplayer.peer_disconnected.is_connected(_del_player):
+		multiplayer.peer_disconnected.disconnect(_del_player)
+		
 	broadcast_timer = 0.3  # broadcast immediately instead of waiting 1 second
 	is_hosting = true
 	# enable broadcast
@@ -79,7 +90,7 @@ func host_game():
 func stop_searching():
 	# Stop listening for broadcasts
 	if client_udp:
-		client_udp.close()  # closes UDP socket [web:6]
+		client_udp.close()  # closes UDP socket 
 		client_udp = null
 
 	discovered_servers.clear()
@@ -91,12 +102,12 @@ func stop_hosting():
 
 	# Stop ENet server
 	if multiplayer.multiplayer_peer:
-		multiplayer.multiplayer_peer.close()  # closes ENetMultiplayerPeer [web:8]
+		multiplayer.multiplayer_peer.close()  # closes ENetMultiplayerPeer 
 		multiplayer.multiplayer_peer = null
 
 	# Stop broadcasting UDP
 	if host_udp:
-		host_udp.close()  # closes UDP socket [web:6]
+		host_udp.close()  # closes UDP socket
 		host_udp = null
 
 	players.clear()	
@@ -104,6 +115,12 @@ func stop_hosting():
 
 func join_game(server_ip):
 	print("Player 2 joining")
+	# Disconnect stale signals first
+	if multiplayer.connected_to_server.is_connected(_on_connected_to_server):
+		multiplayer.connected_to_server.disconnect(_on_connected_to_server)
+	if multiplayer.connection_failed.is_connected(_on_connection_failed):
+		multiplayer.connection_failed.disconnect(_on_connection_failed)
+	
 	var client_peer = ENetMultiplayerPeer.new()
 	client_peer.create_client(server_ip, SERVER_PORT)
 	multiplayer.multiplayer_peer = client_peer
@@ -112,10 +129,11 @@ func join_game(server_ip):
 
 # pass network id 
 func _add_player_to_game(id: int):
-	players[id] = {"id" : id, "username": "Player"}
-	print("Player joined: ", id)
-	if players.size() == 2:  # both players connected
-		notify_all_players_ready.rpc()  # tell EVERYONE including client
+	if id == 1:
+		# Host registers itself directly
+		players[1] = { "username": HOST }
+		print("Host added: ", HOST)
+
 	
 func _del_player(id: int):
 	players.erase(id)
@@ -123,6 +141,8 @@ func _del_player(id: int):
 
 func _on_connected_to_server():
 	print("Successfully connected!")
+	var username = getHostName()
+	register_user.rpc_id(1, username)
 	# tell JoinGameScreen to stop showing "Searching..." and enter the lobby
 
 func _on_connection_failed():
@@ -139,32 +159,23 @@ func is_valid_player_turn(sender_id):
 
 func leave_match_as_client():
 	print("Client is leaving the match...")
-	
-	client_leaves.rpc()  # goes to server because it’s authority [web:25]
-
-	if multiplayer.multiplayer_peer:
-		# Tell ENet to disconnect from the server [web:8]
-		multiplayer.multiplayer_peer.disconnect_peer(1)
-		multiplayer.multiplayer_peer.close()
-		multiplayer.multiplayer_peer = null
+	client_leaves.rpc()  # goes to server because it’s authority
 
 
 func leave_match_as_host():
-	print("Host is leaving the match...")
-	# Tell client via RPC that match is ending
-	host_leaves.rpc()
+	print("1) leave_match_as_host")
+	# 1. Notify the client the match ended
+	match_ended.rpc(HOST)          # server CAN call this (authority)
 
-	if multiplayer.multiplayer_peer:
-		multiplayer.multiplayer_peer.close()  # kills server and all clients [web:8]
-		multiplayer.multiplayer_peer = null
+	# 2. Tell client to disconnect
+	confirm_client_disconnect.rpc_id(client_id, 1, "HOST")  # leaver_id = 1 = host
+	# Wait one frame so packets actually go out
+	await get_tree().process_frame
+	
+	# 3. Clean up host locally — no RPC needed
+	#emit_signal("end_match", HOST)
+	confirm_host_disconnect()      # call directly, not via rpc()
 
-	players.clear()
-	is_hosting = false
-
-	# Also stop LAN broadcast if you’re in a “live lobby”
-	if host_udp:
-		host_udp.close()
-		host_udp = null
 
 	
 func _on_server_disconnected():
@@ -177,12 +188,6 @@ func _on_server_disconnected():
 @rpc("authority", "call_local", "reliable")
 func notify_all_players_ready():
 	emit_signal.call_deferred("game_ready")  # fires on ALL machines
-
-# rpc emit signal to let the other peer the user left the match
-@rpc("any_peer", "reliable")
-func match_ended(username):
-	print("match ended, user left: ", username)
-	emit_signal("match_ended_",username)
 		
 @rpc("any_peer", "reliable")
 func send_move(coord):
@@ -195,7 +200,6 @@ func send_move(coord):
 	# validate it is this players turn
 	if not is_valid_player_turn(sender_id):
 		return
-		
 	# tell the board to apply the move on all peers
 	rpc("confirm_move", coord)
 	confirm_move(coord) # run locally on server
@@ -205,32 +209,66 @@ func confirm_move(coord):
 	# This runs on every peer — board applies the move
 	GameState.move_pin(coord, GameState.current_player)
 
+# rpc emit signal to let the other peer the user left the match
+@rpc("authority", "reliable")
+func match_ended(username):
+	print("2) match_ended(username)")
+	print("match ended, user left: ", username)
+	
+	emit_signal("end_match",username)
+	
 # Someone tells the server they are leaving
 @rpc("any_peer", "reliable")
 func client_leaves():
-	var leaver_id := multiplayer.get_remote_sender_id()  # who called this [web:24][web:47]
-	print("Client leaving, id: ", leaver_id)
+	print("client_leaves called on server")
+	var leaver_id := multiplayer.get_remote_sender_id()
+	var username = players[leaver_id].username if players.has(leaver_id) else "Unknown"
 
-	# Figure out the remaining peer id (host is always 1)
-	var remaining_id := 1 if leaver_id != 1 else 0  # 0 means “no other peer”
+	# Notify the remaining peer
+	for peer_id in multiplayer.get_peers():
+		if peer_id != leaver_id:
+			match_ended.rpc_id(peer_id, username)
 
-	var username := ""
-	if leaver_id == 1:
-		username = HOST
-	else:
-		username = players[leaver_id].username  
+	# Also fire locally on host
+	emit_signal("end_match", username)
 
-	# Tell remaining peer (if any) that match ended
-	if remaining_id != 0:
-		match_ended.rpc_id(remaining_id, username)
-	# tiny delay before closing, optional but can help
-	await get_tree().process_frame
+	# NOW tell the client it's safe to disconnect
+	confirm_client_disconnect.rpc_id(leaver_id, leaver_id, "Client")
+
+# Server → client: "okay, you can go now"
+@rpc("authority", "call_remote", "reliable")
+func confirm_client_disconnect(leaver_id, user):
+	print("4) confirm_client_disconnect ")
+	print("Server confirmed disconnect, closing connection...")
+	var my_id = multiplayer.get_unique_id()  # save BEFORE closing peer
+
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+	# Only auto-leave if I'm the one who initiated the disconnect
+	if leaver_id == my_id:
+		emit_signal("ready_to_leave")
 	
-	# Also emit locally on server, so host’s UI can react
-	emit_signal("match_ended_", username)
 
-# Someone tells the server they are leaving
+# client -> server: this is my name
 @rpc("any_peer", "reliable")
-func host_leaves():
-	# Also emit locally on server, so host’s UI can react
-	emit_signal("match_ended_", HOST)
+func register_user(username):
+	var sender_id := multiplayer.get_remote_sender_id()
+	print("Player connected: ", sender_id, " username: ", username)
+	players[sender_id] = { "username": username }
+	client_id = sender_id
+	if players.size() == 2:  # both players connected
+		print("told everyone... ")
+		notify_all_players_ready.rpc()  # tell EVERYONE including client
+
+# 2) HOST NETWORK CLEANUP: run ONLY on host
+@rpc("authority", "call_local", "reliable")
+func confirm_host_disconnect():
+	print("6) confirm_host_disconnect")
+	print("confirmed that host disconnected")
+	players.clear()
+	is_hosting = false
+	if host_udp:
+		host_udp.close()
+		host_udp = null
+	emit_signal("ready_to_leave") 

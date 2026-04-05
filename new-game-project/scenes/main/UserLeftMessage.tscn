@@ -65,3 +65,5 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_0hr8a")
 text = "Ok"
+
+[connection signal="pressed" from="UserLeftMessagePanel/Button" to="." method="_on_button_pressed"]
