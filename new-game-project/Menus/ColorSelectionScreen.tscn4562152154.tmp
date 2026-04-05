@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://gslxv6nise5x"]
+
+[ext_resource type="Script" uid="uid://ddk02qreoju6h" path="res://Menus/ColorSelectionScreen.gd" id="1_0qsph"]
+[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/Decorations/menu_panel.tscn" id="2_2y6vf"]
+[ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_2y6vf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2y6vf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0.35686275, 0.14117648, 1)
+
+[node name="ColorSelectionScreen" type="Node2D"]
+script = ExtResource("1_0qsph")
+
+[node name="MenuPanelScene" parent="." instance=ExtResource("2_2y6vf")]
+
+[node name="ColorGrid" type="GridContainer" parent="."]
+offset_left = 720.0
+offset_top = 170.0
+offset_right = 1200.0
+offset_bottom = 750.0
+columns = 2
+
+[node name="TextureButton" type="TextureButton" parent="ColorGrid"]
+layout_mode = 2
+
+[node name="InstructionBox" type="Panel" parent="."]
+offset_left = 160.0
+offset_top = 810.0
+offset_right = 1760.0
+offset_bottom = 970.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2y6vf")
+
+[node name="InstructionBoxText" type="Label" parent="InstructionBox"]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 50.0
+offset_right = 1361.0
+offset_bottom = 118.0
+theme = ExtResource("3_2y6vf")
+text = "Choose Player One's Color!"

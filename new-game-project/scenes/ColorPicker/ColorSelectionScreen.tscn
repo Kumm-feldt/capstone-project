@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://gslxv6nise5x"]
+
+[ext_resource type="Script" uid="uid://ddk02qreoju6h" path="res://scenes/ColorPicker/ColorSelectionScreen.gd" id="1_0qsph"]
+[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/Decorations/menu_panel.tscn" id="2_2y6vf"]
+[ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_2y6vf"]
+[ext_resource type="PackedScene" uid="uid://bxxxlc7jt521u" path="res://scenes/ColorPicker/ColorGrid.tscn" id="3_u0i7w"]
+[ext_resource type="FontFile" uid="uid://bokcc5ljkq71h" path="res://fonts/5x5_pixel/5x5_pixel.ttf" id="5_1p4e3"]
+[ext_resource type="PackedScene" uid="uid://c1aavi5hwjxmn" path="res://scenes/ColorPicker/ColorPickerRobot.tscn" id="5_vhtbj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2y6vf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0.35686275, 0.14117648, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_ynyab"]
+base_font = ExtResource("5_1p4e3")
+spacing_space = 10
+
+[node name="ColorSelectionScreen" type="Node2D"]
+script = ExtResource("1_0qsph")
+
+[node name="MenuPanelScene" parent="." instance=ExtResource("2_2y6vf")]
+
+[node name="ColorGrid" parent="." instance=ExtResource("3_u0i7w")]
+offset_left = 697.8794
+offset_top = 130.38647
+offset_right = 1191.038
+offset_bottom = 768.0
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="InstructionBox" type="Panel" parent="."]
+offset_left = 160.0
+offset_top = 810.0
+offset_right = 1760.0
+offset_bottom = 970.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2y6vf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InstructionBox"]
+
+[node name="InstructionBoxText" type="Label" parent="InstructionBox"]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 50.0
+offset_right = 1361.0
+offset_bottom = 118.0
+theme = ExtResource("3_2y6vf")
+text = "Choose Player One's Color!"
+horizontal_alignment = 1
+
+[node name="NetworkDisclaimer" type="Label" parent="InstructionBox"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -617.9155
+offset_top = -38.0
+offset_right = 617.9155
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.35686275, 0.14117648, 1)
+theme_override_fonts/font = SubResource("FontVariation_ynyab")
+theme_override_font_sizes/font_size = 22
+text = "This won't effect what your opponent sees, so choose whatever color you like!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Player1Demo" parent="." instance=ExtResource("5_vhtbj")]
+position = Vector2(430, 581.386)
+scale = Vector2(6.25, 6.25)
+
+[node name="Player2Demo" parent="." instance=ExtResource("5_vhtbj")]
+position = Vector2(1521, 581.386)
+scale = Vector2(6.25, 6.25)
+
+[connection signal="colorChanged" from="ColorGrid" to="." method="_on_colorChanged"]

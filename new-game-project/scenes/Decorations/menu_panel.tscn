@@ -22,6 +22,7 @@ scale = Vector2(1, 1.0000001)
 texture = ExtResource("2_vsmdy")
 
 [node name="CRTScreenEffect" type="Sprite2D" parent="MenuPanel"]
+modulate = Color(1, 1, 1, 0.3882353)
 top_level = true
 position = Vector2(960, 540)
 scale = Vector2(2.4, 2.4)

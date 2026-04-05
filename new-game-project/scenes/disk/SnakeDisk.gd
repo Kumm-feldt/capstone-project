@@ -11,7 +11,6 @@ func set_disc(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	playerColor = givenPlayerColor
 	
 	set_instance_shader_parameter("givenColor", playerColor);
-	
  	#if (hasBeenPlaced):
 		#Change the owner of the disk, 
 		# and play the appropriate animation

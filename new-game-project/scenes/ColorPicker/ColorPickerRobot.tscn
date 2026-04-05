@@ -1,0 +1,101 @@
+[gd_scene load_steps=16 format=3 uid="uid://c1aavi5hwjxmn"]
+
+[ext_resource type="Shader" uid="uid://cf7ykuitkiscl" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_fx8ln"]
+[ext_resource type="Texture2D" uid="uid://b878v12s4y2dd" path="res://Images/robotBig.png" id="1_x5g3e"]
+[ext_resource type="Texture2D" uid="uid://pl2w0nh48wis" path="res://Images/spritesheets/robotBigHappy.png" id="3_0ec0e"]
+[ext_resource type="Script" uid="uid://cude5gqamtr5n" path="res://scenes/ColorPicker/ColorPickerRobot.gd" id="3_fx8ln"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fx8ln"]
+shader = ExtResource("1_fx8ln")
+shader_parameter/contrast = 1.0
+shader_parameter/saturation = 1.0
+shader_parameter/redVal = 1.0
+shader_parameter/greenVal = 1.0
+shader_parameter/blueVal = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8quu"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hljfv"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pun51"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv58o"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmr0i"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghvxv"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bypi"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkses"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndp21"]
+atlas = ExtResource("3_0ec0e")
+region = Rect2(400, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4j5dl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x5g3e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8quu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hljfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pun51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uv58o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmr0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghvxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bypi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkses")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndp21")
+}],
+"loop": true,
+"name": &"happy",
+"speed": 12.0
+}]
+
+[node name="ColorPickerRobot" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_fx8ln")
+sprite_frames = SubResource("SpriteFrames_4j5dl")
+animation = &"happy"
+frame_progress = 0.28273037
+script = ExtResource("3_fx8ln")
+metadata/shaderColor = Color(0, 0, 0, 1)

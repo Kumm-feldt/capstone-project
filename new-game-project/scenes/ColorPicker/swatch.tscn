@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw1wovathqer4"]
+
+[ext_resource type="Script" uid="uid://d12jjilo2bxcm" path="res://scenes/ColorPicker/swatch.gd" id="1_fc364"]
+
+[node name="ColorSwatch" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fc364")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
