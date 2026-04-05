@@ -8,6 +8,7 @@ extends Control
 @onready var light_button = $BlinkLight
 @onready var off_panel = $off_panel
 
+var colorScreenScene = load("res://scenes/ColorPicker/ColorSelectionScreen.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -52,7 +53,19 @@ func _on_back_button_pressed() -> void:
 
 func _on_local_play_mode_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.Local
-	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+	
+	var colorScreen = colorScreenScene.instantiate()
+	colorScreen.setGamemode("Local")
+	
+	var root = get_tree().root
+	var current = get_tree().current_scene
+	current.queue_free()
+	
+	get_tree().root.add_child(colorScreen)
+	get_tree().current_scene = colorScreen
+	
+	# Below method is from before the colorScreen was added.
+	#get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 	
 
 func _on_ai_tournament_pressed() -> void:

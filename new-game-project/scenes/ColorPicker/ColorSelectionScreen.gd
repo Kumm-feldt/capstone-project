@@ -23,13 +23,13 @@ var playerOneColor: Color
 var playerTwoColor: Color
 var playerOneConfirmed = false
 var playerTwoConfirmed = false
-var gamemode:String # This should be "Network", "VersusAI", or "Local"
+var gamemode = "Local" # This should be "Network", "VersusAI", or "Local"
 var messageBox:Label
 
 # Find out the selected gamemode, to say the right things
-func _init(selectedGamemode = "NetworkHost") -> void:
-	gamemode = selectedGamemode;
 
+func setGamemode(givenGamemode:String) -> void:
+	gamemode = givenGamemode;
 
 func _ready() -> void:
 	#First, print the correct message
@@ -122,14 +122,15 @@ func transitionToNextScene() -> void:
 	
 func switchScenes():
 	if (gamemode == "EasyAI"):
-		pass
+		get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 	if (gamemode == "HardAI"):
-		pass
+		get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 	if (gamemode == "NetworkHost"):
-		pass
+		get_tree().change_scene_to_file("res://scenes/HostGameScreen.tscn")
 	if (gamemode == "NetworkJoin"):
-		pass
+		get_tree().change_scene_to_file("res://scenes/JoinGameScreen.tscn")
 	if (gamemode == "Local"):
+		get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 		pass
 	
 	print("ERROR: Unexpected value for gamemode in switchScenes")
