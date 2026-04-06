@@ -5,8 +5,27 @@ const WinScreen = preload("res://scenes/WinScreen.tscn")
 @onready var pause_button = $PanelContainer/Control/PauseButton
 @onready var pause_menu = $"/root/Main/PauseMenu"
 
+@onready var led1 = $PanelContainer/LED1
+@onready var led2 = $PanelContainer/LED2
+@onready var led3 = $PanelContainer/LED3
 
+var current = 0
+var leds = []
+var colors = [Color.RED, Color.GREEN, Color.BLUE]
+func _on_timer_timeout():
+	current = (current + 1) % leds.size()
+	_update_leds()
+
+func _update_leds():
+	for i in leds.size():
+		leds[i].modulate = colors[i] if i == current else Color(0.89, 0.871, 0.0, 0.4)
+
+		
 func _ready() -> void:
+	leds = [led1, led2, led3]
+	$Timer.wait_time = 0.4
+	$Timer.start()
+	_update_leds()
 	GameState.connect("turn_changed", _on_turn_changed)
 	GameState.connect("invalid_move", _on_invalid_move)
 	GameState.connect("valid_move", _on_valid_move)

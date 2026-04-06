@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccniks3ikqf7r"]
+[gd_scene load_steps=9 format=3 uid="uid://ccniks3ikqf7r"]
 
 [ext_resource type="Script" uid="uid://ddmahyhgpbpqs" path="res://scenes/Banner.gd" id="1_5en4g"]
 [ext_resource type="Texture2D" uid="uid://ri2g0i0a8m2j" path="res://Images/aseprite Files/turnTrackerBar.png" id="2_75u2n"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_ro3t7"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="3_75u2n"]
 [ext_resource type="Texture2D" uid="uid://bsi73nynme4v2" path="res://buttons/pause.png" id="4_3wlde"]
+[ext_resource type="Texture2D" uid="uid://c6doe8b3qiwji" path="res://assets/ui/animation sprites/led2.png" id="6_3wlde"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3wlde"]
 texture = ExtResource("2_75u2n")
@@ -62,7 +63,6 @@ offset_bottom = 50.71841
 scale = Vector2(0.36543104, 0.4958505)
 theme_override_colors/font_color = Color(0.5411765, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ro3t7")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TurnLabel" type="Label" parent="PanelContainer/Control"]
@@ -74,5 +74,23 @@ offset_bottom = 49.168785
 scale = Vector2(0.36543104, 0.4958505)
 theme_override_colors/font_color = Color(0.5411765, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ro3t7")
-horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LED1" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(122.073875, -8.732422)
+scale = Vector2(0.012880443, 0.030216131)
+texture = ExtResource("6_3wlde")
+
+[node name="LED2" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(127.92969, -8.732422)
+scale = Vector2(0.012880443, 0.030216131)
+texture = ExtResource("6_3wlde")
+
+[node name="LED3" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(133.68657, -8.21875)
+scale = Vector2(0.011114153, 0.030216131)
+texture = ExtResource("6_3wlde")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
