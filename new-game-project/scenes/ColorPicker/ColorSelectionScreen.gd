@@ -119,7 +119,7 @@ func transitionToNextScene() -> void:
 	#Then, update the message
 	setTransitionMessage()
 	#Then, wait a few seconds to transition to the next scene
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(3).timeout
 	
 	#Transition to next scene based on data from earlier
 	switchScenes()
