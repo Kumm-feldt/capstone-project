@@ -263,10 +263,6 @@ func handle_first_click(clicked_pin: Vector2i):
 				var targetPin = pin_sprites[key]
 				targetPin.play("pickMe")
 				
-				#Make sure the last pin stops animating
-				if pickMePin != null:
-					pickMePin.play("idle")
-				
 				#Set the target pin as the new pickMe pin
 				pickMePin = targetPin
 					
@@ -299,6 +295,10 @@ func deselect_pin():
 	if selected_pin.x >= 0:
 		var key = "%d_%d" % [selected_pin.y, selected_pin.x]
 	clear_move_hints()
+	if pickMePin != null:
+		if pickMePin.animation == "pickMe":
+			pickMePin.animation = "idle"
+			pickMePin = null;
 	selected_pin = Vector2i(-1, -1)
 	
 func array_to_notation(row: int, col: int) -> String:
@@ -330,6 +330,8 @@ func show_move_hints(from_row: int, from_col: int, player: String):
 				hint.z_index = 2
 				add_child(hint)
 				move_hint_sprites.append(hint)
+				
+
 func clear_move_hints():
 	for hint in move_hint_sprites:
 		hint.queue_free()
@@ -353,7 +355,9 @@ func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 			push_warning("_on_pin_moved: missing sprite for key %s, skipping animation" % from_key)
 		else:
 			await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
-
+		# 3. Do Disk change
+		
+		
 		# 4. Cleanup old sprite and create new one
 		if pin_sprites.has(from_key):
 			pin_sprites[from_key].queue_free()
@@ -396,19 +400,19 @@ func delete_pin_sprite(key):
 		pin_sprites.erase(key)  # Remove from dictionary immediately
 	
 	
-func _on_coin_placed(coordinates: Vector2i, player):
-	create_coin_sprite(coordinates[1],coordinates[0],player)
+#func _on_coin_placed(coordinates: Vector2i, player):
+	#create_coin_sprite(coordinates[1],coordinates[0],player)
 	
 func _on_robot_disk_placed(coordinates: Vector2i, player):
 	create_robot_disk_sprite(coordinates[1],coordinates[0],player)
 
 		
-func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
-	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
-	if coin_sprites.has(coin_key):
-		coin_sprites[coin_key].queue_free()
-		coin_sprites.erase(coin_key)
-		create_coin_sprite(coordinates[1],coordinates[0], player)
+#func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
+	#var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
+	#if coin_sprites.has(coin_key):
+		#coin_sprites[coin_key].queue_free()
+		#coin_sprites.erase(coin_key)
+		#create_coin_sprite(coordinates[1],coordinates[0], player)
 		
 func _on_robot_disk_flipped(coordinates: Vector2i, oldstate, player):
 	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
