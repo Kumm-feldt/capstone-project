@@ -56,9 +56,9 @@ icon_alignment = 1
 [node name="InvalidaLabel" type="Label" parent="PanelContainer/Control"]
 layout_mode = 0
 offset_left = 94.21921
-offset_top = 9.246216
+offset_top = 5.136746
 offset_right = 210.5293
-offset_bottom = 31.24622
+offset_bottom = 50.71841
 scale = Vector2(0.36543104, 0.4958505)
 theme_override_colors/font_color = Color(0.5411765, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ro3t7")
@@ -67,13 +67,12 @@ vertical_alignment = 1
 
 [node name="TurnLabel" type="Label" parent="PanelContainer/Control"]
 layout_mode = 0
-offset_left = 1.2562408
-offset_top = 9.759888
-offset_right = 110.69087
-offset_bottom = 31.759892
+offset_left = 1.2562536
+offset_top = 4.623071
+offset_right = 110.69089
+offset_bottom = 49.168785
 scale = Vector2(0.36543104, 0.4958505)
 theme_override_colors/font_color = Color(0.5411765, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ro3t7")
-text = "Red's Turn"
 horizontal_alignment = 1
 vertical_alignment = 1

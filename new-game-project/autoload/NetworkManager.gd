@@ -33,12 +33,15 @@ func getHostName():
 	else:
 		return "undefined"
 
+func search_hosts():
+	client_udp = PacketPeerUDP.new()
+	client_udp.bind(LAN_BROADCAST_PORT, "*")
+
 func _ready():
 	discovered_servers.clear()
 	emit_signal("discovered_servers_ui", discovered_servers)
 	# safely initialize 
-	client_udp = PacketPeerUDP.new()
-	client_udp.bind(LAN_BROADCAST_PORT, "*")
+	
 	host_udp = PacketPeerUDP.new()	
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
@@ -52,9 +55,14 @@ func _process(delta):
 				var raw = client_udp.get_packet() # peek to set IP metadata
 				var sender_ip = client_udp.get_packet_ip() # host ip
 				var packet = bytes_to_var(raw)
-				discovered_servers[sender_ip] = packet
-				# Emit signal to update UI list
+				if packet.get("closing", false):
+					# Host announced it stopped — remove it
+					discovered_servers.erase(sender_ip)
+				else:
+					discovered_servers[sender_ip] = packet
+					# Emit signal to update UI list
 				emit_signal("discovered_servers_ui", discovered_servers)
+				
 				
 	# BROADCAST	if we are hosting
 	if is_hosting:
@@ -67,6 +75,8 @@ func _process(delta):
 
 
 func host_game():
+	if not host_udp:
+		host_udp = PacketPeerUDP.new()	 
 	if multiplayer.peer_connected.is_connected(_add_player_to_game):
 		multiplayer.peer_connected.disconnect(_add_player_to_game)
 	if multiplayer.peer_disconnected.is_connected(_del_player):
@@ -100,15 +110,18 @@ func stop_hosting():
 	is_hosting = false
 	broadcast_timer = 0.0
 
+	# Stop broadcasting UDP
+	if host_udp:
+		host_udp.set_broadcast_enabled(true)
+		host_udp.set_dest_address(BROADCAST_ADDRESS, LAN_BROADCAST_PORT)
+		var goodbye = {"port": SERVER_PORT, "name": "Creeper Match", "host": HOST, "closing": true}
+		host_udp.put_var(goodbye)
+		host_udp.close()
+		host_udp = null
 	# Stop ENet server
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()  # closes ENetMultiplayerPeer 
 		multiplayer.multiplayer_peer = null
-
-	# Stop broadcasting UDP
-	if host_udp:
-		host_udp.close()  # closes UDP socket
-		host_udp = null
 
 	players.clear()	
 	
@@ -214,8 +227,7 @@ func confirm_move(coord):
 func match_ended(username):
 	print("2) match_ended(username)")
 	print("match ended, user left: ", username)
-	
-	emit_signal("end_match",username)
+	emit_signal("end_match", username)
 	
 # Someone tells the server they are leaving
 @rpc("any_peer", "reliable")
@@ -254,6 +266,7 @@ func confirm_client_disconnect(leaver_id, user):
 @rpc("any_peer", "reliable")
 func register_user(username):
 	var sender_id := multiplayer.get_remote_sender_id()
+	GameManager.multiplayer_username = username
 	print("Player connected: ", sender_id, " username: ", username)
 	players[sender_id] = { "username": username }
 	client_id = sender_id

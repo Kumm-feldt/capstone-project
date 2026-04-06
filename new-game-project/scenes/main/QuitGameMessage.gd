@@ -25,10 +25,12 @@ func _on_leave_button_pressed() -> void:
 		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 		return
 	if (multiplayer.is_server()):
+		GameManager.hosting = false
 		print("about to call leave_match_as_host")
 		NetworkManager.leave_match_as_host()
 	else:
 		print("about to call leave_match_as_client")
 		NetworkManager.leave_match_as_client()
 	
+	GameState.reset_game()
 	

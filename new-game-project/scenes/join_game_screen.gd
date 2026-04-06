@@ -22,6 +22,7 @@ func connect_signals():
 		_on_discovered_servers_ui(NetworkManager.discovered_servers)
 	
 func _ready():
+	NetworkManager.search_hosts()
 	print("Join screen _ready")
 	connect_signals()
 	# Safety check: if already connected by the time scene loads
@@ -69,18 +70,21 @@ func _on_discovered_servers_ui(servers):
 		# Get nodes inside the row
 		var username_label: Label = row_instance.get_node("Panel/HBoxContainer/Username")
 		var join_button: Button = row_instance.get_node("Panel/HBoxContainer/JoinButton")
-		username_label.text = info.get("host")
+		var host = info.get("host")
+		
+		username_label.text = host
 		# Connect button to a callback, passing the ip
-		join_button.pressed.connect(_on_join_button_pressed.bind(ip))
+		join_button.pressed.connect(_on_join_button_pressed.bind(ip, host))
 		# add scene to vboxcontainer
 		vbox.add_child(row_instance)
 	
 	
-func _on_join_button_pressed(ip):
+func _on_join_button_pressed(ip, host):
+	GameManager.multiplayer_username = host + "-host"
 	NetworkManager.join_game(ip)
 
 
 func _on_back_button_pressed() -> void:
 	# stop searching for game
-	NetworkManager.stop_searching()
+	await NetworkManager.stop_searching()
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

@@ -94,7 +94,7 @@ func move_pin(coordinates: String, player: String) -> bool:
 	
 	var current_pin_to_move = PINS[from_row][from_col]	
 	print(coordinates)
-	var invalid_text = "Invalid move from " + player
+	var invalid_text = "Invalid\nMove"
 	# Validate move
 	if not is_valid_move(from_row, from_col, to_row, to_col, player):
 		emit_signal("invalid_move", 
@@ -200,7 +200,7 @@ func is_valid_selection(row,col, player):
 	"""Validate if the current selection is legal"""
 	if game_paused:
 		return false
-	var invalid_text = "Invalid Selection, from " + player
+	var invalid_text = "Invalid\nSelection" 
 	# Bounds check
 	if row < 0 or row >= 7 or col < 0 or col >= 7:
 		emit_signal("invalid_move", 

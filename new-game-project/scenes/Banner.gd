@@ -24,8 +24,21 @@ func _on_pause_changed(is_paused: bool):
 		pause_menu.hide()
 
 func _on_turn_changed(player):
-	var player_color = "Red" if player == 'o' else "Blue"
-	turn_label.text = "%s's turn" % player_color
+	var player_color 
+	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
+		# fall backs 
+		if not GameManager.multiplayer_username:
+			GameManager.multiplayer_username = "unknown"
+		if not GameManager.username:
+			GameManager.username = "my name"
+		# if it is hosting, special case
+		if GameManager.hosting:
+			player_color = "Your" if player == "x" else GameManager.multiplayer_username +"'s"
+		else:
+			player_color = GameManager.multiplayer_username+"'s" if player == 'x' else "Your"
+	else:
+		player_color = "Red" if player == 'x' else "Blue"
+	turn_label.text = "%s\nTurn" % player_color
 
 func _on_invalid_move(text):
 	invalid_label.text = text
