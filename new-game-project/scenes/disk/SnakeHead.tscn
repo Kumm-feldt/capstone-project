@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://brf2rg6rh1rmq"]
+
+[ext_resource type="Texture2D" uid="uid://bbvh57ds5iam1" path="res://Images/Game Pieces/snakeHeadSF.png" id="1_23eaq"]
+[ext_resource type="Shader" uid="uid://cf7ykuitkiscl" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_js0cn"]
+[ext_resource type="Script" uid="uid://cx4a0864b0t3d" path="res://scenes/disk/SnakeBase.gd" id="2_js0cn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hcmw7"]
+shader = ExtResource("1_js0cn")
+shader_parameter/contrast = 1.0
+shader_parameter/saturation = 1.0
+shader_parameter/redVal = 1.0
+shader_parameter/greenVal = 1.0
+shader_parameter/blueVal = 1.0
+
+[node name="SnakeHead" type="Sprite2D"]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_hcmw7")
+texture = ExtResource("1_23eaq")
+script = ExtResource("2_js0cn")

@@ -37,11 +37,12 @@ const PIN_SPACING_Y = OCTAGON_SPACING_Y
 # ============================================
 # RESOURCES
 # ============================================
-var pin_o_scene = preload("res://scenes/pin/robot_pin.tscn")
-var pin_x_scene = preload("res://scenes/pin/robot_pin.tscn")
-var pin_robot_scene = preload("res://scenes/pin/robot_pin.tscn")
+var pin_o_scene = preload("res://scenes/pin/RobotPin.tscn")
+var pin_x_scene = preload("res://scenes/pin/RobotPin.tscn")
+var pin_robot_scene = preload("res://scenes/pin/RobotPin.tscn")
 var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
 var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
+var robot_disk_scene = preload("res://scenes/disk/Disk.tscn")
 
 # ============================================
 # STATE TRACKING
@@ -71,8 +72,8 @@ func connect_signals():
 	GameState.connect("board_updated", _on_board_updated)
 	GameState.connect("pin_moved", _on_pin_moved)
 	GameState.connect("pin_jumped", _on_pin_jumped)
-	GameState.connect("coin_placed", _on_coin_placed)
-	GameState.connect("coin_flipped", _on_coin_flipped)
+	GameState.connect("coin_placed", _on_robot_disk_placed)
+	GameState.connect("coin_flipped", _on_robot_disk_flipped)
 	GameState.connect("turn_changed", _on_turn_changed)
 	GameState.connect("invalid_move", _on_invalid_move)
 	SoftserveClient.connect("ai_battle_move", _on_ai_battle_move)
@@ -90,7 +91,7 @@ func render_board():
 		for col in range(7):
 			var state = GameState.PINS[row][col]
 			if state != ".":
-				create_pin_sprite(row, col, state)
+				create_robot_pin_sprite(row, col, state)
 	
 	# Render coins (in octagons)
 	for row in range(6):
@@ -99,7 +100,13 @@ func render_board():
 			if pos not in heads_tails:
 				var state = GameState.COINS[row][col]
 				if state != ".":
-					create_coin_sprite(row, col, state)
+					create_robot_disk_sprite(row, col, state)
+					
+	$SnakeHead.setSnakeBaseColors(GameManager.player1_color)
+	$SnakeTail.setSnakeBaseColors(GameManager.player1_color)
+	$SnakeHead2.setSnakeBaseColors(GameManager.player2_color)
+	$SnakeTail2.setSnakeBaseColors(GameManager.player2_color)
+	
 
 func render_board_single_move():
 	"""This function updates the updated pins"""
@@ -127,7 +134,7 @@ func create_pin_sprite(row: int, col: int, player: String):
 	var player_color_ = player_color_o if player == "o" else player_color_x
 	
 	var pin_scene = pin_o_scene if player == "o" else pin_x_scene
-
+	
 	var sprite_instance = pin_scene.instantiate()
 	sprite_instance.set_pin(player, player_color_)
 	
@@ -139,13 +146,6 @@ func create_pin_sprite(row: int, col: int, player: String):
 	# store reference
 	pin_sprites["%d_%d" % [row, col]] = sprite_instance
 	
-
-func getPlayerColor(player: String) -> Color:
-	if (player == "o"):
-		return player_color_o;
-	else:
-		return player_color_x;
-
 
 func create_robot_pin_sprite(row: int, col: int, player: String):
 	var robot_scene = pin_robot_scene
@@ -160,6 +160,13 @@ func create_robot_pin_sprite(row: int, col: int, player: String):
 	pin_sprites["%d_%d" % [row, col]] = robot_instance
 	
 
+func getPlayerColor(player: String) -> Color:
+	if (player == "o"):
+		return GameManager.player1_color;
+	else:
+		return GameManager.player2_color;
+
+
 func create_coin_sprite(row: int, col: int, player: String):
 	"""Create a coin scene at array position"""
 	var disk_scene = disk_o_scene if player == "o" else disk_x_scene
@@ -168,6 +175,18 @@ func create_coin_sprite(row: int, col: int, player: String):
 	sprite_instance.z_index = 0  # Coins below pins
 	add_child(sprite_instance)
 	coin_sprites["%d_%d" % [row, col]] = sprite_instance
+	
+func create_robot_disk_sprite(row: int, col: int, player: String):
+	"""Create a disk scene at array position"""
+	var disk_scene = robot_disk_scene
+	var sprite_instance = disk_scene.instantiate()
+	sprite_instance.set_disk(player, getPlayerColor(player))
+	sprite_instance.position = get_coin_screen_position(row, col)
+	sprite_instance.z_index = 0  # Coins below pins
+	add_child(sprite_instance)
+	coin_sprites["%d_%d" % [row, col]] = sprite_instance
+	pass
+	
 
 func clear_all_sprites():
 	"""Remove all existing sprites"""
@@ -227,7 +246,9 @@ func _unhandled_input(event):
 		else:
 			handle_second_click(clicked_pin)
 			
-			
+
+var pickMePin
+
 func handle_first_click(clicked_pin: Vector2i):
 	# Ensure only the current_player try to select a pin in Multiplayer Mode
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
@@ -238,8 +259,17 @@ func handle_first_click(clicked_pin: Vector2i):
 			selected_pin = clicked_pin
 			var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
 			if pin_sprites.has(key):
-				# play animation
-				pin_sprites[key].play("pickMe")
+				# Play animation
+				var targetPin = pin_sprites[key]
+				targetPin.play("pickMe")
+				
+				#Make sure the last pin stops animating
+				if pickMePin != null:
+					pickMePin.play("idle")
+				
+				#Set the target pin as the new pickMe pin
+				pickMePin = targetPin
+					
 			show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
 		else:
 			print("first click incorrectly: ", clicked_pin)
@@ -259,6 +289,7 @@ func handle_second_click(clicked_pin: Vector2i):
 	else:
 		if GameState.move_pin(coord, GameState.current_player):
 			# play animation
+			
 			print("Attempt move Successfully")
 		else:
 			print("Failed")
@@ -328,7 +359,7 @@ func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 			pin_sprites[from_key].queue_free()
 			pin_sprites.erase(from_key)
 
-		create_pin_sprite(to_pos[1], to_pos[0], player)
+		create_robot_pin_sprite(to_pos[1], to_pos[0], player)
 		print(player, " moved successfully")
 		# 5. AI flag reset if needed
 		if player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
@@ -354,7 +385,7 @@ func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i,
 		# Delete oponents player's pin scene
 		delete_pin_sprite(oponent_key)
 		# if pin is jumping to new position it means the scene do not exist yet
-		create_pin_sprite(to_pos[1], to_pos[0], player)
+		create_robot_pin_sprite(to_pos[1], to_pos[0], player)
 		if  player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
 			is_ai_thinking = false
 			)
@@ -367,15 +398,26 @@ func delete_pin_sprite(key):
 	
 func _on_coin_placed(coordinates: Vector2i, player):
 	create_coin_sprite(coordinates[1],coordinates[0],player)
+	
+func _on_robot_disk_placed(coordinates: Vector2i, player):
+	create_robot_disk_sprite(coordinates[1],coordinates[0],player)
 
+		
 func _on_coin_flipped(coordinates: Vector2i, oldstate, player):
 	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
-	
 	if coin_sprites.has(coin_key):
 		coin_sprites[coin_key].queue_free()
 		coin_sprites.erase(coin_key)
 		create_coin_sprite(coordinates[1],coordinates[0], player)
 		
+func _on_robot_disk_flipped(coordinates: Vector2i, oldstate, player):
+	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
+	
+	if coin_sprites.has(coin_key):
+		coin_sprites[coin_key].set_disk(player, getPlayerColor(player))
+		#Then, queue animation if necessary? (check back later)
+		
+
 func _on_turn_changed(current_player):
 	if current_player == 'x' and GameManager.GAME_MODE == GameManager.Mode.AI:
 		is_ai_thinking = true

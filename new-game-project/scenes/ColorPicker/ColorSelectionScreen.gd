@@ -110,6 +110,10 @@ func _on_colorChanged(color: Color, confirm: bool) -> void:
 		pass # Replace with function body.
 
 func transitionToNextScene() -> void:
+	#Set the colors into stone so they can be used later
+	GameManager.player1_color = playerOneColor;
+	GameManager.player2_color = playerTwoColor;
+	
 	#Disable the swatches so no more color picking happens
 	$ColorGrid.disableSwatches();
 	#Then, update the message

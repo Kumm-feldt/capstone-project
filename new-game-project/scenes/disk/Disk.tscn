@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cichmktecs7ou"]
+
+[ext_resource type="Shader" uid="uid://cf7ykuitkiscl" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_0ipv4"]
+[ext_resource type="Texture2D" uid="uid://df2s0fgs2jeri" path="res://Images/Game Pieces/donut-diskSF.png" id="2_jb6a1"]
+[ext_resource type="Script" uid="uid://bmnbing3nx2b3" path="res://scenes/disk/Disk.gd" id="3_mp8pa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjxqd"]
+shader = ExtResource("1_0ipv4")
+shader_parameter/contrast = 1.0
+shader_parameter/saturation = 1.0
+shader_parameter/redVal = 1.0
+shader_parameter/greenVal = 1.0
+shader_parameter/blueVal = 1.0
+
+[node name="Disk" type="Sprite2D"]
+material = SubResource("ShaderMaterial_yjxqd")
+texture = ExtResource("2_jb6a1")
+script = ExtResource("3_mp8pa")
