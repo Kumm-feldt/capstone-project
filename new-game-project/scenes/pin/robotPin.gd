@@ -1,18 +1,24 @@
 extends AnimatedSprite2D
 
 var player: String
-var playerColor: Color
+var color: Color
 
 # Call this after creating the pin to set its appropriate status.
 func set_pin(ownerPlayer: String, givenPlayerColor: Color) -> void:
 	"""Set up the pin according to its player."""
 	player = ownerPlayer;
 	
-	playerColor = givenPlayerColor;
-	modulate = givenPlayerColor;
+	color = givenPlayerColor;
+	
+	setPinColor(color);
 	
 	self.play("idle");
 
+func setPinColor(givenColor: Color) -> void:
+	color = givenColor
+	set_instance_shader_parameter("tint_color", color)
+	set_instance_shader_parameter("tint_effect", 1)
+	set_instance_shader_parameter("brightness", 1)
 
 # If the pin is just moving, pass it the current pin position and the desired position.
 func play_movement_animation(currentPosition: Vector2, newPosition: Vector2) -> void:

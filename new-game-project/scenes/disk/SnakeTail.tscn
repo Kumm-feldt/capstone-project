@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2unr3lxwpjvs"]
+
+[ext_resource type="Shader" uid="uid://cf7ykuitkiscl" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_imo6g"]
+[ext_resource type="Texture2D" uid="uid://bjvoh7uogbdl2" path="res://Images/Game Pieces/snakeTailSF.png" id="1_wlpxj"]
+[ext_resource type="Script" uid="uid://cx4a0864b0t3d" path="res://scenes/disk/SnakeBase.gd" id="2_g65re"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_op8c1"]
+shader = ExtResource("1_imo6g")
+shader_parameter/contrast = 1.0
+shader_parameter/saturation = 1.0
+shader_parameter/redVal = 1.0
+shader_parameter/greenVal = 1.0
+shader_parameter/blueVal = 1.0
+
+[node name="SnakeTail" type="Sprite2D"]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_op8c1")
+texture = ExtResource("1_wlpxj")
+script = ExtResource("2_g65re")
