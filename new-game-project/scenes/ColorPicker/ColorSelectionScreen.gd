@@ -25,6 +25,10 @@ var playerOneConfirmed = false
 var playerTwoConfirmed = false
 var gamemode = "Local" # This should be "Network", "VersusAI", or "Local"
 var messageBox:Label
+@onready var label_player_1 = $LabelPlayer1
+@onready var label_player_2 = $LabelPlayer2
+
+
 
 # Find out the selected gamemode, to say the right things
 
@@ -34,8 +38,15 @@ func setGamemode(givenGamemode:String) -> void:
 func _ready() -> void:
 	#First, print the correct message
 	messageBox = get_node("InstructionBox/InstructionBoxText");
-	
 	setFirstMessage();
+	print("MODE: ", GameManager.Mode.AI)
+	if GameManager.GAME_MODE == GameManager.Mode.AI:
+		label_player_1.text = "You"
+		label_player_2.text = "CPU"
+	elif GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
+		label_player_1.text = "You"
+		label_player_2.text = GameManager.multiplayer_username or "Oponent"
+		
 	#Make sure to set the robots to their base color, light grey
 	
 
@@ -110,12 +121,16 @@ func _on_colorChanged(color: Color, confirm: bool) -> void:
 		pass # Replace with function body.
 
 func transitionToNextScene() -> void:
+	#Set the colors into stone so they can be used later
+	GameManager.player1_color = playerOneColor;
+	GameManager.player2_color = playerTwoColor;
+	
 	#Disable the swatches so no more color picking happens
 	$ColorGrid.disableSwatches();
 	#Then, update the message
 	setTransitionMessage()
 	#Then, wait a few seconds to transition to the next scene
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(3).timeout
 	
 	#Transition to next scene based on data from earlier
 	switchScenes()
@@ -134,3 +149,7 @@ func switchScenes():
 		pass
 	
 	print("ERROR: Unexpected value for gamemode in switchScenes")
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

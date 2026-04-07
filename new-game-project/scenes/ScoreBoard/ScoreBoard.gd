@@ -8,7 +8,7 @@ var score_row_scene = preload("res://scenes/ScoreBoard/ScoreRow.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_child(http_check)
-	var url = DBService.URL + "?order=points.desc"
+	var url = DBService.URL + "?order=points.desc&limit=10"
 	http_check.request_completed.connect(_on_get_players_done)
 	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
 

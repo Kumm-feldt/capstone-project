@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbswfivt2mw2u"]
+[gd_scene load_steps=6 format=3 uid="uid://cbswfivt2mw2u"]
 
 [ext_resource type="Script" uid="uid://bwnnyjucrngdi" path="res://scenes/board/Board.gd" id="1_6puts"]
 [ext_resource type="PackedScene" path="res://scenes/board/bgTesting.tscn" id="2_0kj62"]
 [ext_resource type="Texture2D" uid="uid://b8njfbit14p58" path="res://Images/gameBoard.png" id="2_l0jo7"]
-[ext_resource type="Texture2D" uid="uid://dyyiqueixw3t4" path="res://sprites/coins/snakeHeadRed.png" id="3_kmmm1"]
-[ext_resource type="Texture2D" uid="uid://cuaiqpittgdxl" path="res://sprites/coins/snakeTailRed.png" id="4_vgpvj"]
-[ext_resource type="Texture2D" uid="uid://n7qshm7jc6v7" path="res://sprites/coins/snakeHeadBlue.png" id="5_l0jo7"]
-[ext_resource type="Texture2D" uid="uid://b3v5i0u4fph2m" path="res://sprites/coins/snakeTailBlue.png" id="6_0kj62"]
+[ext_resource type="PackedScene" uid="uid://brf2rg6rh1rmq" path="res://scenes/disk/SnakeHead.tscn" id="5_vgpvj"]
+[ext_resource type="PackedScene" uid="uid://b2unr3lxwpjvs" path="res://scenes/disk/SnakeTail.tscn" id="6_l0jo7"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_6puts")
@@ -19,24 +17,16 @@ visible = false
 position = Vector2(400, 225)
 texture = ExtResource("2_l0jo7")
 
-[node name="HeadPlayer1Sprite" type="Sprite2D" parent="."]
-z_index = 5
-position = Vector2(275, 100)
-texture = ExtResource("3_kmmm1")
+[node name="SnakeHead" parent="." instance=ExtResource("5_vgpvj")]
+position = Vector2(275, 101)
 
-[node name="TailPlayer1Sprite" type="Sprite2D" parent="."]
-z_index = 5
-position = Vector2(525, 350)
-texture = ExtResource("4_vgpvj")
+[node name="SnakeTail" parent="." instance=ExtResource("6_l0jo7")]
+position = Vector2(526, 351)
 flip_h = true
 
-[node name="HeadPlayer2Sprite" type="Sprite2D" parent="."]
-z_index = 5
-position = Vector2(525, 100)
-texture = ExtResource("5_l0jo7")
+[node name="SnakeHead2" parent="." instance=ExtResource("5_vgpvj")]
+position = Vector2(526, 100)
 flip_h = true
 
-[node name="TailPlayer2Sprite" type="Sprite2D" parent="."]
-z_index = 5
-position = Vector2(275, 350)
-texture = ExtResource("6_0kj62")
+[node name="SnakeTail2" parent="." instance=ExtResource("6_l0jo7")]
+position = Vector2(274, 351)
