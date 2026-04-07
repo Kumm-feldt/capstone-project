@@ -8,7 +8,7 @@ public partial class AIProgram : Node
 	internal const int MidgameAlphaBetaDepth = 5;
 	internal const int EndgameAlphaBetaDepth = 6;
 
-	public string GetMove(string boardString)
+	public string GetMoveHard(string boardString)
 	{
 		InitializeGameFromBoardString(boardString);
 		var board = new Board(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs);
@@ -17,8 +17,26 @@ public partial class AIProgram : Node
 		if (legalMoves.Count == 0)
 			return string.Empty;
 
-		int pinCount = CountPinsLeft(Game.CurrentBoard.Pins);
+		int pinCount = CountPinsForPlayer(Game.CurrentBoard.Pins, Game.CurrentPlayer);
 		int searchDepth = ChooseSearchDepth(pinCount);
+
+		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, searchDepth, legalMoves);
+
+		// Convert internal move coordinates into external move notation.
+		string moveString = Game.MoveToString(bestMove);
+		return moveString;
+	}
+
+	public string GetMoveEasy(string boardString)
+	{
+		InitializeGameFromBoardString(boardString);
+		var board = new Board(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs);
+		var legalMoves = Game.GetLegalMoves(board, Game.CurrentPlayer);
+		legalMoves = FilterOutLastPinCaptureMoves(legalMoves, Game.CurrentBoard.Pins, Game.CurrentPlayer);
+		if (legalMoves.Count == 0)
+			return string.Empty;
+
+		int searchDepth = 2;
 
 		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, searchDepth, legalMoves);
 
@@ -37,7 +55,7 @@ public partial class AIProgram : Node
 		if (legalMoves.Count == 0)
 			return BuildBoardStringFromCurrentGame();
 
-		int pinCount = CountPinsLeft(Game.CurrentBoard.Pins);
+		int pinCount = CountPinsForPlayer(Game.CurrentBoard.Pins, Game.CurrentPlayer);
 		int searchDepth = ChooseSearchDepth(pinCount);
 
 		var bestMove = AlphaBetaAgent.ChooseMove(Game.CurrentBoard.Pins, Game.CurrentBoard.Discs, Game.CurrentPlayer, searchDepth, legalMoves);
@@ -90,28 +108,13 @@ public partial class AIProgram : Node
 
 	private static int ChooseSearchDepth(int totalPinsLeft)
 	{
-		// Use board phase by total non-empty pins remaining on the 7x7 pin grid.
-		if (totalPinsLeft <= 6)
+		// Increase depth as the active player runs low on remaining pins.
+		if (totalPinsLeft <= 3)
 			return EndgameAlphaBetaDepth;
-		if (totalPinsLeft <= 12)
+		if (totalPinsLeft <= 5)
 			return MidgameAlphaBetaDepth;
 
 		return DefaultAlphaBetaDepth;
-	}
-
-	private static int CountPinsLeft(int[,] pins)
-	{
-		int total = 0;
-		for (int r = 0; r < 7; r++)
-		{
-			for (int c = 0; c < 7; c++)
-			{
-				if (pins[r, c] != 0)
-					total++;
-			}
-		}
-
-		return total;
 	}
 
 	private static System.Collections.Generic.List<PinMove> FilterOutLastPinCaptureMoves(System.Collections.Generic.List<PinMove> legalMoves, int[,] pins, PlayerColor currentPlayer)
