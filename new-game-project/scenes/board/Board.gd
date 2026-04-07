@@ -462,7 +462,12 @@ func _on_invalid_move(message):
 # AI CALLS
 # ============================================
 func ai_move(state):
-	var action_str: String = ai.GetMove(state) 
+	var action_str
+	if GameManager.AI_MODE_LEVEL == GameManager.AILevel.Easy:
+		action_str = ai.GetMoveEasy(state) 
+	else:
+		action_str = ai.GetMoveHard(state) 
+		
 	return action_str
 	
 # ============================================
