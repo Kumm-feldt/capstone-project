@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blcrhb76xk3ul"
-path="res://.godot/imported/led.png-5ae8c8aa219ab553cc9901cee2545325.ctex"
+uid="uid://b7m1olexm0o2q"
+path="res://.godot/imported/Gemini_Generated_Image_rbu1qyrbu1qyrbu1.png-03e489f86eee0e7c77c8975fda0f931e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/animation sprites/led.png"
-dest_files=["res://.godot/imported/led.png-5ae8c8aa219ab553cc9901cee2545325.ctex"]
+source_file="res://assets/ui/animation sprites/Gemini_Generated_Image_rbu1qyrbu1qyrbu1.png"
+dest_files=["res://.godot/imported/Gemini_Generated_Image_rbu1qyrbu1qyrbu1.png-03e489f86eee0e7c77c8975fda0f931e.ctex"]
 
 [params]
 
