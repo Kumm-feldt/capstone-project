@@ -31,6 +31,19 @@ func _ready() -> void:
 	GameState.connect("valid_move", _on_valid_move)
 	GameState.connect("game_paused_changed", _on_pause_changed)
 	pause_button.pressed.connect(_on_pause_button_pressed)
+	# default text in banner
+	var player 
+	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
+		# if it is hosting, special case
+		if GameManager.hosting:
+			player = "Your"
+		else:
+			player = GameManager.multiplayer_username+"'s"
+	elif GameManager.GAME_MODE == GameManager.Mode.AI:
+		player = "Your"
+	elif GameManager.GAME_MODE == GameManager.Mode.Local:
+		player = "Player 1" 
+	turn_label.text = "%s\nTurn" % player
 
 func _on_pause_button_pressed():
 	GameState.toggle_pause()
@@ -55,8 +68,10 @@ func _on_turn_changed(player):
 			player_color = "Your" if player == "x" else GameManager.multiplayer_username +"'s"
 		else:
 			player_color = GameManager.multiplayer_username+"'s" if player == 'x' else "Your"
-	else:
-		player_color = "Red" if player == 'x' else "Blue"
+	elif GameManager.GAME_MODE == GameManager.Mode.AI:
+		player_color = "Your" if player == 'x' else "CPU"
+	elif GameManager.GAME_MODE == GameManager.Mode.Local:
+		player_color = "Player 1" if player == 'o' else "Player 2"
 	turn_label.text = "%s\nTurn" % player_color
 
 func _on_invalid_move(text):

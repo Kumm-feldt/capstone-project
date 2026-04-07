@@ -81,4 +81,20 @@ scale = Vector2(6.25, 6.25)
 position = Vector2(1521, 581.386)
 scale = Vector2(6.25, 6.25)
 
+[node name="LabelPlayer1" type="Label" parent="."]
+offset_left = 259.0
+offset_top = 279.0
+offset_right = 597.0
+offset_bottom = 389.0
+theme = ExtResource("3_2y6vf")
+text = "Player 1"
+
+[node name="LabelPlayer2" type="Label" parent="."]
+offset_left = 1355.0
+offset_top = 277.0
+offset_right = 1699.0
+offset_bottom = 387.0
+theme = ExtResource("3_2y6vf")
+text = "Player 2"
+
 [connection signal="colorChanged" from="ColorGrid" to="." method="_on_colorChanged"]

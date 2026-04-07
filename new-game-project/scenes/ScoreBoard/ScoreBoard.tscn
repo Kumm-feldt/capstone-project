@@ -46,7 +46,7 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_v1kt7")
-text = "Scoreboard"
+text = "Top 10 - Scoreboard"
 
 [node name="RowHeader" type="Panel" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)

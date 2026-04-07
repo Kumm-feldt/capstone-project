@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ccniks3ikqf7r" path="res://scenes/UI.tscn" id="2_q24mn"]
 [ext_resource type="Script" uid="uid://c51evrrb56tw2" path="res://AI/AIProgram.cs" id="4_dc040"]
 [ext_resource type="PackedScene" uid="uid://cnxv7st1qgo5k" path="res://scenes/UI/PauseMenu.tscn" id="5_dc040"]
-[ext_resource type="PackedScene" path="res://scenes/main/UserLeftMessage.tscn" id="6_1rhdn"]
+[ext_resource type="PackedScene" uid="uid://bfq4y4sutk2hv" path="res://scenes/main/UserLeftMessage.tscn" id="6_1rhdn"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_u1xfj")
