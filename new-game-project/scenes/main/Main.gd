@@ -30,6 +30,7 @@ func _on_turn_changed(_player: String):
 	"""Handle turn change"""
 
 func _on_game_over(winner: String):
+	print("_on_game_over: WINNER : ", winner)
 	var canvas = CanvasLayer.new()
 	canvas.layer = 10  # renders above everything
 	get_tree().root.add_child(canvas)

@@ -6,13 +6,12 @@ extends Control
 @onready var quit_button = $PanelContainer/MarginContainer/VBoxContainer/QuitButton
 
 func _ready():
-	
 	play_again_button.pressed.connect(_on_play_again)
 	main_menu_button.pressed.connect(_on_main_menu)
 	quit_button.pressed.connect(_on_quit)
 	
 func setup(player: String):
-	var winner 
+	var winner = "who"
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		# fall backs 
 		if not GameManager.multiplayer_username:
@@ -25,15 +24,20 @@ func setup(player: String):
 		else:
 			winner = GameManager.multiplayer_username+" Wins!" if player == 'x' else "You Won!"
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
-		winner = "You Won!" if player == 'x' else "CPU Wins!"
+		winner = "You Won!" if player == 'o' else "CPU Wins!"
+	else:
+		winner = "Player 1 Wins!" if player == 'o' else "Player 2 Wins!"
 	winner_label.text = winner
 
 func _on_play_again():
+	hide()
 	GameState.reset_game()
-	get_tree().change_scene_to_file("res://Board.tscn")  
+	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")  
 
 func _on_main_menu():
-	get_tree().change_scene_to_file("res://MainMenu.tscn")  # adjust to your main menu path
+	hide()
+	GameState.reset_game()
+	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")  # adjust to your main menu path
 
 func _on_quit():
 	GameState.reset_game()

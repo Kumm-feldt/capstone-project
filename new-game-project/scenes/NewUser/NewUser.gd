@@ -17,7 +17,6 @@ func _ready() -> void:
 
 func check_username_exists(username):
 	var url = DBService.URL + "?username=eq."+username +"&select=id"
-	print("url prepared")
 	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
 
 func _on_username_check_done(result, response_code, headers, body):
@@ -81,9 +80,15 @@ func _on_register_done(result, response_code, headers, body):
 	else:
 		print("Failed. Code: ", response_code, " | Body: ", response)
 
+func check_size(username):
+	if username.length() > 10:
+		message_label.visible = true
+		message_label.text = "Username needs to be less\nthan 10 chars."
+		return false
+	else:
+		return true
+
 func _on_accept_button_pressed() -> void:
 	# check if username is in DB, if not insert it
-
-	check_username_exists(username_input.text)
-
-		
+	if check_size(username_input.text):
+		check_username_exists(username_input.text)

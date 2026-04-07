@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://gslxv6nise5x"]
+[gd_scene load_steps=11 format=3 uid="uid://gslxv6nise5x"]
 
 [ext_resource type="Script" uid="uid://ddk02qreoju6h" path="res://scenes/ColorPicker/ColorSelectionScreen.gd" id="1_0qsph"]
 [ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/Decorations/menu_panel.tscn" id="2_2y6vf"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bxxxlc7jt521u" path="res://scenes/ColorPicker/ColorGrid.tscn" id="3_u0i7w"]
 [ext_resource type="FontFile" uid="uid://bokcc5ljkq71h" path="res://fonts/5x5_pixel/5x5_pixel.ttf" id="5_1p4e3"]
 [ext_resource type="PackedScene" uid="uid://c1aavi5hwjxmn" path="res://scenes/ColorPicker/ColorPickerRobot.tscn" id="5_vhtbj"]
+[ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="7_4uif4"]
+[ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="8_336my"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2y6vf"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -82,9 +84,9 @@ position = Vector2(1521, 581.386)
 scale = Vector2(6.25, 6.25)
 
 [node name="LabelPlayer1" type="Label" parent="."]
-offset_left = 259.0
+offset_left = 258.0
 offset_top = 279.0
-offset_right = 597.0
+offset_right = 596.0
 offset_bottom = 389.0
 theme = ExtResource("3_2y6vf")
 text = "Player 1"
@@ -97,4 +99,17 @@ offset_bottom = 387.0
 theme = ExtResource("3_2y6vf")
 text = "Player 2"
 
+[node name="BackButton" type="Button" parent="."]
+offset_left = 123.0
+offset_top = 117.0
+offset_right = 187.0
+offset_bottom = 181.0
+theme = ExtResource("7_4uif4")
+
+[node name="Icon" type="Sprite2D" parent="BackButton"]
+position = Vector2(32, 32)
+scale = Vector2(2.8749995, 2.8749995)
+texture = ExtResource("8_336my")
+
 [connection signal="colorChanged" from="ColorGrid" to="." method="_on_colorChanged"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -25,6 +25,10 @@ var playerOneConfirmed = false
 var playerTwoConfirmed = false
 var gamemode = "Local" # This should be "Network", "VersusAI", or "Local"
 var messageBox:Label
+@onready var label_player_1 = $LabelPlayer1
+@onready var label_player_2 = $LabelPlayer2
+
+
 
 # Find out the selected gamemode, to say the right things
 
@@ -34,8 +38,15 @@ func setGamemode(givenGamemode:String) -> void:
 func _ready() -> void:
 	#First, print the correct message
 	messageBox = get_node("InstructionBox/InstructionBoxText");
-	
 	setFirstMessage();
+	print("MODE: ", GameManager.Mode.AI)
+	if GameManager.GAME_MODE == GameManager.Mode.AI:
+		label_player_1.text = "You"
+		label_player_2.text = "CPU"
+	elif GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
+		label_player_1.text = "You"
+		label_player_2.text = GameManager.multiplayer_username or "Oponent"
+		
 	#Make sure to set the robots to their base color, light grey
 	
 
@@ -138,3 +149,7 @@ func switchScenes():
 		pass
 	
 	print("ERROR: Unexpected value for gamemode in switchScenes")
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

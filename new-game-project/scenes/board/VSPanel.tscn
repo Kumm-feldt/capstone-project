@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnv1fd88yl12n"]
+
+[ext_resource type="Script" uid="uid://3gkrofnvfffo" path="res://scenes/board/VSPanel.gd" id="1_7yylu"]
+[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="1_nyjr8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yylu"]
+bg_color = Color(0.45471483, 0.107382454, 0.17146623, 1)
+
+[node name="VSPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7yylu")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -251.25
+offset_right = 251.25
+offset_bottom = 51.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yylu")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -11.5
+offset_right = 103.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Player1Label" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_nyjr8")
+text = "Player 1"
+
+[node name="VSLabel" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_nyjr8")
+text = "Vs."
+
+[node name="Player2Label" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_nyjr8")
+text = "Player 2"

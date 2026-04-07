@@ -21,9 +21,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -203.0
-offset_top = -174.92188
+offset_top = -254.5
 offset_right = 203.0
-offset_bottom = 125.0
+offset_bottom = 254.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_3m1qe")
@@ -35,9 +35,9 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -199.0
-offset_top = -50.6875
+offset_top = -40.375
 offset_right = 199.0
-offset_bottom = -70.0625
+offset_bottom = -22.375
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 75
@@ -61,6 +61,18 @@ size_flags_vertical = 4
 theme = ExtResource("4_onjwa")
 text = "Resume"
 
+[node name="WinButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme = ExtResource("4_onjwa")
+text = "Win"
+
+[node name="LoseButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme = ExtResource("4_onjwa")
+text = "Lose"
+
 [node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
@@ -77,3 +89,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 0.0
 offset_right = 0.0
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/WinButton" to="." method="_on_win_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/LoseButton" to="." method="_on_lose_button_pressed"]
