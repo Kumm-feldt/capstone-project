@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://8bd45iug5ndb"]
+
+[ext_resource type="Script" uid="uid://qqhwn8a2dciu" path="res://transition.gd" id="1_ws5yv"]
+
+[node name="Node2D" type="CanvasLayer"]
+script = ExtResource("1_ws5yv")
+
+[node name="Left" type="Sprite2D" parent="."]
+
+[node name="Right" type="Sprite2D" parent="."]

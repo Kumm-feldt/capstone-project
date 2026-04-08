@@ -330,6 +330,8 @@ func show_move_hints(from_row: int, from_col: int, player: String):
 				hint.z_index = 2
 				add_child(hint)
 				move_hint_sprites.append(hint)
+				
+
 func clear_move_hints():
 	for hint in move_hint_sprites:
 		hint.queue_free()
@@ -353,7 +355,9 @@ func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 			push_warning("_on_pin_moved: missing sprite for key %s, skipping animation" % from_key)
 		else:
 			await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
-
+		# 3. Do Disk change
+		
+		
 		# 4. Cleanup old sprite and create new one
 		if pin_sprites.has(from_key):
 			pin_sprites[from_key].queue_free()
@@ -468,7 +472,12 @@ func _on_invalid_move(message):
 # AI CALLS
 # ============================================
 func ai_move(state):
-	var action_str: String = ai.GetMove(state) 
+	var action_str
+	if GameManager.AI_MODE_LEVEL == GameManager.AILevel.Easy:
+		action_str = ai.GetMoveEasy(state) 
+	else:
+		action_str = ai.GetMoveHard(state) 
+		
 	return action_str
 	
 # ============================================

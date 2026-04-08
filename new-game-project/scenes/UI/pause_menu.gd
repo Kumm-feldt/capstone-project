@@ -27,3 +27,24 @@ func _on_quit():
 	# show message
 	quit_message.visible = true
 	pause_menu.visible = false
+
+
+func _on_win_button_pressed() -> void:
+	hide()
+	if GameManager.Mode.Local or GameManager.Mode.AI:
+		GameState.force_game_over("o")
+	elif GameManager.Mode.Multiplayer:
+		if multiplayer.is_server():
+			GameState.force_game_over("x")
+		else:
+			GameState.force_game_over("o")
+			
+func _on_lose_button_pressed() -> void:
+	hide()
+	if GameManager.Mode.Local or GameManager.Mode.AI:
+		GameState.force_game_over("x")
+	elif GameManager.Mode.Multiplayer:
+		if multiplayer.is_server():
+			GameState.force_game_over("o")
+		else:
+			GameState.force_game_over("x")

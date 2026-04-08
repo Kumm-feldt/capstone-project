@@ -5,15 +5,25 @@ namespace AI
 	// Godot-facing adapter: delegates move selection to the shared AI engine.
 	public partial class CreeperAI : Node
 	{
-		public string GetMove(string boardString)
+		AIProgram aiProgram;
+        public override void _Ready()
+        {
+            base._Ready();
+			aiProgram = new AIProgram();
+        }
+
+		public string GetMoveHard(string boardString)
 		{
-			var aiProgram = new AIProgram();
-			return aiProgram.GetMove(boardString);
+			return aiProgram.GetMoveHard(boardString);
+		}
+
+		public string GetMveEasy(string boardString)
+		{
+			return aiProgram.GetMoveEasy(boardString);
 		}
 
 		public string GetNewBoardString(string boardString)
 		{
-			var aiProgram = new AIProgram();
 			return aiProgram.GetNewBoardString(boardString);
 		}
 	}

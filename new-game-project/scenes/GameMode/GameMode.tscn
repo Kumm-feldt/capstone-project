@@ -12,8 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://devk5oekcoxi3" path="res://assets/ui/decorations/vsAI.png" id="7_wud22"]
 [ext_resource type="Texture2D" uid="uid://bubetprl8jw1r" path="res://assets/ui/decorations/onlinePlayButton.png" id="8_mckn2"]
 [ext_resource type="Texture2D" uid="uid://u45sm7lyofd1" path="res://assets/ui/decorations/localPlayButton.png" id="9_p7kgk"]
-[ext_resource type="PackedScene" uid="uid://cngkfxtr0fcir" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
-[ext_resource type="PackedScene" uid="uid://cn2f2vpspankm" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
+[ext_resource type="PackedScene" uid="uid://c5i3e2xoursyb" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
+[ext_resource type="PackedScene" uid="uid://g7trfgkrt2u7" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
 [ext_resource type="PackedScene" uid="uid://dcmn2siq27e3q" path="res://scenes/Decorations/PowerButton.tscn" id="12_86ymx"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="13_vasyn"]
 [ext_resource type="PackedScene" uid="uid://8xnweksnncl0" path="res://scenes/Profile/MenuIcon.tscn" id="18_wud22"]
@@ -202,6 +202,13 @@ offset_top = 131.0
 offset_right = -184.0
 offset_bottom = -909.0
 
+[node name="points_received" parent="." instance=ExtResource("18_wud22")]
+layout_mode = 1
+offset_left = 508.0
+offset_top = -413.0
+offset_right = 822.0
+offset_bottom = -244.0
+
 [node name="DimOverlay" type="ColorRect" parent="."]
 visible = false
 layout_mode = 1
@@ -219,13 +226,6 @@ layout_mode = 1
 [node name="AIOptionPopup" parent="." instance=ExtResource("10_geqlg")]
 visible = false
 layout_mode = 1
-
-[node name="points_received" parent="." instance=ExtResource("18_wud22")]
-layout_mode = 1
-offset_left = 508.0
-offset_top = -413.0
-offset_right = 822.0
-offset_bottom = -244.0
 
 [node name="off_panel" type="Panel" parent="."]
 visible = false

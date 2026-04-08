@@ -16,6 +16,7 @@ func _ready() -> void:
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
 	light_button.turn_off_light.connect(_on_turn_off_light)
+	#const Transition = preload("res://scenes/Transition.tscn")
 
 
 func _on_turn_off_light():
@@ -63,7 +64,9 @@ func _on_local_play_mode_button_pressed() -> void:
 	
 	get_tree().root.add_child(colorScreen)
 	get_tree().current_scene = colorScreen
-	
+	#var transition = Transition.instantiate()
+	#get_tree().root.add_child(transition)
+	#transition.play_open("res://Board/Game.tscn")
 	# Below method is from before the colorScreen was added.
 	#get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 	

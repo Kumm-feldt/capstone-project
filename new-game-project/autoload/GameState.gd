@@ -158,6 +158,11 @@ func move_pin(coordinates: String, player: String) -> bool:
 	#print_debug_state()
 	return true
 
+func force_game_over(player):
+	emit_signal("game_over", player)
+	game_active = false
+	
+
 func handle_coin_placement(to_row, to_col, from_row, from_col, player):
 	# calculate if ONE STEP move is r, l, d, u or diagonal
 	var to_i = to_row + to_col

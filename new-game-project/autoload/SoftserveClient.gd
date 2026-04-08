@@ -186,7 +186,7 @@ func _on_request_completed(result, response_code, headers, body):
 # REQUEST AI ACTION
 # ============================================
 func request_ai_action(state):	
-	var action_str: String = ai.GetMove(state) 
+	var action_str = ai.GetMove(state) 
 	if action_str == null:
 		print("ERROR obtaining move")
 	return action_str
