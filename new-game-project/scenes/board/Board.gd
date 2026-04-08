@@ -429,7 +429,6 @@ func _on_robot_disk_flipped(coordinates: Vector2i, oldstate, player):
 		#Then, queue animation
 		queue_animation(func() -> void:
 			await coin_sprites[coin_key].play_swap_animation(oldColor);
-			pass
 		)
 
 func _on_turn_changed(current_player):

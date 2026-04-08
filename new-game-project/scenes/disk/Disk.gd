@@ -40,7 +40,13 @@ func play_create_animation() -> void:
 	pass
 	
 func play_swap_animation(oldColor:Color) -> void:
-	#await $AnimationPlayer.play("diskColorOffAnimation")
-	
-	#await $AnimationPlayer.play("diskColorOnAnimation")
+	var tintColorString = "instance_shader_parameters/tint_color"
+	#First, set the disk color to look like the old color
+	var tween = get_tree().create_tween()
+	tween.tween_property($".", tintColorString, oldColor, 0)
+	#Then, fade the disk to "power" off
+	var powerOffColor = Color(0.225, 0.499, 0.562, 1.0);
+	tween.tween_property($".", tintColorString, powerOffColor, 0.2)
+	#Lastly, fade the disk to power back on w/ the new color
+	tween.tween_property($".", tintColorString, color, 0.2)
 	pass
