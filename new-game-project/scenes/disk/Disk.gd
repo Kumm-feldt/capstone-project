@@ -39,8 +39,7 @@ func play_create_animation() -> void:
 		shakeVal -= 0.1
 	pass
 	
-func play_swap_animation(oldColor:Color) -> void:
-	var oldColor = color
+func play_swap_animation(givenOldColor:Color) -> void:
 	#await $AnimationPlayer.play("diskColorOffAnimation")
 	
 	#await $AnimationPlayer.play("diskColorOnAnimation")

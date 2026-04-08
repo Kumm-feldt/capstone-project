@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=7 format=3 uid="uid://coq76pru5eq40"]
 
 [ext_resource type="Script" uid="uid://d1u1xiplachjq" path="res://scenes/Decorations/MenuPanelScene.gd" id="1_56vfi"]
+=======
+[gd_scene load_steps=7 format=3 uid="uid://ckoiue178vjnr"]
+
+[ext_resource type="Script" path="res://scenes/Decorations/MenuPanelScene.gd" id="1_56vfi"]
+>>>>>>> Stashed changes
 [ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_bh5xu"]
 [ext_resource type="Texture2D" uid="uid://bvyi1753oiuly" path="res://Images/powerIndicatorOff.png" id="2_vsmdy"]
 [ext_resource type="Texture2D" uid="uid://b10b2tpt4ryjy" path="res://Images/CRTeffect.png" id="2_w28ch"]
