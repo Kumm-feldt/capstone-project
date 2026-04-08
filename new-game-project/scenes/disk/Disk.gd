@@ -1,26 +1,13 @@
 extends Sprite2D
 
 var player: String
-var color: Color
+@export var color: Color
 var hasBeenPlaced = false
 
 func set_disk(ownerPlayer: String, givenColor: Color) -> void:
 	"""Set up the pin according to its player."""
-	if player != null:
-		hasBeenPlaced = true;
-	
-	if (player != null):
-		#The disk is changing owner from a previous owner
-		_setOwner(ownerPlayer, givenColor)
-		#Play color-changing animation
-		# Idea: power off and then on?
-		setDiskColor(color);
-	else:
-		_setOwner(ownerPlayer, givenColor)
-		# Play disk entrance animation 
-		# (perhaps it falls onto the board?)
-		setDiskColor(color);
-	#return
+	_setOwner(ownerPlayer, givenColor)
+	setDiskColor(color);
 	
 func setDiskColor(givenColor: Color) -> void:
 	color = givenColor
@@ -35,3 +22,26 @@ func _setOwner(newOwner: String, newPlayerColor) -> void:
 	
 	#Make sure to change the color visually!
 	return
+	
+func play_create_animation() -> void:
+	visible = true;
+	var tween = get_tree().create_tween()
+	var currentPos = position
+	var higherPos = Vector2(position.x, -1000)
+	tween.tween_property($".", "position", higherPos, 0)
+	tween.tween_property($".", "position", currentPos, 1.0)
+	#Fall onto it from the sky really fast
+	#Shake a bit on impact
+	var shakeVal = 0.5
+	while (shakeVal > 0):
+		tween.tween_property($".", "position", Vector2(currentPos.x + (shakeVal * 10), currentPos.y), shakeVal / 2)
+		tween.tween_property($".", "position", Vector2(currentPos.x + (shakeVal * -10), currentPos.y), shakeVal / 2)
+		shakeVal -= 0.1
+	pass
+	
+func play_swap_animation(oldColor:Color) -> void:
+	var oldColor = color
+	#await $AnimationPlayer.play("diskColorOffAnimation")
+	
+	#await $AnimationPlayer.play("diskColorOnAnimation")
+	pass
