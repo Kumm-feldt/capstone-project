@@ -40,7 +40,6 @@ func play_create_animation() -> void:
 	pass
 	
 func play_swap_animation(oldColor:Color) -> void:
-	var oldColor = color
 	#await $AnimationPlayer.play("diskColorOffAnimation")
 	
 	#await $AnimationPlayer.play("diskColorOnAnimation")

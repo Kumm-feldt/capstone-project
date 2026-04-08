@@ -16,4 +16,3 @@ shader_parameter/blueVal = 1.0
 material = SubResource("ShaderMaterial_yjxqd")
 texture = ExtResource("2_jb6a1")
 script = ExtResource("3_mp8pa")
-color = null
