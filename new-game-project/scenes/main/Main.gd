@@ -25,11 +25,14 @@ func _ready():
 	# signal to close the window
 	NetworkManager.connect("ready_to_leave", _on_ready_to_leave)
 
+	game_theme.finished.connect(_on_game_theme_finished)
+
 	# load end stingers
 	victory_stinger = preload("res://Sound/Music/stinger_victory_v2.wav")
 	defeat_stinger = preload("res://Sound/Music/stinger_defeat_v2.wav")
 
-
+func _on_game_theme_finished():
+	game_theme.play()
 	
 func _on_ready_to_leave():
 	# host asked for it
