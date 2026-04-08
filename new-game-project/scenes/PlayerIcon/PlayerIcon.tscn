@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqhf76uu66svw"]
+
+[ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://Images/playerIcons.png" id="1_5xbyn"]
+[ext_resource type="Shader" uid="uid://cf7ykuitkiscl" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_meqhf"]
+[ext_resource type="Script" uid="uid://bvsu6jd4l41dr" path="res://scenes/PlayerIcon/PlayerIcon.gd" id="2_r0wm6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jydm4"]
+shader = ExtResource("1_meqhf")
+shader_parameter/contrast = 1.0
+shader_parameter/saturation = 1.0
+shader_parameter/redVal = 1.0
+shader_parameter/greenVal = 1.0
+shader_parameter/blueVal = 1.0
+
+[node name="PlayerIcon" type="Sprite2D"]
+material = SubResource("ShaderMaterial_jydm4")
+texture = ExtResource("1_5xbyn")
+region_enabled = true
+region_rect = Rect2(0, 0, 58, 33)
+script = ExtResource("2_r0wm6")
