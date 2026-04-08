@@ -130,8 +130,8 @@ func move_pin(coordinates: String, player: String) -> bool:
 			player)
 	else:
 		# One-step diagonal move (place/flip coin)
-		handle_coin_placement(to_row, to_col, from_row, from_col, player)
 		put_pin(from_row, from_col, to_row, to_col, current_pin)
+		handle_coin_placement(to_row, to_col, from_row, from_col, player)
 		
 		# Emit move signal
 		emit_signal("pin_moved", 

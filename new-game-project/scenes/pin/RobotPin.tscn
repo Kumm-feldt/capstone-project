@@ -322,7 +322,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"bounceDown",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -330,7 +330,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"bounceLeft",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -338,7 +338,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"bounceUp",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -358,7 +358,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"diagonalDownEndJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -366,7 +366,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"diagonalDownJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -386,7 +386,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"diagonalDownPrepJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -418,7 +418,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"diagonalUpEndJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -426,7 +426,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"diagonalUpJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -452,7 +452,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"diagonalUpPrepJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -469,7 +469,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"downEndJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -477,7 +477,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"downJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -497,7 +497,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"downPrepJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -541,7 +541,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"explode",
-"speed": 7.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -589,7 +589,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"upEndJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -597,7 +597,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"upJump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -626,7 +626,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"upPrepJump",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qic5"]
@@ -634,7 +634,7 @@ animations = [{
 [node name="RobotPin" type="AnimatedSprite2D"]
 material = SubResource("ShaderMaterial_c4d6y")
 sprite_frames = SubResource("SpriteFrames_v37pg")
-animation = &"idle"
+animation = &"bounceDown"
 script = ExtResource("9_5wf60")
 
 [node name="Area2D" type="Area2D" parent="."]
