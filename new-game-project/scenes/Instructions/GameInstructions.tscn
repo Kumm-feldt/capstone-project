@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2ljkmakfhbvj"]
+[gd_scene load_steps=8 format=3 uid="uid://d2ljkmakfhbvj"]
 
 [ext_resource type="Script" uid="uid://xpmvqpm5akmu" path="res://scenes/Instructions/game_instructions.gd" id="1_c68ih"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="1_jpycx"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_x36it"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="4_o4mwe"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="4_ocslv"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="5_o4mwe"]
 
@@ -97,6 +98,16 @@ Does not overlap another snake or an occupied tile.
 Follows the original Creeper connection rules.
 "
 
+[node name="Button" type="Button" parent="Panel/TabTwoText"]
+layout_mode = 0
+offset_left = 1257.0
+offset_top = 259.0
+offset_right = 1471.0
+offset_bottom = 408.0
+theme = ExtResource("4_o4mwe")
+theme_override_font_sizes/font_size = 33
+text = "Tutorial "
+
 [node name="TabThreeSubtitle" type="Label" parent="Panel"]
 visible = false
 layout_mode = 0
@@ -124,6 +135,18 @@ text = "The goal is to be the last player able to place a snake tile on the boar
 Each snake is made of connected discs that grow from the head to the tail.
 
 When a player cannot place any legal tile, they are eliminated. The last player remaining wins."
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 1464.0
+offset_top = 736.0
+offset_right = 1804.0
+offset_bottom = 838.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_x36it")
+theme_override_font_sizes/font_size = 21
+text = "Visual learner? 
+Play the tutorial instead!"
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 0
