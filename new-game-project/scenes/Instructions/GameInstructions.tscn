@@ -161,4 +161,5 @@ position = Vector2(32, 32)
 scale = Vector2(2.8749995, 2.8749995)
 texture = ExtResource("5_o4mwe")
 
+[connection signal="pressed" from="Panel/TabTwoText/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
