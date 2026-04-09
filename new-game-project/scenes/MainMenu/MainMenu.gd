@@ -5,7 +5,8 @@ var is_config = true
 func _ready() -> void:
 	await check_first_launch() 
 	apply_saved_audio()
-
+@onready var music_slider = $Panel/ColorPicker/MusicSlider  # adjust path
+@onready var sfx_slider = $Panel/ColorPicker/SFXSlider      # adjust path
 	
 func check_first_launch():
 	var config = ConfigFile.new()
