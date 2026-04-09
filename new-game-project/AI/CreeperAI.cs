@@ -6,11 +6,11 @@ namespace AI
 	public partial class CreeperAI : Node
 	{
 		AIProgram aiProgram;
-        public override void _Ready()
-        {
-            base._Ready();
+		public override void _Ready()
+		{
+			base._Ready();
 			aiProgram = new AIProgram();
-        }
+		}
 
 		public string GetMoveHard(string boardString)
 		{
