@@ -434,11 +434,7 @@ func _on_robot_disk_flipped(coordinates: Vector2i, oldstate, player):
 func _on_turn_changed(current_player):
 	if current_player == 'x' and GameManager.GAME_MODE == GameManager.Mode.AI:
 		is_ai_thinking = true
-		var ai_coord = ai_move(GameState.getBoardStateString())
-		if GameState.move_pin(ai_coord, GameState.current_player):
-			print("AI move Succesfully")
-		else:
-			print("Failed AI")
+		start_ai_move(GameState.getBoardStateString())
 
 func _new_board(board_string: String) -> void:
 	# Rebuild PINS 7x7 from first 49 chars
@@ -470,14 +466,57 @@ func _on_invalid_move(message):
 # ============================================
 # AI CALLS
 # ============================================
-func ai_move(state):
-	var action_str
+var thread: Thread
+
+func start_ai_move(state: String) -> void:
+	if thread != null and thread.is_started():
+		push_warning("AI thread is already running")
+		return
+
+	thread = Thread.new()
+	var error := thread.start(_run_ai_move.bind(state))
+	if error != OK:
+		thread = null
+		is_ai_thinking = false
+		push_error("Failed to start AI thread: %s" % error)
+		return
+
+	_finish_ai_move()
+
+func _run_ai_move(state: String) -> String:
 	if GameManager.AI_MODE_LEVEL == GameManager.AILevel.Easy:
-		action_str = ai.GetMoveEasy(state) 
+		return ai.GetMoveEasy(state)
+
+	return ai.GetMoveHard(state)
+
+func _finish_ai_move() -> void:
+	await _wait_for_ai_thread()
+
+	if thread == null:
+		is_ai_thinking = false
+		return
+
+	var ai_coord: String = thread.wait_to_finish()
+	thread = null
+
+	if ai_coord.is_empty():
+		is_ai_thinking = false
+		push_warning("AI returned an empty move")
+		return
+
+	if GameState.move_pin(ai_coord, GameState.current_player):
+		print("AI move Succesfully")
 	else:
-		action_str = ai.GetMoveHard(state) 
-		
-	return action_str
+		is_ai_thinking = false
+		print("Failed AI")
+
+func _wait_for_ai_thread() -> void:
+	while thread != null and thread.is_alive():
+		await get_tree().process_frame
+	
+func _exit_tree():
+	if thread != null and thread.is_started():
+		thread.wait_to_finish()
 	
 # ============================================
 # QUEUE HELPERS

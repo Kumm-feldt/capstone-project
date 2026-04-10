@@ -17,6 +17,11 @@ namespace AI
 			return aiProgram.GetMoveHard(boardString);
 		}
 
+		public string GetMoveEasy(string boardString)
+		{
+			return aiProgram.GetMoveEasy(boardString);
+		}
+
 		public string GetMveEasy(string boardString)
 		{
 			return aiProgram.GetMoveEasy(boardString);
