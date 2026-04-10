@@ -42,6 +42,10 @@ project/assembly_name="New Game Project"
 
 run/main_run_args="Player 1, Player 2"
 
+[gui]
+
+theme/default_font_antialiasing=0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
