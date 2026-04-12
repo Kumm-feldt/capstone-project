@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://xc02ps0u477t"]
+[gd_scene load_steps=92 format=3 uid="uid://xc02ps0u477t"]
 
 [ext_resource type="Shader" uid="uid://cf7ykuitkiscl" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_pqoq3"]
 [ext_resource type="Texture2D" uid="uid://dcq7ay52clg4a" path="res://Images/spritesheets/robotJump-DownVertical.png" id="2_tb7pd"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpblfpu7feq8e" path="res://Images/spritesheets/robotExplode.png" id="6_ebp1k"]
 [ext_resource type="Texture2D" uid="uid://cslpkkqyh2hpc" path="res://Images/spritesheets/robotBaseANIM_idle.png" id="7_smvtf"]
 [ext_resource type="Texture2D" uid="uid://c3q6hvwo2jvvf" path="res://Images/spritesheets/robotBaseANIM_pickMe.png" id="8_iiapm"]
+[ext_resource type="Texture2D" uid="uid://c5uodvkd38cn3" path="res://Images/spritesheets/robotInvalid.png" id="8_tb7pd"]
 [ext_resource type="Script" uid="uid://bts0w8e633rur" path="res://robotPin.gd" id="9_5wf60"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c4d6y"]
@@ -241,6 +242,26 @@ region = Rect2(0, 0, 50, 50)
 [sub_resource type="AtlasTexture" id="AtlasTexture_v37pg"]
 atlas = ExtResource("7_smvtf")
 region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_he6kr"]
+atlas = ExtResource("8_tb7pd")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsr1b"]
+atlas = ExtResource("8_tb7pd")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4pyv"]
+atlas = ExtResource("8_tb7pd")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebp1k"]
+atlas = ExtResource("8_tb7pd")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smvtf"]
+atlas = ExtResource("8_tb7pd")
+region = Rect2(200, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vual6"]
 atlas = ExtResource("8_iiapm")
@@ -556,6 +577,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_he6kr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsr1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4pyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebp1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smvtf")
+}],
+"loop": false,
+"name": &"invalid",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vual6")
 }, {
 "duration": 1.0,
@@ -629,15 +670,12 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qic5"]
-
 [node name="RobotPin" type="AnimatedSprite2D"]
 material = SubResource("ShaderMaterial_c4d6y")
 sprite_frames = SubResource("SpriteFrames_v37pg")
-animation = &"bounceDown"
+animation = &"invalid"
+autoplay = "idle"
+frame = 4
+frame_progress = 1.0
+offset = Vector2(0, -12)
 script = ExtResource("9_5wf60")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_7qic5")

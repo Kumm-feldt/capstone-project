@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvdfdwudfn2pu"]
 
 [ext_resource type="Script" uid="uid://cbtouojrbgsjs" path="res://scenes/pin/pin_o.gd" id="1_j13s4"]
-[ext_resource type="Texture2D" uid="uid://4exf0g4awd3q" path="res://sprites/pins/pin_o.png" id="1_pvvlr"]
+[ext_resource type="Texture2D" uid="uid://4exf0g4awd3q" path="res://Images/UNUSED/oldSprites/pins/pin_o.png" id="1_pvvlr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j13s4"]
 animations = [{

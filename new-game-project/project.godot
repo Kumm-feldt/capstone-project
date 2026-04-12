@@ -14,10 +14,10 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="New Game Project"
+config/name="Slither"
 run/main_scene="uid://c50lapj5kugt4"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cw3fnmkvpi7jp"
 
 [autoload]
 
@@ -41,6 +41,18 @@ project/assembly_name="New Game Project"
 [editor]
 
 run/main_run_args="Player 1, Player 2"
+
+[file_customization]
+
+folder_colors={
+"res://Images/": "teal",
+"res://Sound/": "red",
+"res://scenes/": "blue"
+}
+
+[gui]
+
+theme/default_font_antialiasing=0
 
 [rendering]
 

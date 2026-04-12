@@ -1,14 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://c50lapj5kugt4"]
+[gd_scene load_steps=11 format=3 uid="uid://c50lapj5kugt4"]
 
 [ext_resource type="Script" uid="uid://brhj0e6oejmn8" path="res://scenes/MainMenu/MainMenu.gd" id="1_l72w3"]
-[ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="2_6p86p"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="2_l72w3"]
-[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="3_826wr"]
-[ext_resource type="Texture2D" uid="uid://clckufjuno6qa" path="res://buttons/exit_icon.png" id="4_ucygd"]
-[ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="6_r8q81"]
+[ext_resource type="PackedScene" uid="uid://c0jnblqwn8om2" path="res://scenes/MainMenu/menu_panel.tscn" id="2_r8q81"]
+[ext_resource type="Texture2D" uid="uid://dieci88706vb4" path="res://Images/menuImage.png" id="3_7j8ul"]
+[ext_resource type="Texture2D" uid="uid://iylu8tg4d4n" path="res://Images/SlitherTitleDARK.png" id="3_r8q81"]
+[ext_resource type="FontFile" uid="uid://cvg3yh2hnt1dt" path="res://fonts/sh-pinscher/SHPinscher-Regular.otf" id="4_7j8ul"]
+[ext_resource type="Texture2D" uid="uid://dkufxb17ncr8o" path="res://Images/exitButton.png" id="6_r8q81"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mipys"]
-texture = ExtResource("2_6p86p")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qq82"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7j8ul"]
+
+[sub_resource type="Theme" id="Theme_6p86p"]
+Button/colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+Button/colors/font_focus_color = Color(0.25490198, 0.28235295, 0.28627452, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 0)
+Button/colors/icon_normal_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+Button/font_sizes/font_size = 48
+Button/fonts/font = ExtResource("4_7j8ul")
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxEmpty_0qq82")
+Button/styles/hover = null
+Button/styles/normal = null
+Button/styles/pressed = SubResource("StyleBoxEmpty_7j8ul")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -19,16 +34,28 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l72w3")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_mipys")
+[node name="MenuPanelScene" parent="." instance=ExtResource("2_r8q81")]
+
+[node name="MenuImage" type="Sprite2D" parent="."]
+position = Vector2(1385, 777.00006)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("3_7j8ul")
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(563.00006, 271.00003)
+scale = Vector2(2.1000001, 2.1)
+texture = ExtResource("3_r8q81")
+
+[node name="Button" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 720.0
+offset_top = 739.0
+offset_right = 905.0
+offset_bottom = 806.0
+theme = SubResource("Theme_6p86p")
+text = "Start Game"
+flat = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(300, 0)
@@ -65,34 +92,16 @@ text = "Instructions
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1741.0
-offset_top = 121.0
-offset_right = 1805.0
-offset_bottom = 185.0
-theme = ExtResource("3_826wr")
+offset_left = 1606.0
+offset_top = 149.0
+offset_right = 1770.0
+offset_bottom = 313.0
+theme_override_colors/icon_normal_color = Color(0.21568628, 0.30588236, 0.2901961, 1)
+theme_override_colors/icon_pressed_color = Color(0.21568628, 0.30588236, 0.2901961, 1)
+icon = ExtResource("6_r8q81")
+flat = true
 icon_alignment = 1
 expand_icon = true
-
-[node name="iconExit" type="Sprite2D" parent="ExitButton"]
-position = Vector2(29.99997, 34)
-scale = Vector2(2.874995, 2.624999)
-texture = ExtResource("4_ucygd")
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -808.0
-offset_top = -326.0
-offset_right = -483.0
-offset_bottom = -244.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("6_r8q81")
-text = "SLITHER"
 
 [connection signal="pressed" from="VBoxContainer/BeginButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

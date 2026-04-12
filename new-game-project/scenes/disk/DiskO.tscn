@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1ks4k4ba1djq"]
 
-[ext_resource type="Texture2D" uid="uid://ge2wha02mi00" path="res://sprites/coins/coin_o.png" id="1_r6e1c"]
+[ext_resource type="Texture2D" uid="uid://ge2wha02mi00" path="res://Images/UNUSED/oldSprites/coins/coin_o.png" id="1_r6e1c"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wrrrf"]
 animations = [{

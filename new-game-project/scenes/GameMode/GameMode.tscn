@@ -5,15 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://bb3sjeypmxorg" path="res://assets/ui/decorations/background_mode.png" id="3_mckn2"]
 [ext_resource type="Texture2D" uid="uid://b7ej4rqlb3xk7" path="res://buttons/hover_green.png" id="4_0abtg"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="4_4snny"]
+[ext_resource type="Texture2D" uid="uid://cc80byq7mjffy" path="res://Images/vsAI.png" id="4_wud22"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="5_0abtg"]
 [ext_resource type="Texture2D" uid="uid://c2y1hdbgppi5" path="res://buttons/Button2_07.png" id="5_u3mau"]
+[ext_resource type="Texture2D" uid="uid://c622iuqbpxub6" path="res://Images/localPlayButton.png" id="6_mckn2"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="6_u3mau"]
 [ext_resource type="Texture2D" uid="uid://dgj2oqyuqx8ub" path="res://buttons/pressed_green.png" id="6_wud22"]
-[ext_resource type="Texture2D" uid="uid://devk5oekcoxi3" path="res://assets/ui/decorations/vsAI.png" id="7_wud22"]
 [ext_resource type="Texture2D" uid="uid://bubetprl8jw1r" path="res://assets/ui/decorations/onlinePlayButton.png" id="8_mckn2"]
-[ext_resource type="Texture2D" uid="uid://u45sm7lyofd1" path="res://assets/ui/decorations/localPlayButton.png" id="9_p7kgk"]
-[ext_resource type="PackedScene" uid="uid://c5i3e2xoursyb" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
-[ext_resource type="PackedScene" uid="uid://g7trfgkrt2u7" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
+[ext_resource type="PackedScene" uid="uid://cngkfxtr0fcir" path="res://scenes/AIOptionsModeScreen.tscn" id="10_geqlg"]
+[ext_resource type="PackedScene" uid="uid://cn2f2vpspankm" path="res://scenes/OnlineModeScreen.tscn" id="11_byo56"]
 [ext_resource type="PackedScene" uid="uid://dcmn2siq27e3q" path="res://scenes/Decorations/PowerButton.tscn" id="12_86ymx"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="13_vasyn"]
 [ext_resource type="PackedScene" uid="uid://8xnweksnncl0" path="res://scenes/Profile/MenuIcon.tscn" id="18_wud22"]
@@ -125,7 +125,7 @@ texture = ExtResource("3_mckn2")
 [node name="AIPlayModeSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2(460.25, 499.08337)
 scale = Vector2(3.1666667, 3.166667)
-texture = ExtResource("7_wud22")
+texture = ExtResource("4_wud22")
 
 [node name="OnlinePlayModeSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2(1525.1561, 499.4828)
@@ -135,7 +135,7 @@ texture = ExtResource("8_mckn2")
 [node name="LocalPlayModeSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2(1002.99994, 507.99997)
 scale = Vector2(3.072034, 3.072034)
-texture = ExtResource("9_p7kgk")
+texture = ExtResource("6_mckn2")
 
 [node name="BlinkLight" parent="." instance=ExtResource("12_86ymx")]
 position = Vector2(1782, 1039)
