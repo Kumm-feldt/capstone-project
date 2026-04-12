@@ -43,6 +43,7 @@ var pin_robot_scene = preload("res://scenes/pin/RobotPin.tscn")
 var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
 var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
 var robot_disk_scene = preload("res://scenes/disk/Disk.tscn")
+var hint_scene = preload("res://scenes/board/HintTarget.tscn")
 
 # ============================================
 # STATE TRACKING
@@ -311,7 +312,7 @@ func array_to_notation(row: int, col: int) -> String:
 # VISUAL FEEDBACK
 # ============================================
 #highlighting possible moves
-func show_move_hints(from_row: int, from_col: int, player: String):
+func show_move_hints_OLD(from_row: int, from_col: int, player: String):
 	clear_move_hints()
 	for to_row in range(7):
 		for to_col in range(7):
@@ -331,6 +332,19 @@ func show_move_hints(from_row: int, from_col: int, player: String):
 				add_child(hint)
 				move_hint_sprites.append(hint)
 				
+
+func show_move_hints(from_row: int, from_col: int, player: String):
+	clear_move_hints()
+	for to_row in range(7):
+		for to_col in range(7):
+			if GameState.is_valid_move(from_row, from_col, to_row, to_col, player):
+				var hint = hint_scene.instantiate();
+				
+				hint.setHintColor(getPlayerColor(player))
+				hint.position = get_pin_screen_position(to_row, to_col)
+				hint.z_index = 2
+				add_child(hint)
+				move_hint_sprites.append(hint)
 
 func clear_move_hints():
 	for hint in move_hint_sprites:
