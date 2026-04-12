@@ -1,8 +1,14 @@
 extends Control
 
 var is_config = true
+var testing = true	# REMOVE FOR FINAL BUILD!! - Only here to skip intro animation
 
 func _ready() -> void:
+	if not GameManager.GAME_OPENED:	
+		if not testing:
+			await $MenuPanelScene.on_game_opened()
+			GameManager.GAME_OPENED = true;
+	
 	await check_first_launch() 
 	apply_saved_audio()
 
