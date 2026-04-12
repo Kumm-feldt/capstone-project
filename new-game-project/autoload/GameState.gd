@@ -142,20 +142,27 @@ func move_pin(coordinates: String, player: String) -> bool:
 	#emit_signal("board_updated") # not useful anymore...
 	
 	add_to_move_history()
-		
-	# Check for draw conditions BEFORE checking win
-	if check_draw_condition():
-		emit_signal("game_over", "draw")
-		game_active = false
-		return true
-	# Check win condition
+
+
+
 	if check_win_condition():
 		emit_signal("game_over", get_winner())
 		game_active = false
-	print("gamestate player: ", current_player)	
+		switch_player()
+		emit_signal("valid_move")
+		return true
+	
+	# Switch player BEFORE draw check
 	switch_player()
+	
+	# Now check if the NEXT player is stuck
+	if check_draw_condition():
+		emit_signal("game_over", "draw")
+		game_active = false
+		emit_signal("valid_move")
+		return true
+	
 	emit_signal("valid_move")
-	#print_debug_state()
 	return true
 
 func force_game_over(player):
