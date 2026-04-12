@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="New Game Project"
+config/name="Slither"
 run/main_scene="uid://c50lapj5kugt4"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="uid://cw3fnmkvpi7jp"
