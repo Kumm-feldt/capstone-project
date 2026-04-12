@@ -249,7 +249,6 @@ func _unhandled_input(event):
 			handle_second_click(clicked_pin)
 			
 
-var pickMePin
 
 func handle_first_click(clicked_pin: Vector2i):
 	# Ensure only the current_player try to select a pin in Multiplayer Mode
@@ -261,15 +260,13 @@ func handle_first_click(clicked_pin: Vector2i):
 			selected_pin = clicked_pin
 			var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
 			if pin_sprites.has(key):
-				# Play animation
+				# Pin on the current player's team - play pickMe animation
 				var targetPin = pin_sprites[key]
 				targetPin.play("pickMe")
-				
-				#Set the target pin as the new pickMe pin
-				pickMePin = targetPin
 					
 			show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
 		else:
+			handle_wrong_pin_clicks(clicked_pin);
 			print("first click incorrectly: ", clicked_pin)
 
 func handle_second_click(clicked_pin: Vector2i):
@@ -287,9 +284,9 @@ func handle_second_click(clicked_pin: Vector2i):
 	else:
 		if GameState.move_pin(coord, GameState.current_player):
 			# play animation
-			
 			print("Attempt move Successfully")
 		else:
+			handle_wrong_pin_clicks(clicked_pin);
 			print("Failed")
 	deselect_pin()
 
@@ -302,6 +299,16 @@ func deselect_pin():
 				pin_sprites[key].play("idle")
 	selected_pin = Vector2i(-1, -1)
 	
+func handle_wrong_pin_clicks(clicked_pin: Vector2i) -> void:
+	var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
+	if pin_sprites.has(key):
+		var targetPin = pin_sprites[key]
+		if targetPin.player != GameState.current_player:
+		# Pin on opponent's team - play invalid animation
+			targetPin.play_invalid_animation();
+	pass
+
+
 func array_to_notation(row: int, col: int) -> String:
 	var letter = char('a'.unicode_at(0) + col)
 	var number = str(row + 1)
