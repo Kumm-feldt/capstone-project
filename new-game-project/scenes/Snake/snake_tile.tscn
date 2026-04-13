@@ -1,0 +1,354 @@
+[gd_scene load_steps=2 format=3 uid="uid://clpox6etmkbgf"]
+
+[ext_resource type="Texture2D" uid="uid://2eyhsxm7nmlw" path="res://Images/snakeTile.png" id="1_e4m7q"]
+
+[node name="SnakeTile" type="Node2D"]
+
+[node name="Tile" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile12" type="Sprite2D" parent="."]
+position = Vector2(0, 155.99998)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile19" type="Sprite2D" parent="."]
+position = Vector2(155.99998, 156)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile20" type="Sprite2D" parent="."]
+position = Vector2(312, 156.00002)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile21" type="Sprite2D" parent="."]
+position = Vector2(468, 156)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile22" type="Sprite2D" parent="."]
+position = Vector2(623.99994, 156.00002)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile23" type="Sprite2D" parent="."]
+position = Vector2(780, 156)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile24" type="Sprite2D" parent="."]
+position = Vector2(936, 156.00002)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile25" type="Sprite2D" parent="."]
+position = Vector2(1091.9999, 156)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile26" type="Sprite2D" parent="."]
+position = Vector2(1248, 156.00002)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile27" type="Sprite2D" parent="."]
+position = Vector2(1404.0001, 156)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile28" type="Sprite2D" parent="."]
+position = Vector2(1560.0001, 156.00002)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile13" type="Sprite2D" parent="."]
+position = Vector2(0, 312)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile29" type="Sprite2D" parent="."]
+position = Vector2(155.99998, 312.00003)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile35" type="Sprite2D" parent="."]
+position = Vector2(312, 312)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile36" type="Sprite2D" parent="."]
+position = Vector2(468.00006, 312)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile37" type="Sprite2D" parent="."]
+position = Vector2(624, 312.00003)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile38" type="Sprite2D" parent="."]
+position = Vector2(780.00006, 312)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile39" type="Sprite2D" parent="."]
+position = Vector2(936, 312.00003)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile40" type="Sprite2D" parent="."]
+position = Vector2(1091.9999, 312)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile41" type="Sprite2D" parent="."]
+position = Vector2(1248, 312.00003)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile42" type="Sprite2D" parent="."]
+position = Vector2(1404.0001, 312)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile43" type="Sprite2D" parent="."]
+position = Vector2(1560.0001, 312.00003)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile30" type="Sprite2D" parent="."]
+position = Vector2(156, 468)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile44" type="Sprite2D" parent="."]
+position = Vector2(312, 467.99997)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile49" type="Sprite2D" parent="."]
+position = Vector2(468, 468)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile57" type="Sprite2D" parent="."]
+position = Vector2(467.99997, 623.99994)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile61" type="Sprite2D" parent="."]
+position = Vector2(624, 624)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile68" type="Sprite2D" parent="."]
+position = Vector2(624.00006, 780.00006)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile69" type="Sprite2D" parent="."]
+position = Vector2(624, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile70" type="Sprite2D" parent="."]
+position = Vector2(624.00006, 1091.9999)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile62" type="Sprite2D" parent="."]
+position = Vector2(780.00006, 624.00006)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile63" type="Sprite2D" parent="."]
+position = Vector2(936, 624)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile64" type="Sprite2D" parent="."]
+position = Vector2(1091.9999, 624.00006)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile65" type="Sprite2D" parent="."]
+position = Vector2(1248, 624)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile66" type="Sprite2D" parent="."]
+position = Vector2(1404.0001, 624.00006)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile67" type="Sprite2D" parent="."]
+position = Vector2(1560.0001, 624)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile58" type="Sprite2D" parent="."]
+position = Vector2(468, 780)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile59" type="Sprite2D" parent="."]
+position = Vector2(467.99997, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile60" type="Sprite2D" parent="."]
+position = Vector2(468, 1091.9999)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile50" type="Sprite2D" parent="."]
+position = Vector2(623.99994, 467.99997)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile51" type="Sprite2D" parent="."]
+position = Vector2(780, 468)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile52" type="Sprite2D" parent="."]
+position = Vector2(936, 467.99997)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile53" type="Sprite2D" parent="."]
+position = Vector2(1091.9999, 468)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile54" type="Sprite2D" parent="."]
+position = Vector2(1248, 467.99997)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile55" type="Sprite2D" parent="."]
+position = Vector2(1404.0001, 468)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile56" type="Sprite2D" parent="."]
+position = Vector2(1560.0001, 467.99997)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile45" type="Sprite2D" parent="."]
+position = Vector2(312.00003, 624)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile46" type="Sprite2D" parent="."]
+position = Vector2(312, 780.00006)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile47" type="Sprite2D" parent="."]
+position = Vector2(312.00003, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile48" type="Sprite2D" parent="."]
+position = Vector2(312, 1091.9999)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile31" type="Sprite2D" parent="."]
+position = Vector2(156.00002, 623.99994)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile32" type="Sprite2D" parent="."]
+position = Vector2(156, 780)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile33" type="Sprite2D" parent="."]
+position = Vector2(156.00002, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile34" type="Sprite2D" parent="."]
+position = Vector2(156, 1091.9999)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile14" type="Sprite2D" parent="."]
+position = Vector2(0, 468)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile15" type="Sprite2D" parent="."]
+position = Vector2(0, 623.99994)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile16" type="Sprite2D" parent="."]
+position = Vector2(0, 780)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile17" type="Sprite2D" parent="."]
+position = Vector2(0, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile18" type="Sprite2D" parent="."]
+position = Vector2(0, 1091.9999)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile2" type="Sprite2D" parent="."]
+position = Vector2(156.00002, 5.684342e-14)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile3" type="Sprite2D" parent="."]
+position = Vector2(312, 5.684342e-14)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile4" type="Sprite2D" parent="."]
+position = Vector2(468, 3.3881318e-21)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile5" type="Sprite2D" parent="."]
+position = Vector2(623.99994, 2.019484e-28)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile6" type="Sprite2D" parent="."]
+position = Vector2(780, 1.2037062e-35)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile7" type="Sprite2D" parent="."]
+position = Vector2(936, 7.17e-43)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile8" type="Sprite2D" parent="."]
+position = Vector2(1091.9999, -3e-45)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile9" type="Sprite2D" parent="."]
+position = Vector2(1248, 3e-45)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile10" type="Sprite2D" parent="."]
+position = Vector2(1404.0001, -3e-45)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile11" type="Sprite2D" parent="."]
+position = Vector2(1560.0001, 3e-45)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
