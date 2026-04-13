@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=20 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
@@ -12,7 +12,6 @@
 [ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="8_kj0qs"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="8_n2orn"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="10_10m73"]
-[ext_resource type="Texture2D" uid="uid://bpxsi2wjrg5xa" path="res://assets/ui/profile pics/default.tres" id="11_04h6s"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f3efy"]
 texture = ExtResource("1_k2lax")
@@ -293,7 +292,7 @@ theme = ExtResource("8_bro8a")
 [node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
-texture = ExtResource("11_04h6s")
+texture = ExtResource("8_83sd7")
 region_enabled = true
 region_rect = Rect2(6, 0, 45, 34)
 

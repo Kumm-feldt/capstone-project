@@ -46,7 +46,7 @@ func register_player(username: String):
 		"losses": 0,
 		"draws": 0,
 		"picture": "default",
-		"color": "#f79617",
+		"color": "f79617",
 		"background":"ffffff"
 	})	
 	
@@ -71,11 +71,15 @@ func _on_register_done(result, response_code, headers, body):
 		GameManager.username = username_input.text
 		GameManager.color = default_color
 		GameManager.background_color = default_background_color
+		GameManager.profile_picture = "default"
 		
 		config.set_value("player", "username", username_input.text)
 		config.set_value("player", "id", response[0]["id"])
-		config.set_value("player", "color", default_color)
-		config.set_value("player", "background_color", default_background_color)
+		config.set_value("player", "color", response[0]["color"])
+		config.set_value("player", "background_color", response[0]["background"])
+		config.set_value("player", "picture", response[0]["picture"])
+		
+		
 		config.save("user://save.cfg")
 		
 		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
