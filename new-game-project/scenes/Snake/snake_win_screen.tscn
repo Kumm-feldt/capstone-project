@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://f8oycd7bsfva"]
+
+[ext_resource type="FontFile" uid="uid://bokcc5ljkq71h" path="res://fonts/5x5_pixel/5x5_pixel.ttf" id="1_h33ag"]
+
+[node name="Snake_Win_Screen" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 810.0
+offset_top = 324.0
+offset_right = 1122.0
+offset_bottom = 714.0
+color = Color(0.5686275, 0.85882354, 0.4117647, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 820.0
+offset_top = 334.0
+offset_right = 1113.0
+offset_bottom = 584.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 820.0
+offset_top = 595.0
+offset_right = 1113.0
+offset_bottom = 701.0
+color = Color(0, 0, 0, 1)
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 820.0
+offset_top = 595.0
+offset_right = 1113.0
+offset_bottom = 701.0
+theme_override_colors/font_color = Color(0.5686275, 0.85882354, 0.4117647, 1)
+theme_override_fonts/font = ExtResource("1_h33ag")
+theme_override_font_sizes/font_size = 54
+text = " RESTART"
+flat = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 820.0
+offset_top = 334.0
+offset_right = 1113.0
+offset_bottom = 584.0
+theme_override_colors/font_color = Color(0.5686275, 0.85882354, 0.4117647, 1)
+theme_override_fonts/font = ExtResource("1_h33ag")
+theme_override_font_sizes/font_size = 54
+text = "YOU
+
+WIN"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

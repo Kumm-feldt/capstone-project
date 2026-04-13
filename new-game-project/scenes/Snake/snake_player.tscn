@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://detdokiiklfro"]
+
+[ext_resource type="PackedScene" uid="uid://brf2rg6rh1rmq" path="res://scenes/disk/SnakeHead.tscn" id="1_kc3gl"]
+[ext_resource type="Texture2D" uid="uid://blvxubr0wts0n" path="res://Images/snakeIcons.png" id="2_ttdpa"]
+
+[node name="SnakePlayer" type="Node2D"]
+
+[node name="SnakeHead" parent="." instance=ExtResource("1_kc3gl")]
+scale = Vector2(8.1875, 8.375)
+texture = ExtResource("2_ttdpa")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="SnakeBody" parent="." instance=ExtResource("1_kc3gl")]
+visible = false
+position = Vector2(-128, 0)
+scale = Vector2(8.1875, 8.375)
+texture = ExtResource("2_ttdpa")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)

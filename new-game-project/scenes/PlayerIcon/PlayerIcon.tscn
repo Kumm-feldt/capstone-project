@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cqhf76uu66svw"]
 
-[ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://playerIcons.png" id="1_5xbyn"]
-[ext_resource type="Shader" uid="uid://cf7ykuitkiscl" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_meqhf"]
+[ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://Images/playerIcons.png" id="1_5xbyn"]
+[ext_resource type="Shader" path="res://scenes/ColorPicker/randomDamShader.gdshader" id="1_meqhf"]
 [ext_resource type="Script" uid="uid://bvsu6jd4l41dr" path="res://scenes/PlayerIcon/PlayerIcon.gd" id="2_r0wm6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jydm4"]
