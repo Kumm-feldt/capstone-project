@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bp8nlqf0ymeg1"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bp8nlqf0ymeg1"]
 
 [ext_resource type="FontFile" uid="uid://b46nx8yyjdjta" path="res://fonts/Jersey_10/Jersey10-Regular.ttf" id="1_8q83c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8q83c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yy4mq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4a00k"]
 
@@ -15,6 +17,7 @@ Button/colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
 Button/font_sizes/font_size = 38
 Button/fonts/font = ExtResource("1_8q83c")
 Button/styles/disabled = SubResource("StyleBoxEmpty_8q83c")
+Button/styles/hover = SubResource("StyleBoxEmpty_yy4mq")
 Button/styles/normal = SubResource("StyleBoxEmpty_4a00k")
 Button/styles/pressed = SubResource("StyleBoxEmpty_e0yaf")
 Label/font_sizes/font_size = 16

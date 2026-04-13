@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=20 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dx04twp7jcrjo" path="res://Images/thinArrow.png" id="7_7mwmr"]
 [ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://Images/playerIcons.png" id="8_83sd7"]
 [ext_resource type="Theme" uid="uid://blynphgumvrm8" path="res://Themes/theme_pic_button.tres" id="8_bro8a"]
+[ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="8_kj0qs"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="8_n2orn"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="10_10m73"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f3efy"]
@@ -170,6 +172,59 @@ position = Vector2(15, 21)
 scale = Vector2(1, 0.99999976)
 texture = ExtResource("7_7mwmr")
 
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 82.0
+offset_right = 910.0
+offset_bottom = 447.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/InstructionsPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="SubtitleLabel" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "Goal of the Game"
+
+[node name="Label2" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_kj0qs")
+theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 0.7490196)
+text = "The goal is to be the last player able to place a snake tile on 
+the board.
+Each snake is made of connected discs that grow from the
+head to the tail. When a player cannot place any legal tile, 
+they are eliminated. The last player remaining wins."
+
+[node name="SubtitleLabel2" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "How to Play"
+
+[node name="Label4" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_kj0qs")
+text = "The board is a hexagonal grid made of tiles. Each player
+has a set of snake body discs and a head/tail indicator.
+On your turn, place one snake‑disc tile so that it:
+- Connects to one of your existing snake discs.
+- Does not overlap another snake or an occupied tile.
+- Follows the original Creeper connection rules.
+"
+
+[node name="Button" type="Button" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("8_n2orn")
+theme_override_font_sizes/font_size = 33
+text = "Tutorial "
+
 [node name="CustomizePanel" type="Panel" parent="Panel"]
 layout_mode = 0
 offset_left = 32.0
@@ -206,7 +261,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/CustomizePanel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 4
 
 [node name="PicOptionsPanel" type="Panel" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 218)
@@ -337,7 +392,7 @@ theme = ExtResource("4_f3efy")
 text = "Select an icon for your player!"
 
 [node name="GridContainer" type="GridContainer" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 columns = 8
 
@@ -366,5 +421,7 @@ text = "Accept"
 
 [connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/InstructionsButton" to="." method="_on_instructions_button_pressed"]
 [connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton" to="." method="_on_customize_player_button_pressed"]
+[connection signal="pressed" from="Panel/InstructionsPanel/BackButton" to="." method="_on_back_instructions_button_pressed"]
+[connection signal="pressed" from="Panel/InstructionsPanel/ScrollContainer/VBoxContainer/Button" to="." method="_on_tutorial_mode_button_pressed"]
 [connection signal="pressed" from="Panel/CustomizePanel/BackButton" to="." method="_on_back_customize_button_pressed"]
 [connection signal="pressed" from="Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]

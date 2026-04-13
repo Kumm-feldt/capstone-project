@@ -56,6 +56,10 @@ func _on_check_points_done(result, response_code, headers, body):
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	var points_username = data[0]["points"]
 	GameManager.current_score = points_username
+	GameManager.background_color = data[0]["background"] 
+	GameManager.color = data[0]["color"]
+	GameManager.profile_picture = data[0]["picture"] 
+	
 	emit_signal("points_received", points_username)  # Notify listeners
 	
 	

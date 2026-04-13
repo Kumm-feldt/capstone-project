@@ -3,6 +3,9 @@ var settings_pressed = false
 
 @onready var settings_panel = $Panel/SettingsPanel
 @onready var customize_panel = $Panel/CustomizePanel
+@onready var instructions_panel = $Panel/InstructionsPanel
+
+
 @onready var top_title = $Panel/TopTitleLabel
 
 
@@ -41,6 +44,9 @@ var original_button_color: Color = Color.GRAY
 @export var row_2_container: HBoxContainer
 
 func _ready() -> void:
+	settings_panel.visible = true
+	customize_panel.visible = false
+	instructions_panel.visible = false
 	_setup_button_row(row_1_container)
 	_setup_button_row(row_2_container)
 	_initialize_color_grid()
@@ -168,7 +174,9 @@ func _on_any_character_button_pressed(target_sprite: Sprite2D) -> void:
 # BUTTON PRESSED
 # ============================================
 func _on_instructions_button_pressed() -> void:
-	pass # Replace with function body.
+	settings_panel.visible = false
+	instructions_panel.visible = true
+	top_title.text = "Instructions"
 
 
 func _on_customize_player_button_pressed() -> void:
@@ -219,3 +227,15 @@ func _on_back_customize_button_pressed() -> void:
 	settings_panel.visible = true
 	customize_panel.visible = false
 	top_title.text = "Settings"
+
+
+func _on_back_instructions_button_pressed() -> void:
+	settings_panel.visible = true
+	instructions_panel.visible = false
+	top_title.text = "Settings"
+
+
+func _on_tutorial_mode_button_pressed() -> void:
+	GameManager.GAME_MODE = GameManager.Mode.AI
+	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy  # AILevel not Difficulty
+	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
