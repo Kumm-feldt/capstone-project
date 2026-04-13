@@ -1,0 +1,427 @@
+[gd_scene load_steps=20 format=3 uid="uid://breku0u4snkpg"]
+
+[ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
+[ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
+[ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="2_nll1c"]
+[ext_resource type="Texture2D" uid="uid://4gjlm7wsnclb" path="res://Images/optionsBoxX.png" id="3_nll1c"]
+[ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="4_f3efy"]
+[ext_resource type="Theme" uid="uid://bp8nlqf0ymeg1" path="res://Themes/theme_button_options.tres" id="5_y3a33"]
+[ext_resource type="Texture2D" uid="uid://dx04twp7jcrjo" path="res://Images/thinArrow.png" id="7_7mwmr"]
+[ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://Images/playerIcons.png" id="8_83sd7"]
+[ext_resource type="Theme" uid="uid://blynphgumvrm8" path="res://Themes/theme_pic_button.tres" id="8_bro8a"]
+[ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="8_kj0qs"]
+[ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="8_n2orn"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="10_10m73"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f3efy"]
+texture = ExtResource("1_k2lax")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f3efy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3a33"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nll1c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mwmr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_83sd7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10m73"]
+bg_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("background_color_grid", "color_grid", "row_1_container", "row_2_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3buk5")
+background_color_grid = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxContainer/GridContainer2")
+color_grid = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxContainer/GridContainer")
+row_1_container = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer")
+row_2_container = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -483.0
+offset_top = -289.5
+offset_right = 483.0
+offset_bottom = 289.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_f3efy")
+
+[node name="TopTitleLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 26.0
+offset_right = 240.0
+offset_bottom = 60.0
+theme = ExtResource("2_nll1c")
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 884.99994
+offset_top = 16.0
+offset_right = 939.99994
+offset_bottom = 67.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_f3efy")
+
+[node name="IconSprite2D" type="Sprite2D" parent="Panel/ExitButton"]
+position = Vector2(27, 25)
+scale = Vector2(1.7916666, 1.7916666)
+texture = ExtResource("3_nll1c")
+
+[node name="SettingsPanel" type="Panel" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 81.5
+offset_right = 959.0
+offset_bottom = 573.5
+theme_override_styles/panel = SubResource("StyleBoxEmpty_y3a33")
+
+[node name="GroupPicPanel" type="Panel" parent="Panel/SettingsPanel"]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 36.5
+offset_right = 917.0
+offset_bottom = 451.5
+
+[node name="OptionsPanel" type="Panel" parent="Panel/SettingsPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 34.5
+offset_right = 559.0
+offset_bottom = 452.5
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nll1c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/SettingsPanel/OptionsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.5
+offset_top = -153.0
+offset_right = 223.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="InstructionsButton" type="Button" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_y3a33")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
+text = "Instructions"
+alignment = 0
+
+[node name="CustomizePlayerButton" type="Button" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_y3a33")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
+text = "Customize Player"
+alignment = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "Music"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "SFX"
+
+[node name="InstructionsPanel" type="Panel" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 80.5
+offset_right = 957.0
+offset_bottom = 571.5
+theme_override_styles/panel = SubResource("StyleBoxEmpty_83sd7")
+
+[node name="BackButton" type="Button" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 17.0
+offset_right = 210.0
+offset_bottom = 59.0
+theme = ExtResource("5_y3a33")
+theme_override_colors/font_color = Color(0.21568628, 0.30588236, 0.2901961, 1)
+text = "Options"
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/InstructionsPanel/BackButton"]
+position = Vector2(15, 21)
+scale = Vector2(1, 0.99999976)
+texture = ExtResource("7_7mwmr")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 82.0
+offset_right = 910.0
+offset_bottom = 447.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/InstructionsPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="SubtitleLabel" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "Goal of the Game"
+
+[node name="Label2" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_kj0qs")
+theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 0.7490196)
+text = "The goal is to be the last player able to place a snake tile on 
+the board.
+Each snake is made of connected discs that grow from the
+head to the tail. When a player cannot place any legal tile, 
+they are eliminated. The last player remaining wins."
+
+[node name="SubtitleLabel2" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "How to Play"
+
+[node name="Label4" type="Label" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_kj0qs")
+text = "The board is a hexagonal grid made of tiles. Each player
+has a set of snake body discs and a head/tail indicator.
+On your turn, place one snake‑disc tile so that it:
+- Connects to one of your existing snake discs.
+- Does not overlap another snake or an occupied tile.
+- Follows the original Creeper connection rules.
+"
+
+[node name="Button" type="Button" parent="Panel/InstructionsPanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("8_n2orn")
+theme_override_font_sizes/font_size = 33
+text = "Tutorial "
+
+[node name="CustomizePanel" type="Panel" parent="Panel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 80.5
+offset_right = 934.0
+offset_bottom = 962.5
+theme_override_styles/panel = SubResource("StyleBoxEmpty_83sd7")
+
+[node name="BackButton" type="Button" parent="Panel/CustomizePanel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 15.0
+offset_right = 181.0
+offset_bottom = 57.0
+theme = ExtResource("5_y3a33")
+theme_override_colors/font_color = Color(0.21568628, 0.30588236, 0.2901961, 1)
+text = "Options"
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/BackButton"]
+position = Vector2(15, 21)
+scale = Vector2(1, 0.99999976)
+texture = ExtResource("7_7mwmr")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/CustomizePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 78.0
+offset_bottom = -450.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CustomizePanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="PicOptionsPanel" type="Panel" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 218)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_10m73")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Button" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(6, 0, 45, 34)
+
+[node name="Button2" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button2"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(67, 4, 39, 29)
+
+[node name="Button3" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button3"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(124, 1, 40, 32)
+
+[node name="Button4" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button4"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(182, 4, 35, 29)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Button" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(6, 34, 45, 32)
+
+[node name="Button2" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button2"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(67, 37, 39, 29)
+
+[node name="Button3" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button3"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(125, 35, 36, 31)
+
+[node name="Button4" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme = ExtResource("8_bro8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button4"]
+position = Vector2(90.99997, 51)
+scale = Vector2(2.6714287, 2.6714287)
+texture = ExtResource("8_83sd7")
+region_enabled = true
+region_rect = Rect2(183, 37, 39, 29)
+
+[node name="IconLabel" type="Label" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "Select an icon for your player!"
+
+[node name="GridContainer" type="GridContainer" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+columns = 8
+
+[node name="ColorLabel" type="Label" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "Player's Color"
+
+[node name="GridContainer2" type="GridContainer" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+columns = 8
+
+[node name="BackgroundColorLabel" type="Label" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_f3efy")
+text = "Select a background color"
+
+[node name="AcceptButton" type="Button" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("10_10m73")
+text = "Accept"
+
+[connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/InstructionsButton" to="." method="_on_instructions_button_pressed"]
+[connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton" to="." method="_on_customize_player_button_pressed"]
+[connection signal="pressed" from="Panel/InstructionsPanel/BackButton" to="." method="_on_back_instructions_button_pressed"]
+[connection signal="pressed" from="Panel/InstructionsPanel/ScrollContainer/VBoxContainer/Button" to="." method="_on_tutorial_mode_button_pressed"]
+[connection signal="pressed" from="Panel/CustomizePanel/BackButton" to="." method="_on_back_customize_button_pressed"]
+[connection signal="pressed" from="Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]

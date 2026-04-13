@@ -43,6 +43,7 @@ var pin_robot_scene = preload("res://scenes/pin/RobotPin.tscn")
 var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
 var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
 var robot_disk_scene = preload("res://scenes/disk/Disk.tscn")
+var hint_scene = preload("res://scenes/board/HintTarget.tscn")
 
 # ============================================
 # STATE TRACKING
@@ -248,7 +249,6 @@ func _unhandled_input(event):
 			handle_second_click(clicked_pin)
 			
 
-var pickMePin
 
 func handle_first_click(clicked_pin: Vector2i):
 	# Ensure only the current_player try to select a pin in Multiplayer Mode
@@ -260,15 +260,13 @@ func handle_first_click(clicked_pin: Vector2i):
 			selected_pin = clicked_pin
 			var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
 			if pin_sprites.has(key):
-				# Play animation
+				# Pin on the current player's team - play pickMe animation
 				var targetPin = pin_sprites[key]
 				targetPin.play("pickMe")
-				
-				#Set the target pin as the new pickMe pin
-				pickMePin = targetPin
 					
 			show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
 		else:
+			handle_wrong_pin_clicks(clicked_pin);
 			print("first click incorrectly: ", clicked_pin)
 
 func handle_second_click(clicked_pin: Vector2i):
@@ -286,9 +284,9 @@ func handle_second_click(clicked_pin: Vector2i):
 	else:
 		if GameState.move_pin(coord, GameState.current_player):
 			# play animation
-			
 			print("Attempt move Successfully")
 		else:
+			handle_wrong_pin_clicks(clicked_pin);
 			print("Failed")
 	deselect_pin()
 
@@ -301,6 +299,16 @@ func deselect_pin():
 				pin_sprites[key].play("idle")
 	selected_pin = Vector2i(-1, -1)
 	
+func handle_wrong_pin_clicks(clicked_pin: Vector2i) -> void:
+	var key = "%d_%d" % [clicked_pin.y, clicked_pin.x]
+	if pin_sprites.has(key):
+		var targetPin = pin_sprites[key]
+		if targetPin.player != GameState.current_player:
+		# Pin on opponent's team - play invalid animation
+			targetPin.play_invalid_animation();
+	pass
+
+
 func array_to_notation(row: int, col: int) -> String:
 	var letter = char('a'.unicode_at(0) + col)
 	var number = str(row + 1)
@@ -311,7 +319,7 @@ func array_to_notation(row: int, col: int) -> String:
 # VISUAL FEEDBACK
 # ============================================
 #highlighting possible moves
-func show_move_hints(from_row: int, from_col: int, player: String):
+func show_move_hints_OLD(from_row: int, from_col: int, player: String):
 	clear_move_hints()
 	for to_row in range(7):
 		for to_col in range(7):
@@ -331,6 +339,19 @@ func show_move_hints(from_row: int, from_col: int, player: String):
 				add_child(hint)
 				move_hint_sprites.append(hint)
 				
+
+func show_move_hints(from_row: int, from_col: int, player: String):
+	clear_move_hints()
+	for to_row in range(7):
+		for to_col in range(7):
+			if GameState.is_valid_move(from_row, from_col, to_row, to_col, player):
+				var hint = hint_scene.instantiate();
+				
+				hint.setHintColor(getPlayerColor(player))
+				hint.position = get_pin_screen_position(to_row, to_col)
+				hint.z_index = 2
+				add_child(hint)
+				move_hint_sprites.append(hint)
 
 func clear_move_hints():
 	for hint in move_hint_sprites:

@@ -1,15 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://8scl0imj2srt"]
+[gd_scene load_steps=7 format=3 uid="uid://8scl0imj2srt"]
 
 [ext_resource type="Script" uid="uid://b2cpcp7w5447g" path="res://scenes/NewUser/NewUser.gd" id="1_8pp80"]
-[ext_resource type="Theme" uid="uid://bjmk1xdsacok2" path="res://Themes/Menu_1.tres" id="1_sn8m4"]
-[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="2_rpim3"]
+[ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="2_8pp80"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_8pp80"]
-[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="3_h3sqq"]
+[ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="3_h3sqq"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_rpim3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k8yfu"]
-texture = ExtResource("3_h3sqq")
-region_rect = Rect2(1063, 80, 235, 297)
+texture = ExtResource("2_8pp80")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -28,58 +26,67 @@ anchor_bottom = 1.0
 offset_left = 754.0
 offset_top = 233.0
 offset_right = -722.0
-offset_bottom = -434.0
+offset_bottom = -539.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_sn8m4")
 theme_override_styles/panel = SubResource("StyleBoxTexture_k8yfu")
 
 [node name="WelcomeLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 62.0
-offset_right = 399.0
-offset_bottom = 96.0
-theme = ExtResource("2_rpim3")
+offset_left = 32.0
+offset_top = 50.0
+offset_right = 383.0
+offset_bottom = 92.0
+theme = ExtResource("3_h3sqq")
 text = "Welcome Comrade!"
 
 [node name="LineEdit" type="LineEdit" parent="Panel"]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 171.0
-offset_right = 374.0
-offset_bottom = 208.0
+offset_left = 33.0
+offset_top = 144.0
+offset_right = 357.0
+offset_bottom = 181.0
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
 theme_override_fonts/font = ExtResource("3_rpim3")
 
 [node name="UsernameLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 53.0
-offset_top = 138.0
-offset_right = 354.0
-offset_bottom = 164.0
-theme = ExtResource("2_rpim3")
-theme_override_font_sizes/font_size = 24
+offset_left = 33.0
+offset_top = 104.0
+offset_right = 334.0
+offset_bottom = 135.0
+theme = ExtResource("3_h3sqq")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
 text = "Type your username:"
 
 [node name="AcceptButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 144.0
-offset_top = 367.0
-offset_right = 298.0
-offset_bottom = 412.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -67.0
+offset_top = -53.0
+offset_right = 77.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = ExtResource("3_8pp80")
+theme_override_font_sizes/font_size = 18
 text = "Accept"
 
 [node name="MessageLabel" type="Label" parent="Panel"]
 visible = false
 layout_mode = 0
-offset_left = 60.0
-offset_top = 219.0
-offset_right = 100.0
-offset_bottom = 242.0
-theme = ExtResource("2_rpim3")
-theme_override_font_sizes/font_size = 16
+offset_left = 35.0
+offset_top = 190.0
+offset_right = 216.0
+offset_bottom = 213.0
+theme = ExtResource("3_h3sqq")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
 text = "Username is taken"
 
 [connection signal="pressed" from="Panel/AcceptButton" to="." method="_on_accept_button_pressed"]

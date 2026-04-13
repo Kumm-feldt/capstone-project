@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://gslxv6nise5x"]
 
 [ext_resource type="Script" uid="uid://ddk02qreoju6h" path="res://scenes/ColorPicker/ColorSelectionScreen.gd" id="1_0qsph"]
-[ext_resource type="PackedScene" path="res://scenes/MainMenu/menu_panel.tscn" id="2_4uif4"]
+[ext_resource type="PackedScene" uid="uid://c0jnblqwn8om2" path="res://scenes/MainMenu/menu_panel.tscn" id="2_4uif4"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_2y6vf"]
 [ext_resource type="PackedScene" uid="uid://bxxxlc7jt521u" path="res://scenes/ColorPicker/ColorGrid.tscn" id="3_u0i7w"]
 [ext_resource type="FontFile" uid="uid://bokcc5ljkq71h" path="res://fonts/5x5_pixel/5x5_pixel.ttf" id="5_1p4e3"]

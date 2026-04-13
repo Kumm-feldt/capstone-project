@@ -7,7 +7,13 @@ extends Control
 @onready var back_button = $Buttons/BackButton
 @onready var light_button = $BlinkLight
 @onready var off_panel = $off_panel
+@onready var options = $points_received
 
+# Preload at the top of your script — loads the file once, reuses it
+const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
+
+# Track the instance so you can close it later
+var active_popup: Control = null
 var colorScreenScene = load("res://scenes/ColorPicker/ColorSelectionScreen.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -16,9 +22,31 @@ func _ready() -> void:
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
 	light_button.turn_off_light.connect(_on_turn_off_light)
+	options.show_settings.connect(_on_show_settings)
 	#const Transition = preload("res://scenes/Transition.tscn")
 
-
+func _on_show_settings():
+	if active_popup:
+		return
+	print("showing...")
+	# Create the instance
+	active_popup = POPUP_SCENE.instantiate()
+	
+	# Add it to the current scene as a child
+	add_child(active_popup)
+	# Center it on screen
+	# Anchoring to full rect + centered is handled inside the popup scene itself
+	# OR manually center it here:
+	active_popup.position = (get_viewport().get_visible_rect().size / 2) - (active_popup.size / 2)
+	
+	# Connect the popup's close button signal
+	active_popup.get_node("Panel/ExitButton").pressed.connect(_close_popup)
+	
+func _close_popup() -> void:
+	if active_popup:
+		active_popup.queue_free()
+		active_popup = null
+		
 func _on_turn_off_light():
 	if off_panel.visible:
 		off_panel.visible = false

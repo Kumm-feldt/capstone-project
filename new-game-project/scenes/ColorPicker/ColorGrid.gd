@@ -11,9 +11,7 @@ const COLORS = [
 	"#91db69", #lime
 	"#8ff8e2",	#lightTurquoise
 	"#30e1b9",	#darkTurquoise
-	"#4d9be6",	#blue
-	"#a884f3",	#purple
-	"#c7dcd0"	#gray (BASE COLOR)
+
 ]
 
 var Swatch: PackedScene = preload("res://scenes/ColorPicker/ColorSwatch.tscn")
