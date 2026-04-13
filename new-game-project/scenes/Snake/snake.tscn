@@ -1,3 +1,57 @@
-[gd_scene format=3 uid="uid://dmp8cly6olq54"]
+[gd_scene load_steps=11 format=3 uid="uid://dmp8cly6olq54"]
+
+[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="1_fcj6f"]
+[ext_resource type="Script" uid="uid://drl6k43ftdubj" path="res://scenes/Snake/snake.gd" id="1_jc2ut"]
+[ext_resource type="FontFile" uid="uid://bokcc5ljkq71h" path="res://fonts/5x5_pixel/5x5_pixel.ttf" id="2_45ksv"]
+[ext_resource type="PackedScene" uid="uid://detdokiiklfro" path="res://scenes/Snake/snake_player.tscn" id="2_fcj6f"]
+[ext_resource type="PackedScene" uid="uid://dubarun0xcv4h" path="res://scenes/Snake/snake_box.tscn" id="2_h8830"]
+[ext_resource type="PackedScene" uid="uid://b4butvjh0b7pq" path="res://scenes/Snake/snake_food.tscn" id="3_45ksv"]
+[ext_resource type="PackedScene" uid="uid://pclq3ht5ryg0" path="res://scenes/Snake/snake_start_screen.tscn" id="7_iljgq"]
+[ext_resource type="PackedScene" uid="uid://f8oycd7bsfva" path="res://scenes/Snake/snake_win_screen.tscn" id="8_o27u4"]
+[ext_resource type="PackedScene" uid="uid://bbvckss2mccf7" path="res://scenes/Snake/snake_lose_screen.tscn" id="9_dp3rd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h8830"]
+font = ExtResource("2_45ksv")
+font_size = 85
+font_color = Color(0.5686275, 0.88235295, 0.5058824, 1)
 
 [node name="Snake" type="Node2D"]
+script = ExtResource("1_jc2ut")
+
+[node name="MenuPanelScene" parent="." instance=ExtResource("1_fcj6f")]
+
+[node name="SnakeBox" parent="." instance=ExtResource("2_h8830")]
+
+[node name="Score" type="Label" parent="."]
+offset_left = 457.0
+offset_top = 171.0
+offset_right = 756.0
+offset_bottom = 225.0
+text = "000"
+label_settings = SubResource("LabelSettings_h8830")
+
+[node name="Title" type="Label" parent="."]
+offset_left = 1179.0
+offset_top = 171.0
+offset_right = 1498.0
+offset_bottom = 225.0
+text = "SNAKE"
+label_settings = SubResource("LabelSettings_h8830")
+
+[node name="SnakePlayer" parent="." instance=ExtResource("2_fcj6f")]
+position = Vector2(654.00006, 558)
+scale = Vector2(0.6, 0.6)
+
+[node name="SnakeFood" parent="." instance=ExtResource("3_45ksv")]
+position = Vector2(1200, 558)
+scale = Vector2(4, 4)
+frame_progress = 0.1585807
+
+[node name="SnakeStartScreen" parent="." instance=ExtResource("7_iljgq")]
+visible = false
+
+[node name="Snake_Win_Screen" parent="." instance=ExtResource("8_o27u4")]
+visible = false
+
+[node name="Snake_Lose_Screen" parent="." instance=ExtResource("9_dp3rd")]
+visible = false

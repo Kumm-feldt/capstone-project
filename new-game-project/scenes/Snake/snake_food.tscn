@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4butvjh0b7pq"]
+
+[ext_resource type="Texture2D" uid="uid://blvxubr0wts0n" path="res://Images/snakeIcons.png" id="2_4jqnk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gajr"]
+atlas = ExtResource("2_4jqnk")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afeqk"]
+atlas = ExtResource("2_4jqnk")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kkq6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gajr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afeqk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SnakeFood" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_kkq6n")
+frame_progress = 0.38343734
