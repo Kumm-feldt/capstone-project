@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://exsl4mgdtxlt"]
+
+[ext_resource type="FontFile" uid="uid://b46nx8yyjdjta" path="res://fonts/Jersey_10/Jersey10-Regular.ttf" id="1_tto11"]
+
+[resource]
+Label/colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 0.81960785)
+Label/font_sizes/font_size = 38
+Label/fonts/font = ExtResource("1_tto11")
