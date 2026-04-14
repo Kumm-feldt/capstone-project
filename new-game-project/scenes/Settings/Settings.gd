@@ -8,7 +8,6 @@ var settings_pressed = false
 
 @onready var top_title = $Panel/TopTitleLabel
 
-
 @export var background_color_grid: GridContainer
 @export var color_grid: GridContainer
 @export var colors: Array[Color] = [
@@ -34,15 +33,18 @@ var settings_pressed = false
 
 # State tracking
 var active_sprite: Sprite2D = null
+var active_sprite_name: String = ""
+
 var active_button: Button = null
 
-var original_color: Color = Color.WHITE
-var original_button_color: Color = Color.GRAY
+var original_color: Color 
+var original_button_color: Color 
 
 
 @export var row_1_container: HBoxContainer
 @export var row_2_container: HBoxContainer
 
+# Seed defaults from GameManager in _ready()
 func _ready() -> void:
 	settings_panel.visible = true
 	customize_panel.visible = false
@@ -51,7 +53,12 @@ func _ready() -> void:
 	_setup_button_row(row_2_container)
 	_initialize_color_grid()
 	_initialize_background_color_grid()
-	
+	active_sprite_name = GameManager.profile_picture
+
+	# Seed from actual saved values so Accept is a no-op if nothing changed
+	original_color = GameManager.icon_color if GameManager.icon_color is Color else Color.WHITE
+	original_button_color = GameManager.background_color if GameManager.background_color is Color else Color.GRAY
+
 # ============================================
 # BACKGROUND COLOR HELPERS
 # ============================================
@@ -60,7 +67,6 @@ func _initialize_background_color_grid() -> void:
 	for child in background_color_grid.get_children():
 		child.queue_free()
 
-	# THIS LOOP IS MISSING FROM YOUR CODE
 	for color in background_colors:
 		var color_btn = ColorRect.new()
 		color_btn.custom_minimum_size = Vector2(50, 50)
@@ -114,8 +120,6 @@ func _on_any_button_pressed(target_button: Button) -> void:
 	print("Dynamically selected sprite from button!")
 
 
-
-
 # ============================================
 # SPRITE COLOR	
 # ============================================
@@ -143,6 +147,7 @@ func _initialize_color_grid() -> void:
 # Call this from your Sprite Button's "pressed" signal
 func set_active_sprite(target_sprite: Sprite2D) -> void:
 	active_sprite = target_sprite
+	active_sprite_name = str(target_sprite.name) 
 	original_color = active_sprite.modulate
 
 func _on_color_hovered(hovered_color: Color) -> void:
@@ -162,11 +167,13 @@ func _on_color_clicked(event: InputEvent, confirmed_color: Color) -> void:
 			# Commit the color change
 			active_sprite.modulate = confirmed_color
 			original_color = confirmed_color
+			
 
 # ONE function to handle all 8 buttons
 func _on_any_character_button_pressed(target_sprite: Sprite2D) -> void:
 	# Call your existing function from the previous step
 	set_active_sprite(target_sprite)
+	
 	print("Dynamically selected sprite from button!")
 
 
@@ -195,8 +202,9 @@ func _setup_button_row(row: HBoxContainer) -> void:
 		if child is Button:
 			# Get the sprite inside the button. 
 			# Using get_node("Sprite2D") is okay here because the relationship (Button -> Sprite) is strictly local and encapsulated.
-			var sprite: Sprite2D = child.get_node_or_null("Sprite2D")
+			var sprite: Sprite2D = child.find_child("*") as Sprite2D
 			child.pressed.connect(_on_any_button_pressed.bind(child))
+			
 			if sprite:
 				#  connect the signal and bind the specific sprite to the function call
 				child.pressed.connect(_on_any_character_button_pressed.bind(sprite))
@@ -204,24 +212,39 @@ func _setup_button_row(row: HBoxContainer) -> void:
 				push_warning("Button found without a Sprite2D child: ", child.name)
 
 
+# accept customize button
 func _on_accept_button_pressed() -> void:
 	var config = ConfigFile.new()
-	if config.load("user://save.cfg") != OK:
-		print("error loading config file")
-		return
-		
-	if original_color != null:
-		print("seted pending color")
-		GameManager.color = original_color
-		config.set_value("player", "color", original_color)
-		
-	if original_button_color != null:
-		print("seted pending background")
-		GameManager.background_color = original_button_color
-		config.set_value("player", "background_color", original_button_color)
-	# save config file
-	config.save("user://save.cfg")
+	config.load("user://save.cfg")
+	# Track what actually changed using a dirty flag instead of null check
+	var saved_icon_color = _get_safe_color(GameManager.icon_color)
+	var saved_bg_color   = _get_safe_color(GameManager.background_color)
 
+	var color_changed = original_color       != saved_icon_color
+	var bg_changed    = original_button_color != saved_bg_color
+	var name_changed  = active_sprite_name   != GameManager.profile_picture
+
+	if color_changed:
+		GameManager.icon_color = original_color
+		config.set_value("player", "color", original_color.to_html())
+
+	if bg_changed:
+		GameManager.background_color = original_button_color
+		config.set_value("player", "background_color", original_button_color.to_html())
+
+	if name_changed:
+		GameManager.profile_picture = active_sprite_name
+		config.set_value("player", "picture", active_sprite_name)
+	
+	config.save("user://save.cfg")
+	
+	if color_changed or bg_changed or name_changed:
+		DBService.update_player_colors(
+		GameManager.username,
+		GameManager.icon_color.to_html(),
+		GameManager.background_color.to_html(),
+		GameManager.profile_picture
+		)
 
 func _on_back_customize_button_pressed() -> void:
 	settings_panel.visible = true
@@ -239,3 +262,16 @@ func _on_tutorial_mode_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.AI
 	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy  # AILevel not Difficulty
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+
+# HELPER
+func _get_safe_color(raw) -> Color:
+	if raw is Color:
+		# Already a Color object e.g. (0.9098, 0.2314, 0.2314, 1.0)
+		return raw
+	elif raw is String and raw.length() > 0:
+		# Hex string e.g. "ffffff" or "#ff0000"
+		return Color.from_string(raw, Color.GRAY)
+	else:
+		# Null, bool, int, or anything unexpected
+		push_warning("Invalid color value in GameManager: " + str(raw))
+		return Color.GRAY

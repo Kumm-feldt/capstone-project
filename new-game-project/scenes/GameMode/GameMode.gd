@@ -8,7 +8,7 @@ extends Control
 @onready var light_button = $BlinkLight
 @onready var off_panel = $off_panel
 @onready var options = $points_received
-
+@onready var profile_tab = $Profile
 # Preload at the top of your script — loads the file once, reuses it
 const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
 
@@ -23,15 +23,17 @@ func _ready() -> void:
 	online_mode_popup.visible = false
 	light_button.turn_off_light.connect(_on_turn_off_light)
 	options.show_settings.connect(_on_show_settings)
+	
+	profile_tab.set_icon()
+	
+	print("Back COLOR ", GameManager.background_color)
 	#const Transition = preload("res://scenes/Transition.tscn")
 
 func _on_show_settings():
 	if active_popup:
 		return
-	print("showing...")
 	# Create the instance
 	active_popup = POPUP_SCENE.instantiate()
-	
 	# Add it to the current scene as a child
 	add_child(active_popup)
 	# Center it on screen
@@ -65,7 +67,6 @@ func _on_popup_closed():
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
 	dim_overlay.visible = false
-	
 	
 func _on_online_mode_pressed() -> void:
 	dim_overlay.visible = true

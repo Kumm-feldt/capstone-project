@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dubarun0xcv4h"]
+[gd_scene load_steps=0 format=3 uid="uid://dubarun0xcv4h"]
 
 [node name="SnakeBox" type="Node2D"]
 

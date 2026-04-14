@@ -9,10 +9,11 @@ var HEADERS = [
 "Prefer: return=representation"   # tells Supabase to return the new row
 ]
 
-
 var http_check_points = HTTPRequest.new() 
 var http_check = HTTPRequest.new()
 var http_patch = HTTPRequest.new()
+var http_update_player = HTTPRequest.new()
+
 
 var points = 0
 var losses = 0
@@ -24,16 +25,34 @@ var pending_points
 var pending_action
 
 signal points_received
+signal player_updated
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_child(http_check) 
 	add_child(http_patch) 
 	add_child(http_check_points)
+	add_child(http_update_player)
+	http_update_player.request_completed.connect(_on_update_player_done)
 	http_check_points.request_completed.connect(_on_check_points_done)
 	http_patch.request_completed.connect(_on_update_points_done)
 	http_check.request_completed.connect(on_update_user_info)
 
+func _on_update_player_done(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
+		return
+	emit_signal("player_updated")  # Notify listeners
+	
+func update_player_colors(username, color, background_color, picture):
+	var body = JSON.stringify({
+		"color":color,
+		"background": background_color,
+		"picture": picture
+	})	
+	var url = URL + "?username=eq."+username 
+	http_update_player.request(url, DBService.HEADERS, HTTPClient.METHOD_PATCH, body)
 	
 func update_user_info(username, action, points_):
 	print("udpated_user_info - started")
@@ -57,7 +76,7 @@ func _on_check_points_done(result, response_code, headers, body):
 	var points_username = data[0]["points"]
 	GameManager.current_score = points_username
 	GameManager.background_color = data[0]["background"] 
-	GameManager.color = data[0]["color"]
+	GameManager.icon_color = data[0]["color"]
 	GameManager.profile_picture = data[0]["picture"] 
 	
 	emit_signal("points_received", points_username)  # Notify listeners

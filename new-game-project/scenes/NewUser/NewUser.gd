@@ -7,7 +7,7 @@ var http_register = HTTPRequest.new()
 
 var default_color = "e83c84ff"
 var default_background_color = "f0ebd8"
-
+var default_pic = "Derpy"
 
 func _ready() -> void:
 	add_child(http_check)
@@ -45,9 +45,9 @@ func register_player(username: String):
 		"wins": 0,
 		"losses": 0,
 		"draws": 0,
-		"picture": "default",
-		"color": "f79617",
-		"background":"ffffff"
+		"picture": default_pic,
+		"color": default_color,
+		"background": default_background_color
 	})	
 	
 	var err = http_register.request(DBService.URL,
@@ -69,9 +69,9 @@ func _on_register_done(result, response_code, headers, body):
 		print("Successfully registered!")
 		var config = ConfigFile.new()
 		GameManager.username = username_input.text
-		GameManager.color = default_color
+		GameManager.icon_color = default_color
 		GameManager.background_color = default_background_color
-		GameManager.profile_picture = "default"
+		GameManager.profile_picture = default_pic
 		
 		config.set_value("player", "username", username_input.text)
 		config.set_value("player", "id", response[0]["id"])

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b4sun6tdy4qph"]
 
 [ext_resource type="Script" uid="uid://bdhbuhi5idbtd" path="res://scenes/Profile/ProfileTab.gd" id="1_k3duf"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_ljg26"]
+[ext_resource type="PackedScene" uid="uid://cqhf76uu66svw" path="res://scenes/PlayerIcon/PlayerIcon.tscn" id="2_g5337"]
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="2_k3duf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5337"]
@@ -46,10 +46,9 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_prkv5")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/PanelContainer"]
-position = Vector2(43, 20)
-scale = Vector2(0.28125, 0.28125)
-texture = ExtResource("1_ljg26")
+[node name="PlayerIcon" parent="Panel/PanelContainer" instance=ExtResource("2_g5337")]
+position = Vector2(45, 20)
+scale = Vector2(1.1034483, 1.1363636)
 
 [node name="PointsLabel" type="Label" parent="Panel"]
 layout_mode = 1

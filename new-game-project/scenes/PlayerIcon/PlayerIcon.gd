@@ -6,14 +6,13 @@ var iconColor
 func setIcon(name:String, color:Color) -> void:
 	iconName = name
 	iconColor = color
-	
 	setIconImage()
 	setIconColor()
 	
 func setIconImage() -> void:
 	var ipx = Vector2(0, 0)
 	
-	match name:
+	match iconName:
 		"Derpy":
 			ipx = Vector2(0, 0)
 		"Pretty":
@@ -31,7 +30,7 @@ func setIconImage() -> void:
 		"Happy":
 			ipx = Vector2(3, 1)
 		"Random":
-			ipx = Vector2(randi_range(0, 4), randi_range(0, 1))
+			ipx = Vector2(randi_range(0, 3), randi_range(0, 1)) 
 	
 	self.region_rect.position = Vector2(ipx.x * 58, ipx.y * 33)
 

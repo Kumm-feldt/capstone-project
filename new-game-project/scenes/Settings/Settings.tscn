@@ -289,7 +289,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button"]
+[node name="Derpy" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")
@@ -301,7 +301,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button2"]
+[node name="Pretty" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button2"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")
@@ -313,7 +313,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button3"]
+[node name="Thinking" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button3"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")
@@ -325,7 +325,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button4"]
+[node name="Sad" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer/Button4"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")
@@ -343,7 +343,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button"]
+[node name="Handsome" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")
@@ -355,7 +355,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button2"]
+[node name="Groucho" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button2"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")
@@ -367,7 +367,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button3"]
+[node name="Angry" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button3"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")
@@ -379,7 +379,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme = ExtResource("8_bro8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button4"]
+[node name="Happy" type="Sprite2D" parent="Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2/Button4"]
 position = Vector2(90.99997, 51)
 scale = Vector2(2.6714287, 2.6714287)
 texture = ExtResource("8_83sd7")

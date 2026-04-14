@@ -9,6 +9,8 @@ var hosting = false
 var username 
 var player_id
 var color
+
+var icon_color
 var background_color
 var profile_picture
 

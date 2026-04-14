@@ -21,7 +21,8 @@ func check_first_launch():
 		is_config = false
 	else:
 		GameManager.username = config.get_value("player", "username", "default")
-		GameManager.color = config.get_value("player", "color", "ffffff")
+		GameManager.icon_color = config.get_value("player", "color", "ffffff")
+		GameManager.profile_picture = config.get_value("player", "picture", "Derby")
 		GameManager.background_color = config.get_value("player", "background_color", "000000")
 		
 func apply_saved_audio():
