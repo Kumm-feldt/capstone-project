@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2ljkmakfhbvj"]
+[gd_scene load_steps=16 format=3 uid="uid://d2ljkmakfhbvj"]
 
 [ext_resource type="Script" uid="uid://xpmvqpm5akmu" path="res://scenes/Instructions/game_instructions.gd" id="1_c68ih"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="2_aglrw"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://dx04twp7jcrjo" path="res://Images/thinArrow.png" id="9_nmcti"]
 [ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="10_v7crn"]
 [ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="11_yxh3w"]
+[ext_resource type="Texture2D" uid="uid://bpjg8s81ucu5" path="res://Images/Game Pieces/node1Blue.png" id="12_xxwy0"]
+[ext_resource type="Texture2D" uid="uid://cp8mrx7srckhq" path="res://Images/Game Pieces/node1Red.png" id="13_nmcti"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqpcf"]
 texture = ExtResource("2_aglrw")
@@ -230,8 +232,8 @@ texture = ExtResource("9_nmcti")
 layout_mode = 0
 offset_left = 41.0
 offset_top = 82.0
-offset_right = 910.0
-offset_bottom = 447.0
+offset_right = 818.0
+offset_bottom = 546.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InstructionsPanel/ScrollContainer"]
 layout_mode = 2
@@ -251,7 +253,10 @@ theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 0.7
 text = "The goal is to be the last player able to place a snake tile on 
 the board.
 Each snake is made of connected discs that grow from the
-head to the tail. When a player cannot place any legal tile, 
+head to the tail. 
+Disc: 
+
+When a player cannot place any legal tile, 
 they are eliminated. The last player remaining wins."
 
 [node name="SubtitleLabel2" type="Label" parent="InstructionsPanel/ScrollContainer/VBoxContainer"]
@@ -278,6 +283,14 @@ size_flags_vertical = 8
 theme = ExtResource("4_o4mwe")
 theme_override_font_sizes/font_size = 33
 text = "Tutorial "
+
+[node name="Node1Blue" type="Sprite2D" parent="."]
+position = Vector2(275, 378)
+texture = ExtResource("12_xxwy0")
+
+[node name="Node1Red" type="Sprite2D" parent="."]
+position = Vector2(333, 379)
+texture = ExtResource("13_nmcti")
 
 [connection signal="pressed" from="Panel/TabTwoText/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
