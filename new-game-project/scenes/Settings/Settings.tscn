@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="4_f3efy"]
 [ext_resource type="Theme" uid="uid://bp8nlqf0ymeg1" path="res://Themes/theme_button_options.tres" id="5_y3a33"]
 [ext_resource type="Texture2D" uid="uid://dx04twp7jcrjo" path="res://Images/thinArrow.png" id="7_7mwmr"]
-[ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://Images/playerIcons.png" id="8_83sd7"]
+[ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://playerIcons.png" id="8_83sd7"]
 [ext_resource type="Theme" uid="uid://blynphgumvrm8" path="res://Themes/theme_pic_button.tres" id="8_bro8a"]
 [ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="8_kj0qs"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="8_n2orn"]
@@ -80,7 +80,6 @@ scale = Vector2(1.7916666, 1.7916666)
 texture = ExtResource("3_nll1c")
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 81.5
@@ -132,21 +131,31 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
 text = "Customize Player"
 alignment = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+[node name="MusicHBox" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
 layout_mode = 2
 theme = ExtResource("4_f3efy")
 text = "Music"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+[node name="MusicSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
+modulate = Color(0.9779369, 0.97793704, 0.9779369, 1)
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+value = 100.0
+
+[node name="SFXHBox" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
 layout_mode = 2
 theme = ExtResource("4_f3efy")
 text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]
 visible = false
@@ -226,6 +235,7 @@ theme_override_font_sizes/font_size = 33
 text = "Tutorial "
 
 [node name="CustomizePanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 32.0
 offset_top = 80.5

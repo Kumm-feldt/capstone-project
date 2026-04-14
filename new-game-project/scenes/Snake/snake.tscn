@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmp8cly6olq54"]
+[gd_scene load_steps=12 format=3 uid="uid://dmp8cly6olq54"]
 
-[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="1_fcj6f"]
+[ext_resource type="PackedScene" uid="uid://c0jnblqwn8om2" path="res://scenes/MainMenu/menu_panel.tscn" id="1_fcj6f"]
 [ext_resource type="Script" uid="uid://drl6k43ftdubj" path="res://scenes/Snake/snake.gd" id="1_jc2ut"]
 [ext_resource type="FontFile" uid="uid://bokcc5ljkq71h" path="res://fonts/5x5_pixel/5x5_pixel.ttf" id="2_45ksv"]
 [ext_resource type="PackedScene" uid="uid://detdokiiklfro" path="res://scenes/Snake/snake_player.tscn" id="2_fcj6f"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://pclq3ht5ryg0" path="res://scenes/Snake/snake_start_screen.tscn" id="7_iljgq"]
 [ext_resource type="PackedScene" uid="uid://f8oycd7bsfva" path="res://scenes/Snake/snake_win_screen.tscn" id="8_o27u4"]
 [ext_resource type="PackedScene" uid="uid://bbvckss2mccf7" path="res://scenes/Snake/snake_lose_screen.tscn" id="9_dp3rd"]
+[ext_resource type="PackedScene" uid="uid://clpox6etmkbgf" path="res://scenes/Snake/snake_tile.tscn" id="10_o27u4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h8830"]
 font = ExtResource("2_45ksv")
@@ -39,7 +40,7 @@ text = "SNAKE"
 label_settings = SubResource("LabelSettings_h8830")
 
 [node name="SnakePlayer" parent="." instance=ExtResource("2_fcj6f")]
-position = Vector2(654.00006, 558)
+position = Vector2(810.00006, 558)
 scale = Vector2(0.6, 0.6)
 
 [node name="SnakeFood" parent="." instance=ExtResource("3_45ksv")]
@@ -55,3 +56,10 @@ visible = false
 
 [node name="Snake_Lose_Screen" parent="." instance=ExtResource("9_dp3rd")]
 visible = false
+
+[node name="SnakeTile" parent="." instance=ExtResource("10_o27u4")]
+visible = false
+position = Vector2(498.00003, 312)
+scale = Vector2(0.6, 0.6)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]

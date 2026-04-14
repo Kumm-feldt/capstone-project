@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbswfivt2mw2u"]
+[gd_scene load_steps=7 format=3 uid="uid://cbswfivt2mw2u"]
 
 [ext_resource type="Script" uid="uid://bwnnyjucrngdi" path="res://scenes/board/Board.gd" id="1_6puts"]
-[ext_resource type="PackedScene" uid="uid://b8q3s3enh85wt" path="res://scenes/board/bgTesting.tscn" id="2_0kj62"]
+[ext_resource type="PackedScene" uid="uid://b8q3s3enh85wt" path="res://scenes/board/BoardBackground.tscn" id="2_0kj62"]
 [ext_resource type="Texture2D" uid="uid://b8njfbit14p58" path="res://Images/UNUSED/gameBoard.png" id="2_l0jo7"]
+[ext_resource type="PackedScene" uid="uid://b25b43wd5fpkj" path="res://scenes/Tutorial/TutorialRobot.tscn" id="3_vgpvj"]
 [ext_resource type="PackedScene" uid="uid://brf2rg6rh1rmq" path="res://scenes/disk/SnakeHead.tscn" id="5_vgpvj"]
 [ext_resource type="PackedScene" uid="uid://b2unr3lxwpjvs" path="res://scenes/disk/SnakeTail.tscn" id="6_l0jo7"]
 
@@ -11,6 +12,9 @@ script = ExtResource("1_6puts")
 
 [node name="GameplayBackground" parent="." instance=ExtResource("2_0kj62")]
 scale = Vector2(0.417, 0.417)
+
+[node name="TutorialRobot" parent="." instance=ExtResource("3_vgpvj")]
+position = Vector2(664, 200)
 
 [node name="BoardSprite" type="Sprite2D" parent="."]
 visible = false

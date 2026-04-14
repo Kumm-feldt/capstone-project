@@ -4,7 +4,8 @@ var settings_pressed = false
 @onready var settings_panel = $Panel/SettingsPanel
 @onready var customize_panel = $Panel/CustomizePanel
 @onready var instructions_panel = $Panel/InstructionsPanel
-
+@onready var music_slider = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox/MusicSlider
+@onready var sfx_slider = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox/SFXSlider
 
 @onready var top_title = $Panel/TopTitleLabel
 
@@ -58,6 +59,37 @@ func _ready() -> void:
 	# Seed from actual saved values so Accept is a no-op if nothing changed
 	original_color = GameManager.icon_color if GameManager.icon_color is Color else Color.WHITE
 	original_button_color = GameManager.background_color if GameManager.background_color is Color else Color.GRAY
+	
+	# Load saved audio values
+	var config = ConfigFile.new()
+	if config.load("user://save.cfg") == OK:
+		music_slider.value = config.get_value("audio", "music_volume", 1.0)
+		sfx_slider.value = config.get_value("audio", "sfx_volume", 1.0)
+	else:
+		music_slider.value = 1.0
+		sfx_slider.value = 1.0
+	
+	# Connect sliders
+	music_slider.value_changed.connect(_on_music_changed)
+	sfx_slider.value_changed.connect(_on_sfx_changed)
+
+# ============================================
+# AUDIO
+# ============================================
+func _on_music_changed(value: float):
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(value))
+	_save_audio()
+
+func _on_sfx_changed(value: float):
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(value))
+	_save_audio()
+
+func _save_audio():
+	var config = ConfigFile.new()
+	config.load("user://save.cfg")
+	config.set_value("audio", "music_volume", music_slider.value)
+	config.set_value("audio", "sfx_volume", sfx_slider.value)
+	config.save("user://save.cfg")
 
 # ============================================
 # BACKGROUND COLOR HELPERS

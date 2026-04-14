@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2eyhsxm7nmlw"
-path="res://.godot/imported/snakeTile.png-4e18472256be81a5d8cb865f2795b53f.ctex"
+uid="uid://c4hd8yjfggfv5"
+path="res://.godot/imported/chair.png-1ebcf9611fad4bf025a0e9cb2fb45a38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/snakeTile.png"
-dest_files=["res://.godot/imported/snakeTile.png-4e18472256be81a5d8cb865f2795b53f.ctex"]
+source_file="res://Images/TutorialImages/chair.png"
+dest_files=["res://.godot/imported/chair.png-1ebcf9611fad4bf025a0e9cb2fb45a38.ctex"]
 
 [params]
 

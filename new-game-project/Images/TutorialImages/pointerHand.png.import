@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2eyhsxm7nmlw"
-path="res://.godot/imported/snakeTile.png-4e18472256be81a5d8cb865f2795b53f.ctex"
+uid="uid://smq4mi68xeqn"
+path="res://.godot/imported/pointerHand.png-26fc9da0c957739f57a9e3e9816e8cb8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/snakeTile.png"
-dest_files=["res://.godot/imported/snakeTile.png-4e18472256be81a5d8cb865f2795b53f.ctex"]
+source_file="res://Images/TutorialImages/pointerHand.png"
+dest_files=["res://.godot/imported/pointerHand.png-26fc9da0c957739f57a9e3e9816e8cb8.ctex"]
 
 [params]
 

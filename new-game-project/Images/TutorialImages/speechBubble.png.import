@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2eyhsxm7nmlw"
-path="res://.godot/imported/snakeTile.png-4e18472256be81a5d8cb865f2795b53f.ctex"
+uid="uid://c1pw4mbk2tgq8"
+path="res://.godot/imported/speechBubble.png-a7f80950cc7d39960bdbc979694b023a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/snakeTile.png"
-dest_files=["res://.godot/imported/snakeTile.png-4e18472256be81a5d8cb865f2795b53f.ctex"]
+source_file="res://Images/TutorialImages/speechBubble.png"
+dest_files=["res://.godot/imported/speechBubble.png-a7f80950cc7d39960bdbc979694b023a.ctex"]
 
 [params]
 
