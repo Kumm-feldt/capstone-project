@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://8scl0imj2srt"]
+[gd_scene load_steps=12 format=3 uid="uid://8scl0imj2srt"]
 
 [ext_resource type="Script" uid="uid://b2cpcp7w5447g" path="res://scenes/NewUser/NewUser.gd" id="1_8pp80"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="2_8pp80"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_8pp80"]
 [ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="3_h3sqq"]
-[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_rpim3"]
+[ext_resource type="FontFile" uid="uid://b46nx8yyjdjta" path="res://fonts/Jersey_10/Jersey10-Regular.ttf" id="4_h3sqq"]
 [ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="6_h3sqq"]
+[ext_resource type="Texture2D" uid="uid://4gjlm7wsnclb" path="res://Images/optionsBoxX.png" id="7_k8yfu"]
+[ext_resource type="Theme" uid="uid://d3r7dx3hnj50d" path="res://Themes/theme_exit_button.tres" id="7_namh3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k8yfu"]
 texture = ExtResource("2_8pp80")
@@ -16,6 +18,8 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_namh3"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -54,8 +58,10 @@ offset_left = 33.0
 offset_top = 144.0
 offset_right = 414.0
 offset_bottom = 181.0
+theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
-theme_override_fonts/font = ExtResource("3_rpim3")
+theme_override_fonts/font = ExtResource("4_h3sqq")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_h3sqq")
 
 [node name="UsernameLabel" type="Label" parent="Panel"]
@@ -107,4 +113,19 @@ offset_bottom = 272.0
 theme = ExtResource("6_h3sqq")
 text = "new user"
 
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1156.0
+offset_top = 236.0
+offset_right = 1195.902
+offset_bottom = 273.0
+theme = ExtResource("7_namh3")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_namh3")
+
+[node name="IconSprite2D" type="Sprite2D" parent="ExitButton"]
+position = Vector2(19.99997, 19)
+scale = Vector2(1.2749249, 1.2749249)
+texture = ExtResource("7_k8yfu")
+
 [connection signal="pressed" from="Panel/AcceptButton" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

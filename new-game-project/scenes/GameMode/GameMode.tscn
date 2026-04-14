@@ -1,8 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://bmt1oyebdsjmh"]
+[gd_scene load_steps=29 format=3 uid="uid://bmt1oyebdsjmh"]
 
 [ext_resource type="Script" uid="uid://che0qofwu1cll" path="res://scenes/GameMode/GameMode.gd" id="1_86ymx"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_vasyn"]
 [ext_resource type="Texture2D" uid="uid://bb3sjeypmxorg" path="res://assets/ui/decorations/background_mode.png" id="3_mckn2"]
+[ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_p7kgk"]
 [ext_resource type="Texture2D" uid="uid://b7ej4rqlb3xk7" path="res://buttons/hover_green.png" id="4_0abtg"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="4_4snny"]
 [ext_resource type="Texture2D" uid="uid://cc80byq7mjffy" path="res://Images/vsAI.png" id="4_wud22"]
@@ -17,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dcmn2siq27e3q" path="res://scenes/Decorations/PowerButton.tscn" id="12_86ymx"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="13_vasyn"]
 [ext_resource type="PackedScene" uid="uid://8xnweksnncl0" path="res://scenes/Profile/MenuIcon.tscn" id="18_wud22"]
+[ext_resource type="PackedScene" uid="uid://bbvq1qen4oouc" path="res://scenes/Profile/LogoutWarningWindow.tscn" id="20_geqlg"]
 [ext_resource type="PackedScene" uid="uid://b4sun6tdy4qph" path="res://scenes/Profile/ProfileTab.tscn" id="20_p7kgk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_564fn"]
@@ -113,6 +115,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_564fn")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 119.0
+offset_right = 821.0
+offset_bottom = 187.0
+theme = ExtResource("3_p7kgk")
+text = "Game Mode"
 
 [node name="background" type="Sprite2D" parent="."]
 visible = false
@@ -235,6 +246,14 @@ offset_top = 99.0
 offset_right = 1823.0
 offset_bottom = 983.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wud22")
+
+[node name="WarningWindow" parent="." instance=ExtResource("20_geqlg")]
+visible = false
+layout_mode = 1
+offset_left = -2.0
+offset_top = -1.0
+offset_right = -2.0
+offset_bottom = -1.0
 
 [connection signal="pressed" from="AI_Tournament" to="." method="_on_ai_tournament_pressed"]
 [connection signal="pressed" from="Buttons/BackButton" to="." method="_on_back_button_pressed"]

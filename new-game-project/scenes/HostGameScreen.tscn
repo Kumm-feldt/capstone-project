@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cbntpp75fnv38" path="res://scenes/Networking/host_game_screen.gd" id="1_lqpcf"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_cqd6q"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_wbibk"]
-[ext_resource type="Theme" uid="uid://c4dp6mq1qwuy2" path="res://Themes/Button_1.tres" id="4_2mjpm"]
+[ext_resource type="Theme" uid="uid://ct23qt4qios3e" path="res://Themes/Button_1.tres" id="4_2mjpm"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="4_6mc0v"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="5_ow5pc"]
 
@@ -31,10 +31,10 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_lqpcf")
 
 [node name="OldComputerLabel" type="Label" parent="TitlePanel"]
 layout_mode = 0
-offset_left = 200.0
-offset_top = 199.0
-offset_right = 766.0
-offset_bottom = 267.0
+offset_left = 207.0
+offset_top = 119.0
+offset_right = 773.0
+offset_bottom = 187.0
 theme = ExtResource("3_cqd6q")
 text = "Hosting Game..."
 

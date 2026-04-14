@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://c0jnblqwn8om2"]
+[gd_scene load_steps=48 format=3 uid="uid://coq76pru5eq40"]
 
 [ext_resource type="Script" uid="uid://d1u1xiplachjq" path="res://scenes/MainMenu/MenuPanelScene.gd" id="1_k5y0a"]
 [ext_resource type="Texture2D" uid="uid://cud8ajyh2obc5" path="res://Images/CRTBackglow.png" id="2_oh22v"]
@@ -323,7 +323,8 @@ color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 position = Vector2(941.00006, 540)
 scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_gi36k")
-frame_progress = 0.52810043
+frame = 3
+frame_progress = 0.3191201
 
 [node name="LoadingBar" type="AnimatedSprite2D" parent="LoadingScreen"]
 position = Vector2(960, 540)

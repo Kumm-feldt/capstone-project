@@ -9,11 +9,18 @@ extends Control
 @onready var off_panel = $off_panel
 @onready var options = $points_received
 @onready var profile_tab = $Profile
+
+
 # Preload at the top of your script — loads the file once, reuses it
 const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
+const POPUP_SCENE_WARNING = preload("res://scenes/Profile/LogoutWarningWindow.tscn")
+
 
 # Track the instance so you can close it later
 var active_popup: Control = null
+var active_popup_warning: Control = null
+
+
 var colorScreenScene = load("res://scenes/ColorPicker/ColorSelectionScreen.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -23,10 +30,26 @@ func _ready() -> void:
 	online_mode_popup.visible = false
 	light_button.turn_off_light.connect(_on_turn_off_light)
 	options.show_settings.connect(_on_show_settings)
+	options.logout_message.connect(_on_logout_message)
 	profile_tab.set_icon()
 	#const Transition = preload("res://scenes/Transition.tscn")
-
+func _on_logout_message():
+	dim_overlay.visible = true
+	if active_popup_warning:
+		return
+	# Create the instance
+	active_popup_warning = POPUP_SCENE_WARNING.instantiate()
+	# Add it to the current scene as a child
+	add_child(active_popup_warning)
+	# Center it on screen
+	active_popup_warning.position = (get_viewport().get_visible_rect().size / 2) - (active_popup_warning.size / 2)
+	
+	# Connect the popup's close button signal
+	active_popup_warning.get_node("Panel/ExitButton").pressed.connect(_close_pop_up_warning)
+	active_popup_warning.get_node("Panel/AcceptButton").pressed.connect(_close_pop_up_warning)
+	
 func _on_show_settings():
+	dim_overlay.visible = true
 	if active_popup:
 		return
 	# Create the instance
@@ -44,8 +67,17 @@ func _on_show_settings():
 	
 func _close_popup() -> void:
 	if active_popup:
+		dim_overlay.visible = false
+		
 		active_popup.queue_free()
 		active_popup = null
+		
+func _close_pop_up_warning()-> void:
+	if active_popup_warning:
+		dim_overlay.visible = false
+		active_popup_warning.queue_free()
+		active_popup_warning = null
+		
 		
 func _on_turn_off_light():
 	if off_panel.visible:

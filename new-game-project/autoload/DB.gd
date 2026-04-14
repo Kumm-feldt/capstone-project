@@ -73,6 +73,7 @@ func _on_check_points_done(result, response_code, headers, body):
 		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		return
 	var data = JSON.parse_string(body.get_string_from_utf8())
+	print(data)
 	var points_username = data[0]["points"]
 	GameManager.current_score = points_username
 	GameManager.background_color = data[0]["background"] 

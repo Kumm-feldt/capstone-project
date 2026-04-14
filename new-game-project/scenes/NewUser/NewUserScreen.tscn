@@ -1,10 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://bgf5d8t5tsuvx"]
 
-[ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_amxls"]
+[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="2_amxls"]
 [ext_resource type="PackedScene" uid="uid://8scl0imj2srt" path="res://scenes/NewUser/NewUser.tscn" id="2_dq60e"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xqlg0"]
-texture = ExtResource("1_amxls")
 
 [node name="Panel" type="Panel"]
 anchors_preset = 15
@@ -14,7 +13,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_xqlg0")
 
-[node name="Control" parent="." instance=ExtResource("2_dq60e")]
+[node name="MenuPanelScene" parent="." instance=ExtResource("2_amxls")]
+position = Vector2(362, 278)
+
+[node name="NewUserWindow" parent="." instance=ExtResource("2_dq60e")]
 layout_mode = 1
 offset_left = 4.0
 offset_top = -4.0

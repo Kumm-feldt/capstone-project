@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://8xnweksnncl0"]
+[gd_scene load_steps=9 format=3 uid="uid://8xnweksnncl0"]
 
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="1_cp0pv"]
 [ext_resource type="Script" uid="uid://b386u0j8ldc4g" path="res://scenes/Profile/MenuIcon.gd" id="1_jinnw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_o64sy"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_t84sa"]
 [ext_resource type="Texture2D" uid="uid://cmqq6jwro15mt" path="res://assets/ui/icons/menu-icon-vertical.png" id="4_exshy"]
+[ext_resource type="Theme" uid="uid://csf2xqrpox6xr" path="res://Themes/theme_profile_options.tres" id="5_7crqf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jinnw"]
 bg_color = Color(0, 0.627451, 0.3019608, 0.7921569)
@@ -56,6 +57,7 @@ offset_left = -1.0
 offset_top = 50.0
 offset_right = 313.0
 offset_bottom = 90.0
+theme = ExtResource("5_7crqf")
 theme_override_fonts/font = ExtResource("3_t84sa")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_jinnw")
@@ -83,6 +85,7 @@ offset_left = -1.0
 offset_top = 96.0
 offset_right = 313.0
 offset_bottom = 136.0
+theme = ExtResource("5_7crqf")
 theme_override_fonts/font = ExtResource("3_t84sa")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_jinnw")
@@ -103,6 +106,35 @@ theme_override_font_sizes/font_size = 24
 text = "Settings"
 vertical_alignment = 1
 
+[node name="LogoutButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -1.0
+offset_top = 142.0
+offset_right = 313.0
+offset_bottom = 182.0
+theme = ExtResource("5_7crqf")
+theme_override_fonts/font = ExtResource("3_t84sa")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_jinnw")
+alignment = 0
+
+[node name="LogoutLabel" type="Label" parent="LogoutButton"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -18.0
+offset_right = 182.0
+offset_bottom = 22.0
+grow_vertical = 2
+theme = ExtResource("3_o64sy")
+theme_override_font_sizes/font_size = 24
+text = "Logout"
+vertical_alignment = 1
+
 [connection signal="pressed" from="HamburguerMenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="ScoreboardButton" to="." method="_on_scoreboard_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="LogoutButton" to="." method="_on_logout_button_pressed"]

@@ -455,6 +455,8 @@ func _on_robot_disk_flipped(coordinates: Vector2i, oldstate, player):
 func _on_turn_changed(current_player):
 	if current_player == 'x' and GameManager.GAME_MODE == GameManager.Mode.AI:
 		is_ai_thinking = true
+		# Player can read it, THEN the AI calculates
+		await get_tree().create_timer(1.0).timeout
 		start_ai_move(GameState.getBoardStateString())
 
 func _new_board(board_string: String) -> void:
@@ -505,6 +507,7 @@ func start_ai_move(state: String) -> void:
 	_finish_ai_move()
 
 func _run_ai_move(state: String) -> String:
+
 	if GameManager.AI_MODE_LEVEL == GameManager.AILevel.Easy:
 		return ai.GetMoveEasy(state)
 

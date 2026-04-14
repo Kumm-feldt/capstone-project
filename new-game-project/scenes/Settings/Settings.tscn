@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=21 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
 [ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="2_nll1c"]
 [ext_resource type="Texture2D" uid="uid://4gjlm7wsnclb" path="res://Images/optionsBoxX.png" id="3_nll1c"]
+[ext_resource type="Theme" uid="uid://d3r7dx3hnj50d" path="res://Themes/theme_exit_button.tres" id="4_04h6s"]
 [ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="4_f3efy"]
 [ext_resource type="Theme" uid="uid://bp8nlqf0ymeg1" path="res://Themes/theme_button_options.tres" id="5_y3a33"]
 [ext_resource type="Texture2D" uid="uid://dx04twp7jcrjo" path="res://Images/thinArrow.png" id="7_7mwmr"]
@@ -72,6 +73,7 @@ offset_left = 884.99994
 offset_top = 16.0
 offset_right = 939.99994
 offset_bottom = 67.0
+theme = ExtResource("4_04h6s")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_f3efy")
 
 [node name="IconSprite2D" type="Sprite2D" parent="Panel/ExitButton"]

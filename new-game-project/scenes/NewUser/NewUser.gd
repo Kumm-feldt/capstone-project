@@ -9,6 +9,8 @@ var default_color = "e83c84ff"
 var default_background_color = "f0ebd8"
 var default_pic = "Derpy"
 
+@onready var menu_panel = $"../MenuPanelScene"
+
 func _ready() -> void:
 	add_child(http_check)
 	add_child(http_register)
@@ -29,6 +31,9 @@ func _on_username_check_done(result, response_code, headers, body):
 
 	if json.size() > 0:
 		# Array is NOT empty, username is taken
+		# if username is taken toggle off
+		menu_panel.toggleLoadingScreen()
+		message_label.text = "Username is already taken"
 		message_label.visible = true
 		print("Taken")
 	else:
@@ -40,7 +45,7 @@ func _on_username_check_done(result, response_code, headers, body):
 
 func register_player(username: String):
 	var body = JSON.stringify({
-		"username": username,
+		"username": username.strip_edges(),
 		"points": 0,
 		"wins": 0,
 		"losses": 0,
@@ -68,23 +73,29 @@ func _on_register_done(result, response_code, headers, body):
 	if response_code == 201:
 		print("Successfully registered!")
 		var config = ConfigFile.new()
-		GameManager.username = username_input.text
+		GameManager.username = username_input.text.strip_edges()
 		GameManager.icon_color = default_color
 		GameManager.background_color = default_background_color
 		GameManager.profile_picture = default_pic
 		
-		config.set_value("player", "username", username_input.text)
+		config.set_value("player", "username", username_input.text.strip_edges())
 		config.set_value("player", "id", response[0]["id"])
 		config.set_value("player", "color", response[0]["color"])
 		config.set_value("player", "background_color", response[0]["background"])
 		config.set_value("player", "picture", response[0]["picture"])
 		config.save("user://save.cfg")
+		# after registering toggle off
+		menu_panel.toggleLoadingScreen()
 		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
-
+		
 	else:
+		# if something happens on the network toggle off
+		menu_panel.toggleLoadingScreen()
 		print("Failed. Code: ", response_code, " | Body: ", response)
 
 func _on_accept_button_pressed() -> void:
+	message_label.visible = true
+	menu_panel.toggleLoadingScreen()
 	var username = username_input.text.strip_edges()  # Trim leading/trailing spaces
 	if not validate_username(username):
 		return
@@ -115,5 +126,11 @@ func validate_username(username: String) -> bool:
 	return true
 	
 func _show_error(msg: String) -> void:
+	# toggle off
+	menu_panel.toggleLoadingScreen()
 	message_label.visible = true
 	message_label.text = msg
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")

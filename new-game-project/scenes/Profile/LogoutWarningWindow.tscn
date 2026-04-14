@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbvq1qen4oouc"]
+
+[ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_cwjh8"]
+[ext_resource type="Script" uid="uid://el43fh0t6jv6" path="res://scenes/Profile/logout_warning_window.gd" id="1_sc446"]
+[ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="2_sc446"]
+[ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="3_od3f2"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="4_kj667"]
+[ext_resource type="Theme" uid="uid://d3r7dx3hnj50d" path="res://Themes/theme_exit_button.tres" id="6_kj667"]
+[ext_resource type="Texture2D" uid="uid://4gjlm7wsnclb" path="res://Images/optionsBoxX.png" id="6_od3f2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k8yfu"]
+texture = ExtResource("1_cwjh8")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kj667"]
+
+[node name="WarningWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sc446")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 777.0
+offset_top = 352.0
+offset_right = -699.0
+offset_bottom = -420.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_k8yfu")
+
+[node name="TopTitleLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 4.0
+offset_right = 202.0
+offset_bottom = 38.0
+theme = ExtResource("2_sc446")
+theme_override_colors/font_color = Color(0.6666667, 0, 0.12941177, 0.85882354)
+text = "warning"
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 55.0
+offset_right = 421.0
+offset_bottom = 232.0
+theme = ExtResource("3_od3f2")
+text = "The following action is 
+irreversible. 
+It will delete your user data 
+from the computer."
+horizontal_alignment = 1
+
+[node name="AcceptButton" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.0
+offset_top = -39.0
+offset_right = 76.5
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_kj667")
+text = "accept"
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 3.0
+offset_right = 441.13727
+offset_bottom = 40.0
+theme = ExtResource("6_kj667")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kj667")
+
+[node name="IconSprite2D" type="Sprite2D" parent="Panel/ExitButton"]
+position = Vector2(22, 18)
+scale = Vector2(1.2395862, 1.2395862)
+texture = ExtResource("6_od3f2")
+
+[connection signal="pressed" from="Panel/AcceptButton" to="." method="_on_accept_button_pressed"]
