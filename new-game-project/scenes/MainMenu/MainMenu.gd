@@ -59,7 +59,7 @@ func _on_start_pressed() -> void:
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
-func _on_show_settings():
+func _on_show_settings(instructions=false):
 	if active_popup:
 		return
 	# Create the instance
@@ -70,7 +70,12 @@ func _on_show_settings():
 	# Anchoring to full rect + centered is handled inside the popup scene itself
 	# OR manually center it here:
 	active_popup.position = (get_viewport().get_visible_rect().size / 2) - (active_popup.size / 2)
-	
+	if instructions == true:
+		active_popup.get_node("Panel/InstructionsPanel").visible = true
+		active_popup.get_node("Panel/SettingsPanel").visible = false
+		active_popup.get_node("Panel/InstructionsPanel/BackButton").visible = false
+		
+		active_popup.get_node("Panel/TopTitleLabel").text = "Instructions"
 	# Connect the popup's close button signal
 	active_popup.get_node("Panel/ExitButton").pressed.connect(_close_popup)
 	active_popup.get_node("Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton").pressed.connect(_close_popup)
@@ -84,5 +89,5 @@ func _on_settings_button_pressed() -> void:
 	_on_show_settings()
 
 func _on_about_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/Instructions/GameInstructions.tscn")
+	_on_show_settings(true)
 	
