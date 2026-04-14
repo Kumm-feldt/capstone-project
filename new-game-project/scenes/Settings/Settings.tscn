@@ -133,6 +133,7 @@ alignment = 0
 
 [node name="MusicHBox" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 75
 
 [node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
 layout_mode = 2
@@ -141,12 +142,14 @@ text = "Music"
 
 [node name="MusicSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
 modulate = Color(0.9779369, 0.97793704, 0.9779369, 1)
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 value = 100.0
 
 [node name="SFXHBox" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 100
 
 [node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
 layout_mode = 2
@@ -154,7 +157,7 @@ theme = ExtResource("4_f3efy")
 text = "SFX"
 
 [node name="SFXSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]

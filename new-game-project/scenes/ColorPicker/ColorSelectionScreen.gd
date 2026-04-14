@@ -45,7 +45,7 @@ func _ready() -> void:
 		label_player_2.text = "CPU"
 	elif GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		label_player_1.text = "You"
-		label_player_2.text = GameManager.multiplayer_username or "Oponent"
+		label_player_2.text =  "Oponent"
 		
 	#Make sure to set the robots to their base color, light grey
 	

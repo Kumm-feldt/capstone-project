@@ -90,6 +90,7 @@ offset_right = 596.0
 offset_bottom = 389.0
 theme = ExtResource("3_2y6vf")
 text = "Player 1"
+horizontal_alignment = 1
 
 [node name="LabelPlayer2" type="Label" parent="."]
 offset_left = 1355.0
@@ -98,6 +99,7 @@ offset_right = 1699.0
 offset_bottom = 387.0
 theme = ExtResource("3_2y6vf")
 text = "Player 2"
+horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="."]
 offset_left = 123.0
