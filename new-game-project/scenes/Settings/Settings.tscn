@@ -80,7 +80,6 @@ scale = Vector2(1.7916666, 1.7916666)
 texture = ExtResource("3_nll1c")
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 81.5
@@ -132,21 +131,31 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
 text = "Customize Player"
 alignment = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+[node name="MusicHBox" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
 layout_mode = 2
 theme = ExtResource("4_f3efy")
 text = "Music"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+[node name="MusicSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
+modulate = Color(0.9779369, 0.97793704, 0.9779369, 1)
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+value = 100.0
+
+[node name="SFXHBox" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
 layout_mode = 2
 theme = ExtResource("4_f3efy")
 text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]
 visible = false
@@ -226,6 +235,7 @@ theme_override_font_sizes/font_size = 33
 text = "Tutorial "
 
 [node name="CustomizePanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 32.0
 offset_top = 80.5

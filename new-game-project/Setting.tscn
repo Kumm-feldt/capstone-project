@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cj8rtb0nnnwt7"]
+[gd_scene load_steps=7 format=3 uid="uid://cy440j1my662c"]
 
 [ext_resource type="Script" uid="uid://bc37rsqls2ay7" path="res://Settings.gd" id="1_dwkly"]
 [ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="2_gswfa"]
