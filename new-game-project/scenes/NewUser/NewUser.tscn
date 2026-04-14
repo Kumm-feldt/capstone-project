@@ -1,13 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://8scl0imj2srt"]
+[gd_scene load_steps=9 format=3 uid="uid://8scl0imj2srt"]
 
 [ext_resource type="Script" uid="uid://b2cpcp7w5447g" path="res://scenes/NewUser/NewUser.gd" id="1_8pp80"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="2_8pp80"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_8pp80"]
 [ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="3_h3sqq"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="3_rpim3"]
+[ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="6_h3sqq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k8yfu"]
 texture = ExtResource("2_8pp80")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3sqq"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -44,10 +52,11 @@ text = "Welcome Comrade!"
 layout_mode = 0
 offset_left = 33.0
 offset_top = 144.0
-offset_right = 357.0
+offset_right = 414.0
 offset_bottom = 181.0
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
 theme_override_fonts/font = ExtResource("3_rpim3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_h3sqq")
 
 [node name="UsernameLabel" type="Label" parent="Panel"]
 layout_mode = 0
@@ -88,5 +97,14 @@ theme = ExtResource("3_h3sqq")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "Username is taken"
+
+[node name="TopTitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 789.0
+offset_top = 238.0
+offset_right = 956.0
+offset_bottom = 272.0
+theme = ExtResource("6_h3sqq")
+text = "new user"
 
 [connection signal="pressed" from="Panel/AcceptButton" to="." method="_on_accept_button_pressed"]

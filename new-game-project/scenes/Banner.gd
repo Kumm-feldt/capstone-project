@@ -69,7 +69,7 @@ func _on_turn_changed(player):
 		else:
 			player_color = GameManager.multiplayer_username+"'s" if player == 'x' else "Your"
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
-		player_color = "Your" if player == 'x' else "CPU"
+		player_color = "Your" if player == 'o' else "CPU"
 	elif GameManager.GAME_MODE == GameManager.Mode.Local:
 		player_color = "Player 1" if player == 'o' else "Player 2"
 	turn_label.text = "%s\nTurn" % player_color

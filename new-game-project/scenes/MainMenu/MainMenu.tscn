@@ -4,8 +4,8 @@
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="2_l72w3"]
 [ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="2_r8q81"]
 [ext_resource type="Texture2D" uid="uid://dieci88706vb4" path="res://Images/menuImage.png" id="3_7j8ul"]
-[ext_resource type="Texture2D" uid="uid://iylu8tg4d4n" path="res://Images/SlitherTitleDARK.png" id="3_r8q81"]
 [ext_resource type="FontFile" uid="uid://cvg3yh2hnt1dt" path="res://fonts/sh-pinscher/SHPinscher-Regular.otf" id="4_7j8ul"]
+[ext_resource type="Texture2D" uid="uid://d0oe7lkujub0l" path="res://Images/SlitherTitleOUTLINE.png" id="4_y5ja3"]
 [ext_resource type="Texture2D" uid="uid://dkufxb17ncr8o" path="res://Images/exitButton.png" id="6_r8q81"]
 [ext_resource type="AudioStream" uid="uid://cnl7a7qxardqg" path="res://Sound/Music/menu_loop.wav" id="8_y5ja3"]
 [ext_resource type="AudioStream" uid="uid://6mvjcqh6ikqn" path="res://Sound/universfield-party-balloon-pop-323588.mp3" id="9_mqas3"]
@@ -44,9 +44,9 @@ scale = Vector2(2.4, 2.4)
 texture = ExtResource("3_7j8ul")
 
 [node name="Title" type="Sprite2D" parent="."]
-position = Vector2(563.00006, 271.00003)
+position = Vector2(629.00006, 274)
 scale = Vector2(2.1000001, 2.1)
-texture = ExtResource("3_r8q81")
+texture = ExtResource("4_y5ja3")
 
 [node name="Button" type="Button" parent="."]
 visible = false
@@ -94,10 +94,10 @@ text = "Instructions
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1606.0
+offset_left = 1664.0
 offset_top = 149.0
 offset_right = 1770.0
-offset_bottom = 313.0
+offset_bottom = 251.0
 theme_override_colors/icon_normal_color = Color(0.21568628, 0.30588236, 0.2901961, 1)
 theme_override_colors/icon_pressed_color = Color(0.21568628, 0.30588236, 0.2901961, 1)
 icon = ExtResource("6_r8q81")

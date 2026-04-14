@@ -3,22 +3,29 @@ extends Control
 var is_config = true
 var testing = true	# REMOVE FOR FINAL BUILD!! - Only here to skip intro animation
 
+# Preload at the top of your script — loads the file once, reuses it
+const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
+# Track the instance so you can close it later
+var active_popup: Control = null
+
+@onready var music_slider = $Panel/ColorPicker/MusicSlider  # adjust path
+@onready var sfx_slider = $Panel/ColorPicker/SFXSlider      # adjust path
+@onready var sfx_player = $SFXPlayer
+
+
 func _ready() -> void:
 	if not GameManager.GAME_OPENED:	
 		if not testing:
 			await $MenuPanelScene.on_game_opened()
 			GameManager.GAME_OPENED = true;
-	
-	await check_first_launch() 
+	print("not setted yet")
+	check_first_launch() 
 	apply_saved_audio()
-@onready var music_slider = $Panel/ColorPicker/MusicSlider  # adjust path
-@onready var sfx_slider = $Panel/ColorPicker/SFXSlider      # adjust path
-	
-	
-@onready var sfx_player = $SFXPlayer
+	print("Everything setted")
 
 func _on_any_button_pressed():
 		sfx_player.play()
+		
 func check_first_launch():
 	var config = ConfigFile.new()
 	if config.load("user://save.cfg") != OK:
@@ -30,6 +37,8 @@ func check_first_launch():
 		GameManager.background_color = config.get_value("player", "background_color", "000000")
 		GameManager.icon_color = config.get_value("player", "color", "ffffff")
 		GameManager.profile_picture = config.get_value("player", "picture", "Derby")
+		print("gamemanager is set!")
+
 		
 func apply_saved_audio():
 	var config = ConfigFile.new()
@@ -50,10 +59,29 @@ func _on_start_pressed() -> void:
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
-
+func _on_show_settings():
+	if active_popup:
+		return
+	# Create the instance
+	active_popup = POPUP_SCENE.instantiate()
+	# Add it to the current scene as a child
+	add_child(active_popup)
+	# Center it on screen
+	# Anchoring to full rect + centered is handled inside the popup scene itself
+	# OR manually center it here:
+	active_popup.position = (get_viewport().get_visible_rect().size / 2) - (active_popup.size / 2)
+	
+	# Connect the popup's close button signal
+	active_popup.get_node("Panel/ExitButton").pressed.connect(_close_popup)
+	active_popup.get_node("Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton").pressed.connect(_close_popup)
+	
+func _close_popup() -> void:
+	if active_popup:
+		active_popup.queue_free()
+		active_popup = null
+		
 func _on_settings_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/ColorPicker/ColorPicker.tscn")
-
+	_on_show_settings()
 
 func _on_about_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/Instructions/GameInstructions.tscn")

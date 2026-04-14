@@ -33,3 +33,25 @@ enum AILevel {
 	Easy,
 	Difficult
 }
+
+func get_safe_color(raw) -> Color:
+	if raw is Color:
+		return raw
+	elif raw is String and raw.length() > 0:
+		# Hex format: "#rrggbb" or "rrggbbaa"
+		if raw.begins_with("#") or raw.length() == 6 or raw.length() == 8:
+			return Color.from_string(raw, Color.GRAY)
+		# Godot str(Color) format: "(0.98, 1.0, 0.52, 1.0)"
+		var cleaned = raw.strip_edges().trim_prefix("(").trim_suffix(")")
+		var parts = cleaned.split(",")
+		if parts.size() == 4:
+			return Color(
+				float(parts[0].strip_edges()),
+				float(parts[1].strip_edges()),
+				float(parts[2].strip_edges()),
+				float(parts[3].strip_edges())
+			)
+		return Color.from_string(raw, Color.GRAY)
+	else:
+		push_warning("Invalid color value: " + str(raw))
+		return Color.GRAY

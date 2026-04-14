@@ -6,18 +6,6 @@ extends Control
 @onready var sprite = $Panel/PanelContainer/PlayerIcon
 
 
-func _get_safe_color(raw) -> Color:
-	if raw is Color:
-		# Already a Color object e.g. (0.9098, 0.2314, 0.2314, 1.0)
-		return raw
-	elif raw is String and raw.length() > 0:
-		# Hex string e.g. "ffffff" or "#ff0000"
-		return Color.from_string(raw, Color.GRAY)
-	else:
-		# Null, bool, int, or anything unexpected
-		push_warning("Invalid color value in GameManager: " + str(raw))
-		return Color.GRAY
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# connect to signal
@@ -30,12 +18,8 @@ func _ready() -> void:
 	
 func set_icon():
 	var style = StyleBoxFlat.new()
-	var background_color = _get_safe_color(GameManager.background_color)
-	var safe_color = _get_safe_color(GameManager.icon_color)
-
-	print("background_color raw:   ", GameManager.background_color)
-	print("background_color parsed:", background_color)  # ← Is this GRAY?
-
+	var background_color = GameManager.get_safe_color(GameManager.background_color)
+	var safe_color = GameManager.get_safe_color(GameManager.icon_color)
 	style.bg_color = background_color  # ← Replace Color.RED with this
 	sprite.setIcon(GameManager.profile_picture, safe_color)
 	panelContainer.add_theme_stylebox_override("panel", style)

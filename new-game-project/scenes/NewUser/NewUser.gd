@@ -78,24 +78,42 @@ func _on_register_done(result, response_code, headers, body):
 		config.set_value("player", "color", response[0]["color"])
 		config.set_value("player", "background_color", response[0]["background"])
 		config.set_value("player", "picture", response[0]["picture"])
-		
-		
 		config.save("user://save.cfg")
-		
 		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 
 	else:
 		print("Failed. Code: ", response_code, " | Body: ", response)
 
-func check_size(username):
-	if username.length() > 10:
-		message_label.visible = true
-		message_label.text = "Username needs to be less\nthan 10 chars."
-		return false
-	else:
-		return true
-
 func _on_accept_button_pressed() -> void:
-	# check if username is in DB, if not insert it
-	if check_size(username_input.text):
-		check_username_exists(username_input.text)
+	var username = username_input.text.strip_edges()  # Trim leading/trailing spaces
+	if not validate_username(username):
+		return
+	check_username_exists(username)
+
+func validate_username(username: String) -> bool:
+	# Empty check
+	if username.length() == 0:
+		_show_error("Username cannot be empty.")
+		return false
+
+	# Space check
+	if " " in username:
+		_show_error("Username cannot contain spaces.")
+		return false
+
+	# Length check
+	if username.length() > 10:
+		_show_error("Username must be 10 characters or less.")
+		return false
+
+	# Optional: only allow letters, numbers, underscores
+	var regex = RegEx.new()
+	regex.compile("^[a-zA-Z0-9_]+$")
+	if not regex.search(username):
+		_show_error("Only letters, numbers, and underscores allowed.")
+		return false
+	return true
+	
+func _show_error(msg: String) -> void:
+	message_label.visible = true
+	message_label.text = msg

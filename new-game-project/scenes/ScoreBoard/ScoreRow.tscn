@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://pvf7ujnl1uyh"]
 
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="1_qt8h8"]
-[ext_resource type="Texture2D" uid="uid://dxndvxk8j43pm" path="res://assets/ui/decorations/image.png" id="2_owhgc"]
+[ext_resource type="PackedScene" uid="uid://cqhf76uu66svw" path="res://scenes/PlayerIcon/PlayerIcon.tscn" id="2_qt8h8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qt8h8"]
 bg_color = Color(0.1882353, 0.50980395, 0.3137255, 0.12156863)
@@ -53,10 +53,9 @@ custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_llnaf")
 
-[node name="UserSprite" type="Sprite2D" parent="Panel/MarginContainer/HBoxContainer/Panel"]
-position = Vector2(100, 38.375)
-scale = Vector2(0.18878719, 0.14473684)
-texture = ExtResource("2_owhgc")
+[node name="UserSprite" parent="Panel/MarginContainer/HBoxContainer/Panel" instance=ExtResource("2_qt8h8")]
+position = Vector2(99.000015, 38)
+scale = Vector2(2.1003792, 2.100379)
 
 [node name="UsernameLabel" type="Label" parent="Panel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(390, 0)

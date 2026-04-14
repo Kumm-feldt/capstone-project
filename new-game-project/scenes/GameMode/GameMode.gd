@@ -23,10 +23,7 @@ func _ready() -> void:
 	online_mode_popup.visible = false
 	light_button.turn_off_light.connect(_on_turn_off_light)
 	options.show_settings.connect(_on_show_settings)
-	
 	profile_tab.set_icon()
-	
-	print("Back COLOR ", GameManager.background_color)
 	#const Transition = preload("res://scenes/Transition.tscn")
 
 func _on_show_settings():
@@ -43,6 +40,7 @@ func _on_show_settings():
 	
 	# Connect the popup's close button signal
 	active_popup.get_node("Panel/ExitButton").pressed.connect(_close_popup)
+	active_popup.get_node("Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton").pressed.connect(_close_popup)
 	
 func _close_popup() -> void:
 	if active_popup:

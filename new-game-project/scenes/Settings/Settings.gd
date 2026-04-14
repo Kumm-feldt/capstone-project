@@ -1,5 +1,4 @@
 extends Control
-var settings_pressed = false
 
 @onready var settings_panel = $Panel/SettingsPanel
 @onready var customize_panel = $Panel/CustomizePanel
@@ -54,6 +53,7 @@ func _ready() -> void:
 	_setup_button_row(row_2_container)
 	_initialize_color_grid()
 	_initialize_background_color_grid()
+	print("GameManager.prof: ", GameManager.profile_picture)
 	active_sprite_name = GameManager.profile_picture
 
 	# Seed from actual saved values so Accept is a no-op if nothing changed
@@ -149,7 +149,6 @@ func _on_background_color_clicked(event: InputEvent, confirmed_color: Color) -> 
 func _on_any_button_pressed(target_button: Button) -> void:
 	# Call your existing function from the previous step
 	set_active_button(target_button)
-	print("Dynamically selected sprite from button!")
 
 
 # ============================================
@@ -206,8 +205,6 @@ func _on_any_character_button_pressed(target_sprite: Sprite2D) -> void:
 	# Call your existing function from the previous step
 	set_active_sprite(target_sprite)
 	
-	print("Dynamically selected sprite from button!")
-
 
 # ============================================
 # BUTTON PRESSED
@@ -249,8 +246,8 @@ func _on_accept_button_pressed() -> void:
 	var config = ConfigFile.new()
 	config.load("user://save.cfg")
 	# Track what actually changed using a dirty flag instead of null check
-	var saved_icon_color = _get_safe_color(GameManager.icon_color)
-	var saved_bg_color   = _get_safe_color(GameManager.background_color)
+	var saved_icon_color = GameManager.get_safe_color(GameManager.icon_color)
+	var saved_bg_color   = GameManager.get_safe_color(GameManager.background_color)
 
 	var color_changed = original_color       != saved_icon_color
 	var bg_changed    = original_button_color != saved_bg_color
@@ -277,6 +274,11 @@ func _on_accept_button_pressed() -> void:
 		GameManager.background_color.to_html(),
 		GameManager.profile_picture
 		)
+	# Close the customize panel and return to settings
+	customize_panel.visible = false
+	settings_panel.visible = true
+	top_title.text = "Settings"
+
 
 func _on_back_customize_button_pressed() -> void:
 	settings_panel.visible = true
@@ -294,16 +296,3 @@ func _on_tutorial_mode_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.AI
 	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy  # AILevel not Difficulty
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
-
-# HELPER
-func _get_safe_color(raw) -> Color:
-	if raw is Color:
-		# Already a Color object e.g. (0.9098, 0.2314, 0.2314, 1.0)
-		return raw
-	elif raw is String and raw.length() > 0:
-		# Hex string e.g. "ffffff" or "#ff0000"
-		return Color.from_string(raw, Color.GRAY)
-	else:
-		# Null, bool, int, or anything unexpected
-		push_warning("Invalid color value in GameManager: " + str(raw))
-		return Color.GRAY
