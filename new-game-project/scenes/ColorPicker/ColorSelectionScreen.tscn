@@ -24,7 +24,7 @@ spacing_space = 10
 [node name="ColorSelectionScreen" type="Node2D"]
 script = ExtResource("1_0qsph")
 
-[node name="MenuPanelScene2" parent="." instance=ExtResource("2_4uif4")]
+[node name="MenuPanelScene" parent="." instance=ExtResource("2_4uif4")]
 
 [node name="ColorGrid" parent="." instance=ExtResource("3_u0i7w")]
 offset_left = 697.8794
@@ -113,5 +113,6 @@ position = Vector2(32, 32)
 scale = Vector2(2.8749995, 2.8749995)
 texture = ExtResource("8_336my")
 
+[connection signal="powerPause" from="MenuPanelScene" to="." method="_on_powerPause"]
 [connection signal="colorChanged" from="ColorGrid" to="." method="_on_colorChanged"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

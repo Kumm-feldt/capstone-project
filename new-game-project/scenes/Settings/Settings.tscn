@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://d3r7dx3hnj50d" path="res://Themes/theme_exit_button.tres" id="4_04h6s"]
 [ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="4_f3efy"]
 [ext_resource type="Theme" uid="uid://bp8nlqf0ymeg1" path="res://Themes/theme_button_options.tres" id="5_y3a33"]
-[ext_resource type="Texture2D" uid="uid://d4e73t04kokih" path="res://Images/GroupPhoto/capstoneGroupPIXELIZED.png" id="6_vmhpk"]
+[ext_resource type="Texture2D" uid="uid://cg56cq87aaxtr" path="res://Images/GroupPhoto/capstoneGroupPortrait.jpg" id="6_vmhpk"]
 [ext_resource type="Texture2D" uid="uid://dx04twp7jcrjo" path="res://Images/thinArrow.png" id="7_7mwmr"]
 [ext_resource type="Texture2D" uid="uid://25igavl7y4e2" path="res://playerIcons.png" id="8_83sd7"]
 [ext_resource type="Theme" uid="uid://blynphgumvrm8" path="res://Themes/theme_pic_button.tres" id="8_bro8a"]
@@ -97,26 +97,26 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_y3a33")
 
 [node name="PhotoPaper" type="Panel" parent="Panel/SettingsPanel"]
 layout_mode = 0
-offset_left = 508.0
-offset_top = 6.0
-offset_right = 889.0
-offset_bottom = 467.0
+offset_left = 571.0
+offset_top = 18.0
+offset_right = 906.0
+offset_bottom = 479.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wsd3k")
 
 [node name="GroupPicPanel" type="Sprite2D" parent="Panel/SettingsPanel/PhotoPaper"]
-position = Vector2(191, 210)
-scale = Vector2(1.9477397, 1.9477397)
+position = Vector2(169, 211)
+scale = Vector2(0.124370225, 0.124370225)
 texture = ExtResource("6_vmhpk")
 
 [node name="Label" type="Label" parent="Panel/SettingsPanel/PhotoPaper"]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 410.0
-offset_right = 362.0
-offset_bottom = 449.0
+offset_left = -3.0
+offset_top = 405.0
+offset_right = 332.0
+offset_bottom = 444.0
 theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
 theme_override_font_sizes/font_size = 24
-text = "Made by Capstone Group #5!"
+text = "Capstone Group #5!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

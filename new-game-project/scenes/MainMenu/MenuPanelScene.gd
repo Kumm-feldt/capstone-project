@@ -7,12 +7,18 @@ var sourceNumber:int
 @onready var loadingBar = $LoadingScreen/LoadingBar
 
 @onready var powerLightOff = $Bezel/PowerLightOff
+@onready var blackScreen = $BlackScreen
 
+@onready var bootScreen = $BootScreen
 
+var snakeGameOn = false;
 var isLoadingScreenOn = false;
 
+var power = false;
+
+var volume = 0;
+
 func _ready() -> void:
-	powerLightOff = get_node("MenuPanel/PowerLightOff")
 	sourceNumber = 0;
 
 # To-Do: fully implement the power-off feature
@@ -48,14 +54,13 @@ func toggleLoadingScreen() -> void:
 	pass
 
 func on_game_opened() -> void:
-	var blackScreen = $BlackScreen
-	var bootLogo = $BlackScreen/BootLogo
+	var bootLogo = $BootScreen/BootLogo
 	#When the game opens, start on a dark screen for 0.5 seconds
-	blackScreen.visible = true;
+	bootScreen.visible = true;
 	var blackGlow = Color("#2e222f")
-	var tween = get_tree().create_tween()
 	await get_tree().create_timer(0.5).timeout
-	tween.tween_property(blackScreen, "color", blackGlow, 0)
+	var tween = get_tree().create_tween()
+	tween.tween_property(bootScreen, "color", blackGlow, 0.1)
 	
 	#A little bit later, fade in logo and hold
 	await get_tree().create_timer(1).timeout
@@ -69,35 +74,61 @@ func on_game_opened() -> void:
 	
 	#Dark screen goes away
 	await get_tree().create_timer(1).timeout
-	blackScreen.visible = false
+	bootScreen.visible = false
+	bootScreen.color = Color("#0b220e");
 	bootLogo.visible = false
 	
 	
+signal powerPause(on: bool);
 
 #Call this when the game is starting to prevent menuPanel features
 func loadingMode() -> void:
 	pass
 	
-
-func _on_power_button_toggled(toggled_on: bool) -> void:
-	if (toggled_on):
-		monitor_power_on()
-	else:
-		monitor_power_off()
-
-func monitor_power_on() -> void:
-	# Display the power-on light
-	powerLightOff.visible = false;
-	# Re-enable the display?
-
-func monitor_power_off() -> void:
-	# Disable the power-on light
-	powerLightOff.visible = true;
-	# Hide and disable the display?
-
-func on_source_changed() -> void:
-	# Turn on the black screen for a split second
-	# Display SOURCE label
-	# Switch menu contents to next item
+var poweringOn = false;
+func _on_power_button_pressed() -> void:
+	if poweringOn == false:
+		if power:
+			power = false;
+		else:
+			power = true;
+			poweringOn = true;
+		
+		powerLightOff.visible = power;
+		# Black screen away happens after a delay, if powering off
+		if not power:
+			await get_tree().create_timer(2).timeout
+		blackScreen.visible = power;
+		#Volume mute/unmute
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), power)
+		
+		#Pause colorGrid buttons since those act weird
+		emit_signal("powerPause", power);
+		
+		poweringOn = false;
 	
-	pass
+
+func toggle_source() -> void:
+	if power:
+		#Check current state
+		if snakeGameOn:
+			#Switch to base game
+			
+			snakeGameOn = false;
+			pass
+		else:
+			#Switch to snake game
+			
+			snakeGameOn = true;
+		
+	
+		# Turn on the black screen for a split second
+	
+		# Display SOURCE label
+	
+		# Switch menu contents to snake game
+	
+		pass
+
+func _exit_tree() -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
