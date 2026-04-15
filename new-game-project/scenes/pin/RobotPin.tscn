@@ -672,6 +672,7 @@ animations = [{
 
 [node name="RobotPin" type="AnimatedSprite2D"]
 material = SubResource("ShaderMaterial_c4d6y")
+instance_shader_parameters/brightness = 4.7499999933364734e-08
 sprite_frames = SubResource("SpriteFrames_v37pg")
 animation = &"invalid"
 autoplay = "idle"

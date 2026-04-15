@@ -372,7 +372,7 @@ frame_progress = 0.3191201
 position = Vector2(960, 540)
 scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_iwijb")
-frame_progress = 0.85746187
+frame_progress = 0.9824534
 
 [node name="Bezel" type="Sprite2D" parent="."]
 top_level = true
