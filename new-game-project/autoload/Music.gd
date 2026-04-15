@@ -1,15 +1,29 @@
 extends Node
 
 var music_player: AudioStreamPlayer
+var sfx_player: AudioStreamPlayer
+var current_track: GameManager.TrackMode = GameManager.TrackMode.Default
+
+#Background definitions
 var default_track = "res://Sound/Music/menu_loop.wav"
 var match_track = "res://Sound/Music/game_loop.wav"
-var current_track: GameManager.TrackMode = GameManager.TrackMode.Default
+
+#SFX definitions
 var victory_stinger = "res://Sound/Music/stinger_victory_v2.wav"
 var defeat_stinger = "res://Sound/Music/stinger_defeat_v2.wav"
+var button = "res://Sound/SFX/Button_1.wav"
+var error = "res://Sound/SFX/Error-2.wav"
+var explosion = "res://Sound/SFX/Explostion_1.wav"
+var reboot = "res://Sound/SFX/Reboot_1.wav"
+var node = "res://Sound/SFX/Node on Board_2.wav"
 
 func _ready() -> void:
 	music_player = AudioStreamPlayer.new()
+	music_player.bus = "Music"
 	add_child(music_player)
+	sfx_player = AudioStreamPlayer.new()
+	sfx_player.bus = "SFX"
+	add_child(sfx_player)
 	play_track_path(default_track)
 
 func play_track_path(path: String) -> void:
@@ -20,15 +34,28 @@ func play_track_path(path: String) -> void:
 	music_player.stream = new_stream
 	music_player.play()
 
+func play_sfx_path(path: String) -> void:
+	var new_stream = load(path)
+	if new_stream == null:
+		return
+	sfx_player.stop()
+	sfx_player.stream = new_stream
+	sfx_player.play()
+
 func stop_music() -> void:
 	music_player.stop()
 
 func play_default_track():
-	play_track(default_track)
+	play_track(GameManager.TrackMode.Default)
 
 func play_match_track():
-	stop_music()
-	play_track(match_track)
+	play_track(GameManager.TrackMode.Match)
+	
+func play_button_sound():
+	play_sfx_path(button)
+
+func play_explosion():
+	play_sfx_path(explosion)
 
 func play_track(option: GameManager.TrackMode) -> void:
 	current_track = option

@@ -100,6 +100,7 @@ func _pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	play("bounceUp")
 	await animation_finished
 	capTarget.explode()
+	Music.play_explosion()
 	
 	play("upJump")
 	
@@ -150,6 +151,7 @@ func _pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	
 	play("bounceDown")
 	await animation_finished
+	Music.play_explosion()
 	capTarget.explode()
 	
 	play("downJump")
@@ -201,6 +203,7 @@ func _pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	
 	play("bounceLeft")
 	await animation_finished
+	Music.play_explosion()
 	capTarget.explode()
 	
 	play("diagonalDownJump")
@@ -253,6 +256,7 @@ func _pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	
 	play("bounceLeft")
 	await animation_finished
+	Music.play_explosion()
 	capTarget.explode()
 	
 	play("diagonalDownJump")

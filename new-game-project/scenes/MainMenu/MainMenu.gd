@@ -10,7 +10,6 @@ var active_popup: Control = null
 
 @onready var music_slider = $Panel/ColorPicker/MusicSlider  # adjust path
 @onready var sfx_slider = $Panel/ColorPicker/SFXSlider      # adjust path
-@onready var sfx_player = $SFXPlayer
 
 
 func _ready() -> void:
@@ -24,7 +23,7 @@ func _ready() -> void:
 	print("Everything setted")
 
 func _on_any_button_pressed():
-		sfx_player.play()
+	Music.play_button_sound()
 		
 func check_first_launch():
 	var config = ConfigFile.new()
@@ -49,6 +48,7 @@ func apply_saved_audio():
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(sfx_vol))
 		
 func _on_start_pressed() -> void:
+	Music.play_button_sound()
 	if is_config:
 		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 	else:
@@ -57,6 +57,7 @@ func _on_start_pressed() -> void:
 
 
 func _on_exit_button_pressed() -> void:
+	Music.play_button_sound()
 	get_tree().quit()
 
 func _on_show_settings(instructions=false):
@@ -86,8 +87,10 @@ func _close_popup() -> void:
 		active_popup = null
 		
 func _on_settings_button_pressed() -> void:
+	Music.play_button_sound()
 	_on_show_settings()
 
 func _on_about_button_pressed() -> void:
+	Music.play_button_sound()
 	_on_show_settings(true)
 	
