@@ -13,6 +13,7 @@ var LOSS_POINTS = 30
 
 
 func _ready():
+	GameState.reset_game()
 	# Connect to GameState
 	dim_overlay.visible = false
 	print("Connecting end_match... in _ready")

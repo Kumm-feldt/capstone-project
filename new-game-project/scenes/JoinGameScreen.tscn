@@ -1,13 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://crsct8cwbjk14"]
 
-[ext_resource type="Texture2D" uid="uid://bpdi62k0e7tlg" path="res://assets/ui/backgrounds/CRTmonitor.png" id="1_4n145"]
 [ext_resource type="Script" uid="uid://ciuerl3kso2fa" path="res://scenes/join_game_screen.gd" id="1_uei83"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_o7d2b"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="4_73kxq"]
+[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="5_73kxq"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="5_msi40"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqpcf"]
-texture = ExtResource("1_4n145")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_msi40"]
 
 [node name="JoinGameScreen" type="Control"]
 layout_mode = 3
@@ -18,6 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uei83")
 
+[node name="MenuPanelScene" parent="." instance=ExtResource("5_73kxq")]
+position = Vector2(508, 481)
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -25,7 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_lqpcf")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_msi40")
 
 [node name="BlinkTimer" type="Timer" parent="Panel"]
 one_shot = true
@@ -72,11 +74,5 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 80
 
 [connection signal="pressed" from="Panel/BackButton" to="." method="_on_back_button_pressed"]
