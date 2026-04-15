@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=21 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
