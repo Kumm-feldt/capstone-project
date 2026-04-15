@@ -32,6 +32,8 @@ func _ready() -> void:
 	options.show_settings.connect(_on_show_settings)
 	options.logout_message.connect(_on_logout_message)
 	profile_tab.set_icon()
+	if not Music.is_playing_track(GameManager.TrackMode.Default):
+		Music.play_track(GameManager.TrackMode.Default)
 	#const Transition = preload("res://scenes/Transition.tscn")
 func _on_logout_message():
 	dim_overlay.visible = true

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://c51evrrb56tw2" path="res://AI/AIProgram.cs" id="4_dc040"]
 [ext_resource type="PackedScene" uid="uid://cnxv7st1qgo5k" path="res://scenes/UI/PauseMenu.tscn" id="5_dc040"]
 [ext_resource type="PackedScene" uid="uid://bfq4y4sutk2hv" path="res://scenes/main/UserLeftMessage.tscn" id="6_1rhdn"]
-[ext_resource type="PackedScene" path="res://scenes/board/VSPanel.tscn" id="7_sjxhf"]
+[ext_resource type="PackedScene" uid="uid://bnv1fd88yl12n" path="res://scenes/board/VSPanel.tscn" id="7_sjxhf"]
 [ext_resource type="AudioStream" uid="uid://c3iqmvlguhde1" path="res://Sound/Music/game_loop.wav" id="8_ko0rf"]
 
 [node name="Main" type="Node2D"]

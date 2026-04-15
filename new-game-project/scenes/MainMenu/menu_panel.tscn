@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://coq76pru5eq40"]
+[gd_scene load_steps=47 format=3 uid="uid://coq76pru5eq40"]
 
 [ext_resource type="Script" uid="uid://d1u1xiplachjq" path="res://scenes/MainMenu/MenuPanelScene.gd" id="1_k5y0a"]
 [ext_resource type="Texture2D" uid="uid://cud8ajyh2obc5" path="res://Images/CRTBackglow.png" id="2_oh22v"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://b10b2tpt4ryjy" path="res://Images/CRTeffect.png" id="4_x6eyo"]
 [ext_resource type="Texture2D" uid="uid://cj1l3yprdg0r6" path="res://Images/powerButton.png" id="5_tsfht"]
 [ext_resource type="Texture2D" uid="uid://b7xru36wmdwqu" path="res://Images/powerButtonPressed.png" id="6_51upk"]
-[ext_resource type="AudioStream" uid="uid://cnl7a7qxardqg" path="res://Sound/Music/menu_loop.wav" id="7_8w7bd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_led8r"]
 atlas = ExtResource("2_vatd4")
@@ -375,8 +374,5 @@ button_pressed = true
 texture_normal = ExtResource("5_tsfht")
 texture_pressed = ExtResource("6_51upk")
 stretch_mode = 4
-
-[node name="MenuTheme" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_8w7bd")
 
 [connection signal="toggled" from="PowerButton" to="." method="_on_power_button_toggled"]

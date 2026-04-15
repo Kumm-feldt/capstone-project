@@ -7,13 +7,10 @@ var win_screen_scene = preload("res://scenes/WinScreen.tscn")
 #@onready var reset_button = $CanvasLayer/UI/ResetButton
 @onready var userleftmessage = $UserLeftMessage
 @onready var dim_overlay = $DimOverlay
-@onready var game_theme: AudioStreamPlayer2D = $GameTheme
-@onready var end_stinger: AudioStreamPlayer2D = $EndStinger
 
 var WIN_POINTS = 100
 var LOSS_POINTS = 30
-var victory_stinger
-var defeat_stinger
+
 
 func _ready():
 	# Connect to GameState
@@ -21,22 +18,16 @@ func _ready():
 	print("Connecting end_match... in _ready")
 	GameState.connect("game_over", _on_game_over)
 	NetworkManager.connect("end_match",on_match_ended )
-	
 	# signal to close the window
 	NetworkManager.connect("ready_to_leave", _on_ready_to_leave)
+	# signal to change current track
+	Music.play_track(GameManager.TrackMode.Match)
 
-	game_theme.finished.connect(_on_game_theme_finished)
-
-	# load end stingers
-	victory_stinger = preload("res://Sound/Music/stinger_victory_v2.wav")
-	defeat_stinger = preload("res://Sound/Music/stinger_defeat_v2.wav")
-
-func _on_game_theme_finished():
-	game_theme.play()
 	
 func _on_ready_to_leave():
 	# host asked for it
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
+	Music.play_track(GameManager.TrackMode.Default)
 	
 func _on_turn_changed(_player: String):
 	"""Handle turn change"""
@@ -50,25 +41,22 @@ func _on_game_over(winner: String):
 	canvas.add_child(win_screen)
 	win_screen.set_anchors_preset(Control.PRESET_CENTER)
 	win_screen.setup(winner)
-	game_theme.stop()
+
 
 	if (GameManager.GAME_MODE == GameManager.Mode.AI ):
 		print("username: ", GameManager.username)
 		DBService.update_user_info(GameManager.username, "add", WIN_POINTS)
 		if (winner == "o"):
-			end_stinger.stream = victory_stinger
-			end_stinger.play()
+			Music.play_track(GameManager.TrackMode.Victory)
 		else:
-			end_stinger.stream = defeat_stinger
-			end_stinger.play()
+			Music.play_track(GameManager.TrackMode.Defeat)
 	elif(GameManager.GAME_MODE == GameManager.Mode.Multiplayer):
 		print("multi")
 		# TODO: Learn how network play shows if you won and play the correct stinger
-		end_stinger.stream = victory_stinger
-		end_stinger.play()
+		Music.play_track(GameManager.TrackMode.Victory)
 	elif(GameManager.GAME_MODE == GameManager.Mode.Local):
-		end_stinger.stream = victory_stinger
-		end_stinger.play()
+		Music.play_track(GameManager.TrackMode.Victory)
+
 
 
 	
