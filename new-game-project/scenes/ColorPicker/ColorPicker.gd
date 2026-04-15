@@ -12,6 +12,7 @@ func _ready() -> void:
 	background.modulate = Color(GameManager.background_color)
 	
 func _on_accept_button_pressed() -> void:
+	Music.play_button_sound()
 	var config = ConfigFile.new()
 	if config.load("user://save.cfg") != OK:
 		print("error loading config file")
@@ -91,4 +92,5 @@ func _on_background_color_button_4_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
+	Music.play_button_sound()
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

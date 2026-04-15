@@ -46,6 +46,7 @@ func _ready() -> void:
 	turn_label.text = "%s\nTurn" % player
 
 func _on_pause_button_pressed():
+	Music.play_button_sound()
 	GameState.toggle_pause()
 
 func _on_pause_changed(is_paused: bool):

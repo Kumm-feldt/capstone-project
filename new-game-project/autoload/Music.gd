@@ -1,7 +1,10 @@
 extends Node
 
+const SFX_PLAYER_COUNT := 8
+
 var music_player: AudioStreamPlayer
-var sfx_player: AudioStreamPlayer
+var sfx_players: Array[AudioStreamPlayer] = []
+var next_sfx_player_index := 0
 var current_track: GameManager.TrackMode = GameManager.TrackMode.Default
 
 #Background definitions
@@ -15,6 +18,7 @@ var button = "res://Sound/SFX/Button_1.wav"
 var explosion = "res://Sound/SFX/Explostion_1.wav"
 var node = "res://Sound/SFX/Node on Board_2.wav"
 var jump = "res://Sound/SFX/Land_1.wav"
+var land = "res://Sound/SFX/Land_3.wav"
 # need to implement still
 var error = "res://Sound/SFX/Error-2.wav"
 var reboot = "res://Sound/SFX/Reboot_1.wav"
@@ -23,9 +27,12 @@ func _ready() -> void:
 	music_player = AudioStreamPlayer.new()
 	music_player.bus = "Music"
 	add_child(music_player)
-	sfx_player = AudioStreamPlayer.new()
-	sfx_player.bus = "SFX"
-	add_child(sfx_player)
+	for index in range(SFX_PLAYER_COUNT):
+		var sfx_player = AudioStreamPlayer.new()
+		sfx_player.bus = "SFX"
+		sfx_player.name = "SFXPlayer%d" % index
+		sfx_players.append(sfx_player)
+		add_child(sfx_player)
 	play_track_path(default_track)
 
 func play_track_path(path: String) -> void:
@@ -40,9 +47,20 @@ func play_sfx_path(path: String) -> void:
 	var new_stream = load(path)
 	if new_stream == null:
 		return
-	sfx_player.stop()
+	var sfx_player = _get_sfx_player()
+	if sfx_player.playing:
+		sfx_player.stop()
 	sfx_player.stream = new_stream
 	sfx_player.play()
+
+func _get_sfx_player() -> AudioStreamPlayer:
+	for sfx_player in sfx_players:
+		if not sfx_player.playing:
+			return sfx_player
+
+	var sfx_player = sfx_players[next_sfx_player_index]
+	next_sfx_player_index = (next_sfx_player_index + 1) % sfx_players.size()
+	return sfx_player
 
 func stop_music() -> void:
 	music_player.stop()
@@ -64,6 +82,9 @@ func play_add_node():
 
 func play_jump_sound():
 	play_sfx_path(jump)
+	
+func play_land_sound():
+	play_sfx_path(land)
 
 func play_track(option: GameManager.TrackMode) -> void:
 	current_track = option

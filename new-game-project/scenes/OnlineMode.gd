@@ -15,10 +15,12 @@ func _process(delta: float) -> void:
 
 
 func _on_exit_button_pressed() -> void:
+	Music.play_button_sound()
 	emit_signal("popup_closed")  # tell the parent to handle cleanup
 
 
 func _on_join_button_pressed() -> void:
+	Music.play_button_sound()
 	var colorScreen = colorScreenScene.instantiate()
 	colorScreen.setGamemode("NetworkJoin")
 	
@@ -35,6 +37,7 @@ func _on_join_button_pressed() -> void:
 
 
 func _on_host_button_pressed() -> void:
+	Music.play_button_sound()
 	var colorScreen = colorScreenScene.instantiate()
 	colorScreen.setGamemode("NetworkHost")
 	

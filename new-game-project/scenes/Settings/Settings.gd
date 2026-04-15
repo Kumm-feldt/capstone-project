@@ -186,6 +186,7 @@ func _on_background_color_clicked(event: InputEvent, confirmed_color: Color) -> 
 			original_button_color = confirmed_color
 
 func _on_any_button_pressed(target_button: Button) -> void:
+	Music.play_button_sound()
 	set_active_button(target_button)
 
 # ============================================
@@ -224,12 +225,14 @@ func _on_color_clicked(event: InputEvent, confirmed_color: Color) -> void:
 			original_color = confirmed_color
 
 func _on_any_character_button_pressed(target_sprite: Sprite2D) -> void:
+	Music.play_button_sound()
 	set_active_sprite(target_sprite)
 
 # ============================================
 # BUTTON PRESSED
 # ============================================
 func _on_instructions_button_pressed() -> void:
+	Music.play_button_sound()
 	settings_panel.visible = false
 	instructions_panel.visible = true
 	top_title.text = "Instructions"
@@ -237,6 +240,7 @@ func _on_instructions_button_pressed() -> void:
 	update_instructions_page()
 
 func _on_customize_player_button_pressed() -> void:
+	Music.play_button_sound()
 	settings_panel.visible = false
 	customize_panel.visible = true
 	top_title.text = "Customize Player"
@@ -255,6 +259,7 @@ func _setup_button_row(row: HBoxContainer) -> void:
 				push_warning("Button found without a Sprite2D child: ", child.name)
 
 func _on_accept_button_pressed() -> void:
+	Music.play_button_sound()
 	var config = ConfigFile.new()
 	config.load("user://save.cfg")
 	var saved_icon_color = GameManager.get_safe_color(GameManager.icon_color)
@@ -284,16 +289,19 @@ func _on_accept_button_pressed() -> void:
 	top_title.text = "Settings"
 
 func _on_back_customize_button_pressed() -> void:
+	Music.play_button_sound()
 	settings_panel.visible = true
 	customize_panel.visible = false
 	top_title.text = "Settings"
 
 func _on_back_instructions_button_pressed() -> void:
+	Music.play_button_sound()
 	settings_panel.visible = true
 	instructions_panel.visible = false
 	top_title.text = "Settings"
 
 func _on_tutorial_mode_button_pressed() -> void:
+	Music.play_button_sound()
 	GameManager.GAME_MODE = GameManager.Mode.AI
 	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")

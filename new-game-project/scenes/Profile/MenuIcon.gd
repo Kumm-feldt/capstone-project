@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 
 
 func _on_menu_button_pressed() -> void:
+	Music.play_button_sound()
 	if scoreBoardButton.visible == true:
 		scoreBoardButton.visible = false
 		settingsButton.visible = false
@@ -41,11 +42,13 @@ func _on_scoreboard_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/ScoreBoard/ScoreBoard.tscn")
 
 func _on_settings_button_pressed() -> void:
+	Music.play_button_sound()
 	emit_signal("show_settings")
 		# Prevent stacking multiple popups
 	
 
 func _on_logout_button_pressed() -> void:
+	Music.play_button_sound()
 	emit_signal("logout_message")
 	# delete file
 
