@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://coq76pru5eq40"]
+[gd_scene load_steps=51 format=3 uid="uid://coq76pru5eq40"]
 
 [ext_resource type="Script" uid="uid://d1u1xiplachjq" path="res://scenes/MainMenu/MenuPanelScene.gd" id="1_k5y0a"]
 [ext_resource type="Texture2D" uid="uid://cud8ajyh2obc5" path="res://Images/CRTBackglow.png" id="2_oh22v"]

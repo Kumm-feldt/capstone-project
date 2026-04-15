@@ -1,12 +1,14 @@
 extends Node2D
 
-var powerLightOff:Sprite2D
-
 var sourceNumber:int
 
 @onready var loadingText = $LoadingScreen/LoadingText
 @onready var registerText = $LoadingScreen/RegisteringText
 @onready var loadingBar = $LoadingScreen/LoadingBar
+
+@onready var powerLightOff = $Bezel/PowerLightOff
+
+
 var isLoadingScreenOn = false;
 
 func _ready() -> void:
