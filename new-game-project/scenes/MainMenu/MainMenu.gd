@@ -1,7 +1,7 @@
 extends Control
 
 var is_config = true
-var testing = true	# REMOVE FOR FINAL BUILD!! - Only here to skip intro animation
+var testing = false	# REMOVE FOR FINAL BUILD!! - Only here to skip intro animation
 
 # Preload at the top of your script — loads the file once, reuses it
 const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
@@ -10,7 +10,7 @@ var active_popup: Control = null
 
 @onready var music_slider = $Panel/ColorPicker/MusicSlider  # adjust path
 @onready var sfx_slider = $Panel/ColorPicker/SFXSlider      # adjust path
-
+@onready var off_panel = $off_panel
 
 func _ready() -> void:
 	if not GameManager.GAME_OPENED:	
@@ -82,15 +82,24 @@ func _on_show_settings(instructions=false):
 	active_popup.get_node("Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton").pressed.connect(_close_popup)
 	
 func _close_popup() -> void:
+	toggle_light()
 	if active_popup:
 		active_popup.queue_free()
 		active_popup = null
 		
 func _on_settings_button_pressed() -> void:
+	toggle_light()
+	
 	Music.play_button_sound()
 	_on_show_settings()
 
 func _on_about_button_pressed() -> void:
+	toggle_light()
 	Music.play_button_sound()
 	_on_show_settings(true)
 	
+func toggle_light():
+	if off_panel.visible:
+		off_panel.visible = false
+	else:
+		off_panel.visible = true

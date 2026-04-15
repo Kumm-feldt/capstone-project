@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d2ljkmakfhbvj"]
+[gd_scene load_steps=10 format=3 uid="uid://d2ljkmakfhbvj"]
 
 [ext_resource type="Script" uid="uid://xpmvqpm5akmu" path="res://scenes/Instructions/game_instructions.gd" id="1_c68ih"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="2_aglrw"]
@@ -7,17 +7,10 @@
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="4_ocslv"]
 [ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="5_jv48s"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="5_o4mwe"]
-[ext_resource type="Theme" uid="uid://bp8nlqf0ymeg1" path="res://Themes/theme_button_options.tres" id="8_xxwy0"]
 [ext_resource type="Texture2D" uid="uid://dx04twp7jcrjo" path="res://Images/thinArrow.png" id="9_nmcti"]
-[ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="10_v7crn"]
-[ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="11_yxh3w"]
-[ext_resource type="Texture2D" uid="uid://bpjg8s81ucu5" path="res://Images/Game Pieces/node1Blue.png" id="12_xxwy0"]
-[ext_resource type="Texture2D" uid="uid://cp8mrx7srckhq" path="res://Images/Game Pieces/node1Red.png" id="13_nmcti"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqpcf"]
 texture = ExtResource("2_aglrw")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3w48o"]
 
 [node name="GameInstructions" type="Control"]
 layout_mode = 3
@@ -67,10 +60,10 @@ text = "Goal of the Game"
 [node name="TabOneText" type="Label" parent="Panel"]
 visible = false
 layout_mode = 0
-offset_left = 244.0
-offset_top = 290.0
-offset_right = 1812.0
-offset_bottom = 467.0
+offset_left = -4.0
+offset_top = 253.0
+offset_right = 1491.0
+offset_bottom = 498.0
 theme_override_colors/font_color = Color(0.039215688, 0.24313726, 0, 1)
 theme_override_fonts/font = ExtResource("2_x36it")
 theme_override_font_sizes/font_size = 25
@@ -167,20 +160,6 @@ theme_override_font_sizes/font_size = 21
 text = "Visual learner? 
 Play the tutorial instead!"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.006
-anchor_right = 0.006
-offset_left = 864.48
-offset_top = 154.0
-offset_right = 1733.48
-offset_bottom = 955.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
-layout_mode = 2
-
 [node name="TopTitleLabel" type="Label" parent="Panel"]
 layout_mode = 0
 offset_left = 73.0
@@ -191,11 +170,82 @@ theme = ExtResource("5_jv48s")
 text = "Instructions
 "
 
+[node name="ScrollContainer2" type="ScrollContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 88.0
+offset_right = 962.0
+offset_bottom = 575.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer2"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Panel/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+text = "How to play
+Goal: Connect your snake's head and tail (at opposite corners of the board) 
+with an unbroken chain of your nodes.
+
+The Board: A 6×6 grid where nodes are placed, 
+with line intersections around the spaces where robots move.
+
+
+
+On your turn, move exactly ONE of your robots. 
+There are three move types:
+
+
+A diagonal jump move a robot one space diagonally, 
+and it places your node on the space it passes over, or flips an opponent's node to your color.
+
+
+
+An orthogonal move shifts a robot one space up, down, left, or right 
+without affecting any nodes, useful for repositioning. 
+
+Capturing lets you jump over one opponent robot in a straight line into an empty space, 
+removing that robot from the game.
+You cannot capture your own robots"
+
+[node name="left_arrow" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 830.0
+offset_top = 511.0
+offset_right = 895.0
+offset_bottom = 564.0
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/left_arrow"]
+position = Vector2(23.500023, 18.000006)
+scale = Vector2(2.1750011, 1.9000003)
+texture = ExtResource("9_nmcti")
+
+[node name="right_arrow" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 869.0
+offset_top = 491.0
+offset_right = 940.0
+offset_bottom = 554.0
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/right_arrow"]
+position = Vector2(40.00002, 33.999985)
+scale = Vector2(2.0875008, 1.8124993)
+texture = ExtResource("9_nmcti")
+flip_h = true
+
+[node name="PageImage" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 101.0
+offset_right = 710.0
+offset_bottom = 481.0
+
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 103.0
+offset_left = 100.0
 offset_top = 12.0
-offset_right = 156.0
+offset_right = 153.0
 offset_bottom = 79.0
 theme = ExtResource("4_ocslv")
 
@@ -204,93 +254,7 @@ position = Vector2(27.5, 32)
 scale = Vector2(2.3124995, 2.8749995)
 texture = ExtResource("5_o4mwe")
 
-[node name="InstructionsPanel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 30.0
-offset_right = 1051.0
-offset_bottom = 510.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3w48o")
-
-[node name="BackButton" type="Button" parent="InstructionsPanel"]
-visible = false
-layout_mode = 0
-offset_left = 33.0
-offset_top = 17.0
-offset_right = 210.0
-offset_bottom = 59.0
-theme = ExtResource("8_xxwy0")
-theme_override_colors/font_color = Color(0.21568628, 0.30588236, 0.2901961, 1)
-text = "Options"
-
-[node name="Sprite2D" type="Sprite2D" parent="InstructionsPanel/BackButton"]
-position = Vector2(15, 21)
-scale = Vector2(1, 0.99999976)
-texture = ExtResource("9_nmcti")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="InstructionsPanel"]
-layout_mode = 0
-offset_left = 41.0
-offset_top = 82.0
-offset_right = 818.0
-offset_bottom = 546.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="InstructionsPanel/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 15
-
-[node name="SubtitleLabel" type="Label" parent="InstructionsPanel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("10_v7crn")
-text = "Goal of the Game"
-
-[node name="Label2" type="Label" parent="InstructionsPanel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("11_yxh3w")
-theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 0.7490196)
-text = "The goal is to be the last player able to place a snake tile on 
-the board.
-Each snake is made of connected discs that grow from the
-head to the tail. 
-Disc: 
-
-When a player cannot place any legal tile, 
-they are eliminated. The last player remaining wins."
-
-[node name="SubtitleLabel2" type="Label" parent="InstructionsPanel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("10_v7crn")
-text = "How to Play"
-
-[node name="Label4" type="Label" parent="InstructionsPanel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("11_yxh3w")
-text = "The board is a hexagonal grid made of tiles. Each player
-has a set of snake body discs and a head/tail indicator.
-On your turn, place one snake‑disc tile so that it:
-- Connects to one of your existing snake discs.
-- Does not overlap another snake or an occupied tile.
-- Follows the original Creeper connection rules.
-"
-
-[node name="Button" type="Button" parent="InstructionsPanel/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(250, 60)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme = ExtResource("4_o4mwe")
-theme_override_font_sizes/font_size = 33
-text = "Tutorial "
-
-[node name="Node1Blue" type="Sprite2D" parent="."]
-position = Vector2(275, 378)
-texture = ExtResource("12_xxwy0")
-
-[node name="Node1Red" type="Sprite2D" parent="."]
-position = Vector2(333, 379)
-texture = ExtResource("13_nmcti")
-
 [connection signal="pressed" from="Panel/TabTwoText/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/left_arrow" to="." method="_on_left_arrow_pressed"]
+[connection signal="pressed" from="Panel/right_arrow" to="." method="_on_right_arrow_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
