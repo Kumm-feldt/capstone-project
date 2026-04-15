@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=4 uid="uid://b8q3s3enh85wt"]
+[gd_scene load_steps=10 format=4 uid="uid://b8q3s3enh85wt"]
 
 [ext_resource type="Texture2D" uid="uid://dsf2rqsfc1uq5" path="res://Images/gameBoardNewSpriteSheet.png" id="1_hejph"]
+[ext_resource type="Texture2D" uid="uid://dtnchm8u565bl" path="res://Images/spritesheets/conveyorBelts.png" id="2_gnx26"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c4n1b"]
 resource_name = "Static Tiles"
@@ -1223,9 +1224,159 @@ texture_region_size = Vector2i(25, 25)
 19:19/0 = 0
 19:2/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2u1pl"]
+resource_name = "Conveyors"
+texture = ExtResource("2_gnx26")
+texture_region_size = Vector2i(25, 25)
+0:0/animation_columns = 9
+0:0/animation_separation = Vector2i(8, 0)
+0:0/animation_frame_0/duration = 0.2
+0:0/animation_frame_1/duration = 0.2
+0:0/animation_frame_2/duration = 0.2
+0:0/animation_frame_3/duration = 0.2
+0:0/animation_frame_4/duration = 0.2
+0:0/0 = 0
+1:0/animation_columns = 9
+1:0/animation_separation = Vector2i(8, 0)
+1:0/animation_frame_0/duration = 0.2
+1:0/animation_frame_1/duration = 0.2
+1:0/animation_frame_2/duration = 0.2
+1:0/animation_frame_3/duration = 0.2
+1:0/animation_frame_4/duration = 0.2
+1:0/0 = 0
+2:0/animation_columns = 9
+2:0/animation_separation = Vector2i(8, 0)
+2:0/animation_frame_0/duration = 0.2
+2:0/animation_frame_1/duration = 0.2
+2:0/animation_frame_2/duration = 0.2
+2:0/animation_frame_3/duration = 0.2
+2:0/animation_frame_4/duration = 0.2
+2:0/0 = 0
+2:1/animation_columns = 9
+2:1/animation_separation = Vector2i(8, 0)
+2:1/animation_frame_0/duration = 0.2
+2:1/animation_frame_1/duration = 0.2
+2:1/animation_frame_2/duration = 0.2
+2:1/animation_frame_3/duration = 0.2
+2:1/animation_frame_4/duration = 0.2
+2:1/0 = 0
+3:1/animation_columns = 9
+3:1/animation_separation = Vector2i(8, 0)
+3:1/animation_frame_0/duration = 0.2
+3:1/animation_frame_1/duration = 0.2
+3:1/animation_frame_2/duration = 0.2
+3:1/animation_frame_3/duration = 0.2
+3:1/animation_frame_4/duration = 0.2
+3:1/0 = 0
+3:0/animation_columns = 9
+3:0/animation_separation = Vector2i(8, 0)
+3:0/animation_frame_0/duration = 0.2
+3:0/animation_frame_1/duration = 0.2
+3:0/animation_frame_2/duration = 0.2
+3:0/animation_frame_3/duration = 0.2
+3:0/animation_frame_4/duration = 0.2
+3:0/0 = 0
+1:1/animation_columns = 9
+1:1/animation_separation = Vector2i(8, 0)
+1:1/animation_frame_0/duration = 0.2
+1:1/animation_frame_1/duration = 0.2
+1:1/animation_frame_2/duration = 0.2
+1:1/animation_frame_3/duration = 0.2
+1:1/animation_frame_4/duration = 0.2
+1:1/0 = 0
+0:1/animation_columns = 9
+0:1/animation_separation = Vector2i(8, 0)
+0:1/animation_frame_0/duration = 0.2
+0:1/animation_frame_1/duration = 0.2
+0:1/animation_frame_2/duration = 0.2
+0:1/animation_frame_3/duration = 0.2
+0:1/animation_frame_4/duration = 0.2
+0:1/0 = 0
+4:0/animation_columns = 9
+4:0/animation_separation = Vector2i(8, 0)
+4:0/animation_frame_0/duration = 0.2
+4:0/animation_frame_1/duration = 0.2
+4:0/animation_frame_2/duration = 0.2
+4:0/animation_frame_3/duration = 0.2
+4:0/animation_frame_4/duration = 0.2
+4:0/0 = 0
+4:1/animation_columns = 9
+4:1/animation_separation = Vector2i(8, 0)
+4:1/animation_frame_0/duration = 0.2
+4:1/animation_frame_1/duration = 0.2
+4:1/animation_frame_2/duration = 0.2
+4:1/animation_frame_3/duration = 0.2
+4:1/animation_frame_4/duration = 0.2
+4:1/0 = 0
+5:1/animation_columns = 9
+5:1/animation_separation = Vector2i(8, 0)
+5:1/animation_frame_0/duration = 0.2
+5:1/animation_frame_1/duration = 0.2
+5:1/animation_frame_2/duration = 0.2
+5:1/animation_frame_3/duration = 0.2
+5:1/animation_frame_4/duration = 0.2
+5:1/0 = 0
+5:0/animation_columns = 9
+5:0/animation_separation = Vector2i(8, 0)
+5:0/animation_frame_0/duration = 0.2
+5:0/animation_frame_1/duration = 0.2
+5:0/animation_frame_2/duration = 0.2
+5:0/animation_frame_3/duration = 0.2
+5:0/animation_frame_4/duration = 0.2
+5:0/0 = 0
+6:1/animation_columns = 9
+6:1/animation_separation = Vector2i(8, 0)
+6:1/animation_frame_0/duration = 0.2
+6:1/animation_frame_1/duration = 0.2
+6:1/animation_frame_2/duration = 0.2
+6:1/animation_frame_3/duration = 0.2
+6:1/animation_frame_4/duration = 0.2
+6:1/0 = 0
+6:0/animation_columns = 9
+6:0/animation_separation = Vector2i(8, 0)
+6:0/animation_frame_0/duration = 0.2
+6:0/animation_frame_1/duration = 0.2
+6:0/animation_frame_2/duration = 0.2
+6:0/animation_frame_3/duration = 0.2
+6:0/animation_frame_4/duration = 0.2
+6:0/0 = 0
+7:0/animation_columns = 9
+7:0/animation_separation = Vector2i(8, 0)
+7:0/animation_frame_0/duration = 0.2
+7:0/animation_frame_1/duration = 0.2
+7:0/animation_frame_2/duration = 0.2
+7:0/animation_frame_3/duration = 0.2
+7:0/animation_frame_4/duration = 0.2
+7:0/0 = 0
+8:0/animation_columns = 9
+8:0/animation_separation = Vector2i(8, 0)
+8:0/animation_frame_0/duration = 0.2
+8:0/animation_frame_1/duration = 0.2
+8:0/animation_frame_2/duration = 0.2
+8:0/animation_frame_3/duration = 0.2
+8:0/animation_frame_4/duration = 0.2
+8:0/0 = 0
+8:1/animation_columns = 9
+8:1/animation_separation = Vector2i(8, 0)
+8:1/animation_frame_0/duration = 0.2
+8:1/animation_frame_1/duration = 0.2
+8:1/animation_frame_2/duration = 0.2
+8:1/animation_frame_3/duration = 0.2
+8:1/animation_frame_4/duration = 0.2
+8:1/0 = 0
+7:1/animation_columns = 9
+7:1/animation_separation = Vector2i(8, 0)
+7:1/animation_frame_0/duration = 0.2
+7:1/animation_frame_1/duration = 0.2
+7:1/animation_frame_2/duration = 0.2
+7:1/animation_frame_3/duration = 0.2
+7:1/animation_frame_4/duration = 0.2
+7:1/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_hejph"]
 tile_size = Vector2i(25, 25)
 sources/0 = SubResource("TileSetAtlasSource_hejph")
+sources/1 = SubResource("TileSetAtlasSource_2u1pl")
 
 [node name="BoardBackground" type="Node2D"]
 
@@ -1250,7 +1401,7 @@ tile_set = SubResource("TileSet_m3s1v")
 
 [node name="conveyorBelts" type="TileMapLayer" parent="."]
 scale = Vector2(2.4, 2.4)
-tile_map_data = PackedByteArray("AAAGAAMAAAAAAAIAAAAGAAQAAAAAAAMAAAAHAAMAAAABAAIAAAAHAAQAAAABAAMAAAAGAAEAAAAAAAIAAAAGAAIAAAAAAAMAAAAHAAEAAAABAAIAAAAHAAIAAAABAAMAAAAGAAAAAAAAAAMAAAAHAAAAAAABAAMAAAAHAAUAAAAEAAIAAAAHAAYAAAAEAAMAAAAEAAUAAAADAAIAABAEAAYAAAADAAMAABAFAAUAAAACAAIAABAFAAYAAAACAAMAABACAAUAAAADAAIAABACAAYAAAADAAMAABADAAUAAAACAAIAABADAAYAAAACAAMAABAAAAUAAAADAAIAABAAAAYAAAADAAMAABABAAUAAAACAAIAABABAAYAAAACAAMAABAEAAQAAAADAAAAAAADAAQAAAADAAAAAAACAAQAAAADAAAAAAABAAQAAAADAAAAAAAAAAQAAAADAAAAAAAFAAMAAAACAAAAAAAFAAIAAAACAAAAAAAFAAEAAAACAAAAAAAFAAAAAAACAAAAAAAIAAAAAAADAAEAAAAIAAEAAAADAAEAAAAIAAIAAAADAAEAAAAIAAMAAAADAAEAAAAIAAQAAAADAAEAAAAIAAUAAAAFAAIAAAAIAAYAAAAFAAMAAAAGAAsAAAAHAAIAAAAGAAwAAAAHAAMAAAAHAAsAAAAIAAIAAAAHAAwAAAAIAAMAAAAEAAsAAAACAAIAAAAEAAwAAAACAAMAAAAFAAsAAAADAAIAAAAFAAwAAAAGAAMAAAACAAsAAAACAAIAAAACAAwAAAACAAMAAAADAAsAAAADAAIAAAADAAwAAAADAAMAAAAAAAsAAAACAAIAAAAAAAwAAAACAAMAAAABAAsAAAADAAIAAAABAAwAAAADAAMAAAAGAA0AAAAAAAIAAAAGAA4AAAAAAAMAAAAHAA0AAAABAAIAAAAHAA4AAAABAAMAAAAGAA8AAAAAAAIAAAAGABAAAAAAAAMAAAAHAA8AAAABAAIAAAAHABAAAAABAAMAAAAGABEAAAAAAAIAAAAHABEAAAABAAIAAAAFAA0AAAACAAAAAAAFAA4AAAACAAAAAAAFAA8AAAACAAAAAAAFABAAAAACAAAAAAAFABEAAAACAAAAAAAIAA0AAAADAAEAAAAIAA4AAAADAAEAAAAIAA8AAAADAAEAAAAIABAAAAADAAEAAAAIABEAAAADAAEAAAAAAAoAAAADAAAAAAABAAoAAAADAAAAAAACAAoAAAADAAAAAAADAAoAAAADAAAAAAAEAAoAAAADAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAAHAAoAAAADAAAAAAAIAAsAAAADAAEAAAAIAAwAAAADAAEAAAAIAAoAAAAFAAAAAAAFAAQAAAASAAIAAAAYAAsAAAAIAAIAABAZAAsAAAAHAAIAABAZAAwAAAAHAAMAABAYAAwAAAAIAAMAABAaAAwAAAAGAAMAABAaAAsAAAADAAIAABAbAAsAAAACAAIAABAbAAwAAAACAAMAABAdAAsAAAACAAIAABAcAAsAAAADAAIAABAdAAwAAAACAAMAABAcAAwAAAADAAMAABAfAAsAAAACAAIAABAeAAsAAAADAAIAABAfAAwAAAACAAMAABAeAAwAAAADAAMAABAYAA0AAAAAAAIAAAAYAA4AAAAAAAMAAAAZAA0AAAABAAIAAAAZAA4AAAABAAMAAAAYAA8AAAAAAAIAAAAYABAAAAAAAAMAAAAZAA8AAAABAAIAAAAZABAAAAABAAMAAAAYABEAAAAAAAIAAAAZABEAAAABAAIAAAAaAA0AAAADAAEAAAAaAA4AAAADAAEAAAAaAA8AAAADAAEAAAAaABAAAAADAAEAAAAaABEAAAADAAEAAAAfAAoAAAADAAAAAAAeAAoAAAADAAAAAAAdAAoAAAADAAAAAAAcAAoAAAADAAAAAAAbAAoAAAADAAAAAAAaAAoAAAADAAAAAAAZAAoAAAADAAAAAAAYAAoAAAADAAAAAAAXAAsAAAACAAAAAAAXAAwAAAACAAAAAAAXAA0AAAACAAAAAAAXAA4AAAACAAAAAAAXAA8AAAACAAAAAAAXABAAAAACAAAAAAAXABEAAAACAAAAAAAXAAoAAAAEAAAAAAAGAAYAAAADAAMAABAGAAUAAAAGAAIAAAA=")
+tile_map_data = PackedByteArray("AAAGAAMAAQAAAAAAAAAGAAQAAQAAAAEAAAAHAAMAAQABAAAAAAAHAAQAAQABAAEAAAAGAAEAAQAAAAAAAAAGAAIAAQAAAAEAAAAHAAEAAQABAAAAAAAHAAIAAQABAAEAAAAGAAAAAQAAAAEAAAAHAAAAAQABAAEAAAAHAAUAAQAEAAAAAAAHAAYAAQAEAAEAAAAEAAUAAQADAAAAABAEAAYAAQADAAEAABAFAAUAAQACAAAAABAFAAYAAQACAAEAABACAAUAAQADAAAAABACAAYAAQADAAEAABADAAUAAQACAAAAABADAAYAAQACAAEAABAAAAUAAQADAAAAABAAAAYAAQADAAEAABABAAUAAQACAAAAABABAAYAAQACAAEAABAEAAQAAAADAAAAAAADAAQAAAADAAAAAAACAAQAAAADAAAAAAABAAQAAAADAAAAAAAAAAQAAAADAAAAAAAFAAMAAAACAAAAAAAFAAIAAAACAAAAAAAFAAEAAAACAAAAAAAFAAAAAAACAAAAAAAIAAAAAAADAAEAAAAIAAEAAAADAAEAAAAIAAIAAAADAAEAAAAIAAMAAAADAAEAAAAIAAQAAAADAAEAAAAIAAUAAAAFAAIAAAAIAAYAAAAFAAMAAAAGAAsAAQAHAAAAAAAGAAwAAQAHAAEAAAAHAAsAAQAIAAAAAAAHAAwAAQAIAAEAAAAEAAsAAQACAAAAAAAEAAwAAQACAAEAAAAFAAsAAQADAAAAAAAFAAwAAQAGAAEAAAACAAsAAQACAAAAAAACAAwAAQACAAEAAAADAAsAAQADAAAAAAADAAwAAQADAAEAAAAAAAsAAQACAAAAAAAAAAwAAQACAAEAAAABAAsAAQADAAAAAAABAAwAAQADAAEAAAAGAA0AAQAAAAAAAAAGAA4AAQAAAAEAAAAHAA0AAQABAAAAAAAHAA4AAQABAAEAAAAGAA8AAQAAAAAAAAAGABAAAQAAAAEAAAAHAA8AAQABAAAAAAAHABAAAQABAAEAAAAGABEAAQAAAAAAAAAHABEAAQABAAAAAAAFAA0AAAACAAAAAAAFAA4AAAACAAAAAAAFAA8AAAACAAAAAAAFABAAAAACAAAAAAAFABEAAAACAAAAAAAIAA0AAAADAAEAAAAIAA4AAAADAAEAAAAIAA8AAAADAAEAAAAIABAAAAADAAEAAAAIABEAAAADAAEAAAAAAAoAAAADAAAAAAABAAoAAAADAAAAAAACAAoAAAADAAAAAAADAAoAAAADAAAAAAAEAAoAAAADAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAAHAAoAAAADAAAAAAAIAAsAAAADAAEAAAAIAAwAAAADAAEAAAAIAAoAAAAFAAAAAAAFAAQAAAASAAIAAAAYAAsAAQAIAAAAABAZAAsAAQAHAAAAABAZAAwAAQAHAAEAABAYAAwAAQAIAAEAABAaAAwAAQAGAAEAABAaAAsAAQADAAAAABAbAAsAAQACAAAAABAbAAwAAQACAAEAABAdAAsAAQACAAAAABAcAAsAAQADAAAAABAdAAwAAQACAAEAABAcAAwAAQADAAEAABAfAAsAAQACAAAAABAeAAsAAQADAAAAABAfAAwAAQACAAEAABAeAAwAAQADAAEAABAYAA0AAQAAAAAAAAAYAA4AAQAAAAEAAAAZAA0AAQABAAAAAAAZAA4AAQABAAEAAAAYAA8AAQAAAAAAAAAYABAAAQAAAAEAAAAZAA8AAQABAAAAAAAZABAAAQABAAEAAAAYABEAAQAAAAAAAAAZABEAAQABAAAAAAAaAA0AAAADAAEAAAAaAA4AAAADAAEAAAAaAA8AAAADAAEAAAAaABAAAAADAAEAAAAaABEAAAADAAEAAAAfAAoAAAADAAAAAAAeAAoAAAADAAAAAAAdAAoAAAADAAAAAAAcAAoAAAADAAAAAAAbAAoAAAADAAAAAAAaAAoAAAADAAAAAAAZAAoAAAADAAAAAAAYAAoAAAADAAAAAAAXAAsAAAACAAAAAAAXAAwAAAACAAAAAAAXAA0AAAACAAAAAAAXAA4AAAACAAAAAAAXAA8AAAACAAAAAAAXABAAAAACAAAAAAAXABEAAAACAAAAAAAXAAoAAAAEAAAAAAAGAAYAAQADAAEAABAGAAUAAQAGAAAAAAA=")
 tile_set = SubResource("TileSet_hejph")
 
 [node name="board" type="TileMapLayer" parent="."]

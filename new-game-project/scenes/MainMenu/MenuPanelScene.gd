@@ -5,6 +5,7 @@ var powerLightOff:Sprite2D
 var sourceNumber:int
 
 @onready var loadingText = $LoadingScreen/LoadingText
+@onready var registerText = $LoadingScreen/RegisteringText
 @onready var loadingBar = $LoadingScreen/LoadingBar
 var isLoadingScreenOn = false;
 
@@ -14,8 +15,24 @@ func _ready() -> void:
 
 # To-Do: fully implement the power-off feature
 # To-Do: add a source change feature w/ something fun. Animation? Minigame?
+func toggleRegisteringScreen() -> void:
+	loadingText.visible = false;
+	registerText.visible = true;
+	if isLoadingScreenOn:
+		$LoadingScreen.visible = false;
+		registerText.stop();
+		loadingBar.stop();
+		isLoadingScreenOn = false;
+	else:
+		$LoadingScreen.visible = true;
+		registerText.play("default");
+		loadingBar.play("default");
+		isLoadingScreenOn = true;
+	pass
 
 func toggleLoadingScreen() -> void:
+	loadingText.visible = true;
+	registerText.visible = false;
 	if isLoadingScreenOn:
 		$LoadingScreen.visible = false;
 		loadingText.stop();

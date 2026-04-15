@@ -49,8 +49,6 @@ func _ready() -> void:
 		
 	#Make sure to set the robots to their base color, light grey
 	
-
-func selectPlayerOneColor() -> Color:
 	#Then allow player to click a color.
 	
 	# When the user clicks a color once, move a "P1 Color" indicator
@@ -59,10 +57,6 @@ func selectPlayerOneColor() -> Color:
 	# Chosen color should not be selectable anymore.
 	
 	#Set player color to the appropriate color, and update the p1 image.
-	
-	return Color("#ffffff")
-	
-func selectPlayerTwoColor() -> Color:
 	#First, change the instructions
 	if (gamemode == "VersusAI" || gamemode == "Network"):
 		setMessageBoxText("Choose Opponent's Color!")

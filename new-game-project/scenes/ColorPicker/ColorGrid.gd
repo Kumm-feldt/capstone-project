@@ -2,16 +2,18 @@
 extends GridContainer
 
 const COLORS = [
-	"#fca790",	#peach
+	"#7f708a",	#darkGray
 	"#eaaded",	#pink
-	"#f68181",	#magenta
+	"#ab947a",	#brown
 	"#e83b3b",	#red
 	"#fbb954",	#orange
 	"#fbff86",	#yellow
 	"#91db69", #lime
 	"#8ff8e2",	#lightTurquoise
-	"#30e1b9",	#darkTurquoise
-
+	"#0eaf9b",	#darkTurquoise
+	"#4d9be6",	#blue
+	"#a884f3",	#purple
+	"#c7dcd0"	#gray (BASE COLOR)
 ]
 
 var Swatch: PackedScene = preload("res://scenes/ColorPicker/ColorSwatch.tscn")
