@@ -1,14 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://c50lapj5kugt4"]
+[gd_scene load_steps=12 format=3 uid="uid://c50lapj5kugt4"]
 
 [ext_resource type="Script" uid="uid://brhj0e6oejmn8" path="res://scenes/MainMenu/MainMenu.gd" id="1_l72w3"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="2_l72w3"]
-[ext_resource type="PackedScene" uid="uid://c0jnblqwn8om2" path="res://scenes/MainMenu/menu_panel.tscn" id="2_r8q81"]
+[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="2_r8q81"]
 [ext_resource type="Texture2D" uid="uid://dieci88706vb4" path="res://Images/menuImage.png" id="3_7j8ul"]
 [ext_resource type="FontFile" uid="uid://cvg3yh2hnt1dt" path="res://fonts/sh-pinscher/SHPinscher-Regular.otf" id="4_7j8ul"]
 [ext_resource type="Texture2D" uid="uid://d0oe7lkujub0l" path="res://Images/SlitherTitleOUTLINE.png" id="4_y5ja3"]
 [ext_resource type="Texture2D" uid="uid://dkufxb17ncr8o" path="res://Images/exitButton.png" id="6_r8q81"]
-[ext_resource type="AudioStream" uid="uid://cnl7a7qxardqg" path="res://Sound/Music/menu_loop.wav" id="8_y5ja3"]
-[ext_resource type="AudioStream" uid="uid://6mvjcqh6ikqn" path="res://Sound/universfield-party-balloon-pop-323588.mp3" id="9_mqas3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qq82"]
 
@@ -26,6 +24,9 @@ Button/styles/focus = SubResource("StyleBoxEmpty_0qq82")
 Button/styles/hover = null
 Button/styles/normal = null
 Button/styles/pressed = SubResource("StyleBoxEmpty_7j8ul")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7j8ul"]
+bg_color = Color(0, 0, 0, 0.85882354)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -105,12 +106,17 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_y5ja3")
-autoplay = true
+[node name="off_panel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 99.0
+offset_top = 99.0
+offset_right = 1823.0
+offset_bottom = 983.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7j8ul")
 
-[node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_mqas3")
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.725
 
 [connection signal="pressed" from="VBoxContainer/BeginButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

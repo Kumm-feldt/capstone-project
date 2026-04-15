@@ -12,7 +12,7 @@ var delay_on_complete = 1.0
 var host_request_row = preload("res://scenes/Networking/Join/JoinRequestRow.tscn")
 @onready var timer = $Panel/BlinkTimer
 @onready var label = $Panel/OldComputerLabel
-@onready var vbox = $VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer
+@onready var vbox = $VBoxContainer/ScrollContainer/VBoxContainer
 
 func connect_signals():
 	"""Connect to NetworkManager signals"""
@@ -64,6 +64,14 @@ func _on_discovered_servers_ui(servers):
 		child.queue_free()
 	"""Create a row within VBoxContainer"""
 	for ip in servers.keys():
+		# 1. Instantiate the MarginContainer
+		var margin_container = MarginContainer.new()
+		# 2. Set margins using Theme Overrides (Godot 4+)
+		margin_container.add_theme_constant_override("margin_top", 25)
+		margin_container.add_theme_constant_override("margin_left", 80)
+		margin_container.add_theme_constant_override("margin_bottom", 0)
+		margin_container.add_theme_constant_override("margin_right", 80)
+
 		var info = servers[ip]  # e.g. {"name": "Creeper Match", "port": 7777}
 		# instantiate scene
 		var row_instance = host_request_row.instantiate()
@@ -76,7 +84,8 @@ func _on_discovered_servers_ui(servers):
 		# Connect button to a callback, passing the ip
 		join_button.pressed.connect(_on_join_button_pressed.bind(ip, host))
 		# add scene to vboxcontainer
-		vbox.add_child(row_instance)
+		margin_container.add_child(row_instance)
+		vbox.add_child(margin_container)
 	
 	
 func _on_join_button_pressed(ip, host):

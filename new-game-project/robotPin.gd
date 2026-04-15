@@ -79,6 +79,7 @@ func _pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	play("upPrepJump");
 	await self.animation_finished;
 	play("upJump");
+	Music.play_jump_sound()
 	
 	self.z_index = 50
 	
@@ -100,6 +101,7 @@ func _pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	play("bounceUp")
 	await animation_finished
 	capTarget.explode()
+	Music.play_explosion()
 	
 	play("upJump")
 	
@@ -130,6 +132,7 @@ func _pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	play("downPrepJump");
 	await self.animation_finished;
 	play("downJump");
+	Music.play_jump_sound()
 	
 	self.z_index = 50
 	
@@ -151,6 +154,7 @@ func _pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	play("bounceDown")
 	await animation_finished
 	capTarget.explode()
+	Music.play_explosion()
 	
 	play("downJump")
 	
@@ -181,6 +185,7 @@ func _pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	play("diagonalDownPrepJump");
 	await self.animation_finished;
 	play("diagonalDownJump");
+	Music.play_jump_sound()
 	
 	self.z_index = 50
 	
@@ -202,6 +207,7 @@ func _pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	play("bounceLeft")
 	await animation_finished
 	capTarget.explode()
+	Music.play_explosion()
 	
 	play("diagonalDownJump")
 	
@@ -233,6 +239,7 @@ func _pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	play("diagonalDownPrepJump");
 	await self.animation_finished;
 	play("diagonalDownJump");
+	Music.play_jump_sound()
 	
 	self.z_index = 50
 	
@@ -254,6 +261,7 @@ func _pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	play("bounceLeft")
 	await animation_finished
 	capTarget.explode()
+	Music.play_explosion()
 	
 	play("diagonalDownJump")
 	
@@ -287,6 +295,8 @@ func _pin_move_up() -> void:
 	play("upPrepJump");
 	await self.animation_finished;
 	play("upJump");
+	Music.play_jump_sound()
+
 	
 	self.z_index = 50
 	
@@ -319,6 +329,7 @@ func _pin_move_down() -> void:
 	play("downPrepJump");
 	await self.animation_finished;
 	play("downJump");
+	Music.play_jump_sound()
 	
 	self.z_index = 50
 	
@@ -354,6 +365,7 @@ func _pin_move_horizontal(left: bool) -> void:
 		play("diagonalDownPrepJump");
 		await self.animation_finished;
 		play("diagonalDownJump");
+		Music.play_jump_sound()
 	
 		var newPos = Vector2(position)
 	
@@ -377,6 +389,7 @@ func _pin_move_horizontal(left: bool) -> void:
 		play("diagonalDownPrepJump");
 		await self.animation_finished;
 		play("diagonalDownJump");
+		Music.play_jump_sound()
 		
 		var newPos = Vector2(position)
 	
@@ -405,6 +418,7 @@ func _pin_move_diagonal_up(left: bool) -> void:
 		play("diagonalUpPrepJump");
 		await self.animation_finished;
 		play("diagonalUpJump");
+		Music.play_jump_sound()
 	
 		var newPos = Vector2(position)
 	
@@ -428,6 +442,7 @@ func _pin_move_diagonal_up(left: bool) -> void:
 		play("diagonalUpPrepJump");
 		await self.animation_finished;
 		play("diagonalUpJump");
+		Music.play_jump_sound()
 		
 		var newPos = Vector2(position)
 	
@@ -456,6 +471,7 @@ func _pin_move_diagonal_down(left: bool) -> void:
 		play("diagonalDownPrepJump");
 		await self.animation_finished;
 		play("diagonalDownJump");
+		Music.play_jump_sound()
 	
 		var newPos = Vector2(position)
 	
@@ -479,6 +495,7 @@ func _pin_move_diagonal_down(left: bool) -> void:
 		play("diagonalDownPrepJump");
 		await self.animation_finished;
 		play("diagonalDownJump");
+		Music.play_jump_sound()
 		
 		var newPos = Vector2(position)
 	

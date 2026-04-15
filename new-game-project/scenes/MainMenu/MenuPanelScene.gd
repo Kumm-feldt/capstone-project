@@ -1,5 +1,4 @@
 extends Node2D
-@onready var menu_theme: AudioStreamPlayer2D = $MenuTheme
 
 var powerLightOff:Sprite2D
 
@@ -12,7 +11,6 @@ var isLoadingScreenOn = false;
 
 func _ready() -> void:
 	powerLightOff = get_node("MenuPanel/PowerLightOff")
-	menu_theme.finished.connect(_on_menu_theme_finished)
 	sourceNumber = 0;
 
 # To-Do: fully implement the power-off feature
@@ -72,17 +70,12 @@ func on_game_opened() -> void:
 	blackScreen.visible = false
 	bootLogo.visible = false
 	
-	#Once the screen's contents are being tweened in, start playing music
-	menu_theme.play();
 	
 
 #Call this when the game is starting to prevent menuPanel features
 func loadingMode() -> void:
 	pass
 	
-
-func _on_menu_theme_finished():
-		menu_theme.play()
 
 func _on_power_button_toggled(toggled_on: bool) -> void:
 	if (toggled_on):

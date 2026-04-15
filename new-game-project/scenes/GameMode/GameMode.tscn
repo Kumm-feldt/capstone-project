@@ -93,7 +93,7 @@ Button/styles/normal = SubResource("StyleBoxTexture_rl36i")
 Button/styles/pressed = SubResource("StyleBoxTexture_wuwyd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wud22"]
-bg_color = Color(0, 0.08627451, 0, 1)
+bg_color = Color(0, 0, 0, 0.85882354)
 
 [node name="GameModeScreen" type="Control"]
 layout_mode = 3
@@ -210,24 +210,6 @@ offset_top = -413.0
 offset_right = 822.0
 offset_bottom = -244.0
 
-[node name="DimOverlay" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.8784314)
-
-[node name="OnlineOptionPopup" parent="." instance=ExtResource("11_byo56")]
-visible = false
-layout_mode = 1
-
-[node name="AIOptionPopup" parent="." instance=ExtResource("10_geqlg")]
-visible = false
-layout_mode = 1
-
 [node name="off_panel" type="Panel" parent="."]
 visible = false
 layout_mode = 0
@@ -236,6 +218,14 @@ offset_top = 99.0
 offset_right = 1823.0
 offset_bottom = 983.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wud22")
+
+[node name="OnlineOptionPopup" parent="." instance=ExtResource("11_byo56")]
+visible = false
+layout_mode = 1
+
+[node name="AIOptionPopup" parent="." instance=ExtResource("10_geqlg")]
+visible = false
+layout_mode = 1
 
 [node name="WarningWindow" parent="." instance=ExtResource("20_geqlg")]
 visible = false

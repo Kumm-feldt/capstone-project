@@ -29,6 +29,13 @@ enum Mode {
 	Host
 }
 
+enum TrackMode {
+	Default,
+	Match,
+	Victory,
+	Defeat,
+}
+
 enum AILevel {
 	Easy,
 	Difficult
