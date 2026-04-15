@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=20 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
@@ -16,8 +16,6 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f3efy"]
 texture = ExtResource("1_k2lax")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f3efy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y3a33"]
 
@@ -69,17 +67,15 @@ text = "Settings"
 
 [node name="ExitButton" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 884.99994
-offset_top = 16.0
-offset_right = 939.99994
-offset_bottom = 67.0
+offset_left = 891.00006
+offset_top = 9.5
+offset_right = 956.7844
+offset_bottom = 70.5
 theme = ExtResource("4_04h6s")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_f3efy")
-
-[node name="IconSprite2D" type="Sprite2D" parent="Panel/ExitButton"]
-position = Vector2(27, 25)
-scale = Vector2(1.7916666, 1.7916666)
-texture = ExtResource("3_nll1c")
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+icon = ExtResource("3_nll1c")
+icon_alignment = 1
+expand_icon = true
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
 visible = false

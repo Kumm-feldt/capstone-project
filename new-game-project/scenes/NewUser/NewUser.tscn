@@ -115,17 +115,16 @@ text = "new user"
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1156.0
-offset_top = 236.0
-offset_right = 1195.902
-offset_bottom = 273.0
+offset_left = 1158.0
+offset_top = 238.0
+offset_right = 1192.5098
+offset_bottom = 271.0
 theme = ExtResource("7_namh3")
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_namh3")
-
-[node name="IconSprite2D" type="Sprite2D" parent="ExitButton"]
-position = Vector2(19.99997, 19)
-scale = Vector2(1.2749249, 1.2749249)
-texture = ExtResource("7_k8yfu")
+icon = ExtResource("7_k8yfu")
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="pressed" from="Panel/AcceptButton" to="." method="_on_accept_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
