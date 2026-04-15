@@ -30,6 +30,16 @@ func check_first_launch():
 	if config.load("user://save.cfg") != OK:
 		# Show new username scene
 		is_config = false
+		return
+	if config.load("user://save.cfg") != OK:
+	# File doesn't exist at all — new user
+		is_config = false
+		return
+	var username = config.get_value("player", "username", "")
+	if username == "":
+		# File exists but no username saved — treat as new user
+		is_config = false
+		return
 	else:
 		GameManager.username = config.get_value("player", "username", "default")
 		#GameManager.color = config.get_value("player", "color", "ffffff")
