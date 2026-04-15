@@ -62,7 +62,14 @@ var pages = [
 		"image": null  # replace with preload("res://path/to/image2.png")
 	},
 ]
-
+# ============================================
+# Check first launch
+# ============================================
+func check_first_launch():
+	var config = ConfigFile.new()
+	if config.load("user://save.cfg") != OK:
+		first_launch = true
+		
 func update_instructions_page():
 	var page = pages[current_page]
 	if current_page == 0:
@@ -309,11 +316,3 @@ func _on_tutorial_mode_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.AI
 	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
-# ============================================
-# Check first launch
-# ============================================
-func check_first_launch():
-	var config = ConfigFile.new()
-	if config.load("user://save.cfg") != OK:
-		first_launch = true
-		

@@ -34,14 +34,27 @@ func _on_turn_changed(_player: String):
 	"""Handle turn change"""
 
 func _on_game_over(winner: String):
-	print("_on_game_over: WINNER : ", winner)
 	var canvas = CanvasLayer.new()
-	canvas.layer = 10  # renders above everything
+	canvas.layer = 10
 	get_tree().root.add_child(canvas)
 	var win_screen = win_screen_scene.instantiate()
 	canvas.add_child(win_screen)
 	win_screen.set_anchors_preset(Control.PRESET_CENTER)
 	win_screen.setup(winner)
+
+	# Wait one frame so the panel's size is calculated before we move it
+	await get_tree().process_frame
+	var screen_width = get_viewport().get_visible_rect().size.x
+	# Start fully off-screen to the right
+	win_screen.position.x = screen_width
+	# Tween it to its anchor position (x = 0 when using PRESET_CENTER)
+	var tween = create_tween()
+	tween.tween_property(
+		win_screen,
+		"position:x",
+		850,
+		1.5
+	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 
 	if (GameManager.GAME_MODE == GameManager.Mode.AI ):

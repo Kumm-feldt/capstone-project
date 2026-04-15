@@ -10,6 +10,7 @@ texture = ExtResource("1_tks55")
 region_rect = Rect2(1339, 734, 241, 227)
 
 [node name="UserLeftMessage" type="Control"]
+z_index = 15
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -16,7 +16,22 @@ func _ready() -> void:
 	add_child(http_register)
 	http_check.request_completed.connect(_on_username_check_done)
 	http_register.request_completed.connect(_on_register_done)
-
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("close"):
+		_on_exit_button_pressed()
+	if event.is_action_pressed("enter"):
+		_on_accept_button_pressed()
+		
+func _on_accept_button_pressed() -> void:
+	Music.play_button_sound()
+	message_label.visible = true
+	menu_panel.toggleLoadingScreen()
+	var username = username_input.text.strip_edges()  # Trim leading/trailing spaces
+	if not validate_username(username):
+		return
+	check_username_exists(username)
+	
 func check_username_exists(username):
 	var url = DBService.URL + "?username=eq."+username +"&select=id"
 	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
@@ -41,8 +56,6 @@ func _on_username_check_done(result, response_code, headers, body):
 		register_player(username_input.text)
 		print("Ready to go to next scene...")
 
-		
-
 func register_player(username: String):
 	var body = JSON.stringify({
 		"username": username.strip_edges(),
@@ -61,7 +74,6 @@ func register_player(username: String):
 	if err != OK:
 		push_error("An error occurred in the HTTP request.")
 		emit_signal("error", "An error occurred in the HTTP request.")
-	
 
 func _on_register_done(result, response_code, headers, body):
 	var raw = body.get_string_from_utf8()
@@ -91,14 +103,7 @@ func _on_register_done(result, response_code, headers, body):
 		menu_panel.toggleLoadingScreen()
 		print("Failed. Code: ", response_code, " | Body: ", response)
 
-func _on_accept_button_pressed() -> void:
-	Music.play_button_sound()
-	message_label.visible = true
-	menu_panel.toggleLoadingScreen()
-	var username = username_input.text.strip_edges()  # Trim leading/trailing spaces
-	if not validate_username(username):
-		return
-	check_username_exists(username)
+
 
 func validate_username(username: String) -> bool:
 	# Empty check

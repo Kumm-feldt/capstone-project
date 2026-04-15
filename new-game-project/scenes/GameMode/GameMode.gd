@@ -142,3 +142,14 @@ func _on_ai_tournament_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/AI/a_ivs_ai_console.tscn")
 	# call to softserve activator
 	pass
+
+# ============================================
+# Input handling (ESC)
+# ============================================
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("close"):
+		if active_popup:
+			_close_popup()
+			
+		if active_popup_warning:
+			_close_pop_up_warning()

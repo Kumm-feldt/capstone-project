@@ -113,3 +113,9 @@ func toggle_light():
 		off_panel.visible = false
 	else:
 		off_panel.visible = true
+# ============================================
+# Input handling (ESC)
+# ============================================
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("close"):
+		_close_popup()

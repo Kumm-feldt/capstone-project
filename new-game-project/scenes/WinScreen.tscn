@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch4y1xi67b8ik"]
+[gd_scene load_steps=8 format=3 uid="uid://ch4y1xi67b8ik"]
 
 [ext_resource type="Script" uid="uid://pnkwn8brla74" path="res://scenes/win_screen.gd" id="1_ulig0"]
-[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="2_f4f3g"]
-[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="2_jrum5"]
+[ext_resource type="Texture2D" uid="uid://c80uddmrpfx46" path="res://Images/WinPanel/winPanel.png" id="2_274dy"]
+[ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="3_274dy"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="3_f4f3g"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="4_274dy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tad7g"]
-texture = ExtResource("2_jrum5")
-region_rect = Rect2(1339, 734, 241, 227)
+texture = ExtResource("2_274dy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f4f3g"]
 
 [node name="WinScreen" type="Control"]
 layout_mode = 3
@@ -27,53 +28,73 @@ script = ExtResource("1_ulig0")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 536.0
+offset_top = -37.999992
+offset_right = 661.93933
+offset_bottom = 81.40826
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(4.391004, 4.3966813)
+theme_override_styles/panel = SubResource("StyleBoxTexture_tad7g")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 0
+offset_left = 590.0
+offset_top = 12.0
+offset_right = 860.0
+offset_bottom = 438.67664
+theme_override_styles/panel = SubResource("StyleBoxEmpty_f4f3g")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 537.0
-offset_right = 633.0
-offset_bottom = 105.02813
+offset_left = -135.0
+offset_top = -36.0
+offset_right = 135.0
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(4.391004, 4.3966813)
-theme_override_styles/panel = SubResource("StyleBoxTexture_tad7g")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 4
+theme_override_constants/separation = 20
 
-[node name="WinnerLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="WinnerLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_f4f3g")
-theme_override_font_sizes/font_size = 9
+theme = ExtResource("3_274dy")
+theme_override_colors/font_color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
 
-[node name="PlayAgainButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-theme = ExtResource("3_f4f3g")
-theme_override_font_sizes/font_size = 9
-text = "Play Again?"
-
-[node name="MainMenuButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="PlayAgainButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme = ExtResource("3_f4f3g")
-theme_override_font_sizes/font_size = 9
-text = "Main Menu
-"
+text = "play again?"
 
-[node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="MainMenuButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme = ExtResource("3_f4f3g")
+text = "Main menu"
+
+[node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme = ExtResource("4_274dy")
-theme_override_font_sizes/font_size = 7
+theme_override_font_sizes/font_size = 24
 text = "Quit
 "
