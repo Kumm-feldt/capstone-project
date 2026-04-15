@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://msaio3yofyps"
-path="res://.godot/imported/gameBoardNewSpriteSheet.png-b745056c4258fc405420a74a693b34df.ctex"
+uid="uid://cvwuhdabdssw6"
+path="res://.godot/imported/robotBaseANIM_pickMe.png-fba87cf1fdb16e3176b16f1d1fde5273.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/aseprite Files/GameBoard/gameBoardNewSpriteSheet.png"
-dest_files=["res://.godot/imported/gameBoardNewSpriteSheet.png-b745056c4258fc405420a74a693b34df.ctex"]
+source_file="res://Images/spritesheets/OldPinColors/robotBaseANIM_pickMe.png"
+dest_files=["res://.godot/imported/robotBaseANIM_pickMe.png-fba87cf1fdb16e3176b16f1d1fde5273.ctex"]
 
 [params]
 

@@ -60,7 +60,7 @@ func on_game_opened() -> void:
 	bootLogo.visible = true
 	bootLogo.play("fadeIn")
 	await bootLogo.animation_finished;
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(3).timeout
 	#Fade out logo
 	bootLogo.play("fadeOut")
 	await bootLogo.animation_finished;

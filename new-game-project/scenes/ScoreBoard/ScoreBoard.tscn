@@ -1,13 +1,14 @@
 [gd_scene load_steps=9 format=3 uid="uid://d0xtg78elk7nc"]
 
-[ext_resource type="Script" uid="uid://dm2ie0epcqjiu" path="res://scenes/ScoreBoard/ScoreBoard.gd" id="1_xij0p"]
-[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="2_863ym"]
+[ext_resource type="Texture2D" uid="uid://iskq46wssdwh" path="res://Images/CRTmonitor.png" id="1_olc33"]
+[ext_resource type="Script" path="res://scenes/ScoreBoard/ScoreBoard.gd" id="1_xij0p"]
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="2_v1kt7"]
 [ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_8frmy"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="5_863ym"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="6_ukt20"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukt20"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v1kt7"]
+texture = ExtResource("1_olc33")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xij0p"]
 bg_color = Color(0.18655634, 0.51033926, 0.31282082, 1)
@@ -21,9 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xij0p")
 
-[node name="MenuPanelScene" parent="." instance=ExtResource("2_863ym")]
-position = Vector2(411, 464)
-
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -31,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ukt20")
+theme_override_styles/panel = SubResource("StyleBoxTexture_v1kt7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -40,8 +38,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 158.0
 offset_top = 207.0
-offset_right = -156.0
-offset_bottom = -158.0
+offset_right = 974.0
+offset_bottom = 323.0
 grow_horizontal = 2
 grow_vertical = 2
 

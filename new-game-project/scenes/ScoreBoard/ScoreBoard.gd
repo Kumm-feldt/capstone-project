@@ -49,4 +49,5 @@ func ui_create_rows(rows):
 	
 
 func _on_back_button_pressed() -> void:
+	Music.play_button_sound()
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

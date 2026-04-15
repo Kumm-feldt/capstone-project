@@ -30,6 +30,7 @@ func _on_quit():
 
 
 func _on_win_button_pressed() -> void:
+	Music.play_button_sound()
 	hide()
 	if GameManager.Mode.Local or GameManager.Mode.AI:
 		GameState.force_game_over("o")
@@ -40,6 +41,7 @@ func _on_win_button_pressed() -> void:
 			GameState.force_game_over("o")
 			
 func _on_lose_button_pressed() -> void:
+	Music.play_button_sound()
 	hide()
 	if GameManager.Mode.Local or GameManager.Mode.AI:
 		GameState.force_game_over("x")

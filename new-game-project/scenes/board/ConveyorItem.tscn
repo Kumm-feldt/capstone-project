@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4mu1bjtu0p0f"]
+
+[ext_resource type="Texture2D" uid="uid://buti1uqbwaj7" path="res://Images/spritesheets/objects.png" id="1_ppms0"]
+[ext_resource type="Script" uid="uid://d4e34afke0rip" path="res://scenes/board/ConveyorItem.gd" id="2_h2l35"]
+
+[node name="PathFollow" type="PathFollow2D"]
+rotates = false
+script = ExtResource("2_h2l35")
+
+[node name="ConveyorItem" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_ppms0")
+region_enabled = true
+region_rect = Rect2(0, 0, 25, 25)

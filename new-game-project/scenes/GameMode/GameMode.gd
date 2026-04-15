@@ -93,6 +93,7 @@ func toggle_light():
 	
 func _on_ai_mode_button_pressed() -> void:
 	toggle_light()
+	Music.play_button_sound()
 	ai_mode_popup.visible = true
 	# Connect the signal if not already connected
 	if not ai_mode_popup.popup_closed.is_connected(_on_popup_closed):
@@ -113,10 +114,12 @@ func _on_online_mode_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
+	Music.play_button_sound()
 	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")
 
 
 func _on_local_play_mode_button_pressed() -> void:
+	Music.play_button_sound()
 	GameManager.GAME_MODE = GameManager.Mode.Local
 	
 	var colorScreen = colorScreenScene.instantiate()

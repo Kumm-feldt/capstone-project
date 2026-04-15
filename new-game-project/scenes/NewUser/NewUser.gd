@@ -94,6 +94,7 @@ func _on_register_done(result, response_code, headers, body):
 		print("Failed. Code: ", response_code, " | Body: ", response)
 
 func _on_accept_button_pressed() -> void:
+	Music.play_button_sound()
 	message_label.visible = true
 	menu_panel.toggleLoadingScreen()
 	var username = username_input.text.strip_edges()  # Trim leading/trailing spaces
@@ -133,4 +134,5 @@ func _show_error(msg: String) -> void:
 
 
 func _on_exit_button_pressed() -> void:
+	Music.play_button_sound()
 	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")

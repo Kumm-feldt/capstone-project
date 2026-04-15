@@ -302,8 +302,10 @@ func _restart_round() -> void:
 
 
 func _on_start_button_pressed() -> void:
+	Music.play_button_sound()
 	_start_new_round()
 
 
 func _on_restart_button_pressed() -> void:
+	Music.play_button_sound()
 	_restart_round()
