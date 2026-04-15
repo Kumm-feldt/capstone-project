@@ -2,7 +2,6 @@ extends Control
 var http_check = HTTPRequest.new()
 var score_row_scene = preload("res://scenes/ScoreBoard/ScoreRow.tscn")
 @onready var vbox = $Panel/VBoxContainer/ScrollContainer/VBoxContainer
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_child(http_check)
