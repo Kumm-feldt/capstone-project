@@ -6,7 +6,7 @@ extends Control
 @onready var music_slider = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox/MusicSlider
 @onready var sfx_slider = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox/SFXSlider
 @onready var top_title = $Panel/TopTitleLabel
-
+@onready var custom_player_button = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton
 # Instructions nodes - adjust paths to match your scene
 @onready var left_arrow = $Panel/InstructionsPanel/left_arrow
 @onready var right_arrow = $Panel/InstructionsPanel/right_arrow
@@ -42,6 +42,7 @@ var active_sprite_name: String = ""
 var active_button: Button = null
 var original_color: Color
 var original_button_color: Color
+var first_launch = false
 
 @export var row_1_container: HBoxContainer
 @export var row_2_container: HBoxContainer
@@ -91,21 +92,24 @@ func _on_right_arrow_pressed():
 # READY
 # ============================================
 func _ready() -> void:
+	check_first_launch()
 	settings_panel.visible = true
 	customize_panel.visible = false
 	instructions_panel.visible = false
-	_setup_button_row(row_1_container)
-	_setup_button_row(row_2_container)
-	_initialize_color_grid()
-	_initialize_background_color_grid()
-	print("GameManager.prof: ", GameManager.profile_picture)
-
-	original_color = GameManager.icon_color if GameManager.icon_color is Color else Color.WHITE
-	original_button_color = GameManager.background_color if GameManager.background_color is Color else Color.GRAY
+	
+	if not first_launch:
+		_setup_button_row(row_1_container)
+		_setup_button_row(row_2_container)
+		_initialize_color_grid()
+		_initialize_background_color_grid()
+		custom_player_button.visible = true
+		original_color = GameManager.icon_color if GameManager.icon_color is Color else Color.WHITE
+		original_button_color = GameManager.background_color if GameManager.background_color is Color else Color.GRAY
 
 	# Load saved audio values
 	var config = ConfigFile.new()
 	if config.load("user://save.cfg") == OK:
+		print("ahuevos")
 		music_slider.value = config.get_value("audio", "music_volume", 1.0)
 		sfx_slider.value = config.get_value("audio", "sfx_volume", 1.0)
 	else:
@@ -305,3 +309,11 @@ func _on_tutorial_mode_button_pressed() -> void:
 	GameManager.GAME_MODE = GameManager.Mode.AI
 	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+# ============================================
+# Check first launch
+# ============================================
+func check_first_launch():
+	var config = ConfigFile.new()
+	if config.load("user://save.cfg") != OK:
+		first_launch = true
+		

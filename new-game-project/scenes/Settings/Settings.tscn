@@ -79,7 +79,6 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 81.5
@@ -125,6 +124,7 @@ text = "Instructions"
 alignment = 0
 
 [node name="CustomizePlayerButton" type="Button" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("5_y3a33")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
@@ -161,6 +161,7 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 80.5

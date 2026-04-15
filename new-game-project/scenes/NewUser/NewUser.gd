@@ -65,14 +65,12 @@ func register_player(username: String):
 
 func _on_register_done(result, response_code, headers, body):
 	var raw = body.get_string_from_utf8()
-	print("Raw body: ", raw)  # <-- Add this to debug
-
 	var response = JSON.parse_string(body.get_string_from_utf8())
-	print("Response code: ", response_code)
-	print("Response body: ", response)
+	
 	if response_code == 201:
-		print("Successfully registered!")
 		var config = ConfigFile.new()
+		config.load("user://save.cfg")
+		
 		GameManager.username = username_input.text.strip_edges()
 		GameManager.icon_color = default_color
 		GameManager.background_color = default_background_color
