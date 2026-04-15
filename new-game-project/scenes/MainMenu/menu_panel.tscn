@@ -1,8 +1,9 @@
-[gd_scene load_steps=48 format=3 uid="uid://coq76pru5eq40"]
+[gd_scene load_steps=52 format=3 uid="uid://c0jnblqwn8om2"]
 
 [ext_resource type="Script" uid="uid://d1u1xiplachjq" path="res://scenes/MainMenu/MenuPanelScene.gd" id="1_k5y0a"]
 [ext_resource type="Texture2D" uid="uid://cud8ajyh2obc5" path="res://Images/CRTBackglow.png" id="2_oh22v"]
 [ext_resource type="Texture2D" uid="uid://cbmqf2jlc0qff" path="res://Images/spritesheets/bootLogoAnim.png" id="2_vatd4"]
+[ext_resource type="Texture2D" uid="uid://d3pbq5g6gfjdb" path="res://Images/spritesheets/RegisteringText.png" id="3_51upk"]
 [ext_resource type="Texture2D" uid="uid://clarnx6wrhxb7" path="res://Images/spritesheets/loadingScreen.png" id="3_tsfht"]
 [ext_resource type="Texture2D" uid="uid://bvyi1753oiuly" path="res://Images/powerIndicatorOff.png" id="3_vatd4"]
 [ext_resource type="Texture2D" uid="uid://bpjuv8dd2gtwo" path="res://Images/CRTbezel.png" id="3_x6eyo"]
@@ -175,8 +176,42 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iwijb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi36k"]
 atlas = ExtResource("4_tsfht")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ink5"]
+atlas = ExtResource("4_tsfht")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3w25"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi36k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi36k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi36k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi36k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi36k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ink5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwijb"]
+atlas = ExtResource("3_51upk")
 region = Rect2(0, 0, 200, 200)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_osp0a"]
@@ -306,6 +341,7 @@ scale = Vector2(1, 1.0000001)
 color = Color(0.18039216, 0.13333334, 0.18431373, 1)
 
 [node name="BootLogo" type="AnimatedSprite2D" parent="BlackScreen"]
+visible = false
 position = Vector2(967.7502, 525.8749)
 scale = Vector2(3.1819992, 3.181999)
 sprite_frames = SubResource("SpriteFrames_n1ksn")
@@ -320,17 +356,23 @@ offset_bottom = 1080.0
 color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 
 [node name="LoadingText" type="AnimatedSprite2D" parent="LoadingScreen"]
+visible = false
 position = Vector2(941.00006, 540)
 scale = Vector2(2.4, 2.4)
+sprite_frames = SubResource("SpriteFrames_i3w25")
+
+[node name="RegisteringText" type="AnimatedSprite2D" parent="LoadingScreen"]
+visible = false
+position = Vector2(961, 520)
+scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_gi36k")
-frame = 3
 frame_progress = 0.3191201
 
 [node name="LoadingBar" type="AnimatedSprite2D" parent="LoadingScreen"]
 position = Vector2(960, 540)
 scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_iwijb")
-frame_progress = 0.8579701
+frame_progress = 0.85746187
 
 [node name="Bezel" type="Sprite2D" parent="."]
 top_level = true
