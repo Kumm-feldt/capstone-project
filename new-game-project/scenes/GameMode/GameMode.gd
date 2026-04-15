@@ -1,6 +1,5 @@
 extends Control
 
-@onready var dim_overlay = $DimOverlay
 @onready var ai_mode_popup = $AIOptionPopup   # or use preload if it's a separate scene
 @onready var ai_mode_button = $Buttons/AIModeButton
 @onready var online_mode_popup = $OnlineOptionPopup
@@ -25,7 +24,6 @@ var colorScreenScene = load("res://scenes/ColorPicker/ColorSelectionScreen.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	dim_overlay.visible = false
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
 	light_button.turn_off_light.connect(_on_turn_off_light)
@@ -36,7 +34,7 @@ func _ready() -> void:
 		Music.play_track(GameManager.TrackMode.Default)
 	#const Transition = preload("res://scenes/Transition.tscn")
 func _on_logout_message():
-	dim_overlay.visible = true
+	toggle_light()
 	if active_popup_warning:
 		return
 	# Create the instance
@@ -51,7 +49,7 @@ func _on_logout_message():
 	active_popup_warning.get_node("Panel/AcceptButton").pressed.connect(_close_pop_up_warning)
 	
 func _on_show_settings():
-	dim_overlay.visible = true
+	toggle_light()
 	if active_popup:
 		return
 	# Create the instance
@@ -69,14 +67,14 @@ func _on_show_settings():
 	
 func _close_popup() -> void:
 	if active_popup:
-		dim_overlay.visible = false
+		toggle_light()
 		
 		active_popup.queue_free()
 		active_popup = null
 		
 func _close_pop_up_warning()-> void:
 	if active_popup_warning:
-		dim_overlay.visible = false
+		toggle_light()
 		active_popup_warning.queue_free()
 		active_popup_warning = null
 		
@@ -87,9 +85,14 @@ func _on_turn_off_light():
 	else:
 		off_panel.visible = true
 	
+func toggle_light():
+	if off_panel.visible:
+		off_panel.visible = false
+	else:
+		off_panel.visible = true
 	
 func _on_ai_mode_button_pressed() -> void:
-	dim_overlay.visible = true
+	toggle_light()
 	ai_mode_popup.visible = true
 	# Connect the signal if not already connected
 	if not ai_mode_popup.popup_closed.is_connected(_on_popup_closed):
@@ -98,10 +101,10 @@ func _on_ai_mode_button_pressed() -> void:
 func _on_popup_closed():
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
-	dim_overlay.visible = false
+	toggle_light()
 	
 func _on_online_mode_pressed() -> void:
-	dim_overlay.visible = true
+	toggle_light()
 	online_mode_popup.visible = true
 	GameManager.GAME_MODE = GameManager.Mode.Multiplayer
 	# Connect the signal if not already connected
