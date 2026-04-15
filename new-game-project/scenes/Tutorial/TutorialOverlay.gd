@@ -27,7 +27,7 @@ var lines = [
 	"Orthogonal moves do not place nodes - they reposition your robots.",
 	"Try moving a robot orthogonally!",
 	"You can capture an opponent robot by jumping over it in a straight line into an empty space.",
-	"The opponent robot is removed from the game. Kablooey!",
+
 	"Try capturing an opponent robot!",
 	"Destroying ALL opponent robots ends in a draw - be careful!",
 	"When your chain connects head and tail, you win immediately!",

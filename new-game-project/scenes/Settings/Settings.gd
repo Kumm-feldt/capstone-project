@@ -7,7 +7,10 @@ extends Control
 @onready var sfx_slider = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox/SFXSlider
 @onready var top_title = $Panel/TopTitleLabel
 @onready var custom_player_button = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton
-# Instructions nodes - adjust paths to match your scene
+
+@onready var instructions_title = $Panel/InstructionsPanel/TitleLabel
+@onready var instructions_body = $Panel/InstructionsPanel/HBoxContainer/BodyLabel
+@onready var instructions_image = $Panel/InstructionsPanel/PageImage
 @onready var left_arrow = $Panel/InstructionsPanel/left_arrow
 @onready var right_arrow = $Panel/InstructionsPanel/right_arrow
 @onready var page_image = $Panel/InstructionsPanel/PageImage
@@ -53,13 +56,29 @@ var first_launch = false
 var current_page = 0
 var pages = [
     {
-        "image": null  # page 0 - shows scroll container text
+        "title": "Goal of the Game",
+        "body": "Connect your snake's head and tail (at opposite corners of the board)\n with an unbroken chain of your nodes.\n\nOnly orthogonal connections count - up, down, left and right.\n\nThe first player to complete their chain wins!",
+        "image": null  # preload("res://path/to/goal_image.png")
     },
     {
-        "image": preload("res://Images/Game Pieces/node1Blue.png") # replace with preload("res://path/to/image1.png")
+        "title": "Diagonal Jumps",
+        "body": "Move a robot one space diagonally to an empty intersection.\n\nAs it moves, it passes over one grid space. If empty, your node is placed there!\n\nIf the space has your opponent's node, it flips to your color.",
+        "image": null  # preload("res://path/to/diagonal_image.png")
     },
     {
-        "image": null  # replace with preload("res://path/to/image2.png")
+        "title": "Orthogonal Moves",
+        "body": "Move a robot one space up, down, left, or right.\n\nOrthogonal moves do not place or flip any nodes.\n\nUse them to reposition your robots for better diagonal jumps later.",
+        "image": null  # preload("res://path/to/orthogonal_image.png")
+    },
+    {
+        "title": "Robot Captures",
+        "body": "If an opponent's robot is orthogonally adjacent to yours, you can jump over it,\ntaking it out of the game!\n\nThere must be an empty space for your robot to land.\n\nNo multi-jumps allowed.",
+        "image": null  # preload("res://path/to/capture_image.png")
+    },
+    {
+        "title": "Other Rules",
+        "body": "Be careful - destroying all of the other player's robots will result in a draw!\n\nDiagonal connections between nodes do not count toward your chain.\n\nYou may only move ONE robot per turn.",
+        "image": null  # preload("res://path/to/other_image.png")
     },
 ]
 # ============================================
@@ -72,16 +91,13 @@ func check_first_launch():
         
 func update_instructions_page():
     var page = pages[current_page]
-    if current_page == 0:
-        scroll_container.visible = true
-        page_image.visible = false
+    instructions_title.text = page["title"]
+    instructions_body.text = page["body"]
+    if page["image"] != null:
+        instructions_image.texture = page["image"]
+        instructions_image.visible = true
     else:
-        scroll_container.visible = false
-        if page["image"] != null:
-            page_image.texture = page["image"]
-            page_image.visible = true
-        else:
-            page_image.visible = false
+        instructions_image.visible = false
     left_arrow.disabled = current_page == 0
     right_arrow.disabled = current_page == pages.size() - 1
 
@@ -130,7 +146,16 @@ func _ready() -> void:
     # Connect arrow buttons
     left_arrow.pressed.connect(_on_left_arrow_pressed)
     right_arrow.pressed.connect(_on_right_arrow_pressed)
+    
+    var inst_font = preload("res://fonts/CyberpunkCraftpixPixel.otf")
+    var inst_color = Color("374e4a")
+    instructions_title.add_theme_font_size_override("font_size", 32)
+    instructions_body.add_theme_font_size_override("font_size", 17)
+    instructions_title.add_theme_font_override("font", inst_font)
+    instructions_title.add_theme_color_override("font_color", inst_color)
 
+    instructions_body.add_theme_font_override("font", inst_font)
+    instructions_body.add_theme_color_override("font_color", inst_color)
 # ============================================
 # AUDIO
 # ============================================

@@ -88,6 +88,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 81.5
@@ -187,7 +188,6 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 80.5
@@ -209,6 +209,23 @@ text = "Options"
 position = Vector2(15, 21)
 scale = Vector2(1, 0.99999976)
 texture = ExtResource("7_7mwmr")
+
+[node name="TitleLabel" type="Label" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 72.0
+offset_right = 294.0
+offset_bottom = 127.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 91.0
+offset_right = 557.0
+offset_bottom = 466.0
+
+[node name="BodyLabel" type="Label" parent="Panel/InstructionsPanel/HBoxContainer"]
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/InstructionsPanel"]
 visible = false
@@ -265,6 +282,7 @@ theme_override_font_sizes/font_size = 33
 text = "Tutorial "
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="Panel/InstructionsPanel"]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 88.0
@@ -300,39 +318,46 @@ Capturing lets you jump over one opponent robot in a straight line into an empty
 removing that robot from the game.
 You cannot capture your own robots"
 
+[node name="PageImage" type="TextureRect" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 629.0
+offset_top = 79.0
+offset_right = 932.0
+offset_bottom = 339.0
+
 [node name="left_arrow" type="Button" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 848.0
-offset_top = 417.0
-offset_right = 911.0
-offset_bottom = 470.0
+offset_left = 835.0
+offset_top = 438.0
+offset_right = 869.0
+offset_bottom = 491.0
 flat = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Panel/InstructionsPanel/left_arrow"]
-position = Vector2(23.500023, 18.000006)
-scale = Vector2(2.1750011, 1.9000003)
+position = Vector2(12.750003, 19.999994)
+scale = Vector2(2.2125, 1.8499998)
 texture = ExtResource("7_7mwmr")
 
 [node name="right_arrow" type="Button" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 876.0
-offset_top = 404.0
-offset_right = 947.0
-offset_bottom = 467.0
+offset_left = 877.0
+offset_top = 430.0
+offset_right = 950.0
+offset_bottom = 488.0
 flat = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Panel/InstructionsPanel/right_arrow"]
-position = Vector2(42.00002, 31.999985)
+position = Vector2(40, 22)
 scale = Vector2(2.0875008, 1.8124993)
 texture = ExtResource("7_7mwmr")
 flip_h = true
 
-[node name="PageImage" type="TextureRect" parent="Panel/InstructionsPanel"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 370.0
-offset_top = 136.0
-offset_right = 555.0
-offset_bottom = 254.0
+offset_left = 59.0
+offset_top = 364.0
+offset_right = 197.0
+offset_bottom = 465.0
 
 [node name="TutorialMode" type="Button" parent="Panel/InstructionsPanel"]
 custom_minimum_size = Vector2(250, 60)

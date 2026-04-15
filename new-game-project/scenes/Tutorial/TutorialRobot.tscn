@@ -241,11 +241,11 @@ patch_margin_right = 10
 patch_margin_bottom = 10
 
 [node name="TootWords" type="Label" parent="SpeechBubble"]
-custom_minimum_size = Vector2(120, 60)
 layout_mode = 0
-offset_top = 1.0
-offset_right = 38.0
-offset_bottom = 31.0
+offset_left = -16.0
+offset_top = -4.0
+offset_right = 46.0
+offset_bottom = 44.0
 
 [node name="Continue" type="Label" parent="SpeechBubble"]
 layout_mode = 0
