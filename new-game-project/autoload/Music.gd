@@ -12,10 +12,11 @@ var match_track = "res://Sound/Music/game_loop.wav"
 var victory_stinger = "res://Sound/Music/stinger_victory_v2.wav"
 var defeat_stinger = "res://Sound/Music/stinger_defeat_v2.wav"
 var button = "res://Sound/SFX/Button_1.wav"
-var error = "res://Sound/SFX/Error-2.wav"
 var explosion = "res://Sound/SFX/Explostion_1.wav"
-var reboot = "res://Sound/SFX/Reboot_1.wav"
 var node = "res://Sound/SFX/Node on Board_2.wav"
+# need to implement still
+var error = "res://Sound/SFX/Error-2.wav"
+var reboot = "res://Sound/SFX/Reboot_1.wav"
 
 func _ready() -> void:
 	music_player = AudioStreamPlayer.new()
@@ -56,6 +57,9 @@ func play_button_sound():
 
 func play_explosion():
 	play_sfx_path(explosion)
+
+func play_add_node():
+	play_sfx_path(node)
 
 func play_track(option: GameManager.TrackMode) -> void:
 	current_track = option

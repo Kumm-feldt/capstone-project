@@ -30,14 +30,16 @@ func play_create_animation() -> void:
 	var higherPos = Vector2(position.x, -1000)
 	tween.tween_property($".", "position", higherPos, 0)
 	tween.tween_property($".", "position", currentPos, 1.0)
+	tween.tween_callback(Music.play_add_node)
 	#Fall onto it from the sky really fast
 	#Shake a bit on impact
+	await tween.finished
+	var tween2 = get_tree().create_tween()
 	var shakeVal = 0.5
 	while (shakeVal > 0):
-		tween.tween_property($".", "position", Vector2(currentPos.x + (shakeVal * 10), currentPos.y), shakeVal / 2)
-		tween.tween_property($".", "position", Vector2(currentPos.x + (shakeVal * -10), currentPos.y), shakeVal / 2)
+		tween2.tween_property($".", "position", Vector2(currentPos.x + (shakeVal * 10), currentPos.y), shakeVal / 2)
+		tween2.tween_property($".", "position", Vector2(currentPos.x + (shakeVal * -10), currentPos.y), shakeVal / 2)
 		shakeVal -= 0.1
-	pass
 	
 func play_swap_animation(oldColor:Color) -> void:
 	var tintColorString = "instance_shader_parameters/tint_color"
