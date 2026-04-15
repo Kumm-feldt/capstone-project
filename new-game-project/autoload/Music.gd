@@ -14,6 +14,7 @@ var defeat_stinger = "res://Sound/Music/stinger_defeat_v2.wav"
 var button = "res://Sound/SFX/Button_1.wav"
 var explosion = "res://Sound/SFX/Explostion_1.wav"
 var node = "res://Sound/SFX/Node on Board_2.wav"
+var jump = "res://Sound/SFX/Land_1.wav"
 # need to implement still
 var error = "res://Sound/SFX/Error-2.wav"
 var reboot = "res://Sound/SFX/Reboot_1.wav"
@@ -60,6 +61,9 @@ func play_explosion():
 
 func play_add_node():
 	play_sfx_path(node)
+
+func play_jump_sound():
+	play_sfx_path(jump)
 
 func play_track(option: GameManager.TrackMode) -> void:
 	current_track = option
