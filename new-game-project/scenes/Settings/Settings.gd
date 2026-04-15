@@ -117,11 +117,11 @@ func _ready() -> void:
     var config = ConfigFile.new()
     if config.load("user://save.cfg") == OK:
         print("ahuevos")
-        music_slider.value = config.get_value("audio", "music_volume",0.3)
-        sfx_slider.value = config.get_value("audio", "sfx_volume", 0.3)
+        music_slider.value = config.get_value("audio", "music_volume",1.0)
+        sfx_slider.value = config.get_value("audio", "sfx_volume", 1.0)
     else:
-        music_slider.value = 0.3
-        sfx_slider.value = 0.3
+        music_slider.value = 1.0
+        sfx_slider.value = 1.0
 
     # Connect sliders
     music_slider.value_changed.connect(_on_music_changed)
@@ -315,4 +315,14 @@ func _on_tutorial_mode_button_pressed() -> void:
     Music.play_button_sound()
     GameManager.GAME_MODE = GameManager.Mode.AI
     GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy
+    GameManager.IS_TUTORIAL= true
     get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+
+
+func _on_tutorial_mode_pressed() -> void:
+    Music.play_button_sound()
+    GameManager.GAME_MODE = GameManager.Mode.AI
+    GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy
+    GameManager.IS_TUTORIAL= true
+    get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+    

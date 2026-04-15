@@ -170,7 +170,7 @@ text = "Music"
 modulate = Color(0.9779369, 0.97793704, 0.9779369, 1)
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-value = 100.0
+value = 30.0
 
 [node name="SFXHBox" type="HBoxContainer" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
@@ -334,7 +334,7 @@ offset_top = 136.0
 offset_right = 555.0
 offset_bottom = 254.0
 
-[node name="Button" type="Button" parent="Panel/InstructionsPanel"]
+[node name="TutorialMode" type="Button" parent="Panel/InstructionsPanel"]
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 0
 offset_left = 350.0
@@ -548,5 +548,6 @@ text = "Accept"
 [connection signal="pressed" from="Panel/InstructionsPanel/ScrollContainer/VBoxContainer/Button" to="." method="_on_tutorial_mode_button_pressed"]
 [connection signal="pressed" from="Panel/InstructionsPanel/left_arrow" to="." method="_on_left_arrow_pressed"]
 [connection signal="pressed" from="Panel/InstructionsPanel/right_arrow" to="." method="_on_right_arrow_pressed"]
+[connection signal="pressed" from="Panel/InstructionsPanel/TutorialMode" to="." method="_on_tutorial_mode_pressed"]
 [connection signal="pressed" from="Panel/CustomizePanel/BackButton" to="." method="_on_back_customize_button_pressed"]
 [connection signal="pressed" from="Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]

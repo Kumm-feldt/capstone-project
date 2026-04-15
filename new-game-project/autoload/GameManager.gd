@@ -5,6 +5,7 @@ var GAME_OPENED = false;
 var GAME_MODE = null
 var AI_MODE_LEVEL = null
 var hosting = false
+var IS_TUTORIAL: bool = false
 
 var username 
 var player_id

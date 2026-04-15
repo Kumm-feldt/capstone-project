@@ -44,7 +44,7 @@ var disk_o_scene = preload("res://scenes/disk/DiskO.tscn")
 var disk_x_scene = preload("res://scenes/disk/DiskX.tscn")
 var robot_disk_scene = preload("res://scenes/disk/Disk.tscn")
 var hint_scene = preload("res://scenes/board/HintTarget.tscn")
-
+var tutorial_manager_script = preload("res://scenes/Tutorial/TutorialOverlay.gd")
 # ============================================
 # STATE TRACKING
 # ============================================
@@ -58,7 +58,7 @@ var move_hint_sprites = []
 # NODE REFERENCES
 # ============================================
 @onready var board_sprite = $BoardSprite
-
+@onready var tutorial_robot = $TutorialRobot
 # ============================================
 # INITIALIZATION
 # ============================================
@@ -67,7 +67,10 @@ func _ready():
 	connect_signals() 
 	render_board()
 	NetworkManager.board = self
-
+	if GameManager.IS_TUTORIAL:
+		var tutorial_manager = Node.new()
+		tutorial_manager.set_script(tutorial_manager_script)
+		add_child(tutorial_manager)
 func connect_signals():
 	"""Connect to GameState signals"""
 	GameState.connect("board_updated", _on_board_updated)

@@ -52,8 +52,8 @@ func check_first_launch():
 func apply_saved_audio():
 	var config = ConfigFile.new()
 	if config.load("user://save.cfg") == OK:
-		var music_vol = config.get_value("audio", "music_volume", 0.3)
-		var sfx_vol = config.get_value("audio", "sfx_volume", 0.3)
+		var music_vol = config.get_value("audio", "music_volume", 1.0)
+		var sfx_vol = config.get_value("audio", "sfx_volume", 1.0)
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(music_vol))
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(sfx_vol))
 		

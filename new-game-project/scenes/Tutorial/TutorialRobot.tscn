@@ -1,12 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://b25b43wd5fpkj"]
+[gd_scene load_steps=35 format=3 uid="uid://b25b43wd5fpkj"]
 
-[ext_resource type="Script" path="res://TutorialRobot.gd" id="1_g5b11"]
+[ext_resource type="Script" uid="uid://s46aq4lbhbip" path="res://scenes/Tutorial/TutorialRobot.gd" id="1_g5b11"]
 [ext_resource type="Texture2D" uid="uid://c4hd8yjfggfv5" path="res://Images/TutorialImages/chair.png" id="2_6buvc"]
 [ext_resource type="Texture2D" uid="uid://dy3gtijeaps4k" path="res://Images/spritesheets/mrTutorial/mrTutorialTalk2.png" id="2_cmmu5"]
 [ext_resource type="Texture2D" uid="uid://bmwirabaejcwf" path="res://Images/spritesheets/mrTutorial/mrTutorialTalk1.png" id="3_u6u4a"]
 [ext_resource type="Texture2D" uid="uid://cke4ouel4ymsd" path="res://Images/spritesheets/mrTutorial/mrTutorialIdle.png" id="4_6buvc"]
 [ext_resource type="Texture2D" uid="uid://b5qxons5gsdts" path="res://Images/spritesheets/mrTutorial/mrTutorialSmug.png" id="5_c35he"]
 [ext_resource type="Texture2D" uid="uid://dn2mhc68t7idq" path="res://Images/spritesheets/mrTutorial/mrTutorialWakeUp.png" id="6_c35he"]
+[ext_resource type="Texture2D" uid="uid://cam3mf66nklom" path="res://SpeechBubbleNineRect.png" id="8_5d3y4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c35he"]
 atlas = ExtResource("2_cmmu5")
@@ -228,8 +229,27 @@ script = ExtResource("1_g5b11")
 z_index = -1
 texture = ExtResource("2_6buvc")
 
-[node name="SpeechBubble" type="Sprite2D" parent="."]
+[node name="SpeechBubble" type="NinePatchRect" parent="."]
+offset_left = 12.0
+offset_top = -49.0
+offset_right = 49.0
+offset_bottom = -15.0
+texture = ExtResource("8_5d3y4")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
 
 [node name="TootWords" type="Label" parent="SpeechBubble"]
-offset_right = 40.0
-offset_bottom = 23.0
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 0
+offset_top = 1.0
+offset_right = 38.0
+offset_bottom = 31.0
+
+[node name="Continue" type="Label" parent="SpeechBubble"]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 30.0
+offset_right = 59.0
+offset_bottom = 75.0
