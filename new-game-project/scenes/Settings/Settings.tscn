@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=22 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
@@ -13,6 +13,7 @@
 [ext_resource type="Theme" uid="uid://exsl4mgdtxlt" path="res://Themes/theme_text.tres" id="8_kj0qs"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="8_n2orn"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="10_10m73"]
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="11_dtys3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f3efy"]
 texture = ExtResource("1_k2lax")
@@ -160,12 +161,11 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 80.5
-offset_right = 957.0
-offset_bottom = 571.5
+offset_right = 968.0
+offset_bottom = 569.5
 theme_override_styles/panel = SubResource("StyleBoxEmpty_83sd7")
 
 [node name="BackButton" type="Button" parent="Panel/InstructionsPanel"]
@@ -184,11 +184,12 @@ scale = Vector2(1, 0.99999976)
 texture = ExtResource("7_7mwmr")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/InstructionsPanel"]
+visible = false
 layout_mode = 0
 offset_left = 41.0
 offset_top = 82.0
-offset_right = 910.0
-offset_bottom = 447.0
+offset_right = 1066.0
+offset_bottom = 924.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/InstructionsPanel/ScrollContainer"]
 layout_mode = 2
@@ -236,7 +237,91 @@ theme = ExtResource("8_n2orn")
 theme_override_font_sizes/font_size = 33
 text = "Tutorial "
 
+[node name="ScrollContainer2" type="ScrollContainer" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 88.0
+offset_right = 955.0
+offset_bottom = 492.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/InstructionsPanel/ScrollContainer2"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Panel/InstructionsPanel/ScrollContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_dtys3")
+text = "How to play
+Goal: Connect your snake's head and tail (at opposite corners of the board) 
+with an unbroken chain of your nodes.
+
+The Board: A 6×6 grid where nodes are placed, 
+with line intersections around the spaces where robots move.
+
+On your turn, move exactly ONE of your robots. 
+There are three move types:
+
+
+A diagonal jump move a robot one space diagonally, 
+and it places your node on the space it passes over, 
+or flips an opponent's node to your color.
+
+
+An orthogonal move shifts a robot one space up, down, left, or right 
+without affecting any nodes, useful for repositioning. 
+
+Capturing lets you jump over one opponent robot in a straight line into an empty space, 
+removing that robot from the game.
+You cannot capture your own robots"
+
+[node name="left_arrow" type="Button" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 848.0
+offset_top = 417.0
+offset_right = 911.0
+offset_bottom = 470.0
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/InstructionsPanel/left_arrow"]
+position = Vector2(23.500023, 18.000006)
+scale = Vector2(2.1750011, 1.9000003)
+texture = ExtResource("7_7mwmr")
+
+[node name="right_arrow" type="Button" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 876.0
+offset_top = 404.0
+offset_right = 947.0
+offset_bottom = 467.0
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/InstructionsPanel/right_arrow"]
+position = Vector2(42.00002, 31.999985)
+scale = Vector2(2.0875008, 1.8124993)
+texture = ExtResource("7_7mwmr")
+flip_h = true
+
+[node name="PageImage" type="TextureRect" parent="Panel/InstructionsPanel"]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 136.0
+offset_right = 555.0
+offset_bottom = 254.0
+
+[node name="Button" type="Button" parent="Panel/InstructionsPanel"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 0
+offset_left = 350.0
+offset_top = 11.0
+offset_right = 600.0
+offset_bottom = 71.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("8_n2orn")
+theme_override_font_sizes/font_size = 33
+text = "Tutorial "
+
 [node name="CustomizePanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 32.0
 offset_top = 80.5
@@ -434,5 +519,7 @@ text = "Accept"
 [connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton" to="." method="_on_customize_player_button_pressed"]
 [connection signal="pressed" from="Panel/InstructionsPanel/BackButton" to="." method="_on_back_instructions_button_pressed"]
 [connection signal="pressed" from="Panel/InstructionsPanel/ScrollContainer/VBoxContainer/Button" to="." method="_on_tutorial_mode_button_pressed"]
+[connection signal="pressed" from="Panel/InstructionsPanel/left_arrow" to="." method="_on_left_arrow_pressed"]
+[connection signal="pressed" from="Panel/InstructionsPanel/right_arrow" to="." method="_on_right_arrow_pressed"]
 [connection signal="pressed" from="Panel/CustomizePanel/BackButton" to="." method="_on_back_customize_button_pressed"]
 [connection signal="pressed" from="Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]
