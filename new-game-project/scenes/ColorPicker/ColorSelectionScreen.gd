@@ -36,6 +36,8 @@ func setGamemode(givenGamemode:String) -> void:
 	gamemode = givenGamemode;
 
 func _ready() -> void:
+	#Connect to menuPanelScene
+	$MenuPanelScene.connect("powerOff", _on_powerPause);
 	#First, print the correct message
 	messageBox = get_node("InstructionBox/InstructionBoxText");
 	setFirstMessage();
@@ -45,7 +47,7 @@ func _ready() -> void:
 		label_player_2.text = "CPU"
 	elif GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		label_player_1.text = "You"
-		label_player_2.text =  "Oponent"
+		label_player_2.text =  "Opponent"
 		
 	#Make sure to set the robots to their base color, light grey
 	
@@ -64,6 +66,14 @@ func _ready() -> void:
 		setMessageBoxText("Choose Player Two's Color!")
 	return Color("#ffffff")
 	
+
+func _on_powerPause(on: bool) -> void:
+	if on:
+		$ColorGrid.process_mode = Node.PROCESS_MODE_DISABLED
+	else:
+		$ColorGrid.process_mode = Node.PROCESS_MODE_INHERIT
+
+
 func setFirstMessage() -> void:
 	if (gamemode == "EasyAI" || gamemode == "HardAI" 
 	|| gamemode == "NetworkHost" || gamemode == "NetworkJoin"):

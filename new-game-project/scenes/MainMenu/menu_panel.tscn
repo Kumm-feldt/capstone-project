@@ -329,18 +329,33 @@ animations = [{
 }]
 
 [node name="MenuPanelScene" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_k5y0a")
 
 [node name="BlackScreen" type="ColorRect" parent="."]
 visible = false
 top_level = true
+z_index = 20
+z_as_relative = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+focus_mode = 1
+mouse_behavior_recursive = 2
+color = Color(0.031221164, 0.031221166, 0.031221166, 1)
+
+[node name="BootScreen" type="ColorRect" parent="."]
+visible = false
+top_level = true
+z_index = 10
 offset_right = 1920.0
 offset_bottom = 1080.0
 scale = Vector2(1, 1.0000001)
-color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+mouse_behavior_recursive = 2
+color = Color(0.0441984, 0.13263321, 0.0538634, 1)
 
-[node name="BootLogo" type="AnimatedSprite2D" parent="BlackScreen"]
+[node name="BootLogo" type="AnimatedSprite2D" parent="BootScreen"]
 visible = false
+z_index = 1
 position = Vector2(967.7502, 525.8749)
 scale = Vector2(3.1819992, 3.181999)
 sprite_frames = SubResource("SpriteFrames_n1ksn")
@@ -376,9 +391,25 @@ frame_progress = 0.9824534
 [node name="Bezel" type="Sprite2D" parent="."]
 top_level = true
 clip_children = 2
+z_index = 25
 position = Vector2(960.00006, 540)
 scale = Vector2(2.4, 2.3999999)
 texture = ExtResource("3_x6eyo")
+
+[node name="PowerButton" type="TextureButton" parent="Bezel"]
+top_level = true
+z_index = 30
+offset_left = 1766.4617
+offset_top = 1022.35626
+offset_right = 1779.4617
+offset_bottom = 1035.3562
+scale = Vector2(2.4, 2.4)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource("5_tsfht")
+texture_pressed = ExtResource("6_51upk")
+stretch_mode = 4
 
 [node name="Backglow" type="Sprite2D" parent="Bezel"]
 show_behind_parent = true
@@ -393,28 +424,17 @@ centered = false
 visible = false
 modulate = Color(1, 1, 1, 0.3882353)
 top_level = true
+z_index = 13
 position = Vector2(960, 540)
 scale = Vector2(2.4, 2.4)
 texture = ExtResource("4_x6eyo")
 
 [node name="PowerLightOff" type="Sprite2D" parent="Bezel"]
 visible = false
-position = Vector2(367.50003, 207.50003)
-scale = Vector2(1, 1.0000001)
+top_level = true
+z_index = 30
+position = Vector2(1842, 1038)
+scale = Vector2(2.4, 2.4)
 texture = ExtResource("3_vatd4")
 
-[node name="PowerButton" type="TextureButton" parent="."]
-offset_left = 1766.4617
-offset_top = 1022.35626
-offset_right = 1779.4617
-offset_bottom = 1035.3562
-scale = Vector2(2.4, 2.4)
-size_flags_horizontal = 0
-size_flags_vertical = 0
-toggle_mode = true
-button_pressed = true
-texture_normal = ExtResource("5_tsfht")
-texture_pressed = ExtResource("6_51upk")
-stretch_mode = 4
-
-[connection signal="toggled" from="PowerButton" to="." method="_on_power_button_toggled"]
+[connection signal="pressed" from="Bezel/PowerButton" to="." method="_on_power_button_pressed"]

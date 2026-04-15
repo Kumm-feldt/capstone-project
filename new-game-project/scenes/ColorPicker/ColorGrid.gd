@@ -38,10 +38,12 @@ func fillColorGrid() -> void:
 		swatch.mouse_entered.connect(on_ColorSwatch_mouse_entered.bind(swatch))
 		swatch.pressed.connect(on_ColorSwatch_pressed.bind(swatch))
 		
+
 func on_ColorSwatch_mouse_entered(swatch: ColorSwatch) -> void:
 	selectedColor = swatch.color;
 	colorChanged.emit(swatch.color, false);
 	pass
+	
 		
 func on_ColorSwatch_pressed(swatch: ColorSwatch) -> void:
 	selectedColor = swatch.color;

@@ -19,7 +19,7 @@ func _ready() -> void:
 			GameManager.GAME_OPENED = true;
 	print("not setted yet")
 	check_first_launch() 
-	apply_saved_audio()
+	#apply_saved_audio()
 	print("Everything setted")
 
 func _on_any_button_pressed():

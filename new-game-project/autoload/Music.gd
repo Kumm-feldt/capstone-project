@@ -64,6 +64,12 @@ func _get_sfx_player() -> AudioStreamPlayer:
 
 func stop_music() -> void:
 	music_player.stop()
+	
+func pause_music() -> void:
+	music_player.stream_paused = true;
+
+func resume_music() -> void:
+	music_player.stream_paused = false;
 
 func play_default_track():
 	play_track(GameManager.TrackMode.Default)
