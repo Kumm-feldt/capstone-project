@@ -89,11 +89,13 @@ func _on_discovered_servers_ui(servers):
 	
 	
 func _on_join_button_pressed(ip, host):
+	Music.play_button_sound()
 	GameManager.multiplayer_username = host + "-host"
 	NetworkManager.join_game(ip)
 
 
 func _on_back_button_pressed() -> void:
+	Music.play_button_sound()
 	# stop searching for game
 	await NetworkManager.stop_searching()
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")

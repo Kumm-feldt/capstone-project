@@ -54,9 +54,11 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_back_button_pressed() -> void:
+	Music.play_button_sound()
 	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")
 
 func _on_button_pressed() -> void:
+	Music.play_button_sound()
 	GameManager.GAME_MODE = GameManager.Mode.AI
 	GameManager.AI_MODE_LEVEL = GameManager.AILevel.Easy
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")

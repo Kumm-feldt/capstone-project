@@ -16,11 +16,13 @@ func _ready() -> void:
 
 
 func _on_resume_button_pressed() -> void:
+	Music.play_button_sound()
 	emit_signal("resume_match")
 
 func _on_leave_button_pressed() -> void:	
 	# User left the match
 	# If already disconnected (other player left first), just go to menu
+	Music.play_button_sound()
 	if multiplayer.multiplayer_peer == null:
 		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 		return

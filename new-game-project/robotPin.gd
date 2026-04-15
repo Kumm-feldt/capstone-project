@@ -121,6 +121,7 @@ func _pin_capture_up(capTarget: AnimatedSprite2D) -> void:
 	self.z_index = 0
 	
 	play("upEndJump")
+	Music.play_land_sound()
 	
 	await self.animation_finished;
 	
@@ -174,6 +175,7 @@ func _pin_capture_down(capTarget: AnimatedSprite2D) -> void:
 	self.z_index = 0
 	
 	play("downEndJump")
+	Music.play_land_sound()
 	
 	await self.animation_finished;
 	
@@ -227,6 +229,7 @@ func _pin_capture_left(capTarget: AnimatedSprite2D) -> void:
 	self.z_index = 0
 	
 	play("diagonalDownEndJump")
+	Music.play_land_sound()
 	
 	await self.animation_finished;
 	
@@ -281,6 +284,7 @@ func _pin_capture_right(capTarget: AnimatedSprite2D) -> void:
 	self.z_index = 0
 	
 	play("diagonalDownEndJump")
+	Music.play_land_sound()
 	
 	await self.animation_finished;
 	
@@ -316,6 +320,7 @@ func _pin_move_up() -> void:
 	await tween3.finished
 	
 	play("upEndJump")
+	Music.play_land_sound()
 	
 	await self.animation_finished;
 	
@@ -349,6 +354,7 @@ func _pin_move_down() -> void:
 	await tween3.finished
 	
 	play("downEndJump")
+	Music.play_land_sound()
 	
 	await self.animation_finished;
 	
@@ -382,6 +388,7 @@ func _pin_move_horizontal(left: bool) -> void:
 		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
+		Music.play_land_sound()
 		await self.animation_finished;
 		
 		self.flip_h = false;
@@ -406,6 +413,7 @@ func _pin_move_horizontal(left: bool) -> void:
 		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
+		Music.play_land_sound()
 		await self.animation_finished;
 	
 	play ("idle")
@@ -435,6 +443,7 @@ func _pin_move_diagonal_up(left: bool) -> void:
 		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalUpEndJump")
+		Music.play_land_sound()
 		await self.animation_finished;
 		
 		self.flip_h = false;
@@ -459,6 +468,7 @@ func _pin_move_diagonal_up(left: bool) -> void:
 		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalUpEndJump")
+		Music.play_land_sound()
 		await self.animation_finished;
 	
 	play ("idle")
@@ -488,6 +498,7 @@ func _pin_move_diagonal_down(left: bool) -> void:
 		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
+		Music.play_land_sound()
 		await self.animation_finished;
 		
 		self.flip_h = false;
@@ -512,6 +523,7 @@ func _pin_move_diagonal_down(left: bool) -> void:
 		tween3.tween_property(self, "position", newPos, 0.2)
 		await tween3.finished
 		play("diagonalDownEndJump")
+		Music.play_land_sound()
 		await self.animation_finished;
 	
 	play ("idle")
