@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccniks3ikqf7r"]
+[gd_scene load_steps=10 format=3 uid="uid://ccniks3ikqf7r"]
 
 [ext_resource type="Script" uid="uid://ddmahyhgpbpqs" path="res://scenes/Banner.gd" id="1_5en4g"]
 [ext_resource type="Texture2D" uid="uid://ri2g0i0a8m2j" path="res://Images/aseprite Files/turnTrackerBar.png" id="2_75u2n"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="3_75u2n"]
 [ext_resource type="Texture2D" uid="uid://bsi73nynme4v2" path="res://buttons/pause.png" id="4_3wlde"]
 [ext_resource type="Texture2D" uid="uid://c6doe8b3qiwji" path="res://assets/ui/animation sprites/led2.png" id="6_3wlde"]
+[ext_resource type="PackedScene" uid="uid://cqhf76uu66svw" path="res://scenes/PlayerIcon/PlayerIcon.tscn" id="7_xpksx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3wlde"]
 texture = ExtResource("2_75u2n")
@@ -92,5 +93,9 @@ scale = Vector2(0.011114153, 0.030216131)
 texture = ExtResource("6_3wlde")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="PlayerIcon" parent="." instance=ExtResource("7_xpksx")]
+position = Vector2(959, 1002.99994)
+scale = Vector2(1.8257575, 1.8257573)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

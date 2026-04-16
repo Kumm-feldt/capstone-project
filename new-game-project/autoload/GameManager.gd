@@ -1,32 +1,40 @@
 extends Node
 
+# ============================================
+# POINTS LOGIC (ENABLED ONLY FOR GAME OVER THE NETWORK)
+# ============================================
 var WIN_POINTS = 100
 var LOSE_POINTS = 50
 
-
-
-
 var GAME_OPENED = false;
 
+# ============================================
+# GAME MODES AND STATUS
+# ============================================
 var GAME_MODE = null
 var AI_MODE_LEVEL = null
 var hosting = false
 var IS_TUTORIAL: bool = false
 
+var ai_icon = "Happy"
+# filled only when playing over the network
+var multiplayer_icon 
+var multiplayer_username 
+
 var username 
 var player_id
 var color
 
+# ============================================
+# USER'S ICON INFO
+# ============================================
 var icon_color
 var background_color
 var profile_picture
 
-
 var current_score
 var player1_color = Color(1.0, 0.206, 0.154, 1.0)
 var player2_color = Color(0.211, 0.439, 1.0, 1.0)
-
-var multiplayer_username
 
 enum Mode {
 	Local,
@@ -48,6 +56,10 @@ enum AILevel {
 	Difficult
 }
 
+
+# ============================================
+# HELPER FUNCTION USED IN DIFFERENT FILES
+# ============================================
 func get_safe_color(raw) -> Color:
 	if raw is Color:
 		return raw
