@@ -36,9 +36,9 @@ func _ready() -> void:
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		# if it is hosting, special case
 		if GameManager.hosting:
-			player = "Your"
-		else:
 			player = GameManager.multiplayer_username+"'s"
+		else:
+			player = "Your"
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
 		player = "Your"
 	elif GameManager.GAME_MODE == GameManager.Mode.Local:

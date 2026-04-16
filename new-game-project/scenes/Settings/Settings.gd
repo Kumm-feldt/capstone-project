@@ -132,7 +132,6 @@ func _ready() -> void:
 	# Load saved audio values
 	var config = ConfigFile.new()
 	if config.load("user://save.cfg") == OK:
-		print("ahuevos")
 		music_slider.value = config.get_value("audio", "music_volume",1.0)
 		sfx_slider.value = config.get_value("audio", "sfx_volume", 1.0)
 	else:

@@ -17,10 +17,8 @@ func _ready() -> void:
 		if not testing:
 			await $MenuPanelScene.on_game_opened()
 			GameManager.GAME_OPENED = true;
-	print("not setted yet")
 	check_first_launch() 
 	#apply_saved_audio()
-	print("Everything setted")
 
 func _on_any_button_pressed():
 	Music.play_button_sound()
@@ -46,7 +44,6 @@ func check_first_launch():
 		GameManager.background_color = config.get_value("player", "background_color", "000000")
 		GameManager.icon_color = config.get_value("player", "color", "ffffff")
 		GameManager.profile_picture = config.get_value("player", "picture", "Derby")
-		print("gamemanager is set!")
 
 		
 func apply_saved_audio():

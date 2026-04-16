@@ -51,14 +51,12 @@ func pause_game():
 	if game_active and not game_paused:
 		game_paused = true
 		emit_signal("game_paused_changed", true)
-		print("Game paused")
 
 func unpause_game():
 	"""Unpause the game"""
 	if game_active and game_paused:
 		game_paused = false
 		emit_signal("game_paused_changed", false)
-		print("Game unpaused")
 
 func toggle_pause():
 	"""Toggle pause state"""
@@ -93,7 +91,6 @@ func move_pin(coordinates: String, player: String) -> bool:
 	var to_col = to_c.unicode_at(0) - "a".unicode_at(0)
 	
 	var current_pin_to_move = PINS[from_row][from_col]	
-	print(coordinates)
 	var invalid_text = "Invalid\nMove"
 	# Validate move
 	if not is_valid_move(from_row, from_col, to_row, to_col, player):
@@ -193,12 +190,10 @@ func put_coin(row: int, col: int, player: String):
 	
 	if old_state != player and old_state != '.':
 		# Flip existing coin
-		print("coin placed")
 		COINS[row][col] = player
 		emit_signal("coin_flipped", Vector2i(col, row), old_state, player)
 	elif old_state == '.':
 		# Place new coin
-		print("coin placed")
 		COINS[row][col] = player
 		emit_signal("coin_placed", Vector2i(col, row), player)
 
@@ -357,17 +352,17 @@ func check_draw_condition() -> bool:
 	
 	# Check if current player has been eliminated (all pins captured)
 	if is_player_eliminated(current_player):
-		print("Draw: Player %s has no pins left!" % current_player)
+		#print("Draw: Player %s has no pins left!" % current_player)
 		return true
 	
 	# Check if current player has no legal moves
 	if not has_legal_moves(current_player):
-		print("Draw: Player %s has no legal moves!" % current_player)
+		#print("Draw: Player %s has no legal moves!" % current_player)
 		return true
 	
 	# Check for repetitive position
 	if is_position_repeated():
-		print("Draw: Position repeated too many times!")
+		#print("Draw: Position repeated too many times!")
 		return true
 	
 	return false

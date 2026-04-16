@@ -41,7 +41,6 @@ func _ready() -> void:
 	#First, print the correct message
 	messageBox = get_node("InstructionBox/InstructionBoxText");
 	setFirstMessage();
-	print("MODE: ", GameManager.Mode.AI)
 	if GameManager.GAME_MODE == GameManager.Mode.AI:
 		label_player_1.text = "You"
 		label_player_2.text = "CPU"
@@ -60,10 +59,7 @@ func _ready() -> void:
 	
 	#Set player color to the appropriate color, and update the p1 image.
 	#First, change the instructions
-	if (gamemode == "VersusAI" || gamemode == "Network"):
-		setMessageBoxText("Choose Opponent's Color!")
-	else:
-		setMessageBoxText("Choose Player Two's Color!")
+
 	return Color("#ffffff")
 	
 
@@ -83,7 +79,7 @@ func setFirstMessage() -> void:
 		
 func setSecondMessage() -> void:
 	if (gamemode == "EasyAI" || gamemode == "HardAI"):
-		setMessageBoxText("Choose Opponent's Color!")
+		setMessageBoxText("AI choosing color...")
 	if (gamemode == "NetworkHost" || gamemode == "NetworkJoin"):
 		setMessageBoxText("Choose Opponent's Color!")
 		$InstructionBox/NetworkDisclaimer.visible = true;
@@ -98,7 +94,10 @@ func setTransitionMessage() -> void:
 func setMessageBoxText(givenText:String) -> void:
 	messageBox.text = givenText;
 	pass
-
+	
+func get_random_color() -> Color:
+	return Color(COLORS[randi() % COLORS.size()])
+	
 func _on_colorChanged(color: Color, confirm: bool) -> void:
 	if (not playerOneConfirmed || not playerTwoConfirmed):
 		if (confirm == false):
@@ -114,8 +113,16 @@ func _on_colorChanged(color: Color, confirm: bool) -> void:
 				playerOneConfirmed = true;
 				$Player1Demo.setColorPickerRobot(color);
 				$Player1Demo.confirmColor();
+				# if AI select random color
+				if(GameManager.GAME_MODE == GameManager.Mode.AI):
+					playerTwoColor = get_random_color();
+					playerTwoConfirmed = true;
+					$Player2Demo.setColorPickerRobot(playerTwoColor);
+					$Player2Demo.confirmColor();
+					transitionToNextScene();
 				setSecondMessage();
 			else:
+				
 				playerTwoColor = color;
 				playerTwoConfirmed = true;
 				$Player2Demo.setColorPickerRobot(color);
