@@ -3,7 +3,7 @@ extends Node2D
 const CELL_SIZE := 78
 const STEP_TIME := 0.3
 const START_LENGTH := 3
-const SEGMENT_SCALE := Vector2(4, 4)
+const SEGMENT_SCALE := Vector2(4.5, 4.5)
 const TOP_BUFFER_ROWS := 0
 const BOARD_TILES_X := 13
 const BOARD_TILES_Y := 8
@@ -16,6 +16,7 @@ const LOSE_SCREEN_SCENE := preload("res://scenes/Snake/snake_lose_screen.tscn")
 @onready var body_template: Sprite2D = $SnakePlayer/SnakeBody
 @onready var snake_food: AnimatedSprite2D = $SnakeFood
 @onready var playfield: ColorRect = $SnakeBox/ColorRect3
+@onready var snake_tile: Node2D = $SnakeTile
 @onready var score_label: Label = $Score
 @onready var title_label: Label = $Title
 
@@ -86,9 +87,57 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _configure_board() -> void:
 	grid_size = Vector2i(BOARD_TILES_X, BOARD_TILES_Y - TOP_BUFFER_ROWS)
+	var board_rect := _get_board_rect()
 	var board_size := Vector2(grid_size.x * CELL_SIZE, grid_size.y * CELL_SIZE)
-	board_origin = playfield.global_position + ((playfield.size - board_size) / 2.0) + Vector2(CELL_SIZE / 2.0, CELL_SIZE / 2.0)
+	board_origin = board_rect.position + ((board_rect.size - board_size) / 2.0) + Vector2(CELL_SIZE / 2.0, CELL_SIZE / 2.0)
 	board_origin.y += CELL_SIZE * TOP_BUFFER_ROWS
+
+
+func _get_board_rect() -> Rect2:
+	var tile_rect := _get_sprite_bounds(snake_tile)
+	if tile_rect.size != Vector2.ZERO:
+		return tile_rect
+	return Rect2(playfield.global_position, playfield.size)
+
+
+func _get_sprite_bounds(root: Node) -> Rect2:
+	var has_bounds := false
+	var min_point := Vector2.ZERO
+	var max_point := Vector2.ZERO
+
+	for child in root.get_children():
+		if child is not Sprite2D:
+			continue
+
+		var sprite := child as Sprite2D
+		if sprite.texture == null:
+			continue
+
+		var sprite_rect := sprite.get_rect()
+		var corners := [
+			sprite_rect.position,
+			sprite_rect.position + Vector2(sprite_rect.size.x, 0.0),
+			sprite_rect.position + sprite_rect.size,
+			sprite_rect.position + Vector2(0.0, sprite_rect.size.y),
+		]
+
+		for corner in corners:
+			var global_corner := sprite.to_global(corner)
+			if not has_bounds:
+				min_point = global_corner
+				max_point = global_corner
+				has_bounds = true
+				continue
+
+			min_point.x = minf(min_point.x, global_corner.x)
+			min_point.y = minf(min_point.y, global_corner.y)
+			max_point.x = maxf(max_point.x, global_corner.x)
+			max_point.y = maxf(max_point.y, global_corner.y)
+
+	if not has_bounds:
+		return Rect2()
+
+	return Rect2(min_point, max_point - min_point)
 
 
 func _start_new_round() -> void:

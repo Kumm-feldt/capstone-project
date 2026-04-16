@@ -154,7 +154,7 @@ scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
 [node name="Tile70" type="Sprite2D" parent="."]
-position = Vector2(624.00006, 1091.9999)
+position = Vector2(1560, 780)
 scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
@@ -199,7 +199,7 @@ scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
 [node name="Tile60" type="Sprite2D" parent="."]
-position = Vector2(468, 1091.9999)
+position = Vector2(1404, 780)
 scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
@@ -254,7 +254,7 @@ scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
 [node name="Tile48" type="Sprite2D" parent="."]
-position = Vector2(312, 1091.9999)
+position = Vector2(1248, 780)
 scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
@@ -274,7 +274,7 @@ scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
 [node name="Tile34" type="Sprite2D" parent="."]
-position = Vector2(156, 1091.9999)
+position = Vector2(1092, 780)
 scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
@@ -299,7 +299,42 @@ scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
 [node name="Tile18" type="Sprite2D" parent="."]
-position = Vector2(0, 1091.9999)
+position = Vector2(935.99994, 780)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile71" type="Sprite2D" parent="."]
+position = Vector2(780, 780)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile72" type="Sprite2D" parent="."]
+position = Vector2(780, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile73" type="Sprite2D" parent="."]
+position = Vector2(936, 935.99994)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile74" type="Sprite2D" parent="."]
+position = Vector2(1091.9999, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile75" type="Sprite2D" parent="."]
+position = Vector2(1248, 935.99994)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile76" type="Sprite2D" parent="."]
+position = Vector2(1404.0001, 936)
+scale = Vector2(10, 10)
+texture = ExtResource("1_e4m7q")
+
+[node name="Tile77" type="Sprite2D" parent="."]
+position = Vector2(1560.0001, 935.99994)
 scale = Vector2(10, 10)
 texture = ExtResource("1_e4m7q")
 
