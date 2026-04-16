@@ -97,25 +97,29 @@ func set_winner(user):
 	#quit_game()
 	print("MULTIPLAYER GAMEMANAGER ", GameManager.multiplayer_username)
 	if user == GameManager.username:
-		winner = "You Won! (locally)" 
+		winner = "You Won!" 
 		print("set winner: ", user, " - add points to: ", GameManager.username)
 		GameManager.winner = GameManager.username
-		add_points(GameManager.username)
-		
-		reduce_points(GameManager.multiplayer_username)
-		
 	elif user == GameManager.multiplayer_username:
 		print("set winner: ", user, " - add points to: ", GameManager.multiplayer_username)
 		winner = GameManager.multiplayer_username+"\nWins!" 
-		
-		add_points(GameManager.multiplayer_username)
-		
-		reduce_points(GameManager.username)
 		GameManager.winner = GameManager.multiplayer_username
 	else:
 		print("Draw")
 		winner = "Draw!" 
 		GameManager.winner = "Draw"
+	
+	# Only the host writes to DB — client just shows the result
+	if multiplayer.is_server():
+		_award_points()
+		
+func _award_points():
+	if GameManager.winner == GameManager.username:
+		add_points(GameManager.username)
+		reduce_points(GameManager.multiplayer_username)
+	elif GameManager.winner == GameManager.multiplayer_username:
+		add_points(GameManager.multiplayer_username)
+		reduce_points(GameManager.username)
 
 
 	
