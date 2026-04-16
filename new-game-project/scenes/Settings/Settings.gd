@@ -57,27 +57,27 @@ var current_page = 0
 var pages = [
     {
         "title": "Goal of the Game",
-        "body": "Connect your snake's head and tail (at opposite corners of the board)\n with an unbroken chain of your nodes.\n\nOnly orthogonal connections count - up, down, left and right.\n\nThe first player to complete their chain wins!",
+        "body": "Connect your snake's head and tail \n(at opposite corners of the board)\n with an unbroken chain of your nodes.\n\nOnly orthogonal connections count - \nup, down, left and right.\n\nThe first player to complete their chain wins!",
         "image": null  # preload("res://path/to/goal_image.png")
     },
     {
         "title": "Diagonal Jumps",
-        "body": "Move a robot one space diagonally to an empty intersection.\n\nAs it moves, it passes over one grid space. If empty, your node is placed there!\n\nIf the space has your opponent's node, it flips to your color.",
+        "body": "Move a robot one space diagonally to an empty intersection.\n\nAs it moves, it passes over one grid space.\nIf empty, your node is placed there!\n\nIf the space has your opponent's node, it flips to your color.",
         "image": null  # preload("res://path/to/diagonal_image.png")
     },
     {
         "title": "Orthogonal Moves",
-        "body": "Move a robot one space up, down, left, or right.\n\nOrthogonal moves do not place or flip any nodes.\n\nUse them to reposition your robots for better diagonal jumps later.",
+        "body": "Move a robot one space up, down, left, or right.\n\nOrthogonal moves do not place or flip any nodes.\n\nUse them to reposition your robots\nfor better diagonal jumps later.",
         "image": null  # preload("res://path/to/orthogonal_image.png")
     },
     {
         "title": "Robot Captures",
-        "body": "If an opponent's robot is orthogonally adjacent to yours, you can jump over it,\ntaking it out of the game!\n\nThere must be an empty space for your robot to land.\n\nNo multi-jumps allowed.",
+        "body": "If an opponent's robot is orthogonally adjacent to yours,\n you can jump over it,\ntaking it out of the game!\n\nThere must be an empty space for your robot to land.\n\nNo multi-jumps allowed.",
         "image": null  # preload("res://path/to/capture_image.png")
     },
     {
         "title": "Other Rules",
-        "body": "Be careful - destroying all of the other player's robots will result in a draw!\n\nDiagonal connections between nodes do not count toward your chain.\n\nYou may only move ONE robot per turn.",
+        "body": "Be careful - destroying all of the other player's robots will result in a draw!\n\nDiagonal connections between nodes\ndo not count toward your chain.\n\nYou may only move ONE robot per turn.",
         "image": null  # preload("res://path/to/other_image.png")
     },
 ]
