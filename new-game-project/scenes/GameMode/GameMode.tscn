@@ -393,21 +393,21 @@ position = Vector2(442, 520)
 scale = Vector2(3.2, 3.2)
 sprite_frames = SubResource("SpriteFrames_byo56")
 autoplay = "default"
-frame_progress = 0.41816157
+frame_progress = 0.40340123
 
 [node name="LocalPlayModeSprite" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(976.99994, 519.99994)
 scale = Vector2(3.2, 3.2)
 sprite_frames = SubResource("SpriteFrames_ixrp5")
 autoplay = "default"
-frame_progress = 0.3286967
+frame_progress = 0.023479857
 
 [node name="OnlinePlayModeSprite" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(1517, 520)
 scale = Vector2(3.2, 3.2)
 sprite_frames = SubResource("SpriteFrames_b7ih8")
 autoplay = "default"
-frame_progress = 0.27217206
+frame_progress = 0.25741145
 
 [node name="Buttons" type="Node2D" parent="."]
 

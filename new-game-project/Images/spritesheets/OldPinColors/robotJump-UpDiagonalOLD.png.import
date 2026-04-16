@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doh8lggbglkxc"
-path="res://.godot/imported/robotJump-DownDiagonal.png-0c6df6c3f5871df2b1ae1988e4d7d80d.ctex"
+uid="uid://x1ju5mmdoo5p"
+path="res://.godot/imported/robotJump-UpDiagonalOLD.png-c8c7760f2dbbf79718aff2779b6c00b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/spritesheets/OldPinColors/robotJump-DownDiagonal.png"
-dest_files=["res://.godot/imported/robotJump-DownDiagonal.png-0c6df6c3f5871df2b1ae1988e4d7d80d.ctex"]
+source_file="res://Images/spritesheets/OldPinColors/robotJump-UpDiagonalOLD.png"
+dest_files=["res://.godot/imported/robotJump-UpDiagonalOLD.png-c8c7760f2dbbf79718aff2779b6c00b5.ctex"]
 
 [params]
 

@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbswfivt2mw2u"]
+
+[ext_resource type="Script" uid="uid://bwnnyjucrngdi" path="res://scenes/board/Board.gd" id="1_6puts"]
+[ext_resource type="PackedScene" uid="uid://b8q3s3enh85wt" path="res://scenes/board/BoardBackground.tscn" id="2_0kj62"]
+[ext_resource type="Texture2D" uid="uid://b8njfbit14p58" path="res://Images/UNUSED/gameBoard.png" id="2_l0jo7"]
+[ext_resource type="PackedScene" uid="uid://b25b43wd5fpkj" path="res://scenes/Tutorial/TutorialRobot.tscn" id="3_vgpvj"]
+[ext_resource type="PackedScene" uid="uid://brf2rg6rh1rmq" path="res://scenes/disk/SnakeHead.tscn" id="5_vgpvj"]
+[ext_resource type="PackedScene" uid="uid://b2unr3lxwpjvs" path="res://scenes/disk/SnakeTail.tscn" id="6_l0jo7"]
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_6puts")
+
+[node name="GameplayBackground" parent="." instance=ExtResource("2_0kj62")]
+scale = Vector2(0.417, 0.417)
+
+[node name="TutorialRobot" parent="." instance=ExtResource("3_vgpvj")]
+position = Vector2(664, 200)
+
+[node name="BoardSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(400, 225)
+texture = ExtResource("2_l0jo7")
+
+[node name="SnakeHead" parent="." instance=ExtResource("5_vgpvj")]
+position = Vector2(275, 101)
+
+[node name="SnakeTail" parent="." instance=ExtResource("6_l0jo7")]
+position = Vector2(526, 351)
+flip_h = true
+
+[node name="SnakeHead2" parent="." instance=ExtResource("5_vgpvj")]
+position = Vector2(526, 100)
+flip_h = true
+
+[node name="SnakeTail2" parent="." instance=ExtResource("6_l0jo7")]
+position = Vector2(274, 351)

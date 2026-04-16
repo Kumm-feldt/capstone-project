@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chbfa3j68bsdc"
-path="res://.godot/imported/robotJump-UpDiagonal.png-d94cc296e1aefe00f526c673630db101.ctex"
+uid="uid://d1xu2xujxue2w"
+path="res://.godot/imported/conveyorBeltsLIGHT.png-dc1966e8849483c990e7fff9657812b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/spritesheets/OldPinColors/robotJump-UpDiagonal.png"
-dest_files=["res://.godot/imported/robotJump-UpDiagonal.png-d94cc296e1aefe00f526c673630db101.ctex"]
+source_file="res://Images/spritesheets/conveyorBeltsLIGHT.png"
+dest_files=["res://.godot/imported/conveyorBeltsLIGHT.png-dc1966e8849483c990e7fff9657812b8.ctex"]
 
 [params]
 
