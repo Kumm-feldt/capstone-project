@@ -303,9 +303,9 @@ func _setup_menu_screens() -> void:
 	add_child(win_screen)
 	add_child(lose_screen)
 
-	start_screen.z_index = 100
-	win_screen.z_index = 100
-	lose_screen.z_index = 100
+	start_screen.z_index = 1
+	win_screen.z_index = 1
+	lose_screen.z_index = 1
 
 	var start_button := start_screen.get_node_or_null("Button2") as Button
 	if start_button:

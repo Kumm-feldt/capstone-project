@@ -118,7 +118,7 @@ func _on_source_button_pressed() -> void:
 		snakeGameOn = false;
 	else:
 		snakeGameOn = true;
-		
+
 	$Snake.visible = snakeGameOn;
 	
 	pass # Replace with function body.
