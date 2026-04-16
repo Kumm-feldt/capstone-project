@@ -16,7 +16,6 @@ func _ready():
 	GameState.reset_game()
 	# Connect to GameState
 	dim_overlay.visible = false
-	print("Connecting end_match... in _ready")
 	GameState.connect("game_over", _on_game_over)
 	NetworkManager.connect("end_match",on_match_ended )
 	# signal to close the window
@@ -29,9 +28,6 @@ func _on_ready_to_leave():
 	# host asked for it
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
 	Music.play_track(GameManager.TrackMode.Default)
-	
-func _on_turn_changed(_player: String):
-	"""Handle turn change"""
 
 func _on_game_over(winner: String):
 	var canvas = CanvasLayer.new()
@@ -58,14 +54,12 @@ func _on_game_over(winner: String):
 
 
 	if (GameManager.GAME_MODE == GameManager.Mode.AI ):
-		print("username: ", GameManager.username)
 		DBService.update_user_info(GameManager.username, "add", WIN_POINTS)
 		if (winner == "o"):
 			Music.play_track(GameManager.TrackMode.Victory)
 		else:
 			Music.play_track(GameManager.TrackMode.Defeat)
 	elif(GameManager.GAME_MODE == GameManager.Mode.Multiplayer):
-		print("multi")
 		# TODO: Learn how network play shows if you won and play the correct stinger
 		Music.play_track(GameManager.TrackMode.Victory)
 	elif(GameManager.GAME_MODE == GameManager.Mode.Local):
@@ -75,19 +69,9 @@ func _on_game_over(winner: String):
 
 func winEffects(winner:String) -> void:
 	$Board.winningPinsRejoice();
-	
-	pass
 
 	
-func _on_reset_pressed():
-	"""Reset game button"""
-	
 func on_match_ended(username):
-	print("3) end_match signal on Main.gd")
-	print("message is suposse to show")
+
 	userleftmessage.visible = true
 	userleftmessage.get_node("UserLeftMessagePanel/Label").text = username + " left the match"
-	
-func _process(_delta):
-	"""Debug display (remove for production)"""
-	

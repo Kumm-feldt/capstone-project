@@ -1,0 +1,155 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0jd6u3hy262t"]
+
+[ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_mncj7"]
+[ext_resource type="Script" uid="uid://cb34cgnv2rtv2" path="res://scenes/Networking/softserve_registration_window.gd" id="1_vbqm3"]
+[ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="2_uup74"]
+[ext_resource type="Theme" uid="uid://d3r7dx3hnj50d" path="res://Themes/theme_exit_button.tres" id="3_vhxbu"]
+[ext_resource type="Texture2D" uid="uid://4gjlm7wsnclb" path="res://Images/optionsBoxX.png" id="4_vbqm3"]
+[ext_resource type="Theme" uid="uid://bsxesv7xkljk6" path="res://Themes/theme_titles_options_2.tres" id="5_4vh1s"]
+[ext_resource type="FontFile" uid="uid://b46nx8yyjdjta" path="res://fonts/Jersey_10/Jersey10-Regular.ttf" id="6_uup74"]
+[ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="7_vhxbu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1fgya"]
+texture = ExtResource("1_mncj7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhxbu"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vbqm3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.25
+offset_top = -163.00934
+offset_right = 294.25
+offset_bottom = 179.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1fgya")
+
+[node name="TopTitleLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 37.25
+offset_top = 8.009338
+offset_right = 204.25
+offset_bottom = 42.00934
+theme = ExtResource("2_uup74")
+text = "Softserve Registration"
+
+[node name="ExitButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 544.25006
+offset_top = 7.0093384
+offset_right = 576.603
+offset_bottom = 37.00934
+theme = ExtResource("3_vhxbu")
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+icon = ExtResource("4_vbqm3")
+icon_alignment = 1
+expand_icon = true
+
+[node name="NameLabel" type="Label" parent="Panel"]
+layout_mode = 1
+offset_left = 48.25
+offset_top = 82.00934
+offset_right = 129.25
+offset_bottom = 124.00934
+theme = ExtResource("5_4vh1s")
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/NameLabel"]
+layout_mode = 0
+offset_left = 114.0
+offset_right = 495.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("6_uup74")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_vhxbu")
+
+[node name="EmailLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 48.25
+offset_top = 140.00934
+offset_right = 129.25
+offset_bottom = 182.00934
+theme = ExtResource("5_4vh1s")
+text = "Email:"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/EmailLabel"]
+layout_mode = 0
+offset_left = 114.0
+offset_right = 495.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("6_uup74")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_vhxbu")
+
+[node name="EventLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 48.25
+offset_top = 198.00934
+offset_right = 129.25
+offset_bottom = 240.00934
+theme = ExtResource("5_4vh1s")
+text = "Event:"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/EventLabel"]
+layout_mode = 0
+offset_left = 114.0
+offset_right = 495.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("6_uup74")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_vhxbu")
+
+[node name="ErrorMessageLabel" type="Label" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 47.25
+offset_top = 249.00934
+offset_right = 541.25
+offset_bottom = 277.00934
+theme_override_font_sizes/font_size = 20
+text = "Error in user input"
+horizontal_alignment = 1
+
+[node name="AcceptButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -421.0
+offset_right = 76.0
+offset_bottom = -383.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7_vhxbu")
+theme_override_font_sizes/font_size = 18
+text = "Register"
+
+[connection signal="pressed" from="AcceptButton" to="." method="_on_accept_button_pressed"]

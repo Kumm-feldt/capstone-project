@@ -16,7 +16,8 @@ func _ready() -> void:
 	add_child(http_register)
 	http_check.request_completed.connect(_on_username_check_done)
 	http_register.request_completed.connect(_on_register_done)
-	# Add this line:
+	
+	# user input
 	username_input.text_submitted.connect(_on_username_submitted)
 	
 func _on_username_submitted(text: String) -> void:

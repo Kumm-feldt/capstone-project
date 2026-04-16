@@ -1,8 +1,9 @@
 extends Node
 
 var SOFTSERVE_URL = "https://softserve.harding.edu"
-var PLAYER_NAME = ""  # change if necessary
-var PLAYER_EMAIL = "@harding.edu" # enter your email
+var PLAYER_NAME = null
+var PLAYER_EMAIL = null
+var EVENT_NAME = null
 
 # ai_vs_ai signals
 signal error(error)
@@ -10,7 +11,6 @@ signal updateBoard(state)
 signal ai_battle_move(boardString)
 
 
-var EVENT_NAME = "" # event name will be given to you the day of the event
 var TOKEN = ""
 var _current_request = ""
 var counter = 0
@@ -22,10 +22,14 @@ var AI_PLAYING = true
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var ai = $CreeperAI
 
-func ai_vs_ai():
-	print("onready")
+func ai_vs_ai(name, email, event):
+	PLAYER_NAME = name
+	PLAYER_EMAIL = email
+	EVENT_NAME = event
+	
 	# connect to client
 	http_request.request_completed.connect(_on_request_completed)
+	print("STARTING...")
 	# get token
 	get_token()
 	# Now that we have our token, we can start the /aivai loop
@@ -140,7 +144,7 @@ func _on_request_completed(result, response_code, headers, body):
 		# --- request_state_softserve ---
 		elif _current_request == "request_state_softserve":
 			print("request_state_softserve...")
-			# ✅ Handle 204 BEFORE parsing — body is empty here
+			# Handle 204 BEFORE parsing — body is empty here
 			if response_code == 204:
 				await get_tree().create_timer(2).timeout
 				print("code 204... trying again")

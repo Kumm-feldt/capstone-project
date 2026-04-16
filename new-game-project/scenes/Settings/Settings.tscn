@@ -188,6 +188,7 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 80.5
@@ -373,7 +374,6 @@ theme_override_font_sizes/font_size = 33
 text = "Tutorial "
 
 [node name="CustomizePanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 32.0
 offset_top = 80.5

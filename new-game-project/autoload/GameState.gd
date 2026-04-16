@@ -467,7 +467,7 @@ func reset_game():
 	]
 	
 	current_player = "o"
-	game_active = true
+	game_active = true # not a big fan of this
 	game_paused = false
 	emit_signal("board_updated", PINS, COINS)
 

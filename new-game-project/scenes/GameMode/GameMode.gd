@@ -14,11 +14,13 @@ extends Control
 const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
 const POPUP_SCENE_WARNING = preload("res://scenes/Profile/LogoutWarningWindow.tscn")
 
+const SOFTSERVE_REGISTRATION = preload("res://scenes/Networking/SoftserveRegistrationWindow.tscn")
+
 
 # Track the instance so you can close it later
 var active_popup: Control = null
 var active_popup_warning: Control = null
-
+var softserve_registration
 
 var colorScreenScene = load("res://scenes/ColorPicker/ColorSelectionScreen.tscn")
 
@@ -137,10 +139,12 @@ func _on_local_play_mode_button_pressed() -> void:
 	
 
 func _on_ai_tournament_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/AI/a_ivs_ai_console.tscn")
-	# call to softserve activator
-	pass
-
+	softserve_registration = SOFTSERVE_REGISTRATION.instantiate()
+	# Add it to the current scene as a child
+	add_child(softserve_registration)
+	# Center it on screen
+	softserve_registration.position = (get_viewport().get_visible_rect().size / 2) - (softserve_registration.size / 2)
+	
 # ============================================
 # Input handling (ESC)
 # ============================================
