@@ -1,7 +1,7 @@
 extends Control
 
 var is_config = true
-var testing = false	# REMOVE FOR FINAL BUILD!! - Only here to skip intro animation
+var testing = true	# REMOVE FOR FINAL BUILD!! - Only here to skip intro animation
 
 # Preload at the top of your script — loads the file once, reuses it
 const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
@@ -113,6 +113,7 @@ func toggle_light():
 		off_panel.visible = false
 	else:
 		off_panel.visible = true
+		
 # ============================================
 # Input handling (ESC)
 # ============================================

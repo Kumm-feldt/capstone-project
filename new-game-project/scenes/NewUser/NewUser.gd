@@ -16,14 +16,18 @@ func _ready() -> void:
 	add_child(http_register)
 	http_check.request_completed.connect(_on_username_check_done)
 	http_register.request_completed.connect(_on_register_done)
+	# Add this line:
+	username_input.text_submitted.connect(_on_username_submitted)
+	
+func _on_username_submitted(text: String) -> void:
+	_on_accept_button_pressed()		
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("close"):
 		_on_exit_button_pressed()
-	if event.is_action_pressed("enter"):
-		_on_accept_button_pressed()
 		
 func _on_accept_button_pressed() -> void:
+	print("INPUT PRESSED ENTER")
 	Music.play_button_sound()
 	message_label.visible = true
 	menu_panel.toggleLoadingScreen()
