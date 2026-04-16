@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmp8cly6olq54"]
+[gd_scene load_steps=11 format=3 uid="uid://dmp8cly6olq54"]
 
-[ext_resource type="PackedScene" uid="uid://coq76pru5eq40" path="res://scenes/MainMenu/menu_panel.tscn" id="1_fcj6f"]
 [ext_resource type="Script" uid="uid://drl6k43ftdubj" path="res://scenes/Snake/snake.gd" id="1_jc2ut"]
 [ext_resource type="FontFile" uid="uid://bokcc5ljkq71h" path="res://fonts/5x5_pixel/5x5_pixel.ttf" id="2_45ksv"]
 [ext_resource type="PackedScene" uid="uid://detdokiiklfro" path="res://scenes/Snake/snake_player.tscn" id="2_fcj6f"]
@@ -18,8 +17,6 @@ font_color = Color(0.5686275, 0.88235295, 0.5058824, 1)
 
 [node name="Snake" type="Node2D"]
 script = ExtResource("1_jc2ut")
-
-[node name="MenuPanelScene" parent="." instance=ExtResource("1_fcj6f")]
 
 [node name="SnakeBox" parent="." instance=ExtResource("2_h8830")]
 

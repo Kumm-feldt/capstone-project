@@ -109,27 +109,16 @@ func _on_power_button_pressed() -> void:
 	poweringOn = false;
 	
 
-func toggle_source() -> void:
-	if power:
-		#Check current state
-		if snakeGameOn:
-			#Switch to base game
-			
-			snakeGameOn = false;
-			pass
-		else:
-			#Switch to snake game
-			
-			snakeGameOn = true;
-		
-	
-		# Turn on the black screen for a split second
-	
-		# Display SOURCE label
-	
-		# Switch menu contents to snake game
-	
-		pass
-
 func _exit_tree() -> void:
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
+
+
+func _on_source_button_pressed() -> void:
+	if snakeGameOn:
+		snakeGameOn = false;
+	else:
+		snakeGameOn = true;
+		
+	$Snake.visible = snakeGameOn;
+	
+	pass # Replace with function body.

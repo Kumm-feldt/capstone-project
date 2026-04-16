@@ -93,6 +93,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 81.5
@@ -584,26 +585,44 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.021000002
 anchor_bottom = 0.069000006
-offset_left = 49.0
-offset_top = 84.5
-offset_right = 894.714
-offset_bottom = 514.549
+offset_left = 43.0
+offset_top = 60.5
+offset_right = 888.714
+offset_bottom = 490.549
 theme_override_styles/panel = SubResource("StyleBoxTexture_bfkvv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/AboutPanel"]
 layout_mode = 0
-offset_top = 3.0
-offset_right = 840.0
-offset_bottom = 478.0
+offset_left = 2.0
+offset_top = 21.0
+offset_right = 842.0
+offset_bottom = 496.0
 
 [node name="TitleLabel" type="Label" parent="Panel/AboutPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Credits"
 
 [node name="TextureRect" type="TextureRect" parent="Panel/AboutPanel/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/AboutPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Based on \"Creeper\" board game designed by Graham Lipscomb
+
+Slither created by Capstone Group #5, A.K.A. \"GRAB.Games\"
+- Garrett Cook (Artist, UI Dev)
+- Riley Hupp (Core Dev, UI Dev)
+- Anthony Kummerfeldt (Team Lead, Core Dev, UI Dev, Networking Dev)
+- Brycen Biskner (AI Play Dev, SFX/Music Implementation, Snake Game)
+
+SFX Created by Gavin Corbin
+Music Created by Ben Trainor
+
+Some Assets taken from the Cyberpunk GUI asset pack by CRAFTPIX.NET
+- CRAFTPIX.NET claims that none of these assets were created with AI. 
+   If that's true, then this game is free of AI generated assets  :)"
 
 [connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/InstructionsButton" to="." method="_on_instructions_button_pressed"]
 [connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton" to="." method="_on_customize_player_button_pressed"]

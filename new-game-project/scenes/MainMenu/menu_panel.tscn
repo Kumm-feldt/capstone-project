@@ -1,7 +1,8 @@
-[gd_scene load_steps=51 format=3 uid="uid://coq76pru5eq40"]
+[gd_scene load_steps=56 format=3 uid="uid://coq76pru5eq40"]
 
 [ext_resource type="Script" uid="uid://d1u1xiplachjq" path="res://scenes/MainMenu/MenuPanelScene.gd" id="1_k5y0a"]
 [ext_resource type="Texture2D" uid="uid://cud8ajyh2obc5" path="res://Images/CRTBackglow.png" id="2_oh22v"]
+[ext_resource type="PackedScene" uid="uid://dmp8cly6olq54" path="res://scenes/Snake/snake.tscn" id="2_txd80"]
 [ext_resource type="Texture2D" uid="uid://cbmqf2jlc0qff" path="res://Images/spritesheets/bootLogoAnim.png" id="2_vatd4"]
 [ext_resource type="Texture2D" uid="uid://d3pbq5g6gfjdb" path="res://Images/spritesheets/RegisteringText.png" id="3_51upk"]
 [ext_resource type="Texture2D" uid="uid://clarnx6wrhxb7" path="res://Images/spritesheets/loadingScreen.png" id="3_tsfht"]
@@ -11,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://b10b2tpt4ryjy" path="res://Images/CRTeffect.png" id="4_x6eyo"]
 [ext_resource type="Texture2D" uid="uid://cj1l3yprdg0r6" path="res://Images/powerButton.png" id="5_tsfht"]
 [ext_resource type="Texture2D" uid="uid://b7xru36wmdwqu" path="res://Images/powerButtonPressed.png" id="6_51upk"]
+[ext_resource type="Texture2D" uid="uid://dnrgkrp2s4qir" path="res://Images/squareButtonUnpressed.png" id="9_8w7bd"]
+[ext_resource type="Texture2D" uid="uid://dluko3w24jt6v" path="res://Images/sourceButton.png" id="9_4602v"]
+[ext_resource type="Texture2D" uid="uid://d1uns6hwlxtwr" path="res://Images/squareButton.png" id="10_giyww"]
+[ext_resource type="Texture2D" uid="uid://bk3u5cvpl7tse" path="res://Images/sourceButtonPressed.png" id="10_txd80"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_led8r"]
 atlas = ExtResource("2_vatd4")
@@ -346,7 +351,7 @@ color = Color(0.031221164, 0.031221166, 0.031221166, 1)
 [node name="BootScreen" type="ColorRect" parent="."]
 visible = false
 top_level = true
-z_index = 10
+z_index = 40
 offset_right = 1920.0
 offset_bottom = 1080.0
 scale = Vector2(1, 1.0000001)
@@ -391,14 +396,14 @@ frame_progress = 0.9824534
 [node name="Bezel" type="Sprite2D" parent="."]
 top_level = true
 clip_children = 2
-z_index = 25
+z_index = 50
 position = Vector2(960.00006, 540)
 scale = Vector2(2.4, 2.3999999)
 texture = ExtResource("3_x6eyo")
 
 [node name="PowerButton" type="TextureButton" parent="Bezel"]
 top_level = true
-z_index = 30
+z_index = 51
 offset_left = 1766.4617
 offset_top = 1022.35626
 offset_right = 1779.4617
@@ -409,6 +414,28 @@ size_flags_vertical = 0
 action_mode = 0
 texture_normal = ExtResource("5_tsfht")
 texture_pressed = ExtResource("6_51upk")
+stretch_mode = 4
+
+[node name="SourceButton" type="TextureButton" parent="Bezel"]
+z_index = 51
+offset_left = 311.24997
+offset_top = 200.83336
+offset_right = 324.24997
+offset_bottom = 213.83336
+texture_normal = ExtResource("9_4602v")
+texture_pressed = ExtResource("10_txd80")
+stretch_mode = 4
+
+[node name="SquareButton" type="TextureButton" parent="Bezel"]
+top_level = true
+z_index = 51
+offset_left = 1646.0
+offset_top = 1022.0
+offset_right = 1659.0
+offset_bottom = 1035.0
+scale = Vector2(2.4, 2.4)
+texture_normal = ExtResource("9_8w7bd")
+texture_pressed = ExtResource("10_giyww")
 stretch_mode = 4
 
 [node name="Backglow" type="Sprite2D" parent="Bezel"]
@@ -436,4 +463,11 @@ position = Vector2(1842, 1038)
 scale = Vector2(2.4, 2.4)
 texture = ExtResource("3_vatd4")
 
+[node name="Snake" parent="." instance=ExtResource("2_txd80")]
+visible = false
+top_level = true
+z_index = 19
+position = Vector2(-6.1035156e-05, -6.1035156e-05)
+
 [connection signal="pressed" from="Bezel/PowerButton" to="." method="_on_power_button_pressed"]
+[connection signal="pressed" from="Bezel/SourceButton" to="." method="_on_source_button_pressed"]
