@@ -8,6 +8,8 @@ var HEADERS = [
 "Authorization: Bearer "+ANON_KEY,
 "Prefer: return=representation"   # tells Supabase to return the new row
 ]
+var request_queue = []
+var is_processing = false
 
 var http_check_points = HTTPRequest.new() 
 var http_check = HTTPRequest.new()
@@ -55,15 +57,26 @@ func update_player_colors(username, color, background_color, picture):
 	http_update_player.request(url, DBService.HEADERS, HTTPClient.METHOD_PATCH, body)
 	
 func update_user_info(username, action, points_):
-	pending_username = username
-	pending_points = points_
-	pending_action = action
+	request_queue.append({ "username": username, "action": action, "points": points_ })
+	if not is_processing:
+		_process_next()
+
+func _process_next():
+	if request_queue.is_empty():
+		is_processing = false
+		return
+	is_processing = true
+	var next = request_queue.pop_front()
+	pending_username = next.username
+	pending_points = next.points
+	pending_action = next.action
 	print("==========")
-	print("USERNAME: ", username)
-	print("ACTION: ", action)
-	print("==========")
+	print("USERNAME: ", pending_username)
+	print("ACTION: ", pending_action)
+	print("POINTS: ", pending_points)
 	
-	var url = URL + "?username=eq."+username 
+	print("==========")
+	var url = URL + "?username=eq." + pending_username
 	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
 	
 func check_points(username):
@@ -89,9 +102,10 @@ func _on_check_points_done(result, response_code, headers, body):
 	
 func on_update_user_info(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-			push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
-			emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
-			return
+		push_error("HTTP transport failed.")
+		is_processing = false
+		_process_next()
+		return
 	var data = JSON.parse_string(body.get_string_from_utf8())[0]
 	points = data["points"]
 	wins = data["wins"]
@@ -139,11 +153,10 @@ func update_points():
 		
 func _on_update_points_done(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
-		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
-		return
+		push_error("HTTP transport failed.")
 	else:
-		print("correctly done?")
-		
-	
+		print("correctly done!")
+	# Process the next queued request after PATCH completes
+	is_processing = false
+	_process_next()
 	
