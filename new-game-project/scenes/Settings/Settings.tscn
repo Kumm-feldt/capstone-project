@@ -93,7 +93,6 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 81.5
@@ -104,9 +103,9 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_y3a33")
 [node name="PhotoPaper" type="Panel" parent="Panel/SettingsPanel"]
 layout_mode = 0
 offset_left = 571.0
-offset_top = 18.0
+offset_top = 11.0
 offset_right = 906.0
-offset_bottom = 479.0
+offset_bottom = 472.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wsd3k")
 
 [node name="GroupPicPanel" type="Sprite2D" parent="Panel/SettingsPanel/PhotoPaper"]
@@ -142,9 +141,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -232.5
-offset_top = -153.0
+offset_top = -204.5
 offset_right = 223.0
-offset_bottom = 180.0
+offset_bottom = 215.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
@@ -152,6 +151,7 @@ theme_override_constants/separation = 40
 [node name="InstructionsButton" type="Button" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_y3a33")
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
 text = "Instructions"
 alignment = 0
@@ -159,6 +159,7 @@ alignment = 0
 [node name="CustomizePlayerButton" type="Button" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_y3a33")
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
 text = "Customize Player"
 alignment = 0
@@ -170,6 +171,7 @@ theme_override_constants/separation = 75
 [node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
 layout_mode = 2
 theme = ExtResource("4_f3efy")
+theme_override_font_sizes/font_size = 48
 text = "Music"
 
 [node name="MusicSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/MusicHBox"]
@@ -186,6 +188,7 @@ theme_override_constants/separation = 100
 [node name="Label" type="Label" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
 layout_mode = 2
 theme = ExtResource("4_f3efy")
+theme_override_font_sizes/font_size = 48
 text = "SFX"
 
 [node name="SFXSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
@@ -195,6 +198,7 @@ layout_mode = 2
 [node name="AboutButton" type="Button" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_y3a33")
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
 text = "About"
 alignment = 0
