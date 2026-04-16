@@ -13,7 +13,7 @@ var is_animating: bool = false
 var is_ai_thinking: bool = false
 
 #Default colors:
-var player_color_x = Color("00e33eff");
+var player_color_x = Color(GameManager.player2_color)
 var player_color_o = Color(GameManager.player1_color);
 
 const HIGHLIGHT_COLOR = Color(1, 1, 0, 0.6)  # Yellow, semi-transparent
@@ -64,6 +64,11 @@ var move_hint_sprites = []
 # ============================================
 func _ready():
 	#setup_board_sprite() # load board
+	if GameManager.hosting:	#Swap colors for consistency
+		var tempColorHold = GameManager.player1_color;
+		GameManager.player1_color = GameManager.player2_color;
+		GameManager.player2_color = tempColorHold;
+		
 	connect_signals() 
 	render_board()
 	NetworkManager.board = self
@@ -71,6 +76,8 @@ func _ready():
 		var tutorial_manager = Node.new()
 		tutorial_manager.set_script(tutorial_manager_script)
 		add_child(tutorial_manager)
+
+		
 func connect_signals():
 	"""Connect to GameState signals"""
 	GameState.connect("board_updated", _on_board_updated)
@@ -135,7 +142,7 @@ func render_board_single_move():
 
 func create_pin_sprite(row: int, col: int, player: String):
 	"""Create a pin sprite at array position"""
-	var player_color_ = player_color_o if player == "o" else player_color_x
+	var player_color_ = getPlayerColor(player)
 	
 	var pin_scene = pin_o_scene if player == "o" else pin_x_scene
 	
@@ -336,7 +343,7 @@ func show_move_hints_OLD(from_row: int, from_col: int, player: String):
 					points.append(Vector2(cos(angle), sin(angle)) * 8)
 
 				hint.polygon = points
-				hint.color = Color(player_color_o if player == "o" else player_color_x, 0.6)
+				hint.color = Color(getPlayerColor(player), 0.6)
 				hint.position = get_pin_screen_position(to_row, to_col)
 				hint.z_index = 2
 				add_child(hint)
