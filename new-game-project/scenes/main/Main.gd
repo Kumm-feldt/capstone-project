@@ -27,6 +27,8 @@ func _on_ready_to_leave():
 	Music.play_track(GameManager.TrackMode.Default)
 
 func _on_game_over(winner: String):
+	winEffects(winner);
+	
 	var canvas = CanvasLayer.new()
 	canvas.layer = 10
 	get_tree().root.add_child(canvas)
@@ -34,7 +36,7 @@ func _on_game_over(winner: String):
 	canvas.add_child(win_screen)
 	win_screen.set_anchors_preset(Control.PRESET_CENTER)
 	win_screen.setup(winner)
-
+	
 	# Wait one frame so the panel's size is calculated before we move it
 	await get_tree().process_frame
 	var screen_width = get_viewport().get_visible_rect().size.x
@@ -60,10 +62,9 @@ func _on_game_over(winner: String):
 	elif(GameManager.GAME_MODE == GameManager.Mode.Local):
 		Music.play_track(GameManager.TrackMode.Victory)
 		
-	winEffects(winner);
 
 func winEffects(winner:String) -> void:
-	#board.winningPinsRejoice();
+	board.winningPinsRejoice(winner);
 	# TODO: win animation
 	pass
 

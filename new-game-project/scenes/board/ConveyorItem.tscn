@@ -8,7 +8,7 @@ rotates = false
 script = ExtResource("2_h2l35")
 
 [node name="ConveyorItem" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_ppms0")
 region_enabled = true
 region_rect = Rect2(0, 0, 25, 25)

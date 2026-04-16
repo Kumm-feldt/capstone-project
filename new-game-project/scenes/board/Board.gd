@@ -369,9 +369,33 @@ func clear_move_hints():
 	move_hint_sprites.clear()
 
 func winningPinsRejoice(winner:String) -> void:
-	#var winningPins: AnimatedSprite2D[]
-	#for pin in pin_sprites:
-		#if 
+	var winningPins: Array[AnimatedSprite2D]
+	var losingPins: Array[AnimatedSprite2D]
+	
+	var pinRow = 0;
+	var pinCol = 0;
+	while pinRow <= 6:
+		var key = "%d_%d" % [pinRow, pinCol]
+		if pin_sprites.has(key):
+			var targetPin = pin_sprites[key]
+			if targetPin.player == winner:
+				winningPins.append(targetPin)
+			else:
+				losingPins.append(targetPin)
+		
+		pinCol += 1;
+		if pinCol > 6:
+			pinCol = 0;
+			pinRow += 1;
+
+	for pin in winningPins:
+		print("pickMe")
+		pin.play("pickMe");
+	for pin in losingPins:
+		print("pickMe")
+		pin.play("explode");
+		
+	print("WOrk pretty plz")
 	pass
 
 # ============================================

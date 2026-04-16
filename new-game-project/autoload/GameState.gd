@@ -219,7 +219,7 @@ func is_valid_selection(row,col, player):
 		invalid_text)
 		return false
 	return true
-
+	
 
 func is_valid_move(from_row: int, from_col: int, to_row: int, to_col: int, player: String) -> bool:
 	"""Validate if a move is legal"""
