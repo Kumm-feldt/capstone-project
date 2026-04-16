@@ -91,10 +91,14 @@ func _on_turn_changed(player):
 				player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
 			else:
 				player_color = GameManager.multiplayer_username +"'s"
+				if GameManager.multiplayer_icon == null:
+					GameManager.multiplayer_icon = "Happy"
 				player_icon.setIcon(GameManager.multiplayer_icon, GameManager.player2_color)
 		else:
 			if player == 'x':
 				player_color = GameManager.multiplayer_username+"'s"
+				if GameManager.multiplayer_icon == null:
+					GameManager.multiplayer_icon = "Happy"
 				player_icon.setIcon(GameManager.multiplayer_icon, GameManager.player2_color)
 			else:
 				player_color = "Your"

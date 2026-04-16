@@ -22,20 +22,21 @@ func setup(player: String):
 			GameManager.username = "my name"
 		# if it is hosting, special case
 		if GameManager.hosting:
-			if player == "o":
-				set_winner(GameManager.username) # you won!
-			elif player == "x":
-				print("guest won")
-				set_winner(GameManager.multiplayer_username) # username won
+			# Host is always "x", Guest is always "o"
+			if player == "x":
+				set_winner(GameManager.username)          # host (you) won
+			elif player == "o":
+				set_winner(GameManager.multiplayer_username)  # guest won
 			else:
-				set_winner("draw") # draw
+				set_winner("draw")
 		else:
-			if player == 'x':
-				set_winner(GameManager.multiplayer_username) # username won
-			elif player == "x":
-				set_winner(GameManager.username) # you won!
+			# Guest is "o", Host is "x"
+			if player == 'o':
+				set_winner(GameManager.username)          # guest (you) won
+			elif player == 'x':
+				set_winner(GameManager.multiplayer_username)  # host won
 			else:
-				set_winner("draw") # draw
+				set_winner("draw")
 
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
 		winner = "You Won!" if player == 'o' else "CPU Wins!"
