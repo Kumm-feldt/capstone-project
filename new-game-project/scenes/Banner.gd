@@ -9,6 +9,11 @@ const WinScreen = preload("res://scenes/WinScreen.tscn")
 @onready var led2 = $PanelContainer/LED2
 @onready var led3 = $PanelContainer/LED3
 
+@onready var player_icon = $PlayerIcon
+
+
+
+
 var current = 0
 var leds = []
 var colors = [Color.RED, Color.GREEN, Color.BLUE]
@@ -37,12 +42,19 @@ func _ready() -> void:
 		# if it is hosting, special case
 		if GameManager.hosting:
 			player = GameManager.multiplayer_username+"'s"
+			player_icon.setIcon(GameManager.multiplayer_icon, GameManager.player2_color)
 		else:
 			player = "Your"
+			player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
+			
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
 		player = "Your"
+		player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
+
 	elif GameManager.GAME_MODE == GameManager.Mode.Local:
 		player = "Player 1" 
+		player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
+
 	turn_label.text = "%s\nTurn" % player
 
 func _on_pause_button_pressed():
@@ -64,17 +76,40 @@ func _on_turn_changed(player):
 			GameManager.multiplayer_username = "unknown"
 		if not GameManager.username:
 			GameManager.username = "my name"
+			
 		# if it is hosting, special case
 		if GameManager.hosting:
-			player_color = "Your" if player == "x" else GameManager.multiplayer_username +"'s"
+			if player == "x":
+				player_color = "Your"
+				player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
+			else:
+				player_color = GameManager.multiplayer_username +"'s"
+				player_icon.setIcon(GameManager.multiplayer_icon, GameManager.player2_color)
 		else:
-			player_color = GameManager.multiplayer_username+"'s" if player == 'x' else "Your"
+			if player == 'x':
+				player_color = GameManager.multiplayer_username+"'s"
+				player_icon.setIcon(GameManager.multiplayer_icon, GameManager.player2_color)
+			else:
+				player_color = "Your"
+				player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
+
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
-		player_color = "Your" if player == 'o' else "CPU"
-		await get_tree().create_timer(1.0).timeout
-			
+		await get_tree().create_timer(1.5).timeout
+		if player == 'o':
+			player_color = "Your"
+			player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
+		else:
+			player_color = "CPU"
+			# change to a presetted picture
+			player_icon.setIcon(GameManager.ai_icon, GameManager.player2_color)
 	elif GameManager.GAME_MODE == GameManager.Mode.Local:
-		player_color = "Player 1" if player == 'o' else "Player 2"
+		if player == 'o':
+			player_color = "Player 1" 
+			player_icon.setIcon(GameManager.profile_picture, GameManager.player1_color)
+		else:
+			player_color =  "Player 2"
+			player_icon.setIcon(GameManager.profile_picture, GameManager.player2_color)
+
 	turn_label.text = "%s\nTurn" % player_color
 
 func _on_invalid_move(text):

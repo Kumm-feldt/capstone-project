@@ -4,7 +4,7 @@ var board: Node
 const SERVER_PORT = 7777
 const LAN_BROADCAST_PORT = 42355
 const BROADCAST_ADDRESS = "255.255.255.255"
-var HOST =  getHostName()
+var HOST =  getHostName()[0]
 
 var players = {}
 var discovered_servers = {}
@@ -29,7 +29,10 @@ signal ready_to_leave
 func getHostName():
 	var config = ConfigFile.new()
 	if config.load("user://save.cfg") == OK:
-		return config.get_value("player", "username")
+		var username = config.get_value("player", "username")
+		var icon_profile_pic = config.get_value("player", "picture")
+		
+		return [username, icon_profile_pic]
 	else:
 		return "undefined"
 
@@ -154,8 +157,9 @@ func _del_player(id: int):
 
 func _on_connected_to_server():
 	print("Successfully connected!")
-	var username = getHostName()
-	register_user.rpc_id(1, username)
+	var username = getHostName()[0]
+	var icon_profile_pic = getHostName()[1]
+	register_user.rpc_id(1, username, icon_profile_pic)
 	# tell JoinGameScreen to stop showing "Searching..." and enter the lobby
 
 func _on_connection_failed():
@@ -225,8 +229,6 @@ func confirm_move(coord):
 # rpc emit signal to let the other peer the user left the match
 @rpc("authority", "reliable")
 func match_ended(username):
-	print("2) match_ended(username)")
-	print("match ended, user left: ", username)
 	emit_signal("end_match", username)
 	
 # Someone tells the server they are leaving
@@ -264,21 +266,18 @@ func confirm_client_disconnect(leaver_id, user):
 
 # client -> server: this is my name
 @rpc("any_peer", "reliable")
-func register_user(username):
+func register_user(username, icon_profile_pic):
 	var sender_id := multiplayer.get_remote_sender_id()
 	GameManager.multiplayer_username = username
-	print("Player connected: ", sender_id, " username: ", username)
-	players[sender_id] = { "username": username }
+	GameManager.multiplayer_icon = icon_profile_pic
+	players[sender_id] = { "username": username, "icon_profile_pic": icon_profile_pic}
 	client_id = sender_id
 	if players.size() == 2:  # both players connected
-		print("told everyone... ")
 		notify_all_players_ready.rpc()  # tell EVERYONE including client
 
 # 2) HOST NETWORK CLEANUP: run ONLY on host
 @rpc("authority", "call_local", "reliable")
 func confirm_host_disconnect():
-	print("6) confirm_host_disconnect")
-	print("confirmed that host disconnected")
 	players.clear()
 	is_hosting = false
 	if host_udp:
