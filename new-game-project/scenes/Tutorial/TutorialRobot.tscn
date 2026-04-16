@@ -230,10 +230,10 @@ z_index = -1
 texture = ExtResource("2_6buvc")
 
 [node name="SpeechBubble" type="NinePatchRect" parent="."]
-offset_left = -53.0
-offset_top = -99.0
-offset_right = 106.0
-offset_bottom = -21.0
+offset_left = -56.0
+offset_top = -104.0
+offset_right = 124.0
+offset_bottom = -16.0
 texture = ExtResource("8_5d3y4")
 patch_margin_left = 10
 patch_margin_top = 10
@@ -241,16 +241,19 @@ patch_margin_right = 10
 patch_margin_bottom = 10
 
 [node name="TootWords" type="Label" parent="SpeechBubble"]
+custom_minimum_size = Vector2(160, 60)
 layout_mode = 0
-offset_left = 11.0
-offset_top = 9.0
-offset_right = 156.0
-offset_bottom = 74.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 174.0
+offset_bottom = 82.0
+theme_override_constants/line_spacing = 10
+theme_override_constants/paragraph_spacing = 0
 autowrap_mode = 3
 
 [node name="Continue" type="Label" parent="SpeechBubble"]
 layout_mode = 0
-offset_left = 85.0
-offset_top = 96.0
-offset_right = 155.0
-offset_bottom = 141.0
+offset_left = 82.0
+offset_top = 86.0
+offset_right = 242.0
+offset_bottom = 109.0
