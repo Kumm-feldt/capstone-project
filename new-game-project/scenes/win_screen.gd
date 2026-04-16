@@ -22,9 +22,10 @@ func setup(player: String):
 			GameManager.username = "my name"
 		# if it is hosting, special case
 		if GameManager.hosting:
-			if player == "x":
+			if player == "o":
 				set_winner(GameManager.username) # you won!
 			else:
+				print("guest won")
 				set_winner(GameManager.multiplayer_username) # username won
 		else:
 			if player == 'x':
@@ -39,6 +40,7 @@ func setup(player: String):
 	winner_label.text = winner
 
 func _on_play_again():
+
 	hide()
 	# show loading scene...
 	var canvas = CanvasLayer.new()
@@ -87,11 +89,38 @@ func reduce_points(user):
 	DBService.update_user_info(user, "reduce", GameManager.LOSE_POINTS)
 
 func set_winner(user):
+	#quit_game()
 	if user == GameManager.username:
 		winner = "You Won!" 
+		print("set winner: ", user, " - add points to: ", GameManager.username)
+		GameManager.winner = GameManager.username
 		add_points(GameManager.username)
 		reduce_points(GameManager.multiplayer_username)
 	else:
+		print("set winner: ", user, " - add points to: ", GameManager.multiplayer_username)
+		
 		winner = GameManager.multiplayer_username+"\nWins!" 
 		add_points(GameManager.multiplayer_username)
 		reduce_points(GameManager.username)
+		GameManager.winner = GameManager.multiplayer_username
+		
+
+func quit_game():
+	# User left the match
+	# If already disconnected (other player left first), just go to menu
+	Music.play_button_sound()
+	GameState.reset_game()
+	
+	if multiplayer.multiplayer_peer == null:
+		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
+		return
+		
+	if (multiplayer.is_server()):
+		GameManager.hosting = false
+		print("about to call leave_match_as_host")
+		NetworkManager.leave_match_as_host()
+	else:
+		print("about to call leave_match_as_client")
+		NetworkManager.leave_match_as_client()
+	
+	

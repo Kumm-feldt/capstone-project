@@ -10,7 +10,6 @@ var GAME_OPENED = false;
 # ============================================
 # TOURNAMENT FLAG
 # ============================================
-
 var TOURNAMENT = false
 var show_ai_tournament = false
 # ============================================
@@ -25,6 +24,8 @@ var ai_icon = "Happy"
 # filled only when playing over the network
 var multiplayer_icon 
 var multiplayer_username 
+var winner = "unknown" #
+
 
 var username 
 var player_id

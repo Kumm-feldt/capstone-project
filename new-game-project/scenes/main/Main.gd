@@ -2,6 +2,8 @@
 # Attached to Main (Node2D) root node
 extends Node2D
 var win_screen_scene = preload("res://scenes/WinScreen.tscn")
+var lose_screen_scene = preload("res://scenes/WinScreen.tscn")
+
 #@onready var turn_label = $CanvasLayer/UI/TurnLabel
 #@onready var debug_label = $CanvasLayer/UI/DebugLabel
 #@onready var reset_button = $CanvasLayer/UI/ResetButton
@@ -28,11 +30,19 @@ func _on_ready_to_leave():
 
 func _on_game_over(winner: String):
 	winEffects(winner);
-	
+	print("winner: ", GameManager.winner)
+	if GameManager.winner != GameManager.username:
+		print("---- WE LOST ----, do i know?")
+	else:
+		print("---- WE WON ----, do i know?")
+		
 	var canvas = CanvasLayer.new()
 	canvas.layer = 10
 	get_tree().root.add_child(canvas)
+	
 	var win_screen = win_screen_scene.instantiate()
+	var lose_screen = lose_screen_scene.instantiate()
+	
 	canvas.add_child(win_screen)
 	win_screen.set_anchors_preset(Control.PRESET_CENTER)
 	win_screen.setup(winner)

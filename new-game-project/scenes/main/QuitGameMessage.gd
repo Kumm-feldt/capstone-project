@@ -14,8 +14,6 @@ func _ready() -> void:
 		quit_game_mult.visible = true
 
 
-
-
 func _on_resume_button_pressed() -> void:
 	Music.play_button_sound()
 	emit_signal("resume_match")
