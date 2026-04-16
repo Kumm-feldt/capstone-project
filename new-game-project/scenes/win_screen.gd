@@ -4,11 +4,14 @@ extends Control
 @onready var play_again_button = $Panel/MarginContainer/VBoxContainer/PlayAgainButton
 @onready var main_menu_button = $Panel/MarginContainer/VBoxContainer/MainMenuButton
 @onready var quit_button = $Panel/MarginContainer/VBoxContainer/QuitButton
+
 var winner = "undefined"
 
 const menu_panel_scene = preload("res://scenes/MainMenu/menu_panel.tscn")
 
 func _ready():
+	if GameManager.Mode.Multiplayer == GameManager.GAME_MODE:
+		play_again_button.visible = false
 	play_again_button.pressed.connect(_on_play_again)
 	main_menu_button.pressed.connect(_on_main_menu)
 	quit_button.pressed.connect(_on_quit)
