@@ -96,7 +96,7 @@ func set_winner(user):
 	#quit_game()
 	print("MULTIPLAYER GAMEMANAGER ", GameManager.multiplayer_username)
 	if user == GameManager.username:
-		winner = "You Won!" 
+		winner = "You Won! (locally)" 
 		print("set winner: ", user, " - add points to: ", GameManager.username)
 		GameManager.winner = GameManager.username
 		add_points(GameManager.username)

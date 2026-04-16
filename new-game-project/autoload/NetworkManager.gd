@@ -223,11 +223,6 @@ func send_move(coord):
 func confirm_move(coord):
 	# This runs on every peer — board applies the move
 	GameState.move_pin(coord, GameState.current_player)
-	# Only the server should check and broadcast the win
-	if multiplayer.is_server():
-		var winner = GameState.get_winner() # your existing win-check function
-		if winner != "":
-			sync_game_over.rpc(winner)  # fires on BOTH host and client
 
 @rpc("authority", "call_local", "reliable")
 func sync_game_over(winner: String):

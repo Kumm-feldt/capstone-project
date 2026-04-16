@@ -60,6 +60,7 @@ func update_user_info(username, action, points_):
 	pending_action = action
 	print("==========")
 	print("USERNAME: ", username)
+	print("ACTION: ", action)
 	print("==========")
 	
 	var url = URL + "?username=eq."+username 
@@ -114,11 +115,13 @@ func update_points():
 			upd_points = 0
 		statement = "losses"
 		value = losses +1
- 
+		print("reduce for ", pending_username, "updated points: ", upd_points)
 	elif pending_action == "add":
 		upd_points = points + pending_points 
 		statement = "wins"
 		value = wins +1
+		print("add for ", pending_username, "updated points: ", upd_points)
+		
 		
 	else:
 		upd_points = points 
@@ -139,6 +142,8 @@ func _on_update_points_done(result, response_code, headers, body):
 		push_error("HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		return
+	else:
+		print("correctly done?")
 		
 	
 	
