@@ -38,7 +38,7 @@ anchor_bottom = 0.5
 offset_left = -294.25
 offset_top = -163.00934
 offset_right = 294.25
-offset_bottom = 179.0
+offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_1fgya")
@@ -104,6 +104,22 @@ theme_override_fonts/font = ExtResource("6_uup74")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_vhxbu")
 
+[node name="showBoard" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 46.25
+offset_top = 249.00934
+offset_right = 211.25
+offset_bottom = 291.00934
+theme = ExtResource("5_4vh1s")
+text = "Show Board:"
+
+[node name="CheckButton" type="CheckButton" parent="Panel/showBoard"]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 10.0
+offset_right = 245.0
+offset_bottom = 34.0
+
 [node name="EventLabel" type="Label" parent="Panel"]
 layout_mode = 0
 offset_left = 48.25
@@ -128,9 +144,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_vhxbu")
 visible = false
 layout_mode = 0
 offset_left = 47.25
-offset_top = 249.00934
+offset_top = 288.00934
 offset_right = 541.25
-offset_bottom = 277.00934
+offset_bottom = 316.00934
 theme_override_font_sizes/font_size = 20
 text = "Error in user input"
 horizontal_alignment = 1
@@ -142,10 +158,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -68.0
-offset_top = -421.0
-offset_right = 76.0
-offset_bottom = -383.0
+offset_left = -65.0
+offset_top = -377.0
+offset_right = 79.0
+offset_bottom = -339.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("7_vhxbu")

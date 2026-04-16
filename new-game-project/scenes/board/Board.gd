@@ -1,6 +1,9 @@
 # scenes/board/Board.gd
 # Attached to the Board (Node2D) root node
 extends Node2D
+
+var is_full_refresh: bool = false
+
 # ============================================
 # ANIMATION QUEUE
 # ============================================
@@ -87,14 +90,23 @@ func connect_signals():
 	GameState.connect("coin_flipped", _on_robot_disk_flipped)
 	GameState.connect("turn_changed", _on_turn_changed)
 	GameState.connect("invalid_move", _on_invalid_move)
-	SoftserveClient.connect("ai_battle_move", _on_ai_battle_move)
+	# will this update the board?
+	SoftserveClient.connect("updateBoardAI", _on_update_board)
 	
 # ============================================
 # RENDERING
 # ============================================
 func render_board():
+	print("rendering from updateBoard softserve")
 	"""Main render function - creates all sprites from GameState arrays"""
+	if GameManager.TOURNAMENT:
+		# Flush any stale animation jobs before wiping sprites
+		animation_queue.clear()
+		is_animating = false
+
 	clear_all_sprites()
+	
+	
 	var heads_tails = [[0,0], [0,5], [5,0], [5,5]]
 	
 	# Render pins (at intersections)
@@ -191,13 +203,13 @@ func create_robot_disk_sprite(row: int, col: int, player: String):
 	"""Create a disk scene at array position"""
 	var disk_scene = robot_disk_scene
 	var sprite_instance = disk_scene.instantiate()
-	sprite_instance.set_disk(player, getPlayerColor(player))
 	sprite_instance.position = get_coin_screen_position(row, col)
-	sprite_instance.z_index = 0  # Coins below pins
-	sprite_instance.visible = false #Don't show the disk before it animates
+	sprite_instance.z_index = 0
 	add_child(sprite_instance)
+	sprite_instance.set_disk(player, getPlayerColor(player))
+	sprite_instance.visible = true  # Force true regardless of TOURNAMENT for now
+	print("Disk visible after add_child: ", sprite_instance.visible, " at ", row, col)
 	coin_sprites["%d_%d" % [row, col]] = sprite_instance
-	pass
 	
 
 func clear_all_sprites():
@@ -389,10 +401,8 @@ func winningPinsRejoice(winner:String) -> void:
 			pinRow += 1;
 
 	for pin in winningPins:
-		print("pickMe")
 		pin.play("pickMe");
 	for pin in losingPins:
-		print("pickMe")
 		pin.play("explode");
 		
 	print("WOrk pretty plz")
@@ -406,6 +416,8 @@ func _on_board_updated():
 	#render_board()
 	
 func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
+	if is_full_refresh:
+		return
 	var from_key = "%d_%d" % [from_pos[1],from_pos[0]]
 	
 	# Enqueue the animation job
@@ -415,7 +427,9 @@ func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 		if not pin_sprites.has(from_key):
 			push_warning("_on_pin_moved: missing sprite for key %s, skipping animation" % from_key)
 		else:
-			await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
+			# do not play animation if tournament
+			if not GameManager.TOURNAMENT:
+				await pin_sprites[from_key].play_movement_animation(from_pos, to_pos)
 		# 3. Do Disk change
 		
 		
@@ -443,7 +457,9 @@ func _on_pin_jumped(from_pos: Vector2i, to_pos: Vector2i, removed_pos: Vector2i,
 		if not pin_sprites.has(from_key) or not pin_sprites.has(oponent_key):
 			push_warning("_on_pin_jumped: sprite missing after await, skipping animation")
 		else:
-			await pin_sprites[from_key].play_capture_animation(from_pos, to_pos, pin_sprites[oponent_key])
+			# do not play animation if tournament
+			if not GameManager.TOURNAMENT:
+				await pin_sprites[from_key].play_capture_animation(from_pos, to_pos, pin_sprites[oponent_key])
 		
 		# Delete current player's pin scene
 		delete_pin_sprite(from_key)
@@ -465,8 +481,16 @@ func delete_pin_sprite(key):
 	#create_coin_sprite(coordinates[1],coordinates[0],player)
 	
 func _on_robot_disk_placed(coordinates: Vector2i, player):
+	if is_full_refresh:
+		return
+		
 	create_robot_disk_sprite(coordinates[1],coordinates[0],player)
 	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
+	# do not play animation if tournament
+	print("TURNED:", GameManager.TOURNAMENT)
+	if GameManager.TOURNAMENT:
+		coin_sprites[coin_key].visible = true  # ← show it immediately
+		return
 	#Queue the appropriate animation for dropping onto the board
 	queue_animation(func() -> void:
 		await coin_sprites[coin_key].play_create_animation();
@@ -487,6 +511,11 @@ func _on_robot_disk_flipped(coordinates: Vector2i, oldstate, player):
 	if coin_sprites.has(coin_key):
 		var oldColor = coin_sprites[coin_key].color;
 		coin_sprites[coin_key].set_disk(player, getPlayerColor(player))
+		
+		# do not play animation if tournament
+		if GameManager.TOURNAMENT:
+			return
+			
 		#Then, queue animation
 		queue_animation(func() -> void:
 			await coin_sprites[coin_key].play_swap_animation(oldColor);
@@ -598,3 +627,11 @@ func _process_animation_queue() -> void:
 	var next_job: Callable = animation_queue.pop_front()
 	await next_job.call()
 	_process_animation_queue()
+
+func _on_update_board(state):
+	is_full_refresh = true
+	animation_queue.clear()
+	is_animating = false
+	_new_board(state)
+	render_board()
+	is_full_refresh = false

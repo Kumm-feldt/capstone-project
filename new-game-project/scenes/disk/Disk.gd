@@ -8,6 +8,7 @@ func set_disk(ownerPlayer: String, givenColor: Color) -> void:
 	"""Set up the pin according to its player."""
 	_setOwner(ownerPlayer, givenColor)
 	setDiskColor(color);
+	visible = true  
 	
 func setDiskColor(givenColor: Color) -> void:
 	color = givenColor
@@ -19,7 +20,6 @@ func setDiskColor(givenColor: Color) -> void:
 func _setOwner(newOwner: String, newPlayerColor) -> void:
 	player = newOwner;
 	color = newPlayerColor;
-	
 	#Make sure to change the color visually!
 	return
 	

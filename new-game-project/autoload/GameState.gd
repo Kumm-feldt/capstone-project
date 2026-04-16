@@ -471,6 +471,7 @@ func reset_game():
 	game_paused = false
 	emit_signal("board_updated", PINS, COINS)
 	GameManager.IS_TUTORIAL = false
+	
 func print_debug_state():
 	"""Debug helper"""
 	print("=== PINS ===")

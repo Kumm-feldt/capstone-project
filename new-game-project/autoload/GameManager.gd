@@ -7,7 +7,12 @@ var WIN_POINTS = 100
 var LOSE_POINTS = 50
 
 var GAME_OPENED = false;
+# ============================================
+# TOURNAMENT FLAG
+# ============================================
 
+var TOURNAMENT = false
+var show_ai_tournament = false
 # ============================================
 # GAME MODES AND STATUS
 # ============================================

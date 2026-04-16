@@ -12,8 +12,6 @@ const WinScreen = preload("res://scenes/WinScreen.tscn")
 @onready var player_icon = $PlayerIcon
 
 
-
-
 var current = 0
 var leds = []
 var colors = [Color.RED, Color.GREEN, Color.BLUE]
@@ -36,6 +34,11 @@ func _ready() -> void:
 	GameState.connect("valid_move", _on_valid_move)
 	GameState.connect("game_paused_changed", _on_pause_changed)
 	pause_button.pressed.connect(_on_pause_button_pressed)
+	
+	# do not show on tournament
+	if GameManager.TOURNAMENT:
+		return
+		
 	# default text in banner
 	var player 
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
@@ -69,6 +72,10 @@ func _on_pause_changed(is_paused: bool):
 		pause_menu.hide()
 
 func _on_turn_changed(player):
+	# do not show on tournament
+	if GameManager.TOURNAMENT:
+		return
+		
 	var player_color 
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		# fall backs 

@@ -8,7 +8,7 @@ extends Control
 @onready var off_panel = $off_panel
 @onready var options = $points_received
 @onready var profile_tab = $Profile
-
+@onready var ai_button_tournament = $AI_Tournament
 
 # Preload at the top of your script — loads the file once, reuses it
 const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
@@ -139,6 +139,7 @@ func _on_local_play_mode_button_pressed() -> void:
 	
 
 func _on_ai_tournament_pressed() -> void:
+	GameManager.TOURNAMENT = true
 	softserve_registration = SOFTSERVE_REGISTRATION.instantiate()
 	# Add it to the current scene as a child
 	add_child(softserve_registration)
@@ -158,3 +159,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("enter"):
 		if active_popup_warning:
 			active_popup_warning.get_node("Panel/AcceptButton").emit_signal("pressed")
+			
+	if event.is_action_pressed("show_tournament"):
+		ai_button_tournament.visible = not ai_button_tournament.visible 

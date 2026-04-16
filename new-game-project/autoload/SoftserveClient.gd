@@ -7,8 +7,9 @@ var EVENT_NAME = null
 
 # ai_vs_ai signals
 signal error(error)
-signal updateBoard(state)
+signal updateBoardAI(state) 
 signal ai_battle_move(boardString)
+signal ready_to_play
 
 
 var TOKEN = ""
@@ -22,14 +23,15 @@ var AI_PLAYING = true
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var ai = $CreeperAI
 
+func _ready():
+	print("STARTING TOURNAMENT...")
+	http_request.request_completed.connect(_on_request_completed)
+
 func ai_vs_ai(name, email, event):
 	PLAYER_NAME = name
 	PLAYER_EMAIL = email
 	EVENT_NAME = event
 	
-	# connect to client
-	http_request.request_completed.connect(_on_request_completed)
-	print("STARTING...")
 	# get token
 	get_token()
 	# Now that we have our token, we can start the /aivai loop
@@ -41,6 +43,7 @@ func ai_vs_ai(name, email, event):
 	"""
 	
 func ai_loop() -> void:
+	emit_signal("ready_to_play")   # Tell the UI to change scenes NOW
 	await request_state_softserve()
 	await get_tree().create_timer(0.2).timeout
 
@@ -162,7 +165,8 @@ func _on_request_completed(result, response_code, headers, body):
 			var state = json["state"]
 			var action = request_ai_action(state)
 			#emit_signal("ai_battle_move", state)
-			emit_signal("updateBoard", state)
+			emit_signal("updateBoardAI", state)
+			
 			send_action_to_softserve(action, action_id)
 			counter += 1
 
@@ -190,7 +194,8 @@ func _on_request_completed(result, response_code, headers, body):
 # REQUEST AI ACTION
 # ============================================
 func request_ai_action(state):	
-	var action_str = ai.GetMove(state) 
+	print(state)
+	var action_str = ai.GetMoveHard(state)
 	if action_str == null:
 		print("ERROR obtaining move")
 	return action_str
