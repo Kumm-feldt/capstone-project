@@ -90,7 +90,7 @@ func _on_discovered_servers_ui(servers):
 	
 func _on_join_button_pressed(ip, host):
 	Music.play_button_sound()
-	GameManager.multiplayer_username = host + "-host"
+	GameManager.multiplayer_username = host 
 	NetworkManager.join_game(ip)
 
 
