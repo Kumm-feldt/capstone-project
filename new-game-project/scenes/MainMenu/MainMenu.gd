@@ -13,6 +13,9 @@ var active_popup: Control = null
 @onready var off_panel = $off_panel
 
 func _ready() -> void:
+	Music.resume_music()
+	if not Music.is_playing_track(GameManager.TrackMode.Default):
+		Music.play_default_track()
 	if not GameManager.GAME_OPENED:	
 		if not testing:
 			await $MenuPanelScene.on_game_opened()
