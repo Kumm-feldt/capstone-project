@@ -6,8 +6,10 @@ extends CanvasLayer
 
 # Preload at the top of your script — loads the file once, reuses it
 const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
+var canvas = null
 
 func _ready():
+	
 	resume_button.pressed.connect(_on_resume)
 	quit_button.pressed.connect(_on_quit)
 	quit_message.resume_match.connect(_on_resume_match)
@@ -54,13 +56,23 @@ func _on_lose_button_pressed() -> void:
 		else:
 			GameState.force_game_over("x")
 
+func _on_close_instructions():
+	if canvas and is_instance_valid(canvas):
+		canvas.queue_free()
+		canvas = null
+	# Restore pause menu
+	pause_menu.visible = true
+	show()
+	GameState.pause_game()
 
+	
 func _on_instructions_button_pressed() -> void:
-	var canvas = CanvasLayer.new()
+	canvas = CanvasLayer.new()
 	canvas.layer = 100
 	get_tree().root.add_child(canvas)
-
+	
 	var settings_scene = POPUP_SCENE.instantiate()
+	settings_scene.close_instructions.connect(_on_close_instructions)
 	canvas.add_child(settings_scene)
 
 	# Pass the canvas reference so the scene can clean itself up

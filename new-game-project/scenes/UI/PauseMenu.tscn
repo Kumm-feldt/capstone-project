@@ -1,15 +1,16 @@
 [gd_scene load_steps=9 format=3 uid="uid://cnxv7st1qgo5k"]
 
 [ext_resource type="Script" uid="uid://b01af70nu6jgv" path="res://scenes/UI/pause_menu.gd" id="1_avwb0"]
-[ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="2_onjwa"]
+[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="2_avwb0"]
 [ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="3_3m1qe"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="4_onjwa"]
 [ext_resource type="Theme" uid="uid://chf7scv4qpux1" path="res://Themes/theme_button_yellow.tres" id="5_3m1qe"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="5_73e60"]
 [ext_resource type="PackedScene" uid="uid://co20nk8g1tiv" path="res://scenes/main/QuitGameMessage.tscn" id="6_onjwa"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_77ihb"]
-texture = ExtResource("2_onjwa")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3m1qe"]
+texture = ExtResource("2_avwb0")
+region_rect = Rect2(1339, 734, 241, 227)
 
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_avwb0")
@@ -26,16 +27,17 @@ offset_right = 203.0
 offset_bottom = 326.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_77ihb")
+theme_override_styles/panel = SubResource("StyleBoxTexture_3m1qe")
 
 [node name="OptionsLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 34.0
-offset_top = 20.5
-offset_right = 179.0
-offset_bottom = 54.5
+offset_left = 126.0
+offset_top = 62.5
+offset_right = 271.0
+offset_bottom = 96.5
 size_flags_horizontal = 4
 theme = ExtResource("3_3m1qe")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Options"
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
@@ -45,7 +47,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -199.0
-offset_top = 108.5
+offset_top = 155.5
 offset_right = 199.0
 offset_bottom = -8.0
 grow_horizontal = 2
@@ -65,6 +67,7 @@ theme = ExtResource("4_onjwa")
 text = "Resume"
 
 [node name="InstructionsButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 size_flags_vertical = 4

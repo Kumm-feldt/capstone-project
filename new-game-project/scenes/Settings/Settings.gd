@@ -1,5 +1,5 @@
 extends Control
-
+signal close_instructions
 @onready var settings_panel = $Panel/SettingsPanel
 @onready var customize_panel = $Panel/CustomizePanel
 @onready var instructions_panel = $Panel/InstructionsPanel
@@ -364,9 +364,11 @@ func setup(canvas: CanvasLayer) -> void:
 	_canvas = canvas
 
 func _on_close_button_pressed() -> void:
-	if _canvas:
-		print("_canvas here")
-		_canvas.queue_free()  # removes both the canvas and this scene
+	if _canvas and is_instance_valid(_canvas):
+		_canvas.queue_free()
+	else:
+	# Fallback: just hide if no canvas reference
+		hide()
 		queue_free()
 
 
