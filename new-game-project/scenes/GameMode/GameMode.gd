@@ -41,7 +41,7 @@ func _ready() -> void:
 	#const Transition = preload("res://scenes/Transition.tscn")
 	
 func _on_logout_message():
-	toggle_light()
+	off_panel.visible = true
 	if active_popup_warning:
 		return
 	# Create the instance
@@ -91,7 +91,7 @@ func toggle_light():
 		off_panel.visible = true
 	
 func _on_ai_mode_button_pressed() -> void:
-	toggle_light()
+	off_panel.visible = true
 	Music.play_button_sound()
 	ai_mode_popup.visible = true
 	# Connect the signal if not already connected
@@ -105,7 +105,7 @@ func _on_popup_closed():
 
 	
 func _on_online_mode_pressed() -> void:
-	toggle_light()
+	off_panel.visible = true
 	online_mode_popup.visible = true
 	GameManager.GAME_MODE = GameManager.Mode.Multiplayer
 	# Connect the signal if not already connected

@@ -103,7 +103,13 @@ func update_points():
 	var value
 	var upd_points = 0
 	if pending_action == "reduce":
-		upd_points = points - pending_points
+		if points != 0:
+			if points < pending_points:
+				upd_points = 0
+			else:
+				upd_points = points - pending_points
+		else:
+			upd_points = 0
 		statement = "losses"
 		value = losses +1
  

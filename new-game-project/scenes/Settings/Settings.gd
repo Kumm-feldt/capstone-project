@@ -39,6 +39,8 @@ extends Control
 	"#30e1b9",
 ]
 
+var _canvas: CanvasLayer  # store the reference
+
 # State tracking
 var active_sprite: Sprite2D = null
 var active_sprite_name: String = ""
@@ -120,11 +122,16 @@ func _ready() -> void:
 	customize_panel.visible = false
 	instructions_panel.visible = false
 	
+	# default hide custom player option
+	custom_player_button.visible = false
+	
+	
 	if not first_launch:
 		_setup_button_row(row_1_container)
 		_setup_button_row(row_2_container)
 		_initialize_color_grid()
 		_initialize_background_color_grid()
+		# if not first time do show custom player option
 		custom_player_button.visible = true
 		original_color = GameManager.icon_color if GameManager.icon_color is Color else Color.WHITE
 		original_button_color = GameManager.background_color if GameManager.background_color is Color else Color.GRAY
@@ -267,6 +274,7 @@ func _on_any_character_button_pressed(target_sprite: Sprite2D) -> void:
 # BUTTON PRESSED
 # ============================================
 func _on_instructions_button_pressed() -> void:
+	print("instructions pressed")
 	Music.play_button_sound()
 	settings_panel.visible = false
 	instructions_panel.visible = true
@@ -350,3 +358,11 @@ func _on_tutorial_mode_pressed() -> void:
 	GameManager.IS_TUTORIAL= true
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 	
+func setup(canvas: CanvasLayer) -> void:
+	_canvas = canvas
+
+func _on_close_button_pressed() -> void:
+	if _canvas:
+		print("_canvas here")
+		_canvas.queue_free()  # removes both the canvas and this scene
+		queue_free()

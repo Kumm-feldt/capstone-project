@@ -4,6 +4,9 @@ extends Control
 @onready var play_again_button = $Panel/MarginContainer/VBoxContainer/PlayAgainButton
 @onready var main_menu_button = $Panel/MarginContainer/VBoxContainer/MainMenuButton
 @onready var quit_button = $Panel/MarginContainer/VBoxContainer/QuitButton
+var winner = "undefined"
+
+const menu_panel_scene = preload("res://scenes/MainMenu/menu_panel.tscn")
 
 func _ready():
 	play_again_button.pressed.connect(_on_play_again)
@@ -11,7 +14,6 @@ func _ready():
 	quit_button.pressed.connect(_on_quit)
 	
 func setup(player: String):
-	var winner = "who"
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		# fall backs 
 		if not GameManager.multiplayer_username:
@@ -20,9 +22,16 @@ func setup(player: String):
 			GameManager.username = "my name"
 		# if it is hosting, special case
 		if GameManager.hosting:
-			winner = "You Won!" if player == "x" else GameManager.multiplayer_username +"\nWins!"
+			if player == "x":
+				set_winner(GameManager.username) # you won!
+			else:
+				set_winner(GameManager.multiplayer_username) # username won
 		else:
-			winner = GameManager.multiplayer_username+" Wins!" if player == 'x' else "You Won!"
+			if player == 'x':
+				set_winner(GameManager.multiplayer_username) # username won
+			else:
+				set_winner(GameManager.username) # you won!
+
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
 		winner = "You Won!" if player == 'o' else "CPU Wins!"
 	else:
@@ -31,7 +40,20 @@ func setup(player: String):
 
 func _on_play_again():
 	hide()
+	# show loading scene...
+	var canvas = CanvasLayer.new()
+	canvas.layer = 100  # on top of everything
+	get_tree().root.add_child(canvas)
+	
+	var menu_panel = menu_panel_scene.instantiate()
+	canvas.add_child(menu_panel)
+	
+	menu_panel.toggleLoadingScreen()
+	await get_tree().create_timer(1).timeout
+
+	# reset game and change scene to show game
 	GameState.reset_game()
+	menu_panel.queue_free()
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")  
 
 func _on_main_menu():
@@ -42,4 +64,34 @@ func _on_main_menu():
 func _on_quit():
 	GameState.reset_game()
 	hide()
+	# show loading scene...
+	var canvas = CanvasLayer.new()
+	canvas.layer = 100  # on top of everything
+	get_tree().root.add_child(canvas)
+	
+	var menu_panel = menu_panel_scene.instantiate()
+	canvas.add_child(menu_panel)
+	
+	menu_panel.toggleLoadingScreen()
+	await get_tree().create_timer(1).timeout
+
+	# reset game and change scene to show game
+	GameState.reset_game()
+	menu_panel.queue_free()
 	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")  # adjust to your main menu path
+
+func add_points(user):
+	DBService.update_user_info(user, "add", GameManager.WIN_POINTS)
+	
+func reduce_points(user):
+	DBService.update_user_info(user, "reduce", GameManager.LOSE_POINTS)
+
+func set_winner(user):
+	if user == GameManager.username:
+		winner = "You Won!" 
+		add_points(GameManager.username)
+		reduce_points(GameManager.multiplayer_username)
+	else:
+		winner = GameManager.multiplayer_username+"\nWins!" 
+		add_points(GameManager.multiplayer_username)
+		reduce_points(GameManager.username)

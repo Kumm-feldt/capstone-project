@@ -7,10 +7,7 @@ var win_screen_scene = preload("res://scenes/WinScreen.tscn")
 #@onready var reset_button = $CanvasLayer/UI/ResetButton
 @onready var userleftmessage = $UserLeftMessage
 @onready var dim_overlay = $DimOverlay
-
-var WIN_POINTS = 100
-var LOSS_POINTS = 30
-
+@onready var board = $Board
 
 func _ready():
 	GameState.reset_game()
@@ -52,9 +49,7 @@ func _on_game_over(winner: String):
 		1.5
 	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
-
 	if (GameManager.GAME_MODE == GameManager.Mode.AI ):
-		DBService.update_user_info(GameManager.username, "add", WIN_POINTS)
 		if (winner == "o"):
 			Music.play_track(GameManager.TrackMode.Victory)
 		else:
@@ -68,10 +63,11 @@ func _on_game_over(winner: String):
 	winEffects(winner);
 
 func winEffects(winner:String) -> void:
-	$Board.winningPinsRejoice();
+	#board.winningPinsRejoice();
+	# TODO: win animation
+	pass
 
 	
 func on_match_ended(username):
-
 	userleftmessage.visible = true
 	userleftmessage.get_node("UserLeftMessagePanel/Label").text = username + " left the match"

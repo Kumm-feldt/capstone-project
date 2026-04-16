@@ -84,6 +84,7 @@ func _on_show_settings(instructions=false):
 		active_popup.get_node("Panel/InstructionsPanel/BackButton").visible = false
 		
 		active_popup.get_node("Panel/TopTitleLabel").text = "Instructions"
+		active_popup._on_instructions_button_pressed() 
 	# Connect the popup's close button signal
 	active_popup.get_node("Panel/ExitButton").pressed.connect(_close_popup)
 	active_popup.get_node("Panel/CustomizePanel/ScrollContainer/VBoxContainer/AcceptButton").pressed.connect(_close_popup)

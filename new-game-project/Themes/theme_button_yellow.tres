@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://chf7scv4qpux1"]
+
+[ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="1_clfd4"]
+[ext_resource type="Texture2D" uid="uid://ye70kp558mrr" path="res://buttons/hover_button_2.png" id="2_f7ix7"]
+[ext_resource type="Texture2D" uid="uid://c6ytdjt2gah2u" path="res://buttons/Button2_05.png" id="3_g0i6c"]
+[ext_resource type="Texture2D" uid="uid://ddii0qoxwt7tm" path="res://buttons/pressed_button_2.png" id="4_w7kpy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jg78c"]
+texture = ExtResource("2_f7ix7")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gsc86"]
+texture = ExtResource("3_g0i6c")
+region_rect = Rect2(1, 1, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bt4pi"]
+texture = ExtResource("4_w7kpy")
+region_rect = Rect2(1, 1, 14, 14)
+
+[resource]
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_clfd4")
+Button/styles/hover = SubResource("StyleBoxTexture_jg78c")
+Button/styles/normal = SubResource("StyleBoxTexture_gsc86")
+Button/styles/pressed = SubResource("StyleBoxTexture_bt4pi")

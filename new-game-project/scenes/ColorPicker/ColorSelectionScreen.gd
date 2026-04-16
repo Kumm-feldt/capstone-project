@@ -1,7 +1,7 @@
 extends Node2D
 
 #When this scene is instantiated, both player colors are chosen
-const COLORS = [
+var COLORS = [
 	"#fca790",	#peach
 	"#eaaded",	#pink
 	"#f04f78",	#magenta
@@ -95,8 +95,9 @@ func setMessageBoxText(givenText:String) -> void:
 	messageBox.text = givenText;
 	pass
 	
-func get_random_color() -> Color:
-	return Color(COLORS[randi() % COLORS.size()])
+func get_random_color_excluding(excluded: Color) -> Color:
+	var available = COLORS.filter(func(hex): return Color(hex) != excluded)
+	return Color(available[randi() % available.size()])
 	
 func _on_colorChanged(color: Color, confirm: bool) -> void:
 	if (not playerOneConfirmed || not playerTwoConfirmed):
@@ -115,8 +116,7 @@ func _on_colorChanged(color: Color, confirm: bool) -> void:
 				$Player1Demo.confirmColor();
 				# if AI select random color
 				if(GameManager.GAME_MODE == GameManager.Mode.AI):
-					playerTwoColor = get_random_color();
-					playerTwoConfirmed = true;
+					playerTwoColor = get_random_color_excluding(playerOneColor)  # ← excludes player's color					playerTwoConfirmed = true;
 					$Player2Demo.setColorPickerRobot(playerTwoColor);
 					$Player2Demo.confirmColor();
 					transitionToNextScene();

@@ -4,6 +4,8 @@ extends CanvasLayer
 @onready var quit_message = $QuitGameMessage
 @onready var pause_menu = $Panel
 
+# Preload at the top of your script — loads the file once, reuses it
+const POPUP_SCENE = preload("res://scenes/Settings/Settings.tscn")
 
 func _ready():
 	resume_button.pressed.connect(_on_resume)
@@ -27,6 +29,7 @@ func _on_quit():
 	# show message
 	quit_message.visible = true
 	pause_menu.visible = false
+	
 
 
 func _on_win_button_pressed() -> void:
@@ -50,3 +53,21 @@ func _on_lose_button_pressed() -> void:
 			GameState.force_game_over("o")
 		else:
 			GameState.force_game_over("x")
+
+
+func _on_instructions_button_pressed() -> void:
+	var canvas = CanvasLayer.new()
+	canvas.layer = 100
+	get_tree().root.add_child(canvas)
+
+	var settings_scene = POPUP_SCENE.instantiate()
+	canvas.add_child(settings_scene)
+
+	# Pass the canvas reference so the scene can clean itself up
+	settings_scene.setup(canvas)
+
+	settings_scene._on_instructions_button_pressed()
+	GameState.unpause_game()
+	hide()
+
+	

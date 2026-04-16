@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c38v03x5rheu6"]
 
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="1_eilb8"]
-[ext_resource type="Theme" uid="uid://c4dp6mq1qwuy2" path="res://Themes/Button_1.tres" id="2_y6q2y"]
+[ext_resource type="Theme" uid="uid://ct23qt4qios3e" path="res://Themes/Button_1.tres" id="2_y6q2y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eilb8"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

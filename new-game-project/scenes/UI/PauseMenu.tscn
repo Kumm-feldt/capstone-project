@@ -1,15 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnxv7st1qgo5k"]
+[gd_scene load_steps=9 format=3 uid="uid://cnxv7st1qgo5k"]
 
 [ext_resource type="Script" uid="uid://b01af70nu6jgv" path="res://scenes/UI/pause_menu.gd" id="1_avwb0"]
-[ext_resource type="Texture2D" uid="uid://d32qnhr7848oj" path="res://Menus/Interface windows.png" id="2_avwb0"]
-[ext_resource type="Theme" uid="uid://6bc2oe83nllw" path="res://Themes/theme_titles_options.tres" id="3_73e60"]
+[ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="2_onjwa"]
+[ext_resource type="Theme" uid="uid://dyx4q54irl4cs" path="res://Themes/theme_titles_2.tres" id="3_3m1qe"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="4_onjwa"]
+[ext_resource type="Theme" uid="uid://chf7scv4qpux1" path="res://Themes/theme_button_yellow.tres" id="5_3m1qe"]
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="5_73e60"]
 [ext_resource type="PackedScene" uid="uid://co20nk8g1tiv" path="res://scenes/main/QuitGameMessage.tscn" id="6_onjwa"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3m1qe"]
-texture = ExtResource("2_avwb0")
-region_rect = Rect2(1339, 734, 241, 227)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_77ihb"]
+texture = ExtResource("2_onjwa")
 
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_avwb0")
@@ -23,10 +23,20 @@ anchor_bottom = 0.5
 offset_left = -203.0
 offset_top = -254.5
 offset_right = 203.0
-offset_bottom = 254.5
+offset_bottom = 326.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_3m1qe")
+theme_override_styles/panel = SubResource("StyleBoxTexture_77ihb")
+
+[node name="OptionsLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 20.5
+offset_right = 179.0
+offset_bottom = 54.5
+size_flags_horizontal = 4
+theme = ExtResource("3_3m1qe")
+text = "Options"
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
@@ -35,24 +45,17 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -199.0
-offset_top = -40.375
+offset_top = 108.5
 offset_right = 199.0
-offset_bottom = -22.375
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 75
-theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 75
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
-
-[node name="OptionsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("3_73e60")
-text = "Options"
 
 [node name="ResumeButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 70)
@@ -61,16 +64,23 @@ size_flags_vertical = 4
 theme = ExtResource("4_onjwa")
 text = "Resume"
 
+[node name="InstructionsButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("4_onjwa")
+text = "Instructions"
+
 [node name="WinButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
-theme = ExtResource("4_onjwa")
+theme = ExtResource("5_3m1qe")
 text = "Win"
 
 [node name="LoseButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
-theme = ExtResource("4_onjwa")
+theme = ExtResource("5_3m1qe")
 text = "Lose"
 
 [node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
@@ -90,5 +100,6 @@ anchor_bottom = 0.5
 offset_left = 0.0
 offset_right = 0.0
 
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/InstructionsButton" to="." method="_on_instructions_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/WinButton" to="." method="_on_win_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/LoseButton" to="." method="_on_lose_button_pressed"]

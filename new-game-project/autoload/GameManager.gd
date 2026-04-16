@@ -1,5 +1,11 @@
 extends Node
 
+var WIN_POINTS = 100
+var LOSE_POINTS = 50
+
+
+
+
 var GAME_OPENED = false;
 
 var GAME_MODE = null
