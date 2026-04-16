@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=26 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
@@ -39,6 +39,8 @@ border_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10m73"]
 bg_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfkvv"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("background_color_grid", "color_grid", "row_1_container", "row_2_container")]
 layout_mode = 3
@@ -91,7 +93,6 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="SettingsPanel" type="Panel" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 81.5
@@ -189,6 +190,13 @@ text = "SFX"
 [node name="SFXSlider" type="HSlider" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+
+[node name="AboutButton" type="Button" parent="Panel/SettingsPanel/OptionsPanel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_y3a33")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7mwmr")
+text = "About"
+alignment = 0
 
 [node name="InstructionsPanel" type="Panel" parent="Panel"]
 visible = false
@@ -376,6 +384,7 @@ theme_override_font_sizes/font_size = 33
 text = "Tutorial "
 
 [node name="CustomizePanel" type="Panel" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 32.0
 offset_top = 80.5
@@ -569,8 +578,35 @@ size_flags_vertical = 4
 theme = ExtResource("10_10m73")
 text = "Accept"
 
+[node name="AboutPanel" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.021000002
+anchor_bottom = 0.069000006
+offset_left = 49.0
+offset_top = 84.5
+offset_right = 894.714
+offset_bottom = 514.549
+theme_override_styles/panel = SubResource("StyleBoxTexture_bfkvv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/AboutPanel"]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 840.0
+offset_bottom = 478.0
+
+[node name="TitleLabel" type="Label" parent="Panel/AboutPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/AboutPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/AboutPanel/VBoxContainer"]
+layout_mode = 2
+
 [connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/InstructionsButton" to="." method="_on_instructions_button_pressed"]
 [connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton" to="." method="_on_customize_player_button_pressed"]
+[connection signal="pressed" from="Panel/SettingsPanel/OptionsPanel/VBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
 [connection signal="pressed" from="Panel/InstructionsPanel/BackButton" to="." method="_on_back_instructions_button_pressed"]
 [connection signal="pressed" from="Panel/InstructionsPanel/ScrollContainer/VBoxContainer/Button" to="." method="_on_tutorial_mode_button_pressed"]
 [connection signal="pressed" from="Panel/InstructionsPanel/left_arrow" to="." method="_on_left_arrow_pressed"]

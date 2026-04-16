@@ -7,6 +7,8 @@ extends Control
 @onready var sfx_slider = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/SFXHBox/SFXSlider
 @onready var top_title = $Panel/TopTitleLabel
 @onready var custom_player_button = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/CustomizePlayerButton
+@onready var about_panel = $Panel/AboutPanel
+@onready var about_button = $Panel/SettingsPanel/OptionsPanel/VBoxContainer/AboutButton
 
 @onready var instructions_title = $Panel/InstructionsPanel/TitleLabel
 @onready var instructions_body = $Panel/InstructionsPanel/HBoxContainer/BodyLabel
@@ -366,3 +368,10 @@ func _on_close_button_pressed() -> void:
 		print("_canvas here")
 		_canvas.queue_free()  # removes both the canvas and this scene
 		queue_free()
+
+
+func _on_about_button_pressed() -> void:
+	Music.play_button_sound()
+	settings_panel.visible = false
+	about_panel.visible = true
+	top_title.text = "About"
