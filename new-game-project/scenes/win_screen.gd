@@ -10,7 +10,7 @@ var winner = "undefined"
 const menu_panel_scene = preload("res://scenes/MainMenu/menu_panel.tscn")
 
 func _ready():
-	GameState.pause_game()
+	mouse_filter = Control.MOUSE_FILTER_STOP
 	if GameManager.Mode.Multiplayer == GameManager.GAME_MODE:
 		play_again_button.visible = false
 	play_again_button.pressed.connect(_on_play_again)
