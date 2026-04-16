@@ -10,6 +10,7 @@ var winner = "undefined"
 const menu_panel_scene = preload("res://scenes/MainMenu/menu_panel.tscn")
 
 func _ready():
+	GameState.pause_game()
 	if GameManager.Mode.Multiplayer == GameManager.GAME_MODE:
 		play_again_button.visible = false
 	play_again_button.pressed.connect(_on_play_again)
@@ -70,9 +71,18 @@ func _on_main_menu():
 	hide()
 	GameState.reset_game()
 	get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")  # adjust to your main menu path
-
+	
+	if multiplayer.is_server():
+		await NetworkManager.stop_hosting()
+	else:
+		await NetworkManager.stop_searching()
+		
 func _on_quit():
 	GameState.reset_game()
+	if multiplayer.is_server():
+		await NetworkManager.stop_hosting()
+	else:
+		await NetworkManager.stop_searching()
 	hide()
 	# show loading scene...
 	var canvas = CanvasLayer.new()
