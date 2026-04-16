@@ -37,33 +37,26 @@ func _on_quit():
 func _on_win_button_pressed() -> void:
 	Music.play_button_sound()
 	hide()
-	if GameManager.Mode.Local or GameManager.Mode.AI:
+	if GameManager.GAME_MODE == GameManager.Mode.Local or GameManager.GAME_MODE == GameManager.Mode.AI:
 		GameState.force_game_over("o")
-	elif GameManager.Mode.Multiplayer:
+	elif GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		if multiplayer.is_server():
-			GameState.force_game_over("x")
-			NetworkManager.sync_game_over.rpc("x")  # "x" = host wins
-
+			NetworkManager.sync_game_over.rpc("x")  # call_local fires on host too
 		else:
-			GameState.force_game_over("o")
-			NetworkManager.sync_game_over.rpc("o")  
-
+			NetworkManager.request_force_end.rpc_id(1, "x")  # ask server to broadcast
 			
 func _on_lose_button_pressed() -> void:
 	Music.play_button_sound()
 	hide()
-	if GameManager.Mode.Local or GameManager.Mode.AI:
+	if GameManager.GAME_MODE == GameManager.Mode.Local or GameManager.GAME_MODE == GameManager.Mode.AI:
 		GameState.force_game_over("x")
-	elif GameManager.Mode.Multiplayer:
+	elif GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		if multiplayer.is_server():
-			GameState.force_game_over("o")
-			NetworkManager.sync_game_over.rpc("o")  # "o" = loses
+			NetworkManager.sync_game_over.rpc("o")  # call_local fires on host too
 		else:
-			GameState.force_game_over("x")
-			NetworkManager.sync_game_over.rpc("x")  # "x" = host wins
-
-
-
+			NetworkManager.request_force_end.rpc_id(1, "o")  # ask server to broadcast
+			
+			
 func _on_close_instructions():
 	if canvas and is_instance_valid(canvas):
 		canvas.queue_free()

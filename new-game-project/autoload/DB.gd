@@ -55,10 +55,12 @@ func update_player_colors(username, color, background_color, picture):
 	http_update_player.request(url, DBService.HEADERS, HTTPClient.METHOD_PATCH, body)
 	
 func update_user_info(username, action, points_):
-	print("udpated_user_info - started")
 	pending_username = username
 	pending_points = points_
 	pending_action = action
+	print("==========")
+	print("USERNAME: ", username)
+	print("==========")
 	
 	var url = URL + "?username=eq."+username 
 	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
