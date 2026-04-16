@@ -270,7 +270,12 @@ func confirm_client_disconnect(leaver_id, user):
 	if leaver_id == my_id:
 		emit_signal("ready_to_leave")
 	
-
+@rpc("any_peer", "reliable")
+func request_force_end(winner: String):
+	if not multiplayer.is_server():
+		return
+	sync_game_over.rpc(winner)  # server broadcasts to both peers
+	
 # client -> server: this is my name
 @rpc("any_peer", "reliable")
 func register_user(username, icon_profile_pic):
