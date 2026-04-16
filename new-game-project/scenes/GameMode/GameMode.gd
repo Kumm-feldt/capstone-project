@@ -24,15 +24,20 @@ var colorScreenScene = load("res://scenes/ColorPicker/ColorSelectionScreen.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
-	light_button.turn_off_light.connect(_on_turn_off_light)
+	
+	light_button.turn_off_light.connect(toggle_light)
+	
 	options.show_settings.connect(_on_show_settings)
 	options.logout_message.connect(_on_logout_message)
+	
 	profile_tab.set_icon()
 	if not Music.is_playing_track(GameManager.TrackMode.Default):
 		Music.play_track(GameManager.TrackMode.Default)
 	#const Transition = preload("res://scenes/Transition.tscn")
+	
 func _on_logout_message():
 	toggle_light()
 	if active_popup_warning:
@@ -49,7 +54,7 @@ func _on_logout_message():
 	active_popup_warning.get_node("Panel/AcceptButton").pressed.connect(_close_pop_up_warning)
 	
 func _on_show_settings():
-	toggle_light()
+	off_panel.visible = true
 	if active_popup:
 		return
 	# Create the instance
@@ -67,24 +72,16 @@ func _on_show_settings():
 	
 func _close_popup() -> void:
 	if active_popup:
-		toggle_light()
-		
+		off_panel.visible = false
 		active_popup.queue_free()
 		active_popup = null
 		
 func _close_pop_up_warning()-> void:
 	if active_popup_warning:
-		toggle_light()
+		off_panel.visible = false
 		active_popup_warning.queue_free()
 		active_popup_warning = null
 		
-		
-func _on_turn_off_light():
-	if off_panel.visible:
-		off_panel.visible = false
-	else:
-		off_panel.visible = true
-	
 func toggle_light():
 	if off_panel.visible:
 		off_panel.visible = false
@@ -100,9 +97,10 @@ func _on_ai_mode_button_pressed() -> void:
 		ai_mode_popup.popup_closed.connect(_on_popup_closed)
 
 func _on_popup_closed():
+	off_panel.visible = false
 	ai_mode_popup.visible = false
 	online_mode_popup.visible = false
-	toggle_light()
+
 	
 func _on_online_mode_pressed() -> void:
 	toggle_light()
@@ -150,6 +148,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("close"):
 		if active_popup:
 			_close_popup()
-			
 		if active_popup_warning:
 			_close_pop_up_warning()
+			
+	if event.is_action_pressed("enter"):
+		if active_popup_warning:
+			active_popup_warning.get_node("Panel/AcceptButton").emit_signal("pressed")
