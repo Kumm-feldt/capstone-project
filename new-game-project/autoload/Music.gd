@@ -38,7 +38,9 @@ func _ready() -> void:
 func play_track_path(path: String) -> void:
 	var new_stream = load(path)
 	if music_player.stream == new_stream:
-		return  # already playing this track
+		music_player.stop()
+		music_player.play()
+		return
 	music_player.stop()
 	music_player.stream = new_stream
 	music_player.play()

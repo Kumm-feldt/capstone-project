@@ -67,7 +67,7 @@ func on_game_opened() -> void:
 	bootLogo.visible = true
 	bootLogo.play("fadeIn")
 	await bootLogo.animation_finished;
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(2.5).timeout
 	#Fade out logo
 	bootLogo.play("fadeOut")
 	await bootLogo.animation_finished;
@@ -87,25 +87,27 @@ func loadingMode() -> void:
 	
 var poweringOn = false;
 func _on_power_button_pressed() -> void:
-	if poweringOn == false:
-		if power:
-			power = false;
-		else:
-			power = true;
-			poweringOn = true;
-		
-		powerLightOff.visible = power;
-		# Black screen away happens after a delay, if powering off
-		if not power:
-			await get_tree().create_timer(1).timeout
-		blackScreen.visible = power;
-		#Volume mute/unmute
-		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), power)
-		
-		#Pause colorGrid buttons since those act weird
-		emit_signal("powerPause", power);
-		
-		poweringOn = false;
+	if poweringOn:
+		return
+
+	poweringOn = true;
+
+	if power:
+		power = false;
+		powerLightOff.visible = false;
+		blackScreen.visible = false;
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
+		Music.play_track(GameManager.TrackMode.Default)
+		emit_signal("powerPause", false);
+		await on_game_opened()
+	else:
+		power = true;
+		powerLightOff.visible = true;
+		blackScreen.visible = true;
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), true)
+		emit_signal("powerPause", true);
+
+	poweringOn = false;
 	
 
 func toggle_source() -> void:
