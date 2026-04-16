@@ -193,8 +193,6 @@ func leave_match_as_host():
 	#emit_signal("end_match", HOST)
 	confirm_host_disconnect()      # call directly, not via rpc()
 
-
-	
 func _on_server_disconnected():
 	print("Server closed, returning to menu")
 	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")  # or “Host left” dialog [web:23]		
@@ -225,6 +223,15 @@ func send_move(coord):
 func confirm_move(coord):
 	# This runs on every peer — board applies the move
 	GameState.move_pin(coord, GameState.current_player)
+	# Only the server should check and broadcast the win
+	if multiplayer.is_server():
+		var winner = GameState.get_winner() # your existing win-check function
+		if winner != "":
+			sync_game_over.rpc(winner)  # fires on BOTH host and client
+
+@rpc("authority", "call_local", "reliable")
+func sync_game_over(winner: String):
+	GameState.emit_signal("game_over", winner)
 
 # rpc emit signal to let the other peer the user left the match
 @rpc("authority", "reliable")

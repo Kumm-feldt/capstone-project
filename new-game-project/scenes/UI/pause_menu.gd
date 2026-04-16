@@ -42,8 +42,12 @@ func _on_win_button_pressed() -> void:
 	elif GameManager.Mode.Multiplayer:
 		if multiplayer.is_server():
 			GameState.force_game_over("x")
+			NetworkManager.sync_game_over.rpc("x")  # "x" = host wins
+
 		else:
 			GameState.force_game_over("o")
+			NetworkManager.sync_game_over.rpc("o")  
+
 			
 func _on_lose_button_pressed() -> void:
 	Music.play_button_sound()
@@ -53,8 +57,12 @@ func _on_lose_button_pressed() -> void:
 	elif GameManager.Mode.Multiplayer:
 		if multiplayer.is_server():
 			GameState.force_game_over("o")
+			NetworkManager.sync_game_over.rpc("o")  # "o" = loses
 		else:
 			GameState.force_game_over("x")
+			NetworkManager.sync_game_over.rpc("x")  # "x" = host wins
+
+
 
 func _on_close_instructions():
 	if canvas and is_instance_valid(canvas):

@@ -24,14 +24,18 @@ func setup(player: String):
 		if GameManager.hosting:
 			if player == "o":
 				set_winner(GameManager.username) # you won!
-			else:
+			elif player == "x":
 				print("guest won")
 				set_winner(GameManager.multiplayer_username) # username won
+			else:
+				set_winner("draw") # draw
 		else:
 			if player == 'x':
 				set_winner(GameManager.multiplayer_username) # username won
-			else:
+			elif player == "x":
 				set_winner(GameManager.username) # you won!
+			else:
+				set_winner("draw") # draw
 
 	elif GameManager.GAME_MODE == GameManager.Mode.AI:
 		winner = "You Won!" if player == 'o' else "CPU Wins!"
@@ -96,31 +100,16 @@ func set_winner(user):
 		GameManager.winner = GameManager.username
 		add_points(GameManager.username)
 		reduce_points(GameManager.multiplayer_username)
-	else:
+	elif user == GameManager.multiplayer_username:
 		print("set winner: ", user, " - add points to: ", GameManager.multiplayer_username)
-		
 		winner = GameManager.multiplayer_username+"\nWins!" 
 		add_points(GameManager.multiplayer_username)
 		reduce_points(GameManager.username)
 		GameManager.winner = GameManager.multiplayer_username
-		
-
-func quit_game():
-	# User left the match
-	# If already disconnected (other player left first), just go to menu
-	Music.play_button_sound()
-	GameState.reset_game()
-	
-	if multiplayer.multiplayer_peer == null:
-		get_tree().change_scene_to_file("res://scenes/GameMode/GameMode.tscn")
-		return
-		
-	if (multiplayer.is_server()):
-		GameManager.hosting = false
-		print("about to call leave_match_as_host")
-		NetworkManager.leave_match_as_host()
 	else:
-		print("about to call leave_match_as_client")
-		NetworkManager.leave_match_as_client()
-	
+		print("Draw")
+		winner = "Draw!" 
+		GameManager.winner = "Draw"
+
+
 	

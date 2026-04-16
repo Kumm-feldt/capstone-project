@@ -30,11 +30,6 @@ func _on_ready_to_leave():
 
 func _on_game_over(winner: String):
 	winEffects(winner);
-	print("winner: ", GameManager.winner)
-	if GameManager.winner != GameManager.username:
-		print("---- WE LOST ----, do i know?")
-	else:
-		print("---- WE WON ----, do i know?")
 		
 	var canvas = CanvasLayer.new()
 	canvas.layer = 10
@@ -60,7 +55,11 @@ func _on_game_over(winner: String):
 		850,
 		1.5
 	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-
+	print("winner: ", GameManager.winner)
+	if GameManager.winner != GameManager.username:
+		print("---- WE LOST ----, do i know?")
+	else:
+		print("---- WE WON ----, do i know?")
 	if (GameManager.GAME_MODE == GameManager.Mode.AI ):
 		if (winner == "o"):
 			Music.play_track(GameManager.TrackMode.Victory)
