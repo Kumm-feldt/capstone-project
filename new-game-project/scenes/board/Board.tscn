@@ -13,9 +13,6 @@ script = ExtResource("1_6puts")
 [node name="GameplayBackground" parent="." instance=ExtResource("2_0kj62")]
 scale = Vector2(0.417, 0.417)
 
-[node name="TutorialRobot" parent="." instance=ExtResource("3_vgpvj")]
-position = Vector2(664, 200)
-
 [node name="BoardSprite" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(400, 225)
@@ -34,3 +31,7 @@ flip_h = true
 
 [node name="SnakeTail2" parent="." instance=ExtResource("6_l0jo7")]
 position = Vector2(274, 351)
+
+[node name="TutorialRobot" parent="." instance=ExtResource("3_vgpvj")]
+position = Vector2(649, 199.5)
+scale = Vector2(1.04, 0.86)

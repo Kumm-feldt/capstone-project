@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://breku0u4snkpg"]
+[gd_scene load_steps=25 format=3 uid="uid://breku0u4snkpg"]
 
 [ext_resource type="Script" uid="uid://bf0njjt3lg4ln" path="res://scenes/Settings/Settings.gd" id="1_3buk5"]
 [ext_resource type="Texture2D" uid="uid://c8s38nq51ahri" path="res://Images/optionsMenu.png" id="1_k2lax"]
@@ -15,6 +15,8 @@
 [ext_resource type="Theme" uid="uid://4oc4y8tfb6ds" path="res://Themes/theme_icon_button.tres" id="8_n2orn"]
 [ext_resource type="Theme" uid="uid://dly54hmbgdvr7" path="res://Themes/theme_buttons_2.tres" id="10_10m73"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="11_dtys3"]
+[ext_resource type="Texture2D" uid="uid://d18km35uftxrl" path="res://Images/rulesImages/Goal.png" id="13_bfkvv"]
+[ext_resource type="Texture2D" uid="uid://b4cobawjgog18" path="res://Images/arrowButton.png" id="14_4lufs"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f3efy"]
 texture = ExtResource("1_k2lax")
@@ -50,6 +52,7 @@ background_color_grid = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxConta
 color_grid = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxContainer/GridContainer")
 row_1_container = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer")
 row_2_container = NodePath("Panel/CustomizePanel/ScrollContainer/VBoxContainer/PicOptionsPanel/VBoxContainer/HBoxContainer2")
+metadata/_edit_vertical_guides_ = [518.0]
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -213,20 +216,23 @@ texture = ExtResource("7_7mwmr")
 
 [node name="TitleLabel" type="Label" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 27.0
+offset_left = 35.0
 offset_top = 72.0
-offset_right = 294.0
-offset_bottom = 127.0
+offset_right = 424.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 24
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 25.0
+offset_left = 35.0
 offset_top = 91.0
-offset_right = 557.0
+offset_right = 567.0
 offset_bottom = 466.0
 
 [node name="BodyLabel" type="Label" parent="Panel/InstructionsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(500, 250)
 layout_mode = 2
+autowrap_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/InstructionsPanel"]
 visible = false
@@ -321,37 +327,33 @@ You cannot capture your own robots"
 
 [node name="PageImage" type="TextureRect" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 629.0
-offset_top = 79.0
-offset_right = 932.0
-offset_bottom = 339.0
+offset_left = 634.0
+offset_top = 96.0
+offset_right = 917.0
+offset_bottom = 380.0
+texture = ExtResource("13_bfkvv")
+stretch_mode = 4
 
 [node name="left_arrow" type="Button" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 835.0
-offset_top = 438.0
-offset_right = 869.0
-offset_bottom = 491.0
+offset_left = 630.0
+offset_top = 391.0
+offset_right = 705.0
+offset_bottom = 466.0
+icon = ExtResource("14_4lufs")
 flat = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Panel/InstructionsPanel/left_arrow"]
-position = Vector2(12.750003, 19.999994)
-scale = Vector2(2.2125, 1.8499998)
-texture = ExtResource("7_7mwmr")
+expand_icon = true
 
 [node name="right_arrow" type="Button" parent="Panel/InstructionsPanel"]
 layout_mode = 0
-offset_left = 877.0
-offset_top = 430.0
-offset_right = 950.0
-offset_bottom = 488.0
+offset_left = 921.0
+offset_top = 466.0
+offset_right = 996.0
+offset_bottom = 541.0
+rotation = 3.1415927
+icon = ExtResource("14_4lufs")
 flat = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Panel/InstructionsPanel/right_arrow"]
-position = Vector2(40, 22)
-scale = Vector2(2.0875008, 1.8124993)
-texture = ExtResource("7_7mwmr")
-flip_h = true
+expand_icon = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/InstructionsPanel"]
 layout_mode = 0
@@ -363,10 +365,10 @@ offset_bottom = 465.0
 [node name="TutorialMode" type="Button" parent="Panel/InstructionsPanel"]
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 0
-offset_left = 350.0
-offset_top = 11.0
-offset_right = 600.0
-offset_bottom = 71.0
+offset_left = 651.0
+offset_top = 19.0
+offset_right = 901.0
+offset_bottom = 79.0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("8_n2orn")
