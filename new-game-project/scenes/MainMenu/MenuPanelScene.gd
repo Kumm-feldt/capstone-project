@@ -97,7 +97,6 @@ func _on_power_button_pressed() -> void:
 		powerLightOff.visible = false;
 		blackScreen.visible = false;
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
-		Music.play_track(GameManager.TrackMode.Default)
 		emit_signal("powerPause", false);
 		await on_game_opened()
 	else:
