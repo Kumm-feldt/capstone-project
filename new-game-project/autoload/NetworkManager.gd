@@ -86,6 +86,7 @@ func host_game():
 		multiplayer.peer_disconnected.disconnect(_del_player)
 		
 	broadcast_timer = 0.3  # broadcast immediately instead of waiting 1 second
+	GameManager.hosting = true   # ← add this
 	is_hosting = true
 	# enable broadcast
 	host_udp.set_broadcast_enabled(true)
@@ -130,6 +131,7 @@ func stop_hosting():
 	
 
 func join_game(server_ip):
+	GameManager.hosting = false  # ← add this
 	print("Player 2 joining")
 	# Disconnect stale signals first
 	if multiplayer.connected_to_server.is_connected(_on_connected_to_server):
