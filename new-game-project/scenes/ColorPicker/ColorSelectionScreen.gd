@@ -1,19 +1,19 @@
 extends Node2D
 
 #When this scene is instantiated, both player colors are chosen
-var COLORS = [
-	"#fca790",	#peach
+const COLORS = [
+	"#7f708a",	#darkGray
 	"#eaaded",	#pink
-	"#f04f78",	#magenta
+	"#ab947a",	#brown
 	"#e83b3b",	#red
-	"#f79617",	#orange
+	"#fbb954",	#orange
 	"#fbff86",	#yellow
 	"#91db69", #lime
-	"#30e1b9",	#lightTurquoise
+	"#8ff8e2",	#lightTurquoise
 	"#0eaf9b",	#darkTurquoise
 	"#4d9be6",	#blue
-	"#905ea9",	#purple
-	"#9babb2"	#gray
+	"#a884f3",	#purple
+	"#c7dcd0"	#gray (BASE COLOR)
 ]
 
 var Swatch: PackedScene = preload("res://scenes/ColorPicker/ColorSwatch.tscn")
@@ -98,6 +98,7 @@ func setMessageBoxText(givenText:String) -> void:
 func get_random_color_excluding(excluded: Color) -> Color:
 	var available = COLORS.filter(func(hex): return Color(hex) != excluded)
 	return Color(available[randi() % available.size()])
+	#return Color(available[randi() % available.size()])
 	
 func _on_colorChanged(color: Color, confirm: bool) -> void:
 	if (not playerOneConfirmed || not playerTwoConfirmed):
