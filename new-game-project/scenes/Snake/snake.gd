@@ -187,6 +187,7 @@ func _step() -> void:
 	snake_cells.insert(0, new_head)
 	if food_eaten:
 		score += 1
+		Music.play_button_sound()
 		_update_score()
 		if not _spawn_food():
 			_sync_visuals()
