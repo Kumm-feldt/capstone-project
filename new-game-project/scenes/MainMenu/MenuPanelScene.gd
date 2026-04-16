@@ -97,7 +97,7 @@ func _on_power_button_pressed() -> void:
 		powerLightOff.visible = power;
 		# Black screen away happens after a delay, if powering off
 		if not power:
-			await get_tree().create_timer(2).timeout
+			await get_tree().create_timer(1).timeout
 		blackScreen.visible = power;
 		#Volume mute/unmute
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), power)

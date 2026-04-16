@@ -421,10 +421,9 @@ texture = ExtResource("2_oh22v")
 centered = false
 
 [node name="CRTScreenEffect" type="Sprite2D" parent="Bezel"]
-visible = false
-modulate = Color(1, 1, 1, 0.3882353)
+modulate = Color(1, 1, 1, 0.16078432)
 top_level = true
-z_index = 13
+z_index = 5
 position = Vector2(960, 540)
 scale = Vector2(2.4, 2.4)
 texture = ExtResource("4_x6eyo")

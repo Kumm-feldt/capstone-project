@@ -5,10 +5,10 @@
 [ext_resource type="Theme" uid="uid://dqqkgrtgv73k0" path="res://Themes/theme_titles.tres" id="3_p7kgk"]
 [ext_resource type="Texture2D" uid="uid://b7ej4rqlb3xk7" path="res://buttons/hover_green.png" id="4_0abtg"]
 [ext_resource type="FontFile" uid="uid://b33kuu0osw1kp" path="res://fonts/CyberpunkCraftpixPixel.otf" id="4_4snny"]
-[ext_resource type="Texture2D" uid="uid://cc80byq7mjffy" path="res://Images/vsAI.png" id="4_wud22"]
 [ext_resource type="Theme" uid="uid://oujpfweyjjqt" path="res://Themes/theme_buttons_1.tres" id="5_0abtg"]
 [ext_resource type="Texture2D" uid="uid://c2y1hdbgppi5" path="res://buttons/Button2_07.png" id="5_u3mau"]
-[ext_resource type="Texture2D" uid="uid://c622iuqbpxub6" path="res://Images/localPlayButton.png" id="6_mckn2"]
+[ext_resource type="Texture2D" uid="uid://joevp4iw00g8" path="res://Images/spritesheets/Gamemodes/vsAI.png" id="5_wud22"]
+[ext_resource type="Texture2D" uid="uid://ttn4rlpbtx01" path="res://Images/spritesheets/Gamemodes/vsLocal.png" id="6_p7kgk"]
 [ext_resource type="Texture2D" uid="uid://cdh5u7ihcelbs" path="res://assets/ui/icons/back_icon.png" id="6_u3mau"]
 [ext_resource type="Texture2D" uid="uid://dgj2oqyuqx8ub" path="res://buttons/pressed_green.png" id="6_wud22"]
 [ext_resource type="Texture2D" uid="uid://bubetprl8jw1r" path="res://assets/ui/decorations/onlinePlayButton.png" id="8_mckn2"]
@@ -19,6 +19,268 @@
 [ext_resource type="PackedScene" uid="uid://8xnweksnncl0" path="res://scenes/Profile/MenuIcon.tscn" id="18_wud22"]
 [ext_resource type="PackedScene" uid="uid://bbvq1qen4oouc" path="res://scenes/Profile/LogoutWarningWindow.tscn" id="20_geqlg"]
 [ext_resource type="PackedScene" uid="uid://b4sun6tdy4qph" path="res://scenes/Profile/ProfileTab.tscn" id="20_p7kgk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mckn2"]
+atlas = ExtResource("5_wud22")
+region = Rect2(0, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7kgk"]
+atlas = ExtResource("5_wud22")
+region = Rect2(177, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_geqlg"]
+atlas = ExtResource("5_wud22")
+region = Rect2(354, 0, 177, 259)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_byo56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mckn2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7kgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_geqlg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byo56"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(0, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsfyh"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(177, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jslf7"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(354, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8pvk"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(531, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkiyy"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(708, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hndro"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(885, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa5nh"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(1062, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sa7yl"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(1239, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxha0"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(1416, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4i67"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(1593, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36d2q"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(1770, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1q6h"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(1947, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5bxo"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(2124, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0brw"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(2301, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhfod"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(2478, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu03p"]
+atlas = ExtResource("6_p7kgk")
+region = Rect2(2655, 0, 177, 259)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ixrp5"]
+animations = [{
+"frames": [{
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_byo56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsfyh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jslf7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8pvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkiyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hndro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa5nh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sa7yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxha0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4i67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36d2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1q6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5bxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0brw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhfod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gu03p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvkrw"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(0, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3h51"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(177, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvlaf"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(354, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6rd1"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(531, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tntp6"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(708, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32611"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(885, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg8dv"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(1062, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w476"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(1239, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvf4q"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(1416, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb5so"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(1593, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a601a"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(1770, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aeo6l"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(1947, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_soyv1"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(2124, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icass"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(2301, 0, 177, 259)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ho4j"]
+atlas = ExtResource("7_geqlg")
+region = Rect2(2478, 0, 177, 259)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b7ih8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvkrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3h51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvlaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6rd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tntp6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32611")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg8dv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w476")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvf4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb5so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a601a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aeo6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_soyv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icass")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ho4j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5ov5"]
 content_margin_left = 4.0
@@ -137,13 +399,29 @@ position = Vector2(1782, 1039)
 [node name="AI_Tournament" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 798.0
-offset_top = 120.0
-offset_right = 1113.738
-offset_bottom = 209.0
-theme = ExtResource("13_vasyn")
-theme_override_font_sizes/font_size = 30
-text = "AI TOURNAMENT"
+offset_left = -6.0
+offset_right = -6.0
+
+[node name="AIPlayModeSprite" type="AnimatedSprite2D" parent="Sprites"]
+position = Vector2(442, 520)
+scale = Vector2(3.2, 3.2)
+sprite_frames = SubResource("SpriteFrames_byo56")
+autoplay = "default"
+frame_progress = 0.41816157
+
+[node name="LocalPlayModeSprite" type="AnimatedSprite2D" parent="Sprites"]
+position = Vector2(976.99994, 519.99994)
+scale = Vector2(3.2, 3.2)
+sprite_frames = SubResource("SpriteFrames_ixrp5")
+autoplay = "default"
+frame_progress = 0.3286967
+
+[node name="OnlinePlayModeSprite" type="AnimatedSprite2D" parent="Sprites"]
+position = Vector2(1517, 520)
+scale = Vector2(3.2, 3.2)
+sprite_frames = SubResource("SpriteFrames_b7ih8")
+autoplay = "default"
+frame_progress = 0.27217206
 
 [node name="Buttons" type="Node2D" parent="."]
 
@@ -160,34 +438,48 @@ scale = Vector2(2.8749995, 2.8749995)
 texture = ExtResource("6_u3mau")
 
 [node name="AIModeButton" type="Button" parent="Buttons"]
-offset_left = 317.0
-offset_top = 758.0
-offset_right = 567.0
-offset_bottom = 822.0
+offset_left = 300.0
+offset_top = 780.0
+offset_right = 550.0
+offset_bottom = 844.0
 size_flags_vertical = 10
 theme = SubResource("Theme_mckn2")
 theme_override_fonts/font = ExtResource("4_4snny")
 text = "CPU"
 
+[node name="LocalPlayModeButton" type="Button" parent="Buttons"]
+offset_left = 837.0
+offset_top = 780.0
+offset_right = 1087.0
+offset_bottom = 844.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_mckn2")
+text = "Local"
+
 [node name="OnlineModeButton" type="Button" parent="Buttons"]
-offset_left = 1404.0
-offset_top = 763.0
-offset_right = 1654.0
-offset_bottom = 827.0
+offset_left = 1376.0
+offset_top = 780.0
+offset_right = 1626.0
+offset_bottom = 844.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_mckn2")
 text = "Online"
 
-[node name="LocalPlayModeButton" type="Button" parent="Buttons"]
-offset_left = 874.0
-offset_top = 762.0
-offset_right = 1124.0
-offset_bottom = 826.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = SubResource("Theme_mckn2")
-text = "Local"
+[node name="BlinkLight" parent="." instance=ExtResource("12_86ymx")]
+position = Vector2(1782, 1039)
+
+[node name="AI_Tournament" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 798.0
+offset_top = 120.0
+offset_right = 1113.738
+offset_bottom = 209.0
+theme = ExtResource("13_vasyn")
+theme_override_font_sizes/font_size = 30
+text = "AI TOURNAMENT"
 
 [node name="Profile" parent="." instance=ExtResource("20_p7kgk")]
 layout_mode = 1
@@ -228,8 +520,8 @@ offset_top = -1.0
 offset_right = -2.0
 offset_bottom = -1.0
 
-[connection signal="pressed" from="AI_Tournament" to="." method="_on_ai_tournament_pressed"]
 [connection signal="pressed" from="Buttons/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Buttons/AIModeButton" to="." method="_on_ai_mode_button_pressed"]
-[connection signal="pressed" from="Buttons/OnlineModeButton" to="." method="_on_online_mode_pressed"]
 [connection signal="pressed" from="Buttons/LocalPlayModeButton" to="." method="_on_local_play_mode_button_pressed"]
+[connection signal="pressed" from="Buttons/OnlineModeButton" to="." method="_on_online_mode_pressed"]
+[connection signal="pressed" from="AI_Tournament" to="." method="_on_ai_tournament_pressed"]
