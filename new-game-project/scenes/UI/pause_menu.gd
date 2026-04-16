@@ -54,7 +54,7 @@ func _on_lose_button_pressed() -> void:
 		if multiplayer.is_server():
 			NetworkManager.sync_game_over.rpc("o")  # call_local fires on host too
 		else:
-			NetworkManager.request_force_end.rpc_id(1, "o")  # ask server to broadcast
+			NetworkManager.request_force_end.rpc_id(1, "x")  # ask server to broadcast
 			
 			
 func _on_close_instructions():
