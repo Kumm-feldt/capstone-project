@@ -18,6 +18,9 @@ func _ready():
 	quit_button.pressed.connect(_on_quit)
 	
 func setup(player: String):
+	print("setup() called — player=", player, " hosting=", GameManager.hosting,
+		" username=", GameManager.username,
+		" multiplayer_username=", GameManager.multiplayer_username)
 	if GameManager.GAME_MODE == GameManager.Mode.Multiplayer:
 		# fall backs 
 		if not GameManager.multiplayer_username:
