@@ -5,8 +5,9 @@ extends Control
 @onready var event_label = $Panel/EventLabel/LineEdit
 @onready var message_label = $Panel/ErrorMessageLabel
 @onready var checkbox = $Panel/showBoard/CheckButton
+@onready var accept_button = $AcceptButton
 
-var testing = true
+var testing = false
 func _ready() -> void:
 	checkbox.button_pressed = false  # default: board visible
 
@@ -26,14 +27,17 @@ func _on_accept_button_pressed() -> void:
 		var event = event_label.text.strip_edges()
 		
 		if validate_input(name) and validate_input(email) and validate_input(event):
-
 			SoftserveClient.connect("ready_to_play", _on_ready_to_play, CONNECT_ONE_SHOT)
 			SoftserveClient.ai_vs_ai(name, email, event)
 		
 func _on_ready_to_play():
-	_show_error("Game running in the background.")
-	if GameManager.show_ai_tournament:
+	if checkbox.button_pressed:
+		_show_error("showing board")
 		get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
+	else:
+		_show_error("Game running in the background.")
+		accept_button.visible = false
+		
 	
 func _show_error(msg: String) -> void:
 	message_label.visible = true

@@ -208,7 +208,6 @@ func create_robot_disk_sprite(row: int, col: int, player: String):
 	add_child(sprite_instance)
 	sprite_instance.set_disk(player, getPlayerColor(player))
 	sprite_instance.visible = true  # Force true regardless of TOURNAMENT for now
-	print("Disk visible after add_child: ", sprite_instance.visible, " at ", row, col)
 	coin_sprites["%d_%d" % [row, col]] = sprite_instance
 	
 
