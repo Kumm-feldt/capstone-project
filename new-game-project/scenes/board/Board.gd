@@ -361,6 +361,12 @@ func clear_move_hints():
 		hint.queue_free()
 	move_hint_sprites.clear()
 
+func winningPinsRejoice(winner:String) -> void:
+	#var winningPins: AnimatedSprite2D[]
+	#for pin in pin_sprites:
+		#if 
+	pass
+
 # ============================================
 # SIGNAL HANDLERS
 # ============================================

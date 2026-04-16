@@ -70,8 +70,13 @@ func _on_game_over(winner: String):
 		Music.play_track(GameManager.TrackMode.Victory)
 	elif(GameManager.GAME_MODE == GameManager.Mode.Local):
 		Music.play_track(GameManager.TrackMode.Victory)
+		
+	winEffects(winner);
 
-
+func winEffects(winner:String) -> void:
+	$Board.winningPinsRejoice();
+	
+	pass
 
 	
 func _on_reset_pressed():

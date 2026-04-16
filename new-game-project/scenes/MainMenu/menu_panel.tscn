@@ -351,7 +351,7 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 scale = Vector2(1, 1.0000001)
 mouse_behavior_recursive = 2
-color = Color(0.0441984, 0.13263321, 0.0538634, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="BootLogo" type="AnimatedSprite2D" parent="BootScreen"]
 visible = false
