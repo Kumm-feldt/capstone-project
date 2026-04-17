@@ -80,17 +80,11 @@ func on_game_opened() -> void:
 	
 	
 signal powerPause(on: bool);
-
-#Call this when the game is starting to prevent menuPanel features
-func loadingMode() -> void:
-	pass
 	
 var poweringOn = false;
 func _on_power_button_pressed() -> void:
 	if poweringOn:
 		return
-
-	poweringOn = true;
 
 	if power:
 		power = false;
@@ -100,6 +94,7 @@ func _on_power_button_pressed() -> void:
 		emit_signal("powerPause", false);
 		await on_game_opened()
 	else:
+		poweringOn = true;
 		power = true;
 		powerLightOff.visible = true;
 		blackScreen.visible = true;
@@ -121,4 +116,9 @@ func _on_source_button_pressed() -> void:
 
 	$Snake.visible = snakeGameOn;
 	
+	pass # Replace with function body.
+
+
+func _on_square_button_pressed() -> void:
+	Music.play_button_sound()
 	pass # Replace with function body.

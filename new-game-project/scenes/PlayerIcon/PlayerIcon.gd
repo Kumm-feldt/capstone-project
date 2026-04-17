@@ -3,7 +3,7 @@ extends Sprite2D
 var iconName
 var iconColor
 		
-func setIcon(name:String, color) -> void:
+func setIcon(name:String, color:Color) -> void:
 	iconName = name
 	iconColor = color
 	setIconImage()

@@ -21,24 +21,32 @@ signal close_instructions
 @export var background_color_grid: GridContainer
 @export var color_grid: GridContainer
 @export var colors: Array[Color] = [
-	"#0eaf9b",
-	"#4d9be6",
-	"#905ea9",
-	"#f79627",
-	"#fca790",
-	"#eaaded",
-	"#f79627",
-	"#fbff16",
+	"#7f708a",	#darkGray
+	"#eaaded",	#pink
+	"#ab947a",	#brown
+	"#e83b3b",	#red
+	"#fbb954",	#orange
+	"#fbff86",	#yellow
+	"#91db69", #lime
+	"#8ff8e2",	#lightTurquoise
+	"#0eaf9b",	#darkTurquoise
+	"#4d9be6",	#blue
+	"#a884f3",	#purple
+	"#c7dcd0"	#gray (BASE COLOR)
 ]
 @export var background_colors: Array[Color] = [
-	"#fca790",
-	"#eaaded",
-	"#f04f78",
-	"#e83b3b",
-	"#f79617",
-	"#fbff86",
-	"#91db69",
-	"#30e1b9",
+	"#7f708a",	#darkGray
+	"#eaaded",	#pink
+	"#ab947a",	#brown
+	"#e83b3b",	#red
+	"#fbb954",	#orange
+	"#fbff86",	#yellow
+	"#91db69", #lime
+	"#8ff8e2",	#lightTurquoise
+	"#0eaf9b",	#darkTurquoise
+	"#4d9be6",	#blue
+	"#a884f3",	#purple
+	"#c7dcd0"	#gray (BASE COLOR)
 ]
 
 var _canvas: CanvasLayer  # store the reference

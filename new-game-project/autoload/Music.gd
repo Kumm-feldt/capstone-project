@@ -82,6 +82,9 @@ func play_match_track():
 	
 func play_button_sound():
 	play_sfx_path(button)
+	
+func play_error_sound():
+	play_sfx_path(error)
 
 func play_explosion():
 	play_sfx_path(explosion)

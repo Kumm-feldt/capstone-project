@@ -340,7 +340,7 @@ script = ExtResource("1_k5y0a")
 [node name="BlackScreen" type="ColorRect" parent="."]
 visible = false
 top_level = true
-z_index = 20
+z_index = 30
 z_as_relative = false
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -471,3 +471,4 @@ position = Vector2(-6.1035156e-05, -6.1035156e-05)
 
 [connection signal="pressed" from="Bezel/PowerButton" to="." method="_on_power_button_pressed"]
 [connection signal="pressed" from="Bezel/SourceButton" to="." method="_on_source_button_pressed"]
+[connection signal="pressed" from="Bezel/SquareButton" to="." method="_on_square_button_pressed"]
