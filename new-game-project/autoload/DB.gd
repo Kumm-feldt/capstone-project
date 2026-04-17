@@ -70,12 +70,6 @@ func _process_next():
 	pending_username = next.username
 	pending_points = next.points
 	pending_action = next.action
-	print("==========")
-	print("USERNAME: ", pending_username)
-	print("ACTION: ", pending_action)
-	print("POINTS: ", pending_points)
-	
-	print("==========")
 	var url = URL + "?username=eq." + pending_username
 	http_check.request(url, DBService.HEADERS, HTTPClient.METHOD_GET)
 	
@@ -89,7 +83,6 @@ func _on_check_points_done(result, response_code, headers, body):
 		emit_signal("error", "HTTP transport failed. Result code: %d (see HTTPRequest.Result enum)" % result)
 		return
 	var data = JSON.parse_string(body.get_string_from_utf8())
-	print(data)
 	var points_username = data[0]["points"]
 	GameManager.current_score = points_username
 	GameManager.background_color = data[0]["background"] 
@@ -129,14 +122,10 @@ func update_points():
 			upd_points = 0
 		statement = "losses"
 		value = losses +1
-		print("reduce for ", pending_username, "updated points: ", upd_points)
 	elif pending_action == "add":
 		upd_points = points + pending_points 
 		statement = "wins"
 		value = wins +1
-		print("add for ", pending_username, "updated points: ", upd_points)
-		
-		
 	else:
 		upd_points = points 
 		statement = "draws"

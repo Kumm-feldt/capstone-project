@@ -44,11 +44,14 @@ func setup(player: String):
 				set_winner(GameManager.multiplayer_username)  # host won
 			else:
 				set_winner("draw")
-
-	elif GameManager.GAME_MODE == GameManager.Mode.AI:
-		winner = "You Won!" if player == 'o' else "CPU Wins!"
 	else:
-		winner = "Player 1\nWins!" if player == 'o' else "Player 2\nWins!"
+		if player == "draw":
+			winner = "Draw"
+		else:
+			if GameManager.GAME_MODE == GameManager.Mode.AI:
+				winner = "You Won!" if player == 'o' else "CPU Wins!"
+			else:
+				winner = "Player 1\nWins!" if player == 'o' else "Player 2\nWins!"
 	winner_label.text = winner
 
 func _on_play_again():

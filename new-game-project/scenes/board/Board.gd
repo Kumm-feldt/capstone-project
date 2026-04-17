@@ -97,7 +97,7 @@ func connect_signals():
 # RENDERING
 # ============================================
 func render_board():
-	print("rendering from updateBoard softserve")
+	#print("rendering from updateBoard softserve")
 	"""Main render function - creates all sprites from GameState arrays"""
 	if GameManager.TOURNAMENT:
 		# Flush any stale animation jobs before wiping sprites
@@ -288,7 +288,7 @@ func handle_first_click(clicked_pin: Vector2i):
 			show_move_hints(clicked_pin.y, clicked_pin.x, GameState.current_player)
 		else:
 			handle_wrong_pin_clicks(clicked_pin);
-			print("first click incorrectly: ", clicked_pin)
+			#print("first click incorrectly: ", clicked_pin)
 
 func handle_second_click(clicked_pin: Vector2i):
 	# selected_pin = Vector2i(col, row) → .x=col, .y=row
@@ -308,7 +308,6 @@ func handle_second_click(clicked_pin: Vector2i):
 			print("Attempt move Successfully")
 		else:
 			handle_wrong_pin_clicks(clicked_pin);
-			print("Failed")
 	deselect_pin()
 
 func deselect_pin():
@@ -404,7 +403,6 @@ func winningPinsRejoice(winner:String) -> void:
 	for pin in losingPins:
 		pin.play("explode");
 		
-	print("WOrk pretty plz")
 	pass
 
 # ============================================
@@ -438,7 +436,7 @@ func _on_pin_moved(from_pos: Vector2i, to_pos: Vector2i, player: String):
 			pin_sprites.erase(from_key)
 
 		create_robot_pin_sprite(to_pos[1], to_pos[0], player)
-		print(player, " moved successfully")
+		#print(player, " moved successfully")
 		# 5. AI flag reset if needed
 		if player == "x" and GameManager.GAME_MODE == GameManager.Mode.AI:
 			is_ai_thinking = false
@@ -486,7 +484,7 @@ func _on_robot_disk_placed(coordinates: Vector2i, player):
 	create_robot_disk_sprite(coordinates[1],coordinates[0],player)
 	var coin_key =  "%d_%d" % [coordinates[1],coordinates[0]]
 	# do not play animation if tournament
-	print("TURNED:", GameManager.TOURNAMENT)
+	#print("TURNED:", GameManager.TOURNAMENT)
 	if GameManager.TOURNAMENT:
 		coin_sprites[coin_key].visible = true  # ← show it immediately
 		return
@@ -551,8 +549,7 @@ func _on_ai_battle_move(board_string):
 	render_board()
 	
 func _on_invalid_move(message):
-	print("++++++++++ INVALID MOVE +++++++++ ")
-	print("| ", message, " |" )
+	pass
 
 # ============================================
 # AI CALLS
@@ -600,7 +597,7 @@ func _finish_ai_move() -> void:
 		print("AI move Succesfully")
 	else:
 		is_ai_thinking = false
-		print("Failed AI")
+		#print("Failed AI")
 
 func _wait_for_ai_thread() -> void:
 	while thread != null and thread.is_alive():

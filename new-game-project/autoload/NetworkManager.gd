@@ -4,7 +4,7 @@ var board: Node
 const SERVER_PORT = 7777
 const LAN_BROADCAST_PORT = 42355
 const BROADCAST_ADDRESS = "255.255.255.255"
-var HOST =  getHostName()[0]
+var HOST = "" 
 
 var players = {}
 var discovered_servers = {}
@@ -29,18 +29,18 @@ signal ready_to_leave
 func getHostName():
 	var config = ConfigFile.new()
 	if config.load("user://save.cfg") == OK:
-		var username = config.get_value("player", "username")
-		var icon_profile_pic = config.get_value("player", "picture")
-		
+		var username = config.get_value("player", "username", "Player")
+		var icon_profile_pic = config.get_value("player", "picture", "")
 		return [username, icon_profile_pic]
 	else:
-		return "undefined"
+		return ["Player", ""]  # ← always return an Array
 
 func search_hosts():
 	client_udp = PacketPeerUDP.new()
 	client_udp.bind(LAN_BROADCAST_PORT, "*")
 
 func _ready():
+	HOST = getHostName()[0]   # ← read here, after save.cfg is accessible
 	discovered_servers.clear()
 	emit_signal("discovered_servers_ui", discovered_servers)
 	# safely initialize 
@@ -154,8 +154,22 @@ func _add_player_to_game(id: int):
 
 	
 func _del_player(id: int):
-	players.erase(id)
-	print("Player left: ", id)
+	print("Peer disconnected: ", id)
+
+	if players.has(id):
+		var username = players[id].get("username", "Unknown")
+
+		# Notify any remaining peers that this player left
+		for peer_id in multiplayer.get_peers():
+			if peer_id != id:
+				match_ended.rpc_id(peer_id, username)
+
+		# Fire locally on host too
+		emit_signal("end_match", username)
+
+		players.erase(id)
+	else:
+		players.erase(id)
 
 func _on_connected_to_server():
 	print("Successfully connected!")
